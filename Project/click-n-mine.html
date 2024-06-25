@@ -1,12 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Click-n-Mine Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="index.js" defer></script>
+</head>
     
-    <body>
-    
+<body>
+
     <div class="column" id="column-left">
     <!-- Counters for resources and info msg -->
-    <h1>Resources</h1>
+    <h1 class="unselectable">Resources</h1>
     <div class="ore-counter">
        <div class="resources" id="coins"><img id="coins-image" src="https://oldschool.runescape.wiki/images/Coins_25.png?cbfd9">&nbsp&nbsp
     <div id="coins-count" value="0">0</div>
@@ -36,19 +43,20 @@
         </div>
      </div>
       <div class="info"><span id="info-message">Welcome</span></div>
+      <button id="mo-money">+100</button>
     </div>
       
     <!-- Area for ore nodes to appear and disappear randomly -->
     <div class="column" id="column-middle">
      <div id="ores">
-      <h1>Mineshaft</h1>
-      <div class="ore-node" id="stone-node" type="button"></div>
-      <div class="ore-node" id="copper-node" type="button">
+      <h1  class="unselectable">Mineshaft</h1>
+      <div class="ore-node unselectable" id="stone-node" type="button"></div>
+      <div class="ore-node unselectable" id="copper-node" type="button">
         <div id="ore-vein-copper1"></div>
         <div id="ore-vein-copper2"></div>
         <div id="ore-vein-copper3"></div>
       </div>
-      <div class="ore-node" id="tin-node" type="button">
+      <div class="ore-node unselectable" id="tin-node" type="button">
         <div id="ore-vein-tin1"></div>
         <div id="ore-vein-tin2"></div>
         <div id="ore-vein-tin3"></div>
@@ -58,9 +66,9 @@
     </div>
     
     
-    <div class="column" id="column-right">
+  <div class="column" id="column-right">
       <!-- Purchase tools to improve mining speed and access new ores -->
-    <h1>Shop</h1>
+    <h1 class="unselectable">Shop</h1>
         <fieldset>
         <legend>Tools</legend>
       <div id="tool-shop">
@@ -112,17 +120,19 @@
        <img class="purchasable-item" id="furnace2" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
       <img class="purchasable-item" id="furnace3" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
       <img class="purchasable-item" id="furnace4" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
-    <img class="purchasable-item" id="furnace5" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
-    <img class="purchasable-item" id="furnace6" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
-    <img class="purchasable-item" id="furnace7" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
-    <img class="purchasable-item" id="furnace8" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+      <img class="purchasable-item" id="furnace5" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+      <img class="purchasable-item" id="furnace6" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+      <img class="purchasable-item" id="furnace7" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+      <img class="purchasable-item" id="furnace8" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
     </div>
     
     
-    </div>
+  </div>
       
-    </body>
+</body>
     
-    <footer>
+  <footer>
       
-    </footer>
+  </footer>
+
+</html>

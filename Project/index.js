@@ -5,11 +5,11 @@ const stoneNodeContainer = document.getElementById("stone-node");
 
 
 // Create and manage multiple sprites
-const oreNodes = [];
-for (let i = 0; i < 5; i++) {
-  const oreNode = new oreNode(`oreNode-${i}`, container);
-  oreNodes.push(oreNode);
-}
+// const oreNodes = [];
+// for (let i = 0; i < 5; i++) {
+//   const oreNode = new oreNode(`oreNode-${i}`, container);
+//   oreNodes.push(oreNode);
+// }
 
 // Select random ore to display
 let currentOreNode = null; // Track the currently displayed ore node
@@ -34,7 +34,8 @@ function createRandomOreNode() {
   ore.style.marginLeft = `${Math.floor(Math.random() * 70)}px`;
   
 currentOreNode = ore;
-  
+
+// Pop-in animation for new ore nodes appearing
 // var id = null;
 // function popInAnimation () {
 //   var scale = 0;
@@ -50,8 +51,7 @@ currentOreNode = ore;
 //   }
 // }
 
-//   Get random number of seconds for timeout
-//   between 6 and 15s
+//   Get random number of seconds for timeout between 10 and 30s
 function getRandomTimeout(min, max) {
     return Math.floor(Math.random() * (30000 - 10000) + 10000);
   }
@@ -71,14 +71,33 @@ setTimeout(()=>
 // Call function to appear ore regularly
 setInterval(createRandomOreNode, 3000);
 
-// Economy
-let countCoins = 150;
+
+// Keep track of player's coins
+let countCoins = localStorage.getItem("countCoins")
+? JSON.parse(localStorage.getItem("countCoins")).countCoins
+: 150;
+// Update coins count
 let counterCoinsDisplay = document.querySelector('#coins-count');
 function updateCoinsDisplay() {
   counterCoinsDisplay.innerHTML = countCoins;
+  savePlayerProgress();
+}
+
+// Keep track of player's purchased items
+let playerItems = [];
+savedPlayerItems = localStorage.getItem("playerItems")
+? JSON.parse(localStorage.getItem("playerItems"))
+: [];
+function updatePlayerItems(){ 
+  savedPlayerItems = playerItems;
+  console.log(savedPlayerItems);
+  return savedPlayerItems;
 }
 
 updateCoinsDisplay();
+updatePlayerItems();
+
+
 
 // Give info to player regarding actions taken
 let infoMessage = document.getElementById("info-message");
@@ -169,6 +188,7 @@ counterPlusMotherload.addEventListener("click", () => {
   }
 });
 
+
 // Update opacity to buy pickaxe and make it non-repurchasable
 // Buy bronze pickaxe
 const pickaxeBronze = document.getElementById("pickaxe-bronze");
@@ -181,6 +201,8 @@ function buyBronzePickaxe(){
     updateCoinsDisplay();
     miningRate = 2;
     infoMessage.textContent = "You buy a bronze pickaxe.";
+    playerItems.push("pickaxeBronze");
+    updatePlayerItems();
     }
   else if (pickaxeBronze.style.opacity === "1")
   {
@@ -261,7 +283,7 @@ document.querySelectorAll('.sell-btn').forEach(button => {
 });
 
 function makeSellVisible(resource) {
-  
+
   //   All sell buttons initially set to hidden
   var allResources = document.getElementsByClassName('sell-btn');
 for (var i=0;i<allResources.length;i+=1){
@@ -369,8 +391,30 @@ function coinBounce()
 }
 
 
+// Persist resource counts and purchases
+function savePlayerProgress() {
+  localStorage.setItem("countCoins", JSON.stringify({countCoins}));
+  localStorage.setItem("playerItems", JSON.stringify({playerItems}));
+}
+
+
+
+
+// Dev tools
+let moMoneyBtn = document.getElementById("mo-money");
+moMoneyBtn.addEventListener("click", () => {
+  increaseMoney();
+  updateCoinsDisplay();
+});
+function increaseMoney() {
+  countCoins += 100;
+}
+
+
+
 /*TODO
-- Use JS classes to create ore node sprites
+- Use JS classes to create ore node sprites -- push and shift to an array
+- Make shop sections appear after certain numbers mined
 - Auto-miners can be set to desired ore to be mined
 - Coin icon and number do not scale up or flash green if nothing to sell
 - Update coinBounce function to trigger when money increases or decreases
