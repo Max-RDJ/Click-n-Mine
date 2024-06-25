@@ -1,0 +1,128 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    
+    <body>
+    
+    <div class="column" id="column-left">
+    <!-- Counters for resources and info msg -->
+    <h1>Resources</h1>
+    <div class="ore-counter">
+       <div class="resources" id="coins"><img id="coins-image" src="https://oldschool.runescape.wiki/images/Coins_25.png?cbfd9">&nbsp&nbsp
+    <div id="coins-count" value="0">0</div>
+       </div>
+       <div class="resources" id="resource-stone"><img height = 30px width = 30px src="https://oldschool.runescape.wiki/images/thumb/Rune_essence_detail.png/800px-Rune_essence_detail.png?10d0e">&nbsp&nbsp&nbsp<span type="text" id="stone-count">0</span>  
+       </div>
+       <div class="resources" id="resource-copper"><img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Copper_ore_detail.png/1200px-Copper_ore_detail.png?f45ee">&nbsp&nbsp&nbsp<span type="text" id="copper-count" value="0">0</span>
+       </div>
+       <div class="resources" id="resource-tin"><img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Tin_ore_detail.png/1200px-Tin_ore_detail.png?6a110">&nbsp&nbsp&nbsp<span type="text" id="tin-count" value="0">0</span></div>
+       <div id="motherload">
+          <div  class="resources" id="resource-motherload"><img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Tin_rocks.png/220px-Tin_rocks.png?29a7c"> &nbsp&nbsp<span type="text" id="motherload-count" value="100">100</span></div>
+       </div>
+      
+      <div class="sell-btns stone-btns">
+     <button class="sell-btn sell-one" id="sell-stone-one" data-resource: "stone">Sell 1 stone</button>
+      <button class="sell-btn sell-all" id="sell-stone-all" data-resource: "stone">Sell all stone</button>
+      </div>
+     
+      <div class="sell-btns copper-btns">
+      <button class="sell-btn sell-one" id="sell-copper-one" data-resource: "copper">Sell 1 copper</button>
+      <button class="sell-btn sell-all" id="sell-copper-all" data-resource: "copper">Sell all copper</button>
+      </div>
+      
+      <div class="sell-btns tin-btns">
+      <button class="sell-btn sell-one" id="sell-tin-one" data-resource: "tin">Sell 1 tin</button>
+      <button class="sell-btn sell-all" id="sell-tin-all" data-resource: "tin">Sell all tin</button>
+        </div>
+     </div>
+      <div class="info"><span id="info-message">Welcome</span></div>
+    </div>
+      
+    <!-- Area for ore nodes to appear and disappear randomly -->
+    <div class="column" id="column-middle">
+     <div id="ores">
+      <h1>Mineshaft</h1>
+      <div class="ore-node" id="stone-node" type="button"></div>
+      <div class="ore-node" id="copper-node" type="button">
+        <div id="ore-vein-copper1"></div>
+        <div id="ore-vein-copper2"></div>
+        <div id="ore-vein-copper3"></div>
+      </div>
+      <div class="ore-node" id="tin-node" type="button">
+        <div id="ore-vein-tin1"></div>
+        <div id="ore-vein-tin2"></div>
+        <div id="ore-vein-tin3"></div>
+      </div>
+      <div class="motherload-icon" id="motherload-node" type="button"></div>
+      </div>
+    </div>
+    
+    
+    <div class="column" id="column-right">
+      <!-- Purchase tools to improve mining speed and access new ores -->
+    <h1>Shop</h1>
+        <fieldset>
+        <legend>Tools</legend>
+      <div id="tool-shop">
+         <div class="purchasable-item" id="pickaxe-bronze">
+           <img type="button"  src=https://oldschool.runescape.wiki/images/Bronze_pickaxe.png?fe489></a>
+         </div>
+         <div class="purchasable-item" id="pickaxe-iron">
+           <img type="button"  src=https://oldschool.runescape.wiki/images/Iron_pickaxe.png?9e4d4></a>
+         </div>
+       <div class="purchasable-item" id="pickaxe-steel">
+           <img type="button"  src=https://oldschool.runescape.wiki/images/Steel_pickaxe.png?421a5></a>
+         </div>
+      <div class="purchasable-item" id="pickaxe-black">
+           <img type="button"  src=https://oldschool.runescape.wiki/images/Black_pickaxe.png?0d4ed></a>
+         </div>
+      <div class="purchasable-item" id="pickaxe-gold">
+           <img type="button"  src=https://oldschool.runescape.wiki/images/Gilded_pickaxe.png?583e2></a>
+         </div>
+    <div class="purchasable-item" id="pickaxe-mithril">
+           <img type="button"  src=https://oldschool.runescape.wiki/images/Mithril_pickaxe.png?c2098></a>
+         </div>
+    <div class="purchasable-item" id="pickaxe-adamant">
+           <img type="button"  src=https://oldschool.runescape.wiki/images/Adamant_pickaxe.png?e716d></a>
+         </div>
+      <div class="purchasable-item" id="pickaxe-runite">
+           <img type="button"  src=https://oldschool.runescape.wiki/images/Rune_pickaxe.png?e8496></a>
+         </div>
+      <div class="purchasable-item" id="pickaxe-dragon">
+           <img type="button"  src=https://oldschool.runescape.wiki/images/Dragon_pickaxe.png?c85b3></a>
+         </div>
+     </div>
+    </fieldset>
+    
+    <!-- Buy miners to mine resources automatically -->
+    <fieldset id="auto-miner-shop">
+      <legend>Miners</legend>
+      <div id="auto-miners-shop">
+        <img class="purchasable-item auto-miners" id="auto-miner1" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+      <img class="purchasable-item auto-miners" id="auto-miner2" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+    <img class="purchasable-item auto-miners" id="auto-miner3" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+      </div>
+    </fieldset>
+    
+     <!-- Process materials with furnaces -->
+    <fieldset id="furnaces"> 
+      <legend>Furnaces</legend>
+    <div id="furnace-shop">
+       <img class="purchasable-item" id="furnace1" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+       <img class="purchasable-item" id="furnace2" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+      <img class="purchasable-item" id="furnace3" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+      <img class="purchasable-item" id="furnace4" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+    <img class="purchasable-item" id="furnace5" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+    <img class="purchasable-item" id="furnace6" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+    <img class="purchasable-item" id="furnace7" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+    <img class="purchasable-item" id="furnace8" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+    </div>
+    
+    
+    </div>
+      
+    </body>
+    
+    <footer>
+      
+    </footer>
