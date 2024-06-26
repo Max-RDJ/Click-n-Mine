@@ -73,9 +73,7 @@ setInterval(createRandomOreNode, 3000);
 
 
 // Keep track of player's coins
-let countCoins = localStorage.getItem("countCoins")
-? JSON.parse(localStorage.getItem("countCoins")).countCoins
-: 150;
+let countCoins = localStorage.getItem("countCoins") ? JSON.parse(localStorage.getItem("countCoins")).countCoins : 150;
 // Update coins count
 let counterCoinsDisplay = document.querySelector('#coins-count');
 function updateCoinsDisplay() {
@@ -84,14 +82,12 @@ function updateCoinsDisplay() {
 }
 
 // Keep track of player's purchased items
-let playerItems = [];
-savedPlayerItems = localStorage.getItem("playerItems")
-? JSON.parse(localStorage.getItem("playerItems"))
-: [];
+let playerItems = localStorage.getItem("playerItems") ? JSON.parse(localStorage.getItem("playerItems")) : [];
+
+
 function updatePlayerItems(){ 
-  savedPlayerItems = playerItems;
-  console.log(savedPlayerItems);
-  return savedPlayerItems;
+  localStorage.setItem("playerItems", JSON.stringify({playerItems}));
+  console.log("Player Items:", playerItems);
 }
 
 updateCoinsDisplay();
@@ -194,7 +190,7 @@ counterPlusMotherload.addEventListener("click", () => {
 const pickaxeBronze = document.getElementById("pickaxe-bronze");
 pickaxeBronze.addEventListener("click", buyBronzePickaxe);
 function buyBronzePickaxe(){
-  if (pickaxeBronze.style.opacity !== "1" && countCoins >= 100)
+  if (!playerItems.includes("pickaxeBronze") && countCoins >= 100)
     {
     pickaxeBronze.style.opacity = "1";
     countCoins -= 100;
@@ -203,6 +199,7 @@ function buyBronzePickaxe(){
     infoMessage.textContent = "You buy a bronze pickaxe.";
     playerItems.push("pickaxeBronze");
     updatePlayerItems();
+    savePlayerProgress();
     }
   else if (pickaxeBronze.style.opacity === "1")
   {
@@ -218,12 +215,15 @@ function buyBronzePickaxe(){
 const pickaxeIron = document.getElementById("pickaxe-iron");
 pickaxeIron.addEventListener("click", buyIronPickaxe);
 function buyIronPickaxe(){
-  if (pickaxeIron.style.opacity !== "1" && countCoins >= 500)
+  if (!playerItems.includes(pickaxeIron) && countCoins >= 500)
     {
-  pickaxeIron.style.opacity = "1";
+    pickaxeIron.style.opacity = "1";
     countCoins -= 500;
     updateCoinsDisplay();
     miningRate = 8;
+    infoMessage.textContent = "You buy an iron pickaxe.";
+    playerItems.push("pickaxeIron");
+    updatePlayerItems();
     }
   else if (countCoins < 500)
   {
@@ -414,6 +414,7 @@ function increaseMoney() {
 
 /*TODO
 - Use JS classes to create ore node sprites -- push and shift to an array
+- Display number added next to resource count for a split second (e.g. "+5")
 - Make shop sections appear after certain numbers mined
 - Auto-miners can be set to desired ore to be mined
 - Coin icon and number do not scale up or flash green if nothing to sell
