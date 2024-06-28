@@ -3,14 +3,6 @@
 // Generate stone nodes
 const stoneNodeContainer = document.getElementById("stone-node");
 
-
-// Create and manage multiple sprites
-// const oreNodes = [];
-// for (let i = 0; i < 5; i++) {
-//   const oreNode = new oreNode(`oreNode-${i}`, container);
-//   oreNodes.push(oreNode);
-// }
-
 // Select random ore to display
 let currentOreNode = null; // Track the currently displayed ore node
 
@@ -30,8 +22,8 @@ function createRandomOreNode() {
   
 //   Make selected ore appear at random position
   ore.style.display = "block";
-  ore.style.marginTop = `${Math.floor(Math.random() * 210)}px`;
-  ore.style.marginLeft = `${Math.floor(Math.random() * 70)}px`;
+  ore.style.marginTop = `${Math.floor(Math.random() * 30)}px`;
+  ore.style.marginLeft = `${Math.floor(Math.random() * 80)}px`;
   
 currentOreNode = ore;
 
@@ -82,7 +74,7 @@ function updateCoinsDisplay() {
 }
 
 // Keep track of player's purchased items
-let playerItems = localStorage.getItem("playerItems") ? JSON.parse(localStorage.getItem("playerItems")) : [];
+// let playerItems = localStorage.getItem("playerItems") ? JSON.parse(localStorage.getItem("playerItems")) : [];
 
 
 function updatePlayerItems(){ 
@@ -198,8 +190,8 @@ function buyBronzePickaxe(){
     miningRate = 2;
     infoMessage.textContent = "You buy a bronze pickaxe.";
     playerItems.push("pickaxeBronze");
-    updatePlayerItems();
-    savePlayerProgress();
+    // updatePlayerItems();
+    // savePlayerProgress();
     }
   else if (pickaxeBronze.style.opacity === "1")
   {
@@ -223,7 +215,7 @@ function buyIronPickaxe(){
     miningRate = 8;
     infoMessage.textContent = "You buy an iron pickaxe.";
     playerItems.push("pickaxeIron");
-    updatePlayerItems();
+    // updatePlayerItems();
     }
   else if (countCoins < 500)
   {
@@ -295,6 +287,8 @@ for (var i=0;i<allResources.length;i+=1){
   document.querySelector(`#sell-${resource}-all`).style.display = 'block';
 }
 
+
+
 // Sell one stone
 document.getElementById("sell-stone-one").addEventListener("click", () => {
   sellOneStone();
@@ -336,7 +330,7 @@ function sellOneCopper (){
 // Sell all copper
 document.getElementById("sell-copper-all").addEventListener("click", () => {
   sellAllCopper();
-  coinBounce();
+  // coinBounce();
 });
 function sellAllCopper() {
   countCoins += countCopper * 2;
@@ -361,7 +355,7 @@ function sellOneTin (){
 // Sell all tin
 document.getElementById("sell-tin-all").addEventListener("click", () => {
   sellAllTin();
-  coinBounce();
+  // coinBounce();
 });
 function sellAllTin() {
   countCoins += countTin * 2;
@@ -371,31 +365,31 @@ function sellAllTin() {
   infoMessage.textContent = "You sell all your tin.";}
 
 // Temporarily increase scale of coins and its icon when number changes
-function coinBounce()
-{
-  const coinsCount = document.getElementById("coins-count");
-  const coinsImage = document.getElementById("coins-image");
-  const coinsDiv = document.getElementById("coins");
+// function coinBounce()
+// {
+//   const coinsCount = document.getElementById("coins-count");
+//   const coinsImage = document.getElementById("coins-image");
+//   const coinsDiv = document.getElementById("coins");
 
-   // Set the styles for bounce effect
-   coinsCount.style.fontSize = "18px";
-   coinsCount.style.color = "lightgreen";
-   coinsImage.style.scale = 1.2; 
+//    // Set the styles for bounce effect
+//    coinsCount.style.fontSize = "18px";
+//    coinsCount.style.color = "lightgreen";
+//    coinsImage.style.scale = 1.2; 
 
-   // Return to normal size
-   setTimeout(() => {
-   coinsCount.style.fontSize = "";
-   coinsCount.style.color = "";
-   coinsImage.style.scale = "";
-    }, 100);
-}
+//    // Return to normal size
+//    setTimeout(() => {
+//    coinsCount.style.fontSize = "";
+//    coinsCount.style.color = "";
+//    coinsImage.style.scale = "";
+//     }, 100);
+// }
 
 
 // Persist resource counts and purchases
-function savePlayerProgress() {
-  localStorage.setItem("countCoins", JSON.stringify({countCoins}));
-  localStorage.setItem("playerItems", JSON.stringify({playerItems}));
-}
+// function savePlayerProgress() {
+//   localStorage.setItem("countCoins", JSON.stringify({countCoins}));
+//   // localStorage.setItem("playerItems", JSON.stringify({playerItems}));
+// }
 
 
 

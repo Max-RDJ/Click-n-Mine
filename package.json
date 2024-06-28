@@ -1,0 +1,12 @@
+{
+  "name": "click-n-mine",
+  "version": "1.0.0",
+  "description": "A Cookie Clicker-like game that I'm creating in order to test my skills.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
