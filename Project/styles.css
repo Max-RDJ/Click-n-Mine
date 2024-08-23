@@ -44,15 +44,10 @@
     float: left;
     width: 33.33%;
     min-height: 100vh;
-    padding: 0 20px 20px 20px;
+    padding: 0 3em 3em 3em;
     border-right: var(--accent-transparent);
   }
-  
-  @media (max-width: 600px) {
-    .column{
-      width: 100%;
-    }
-  }
+
   
   #column-right{
     border-right: 0;
@@ -117,7 +112,7 @@
   }
   
   .ore-node:active{
-    transform: scale(1.4);
+    transform: scale(1.2);
   }
   
   .ore-node:hover{
@@ -246,3 +241,10 @@
     margin-top: 10px;
     width: 100%;
   }
+
+@media (max-width: 800px) {
+    .column{
+      width: 100%;
+      min-height: 500px;
+    }
+}
