@@ -121,7 +121,7 @@
   }
   
   .ore-node{
-    display: none;
+    display: block;
     width: 50px;
     height: 35px;
     margin-top: 50px;
@@ -193,37 +193,36 @@
   }
   
   /*  Counters for resources and msg box */
-  .ore-counter{
-    display: block;
-    margin: auto;
-    text-align: center;
-    width: 100%;
-  }
+.ore-counter{
+  display: block;
+  margin: auto;
+  text-align: center;
+  width: 100%;
+}
   
-  .sell-btns{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 30px;
-  }
+#sell-panel{
+  display: flex;
+  flex-direction: row;
+  margin-top: 3em;
+  justify-content: center;
+}
   
-  .copper-btns, .tin-btns{
-    margin-top: 0px;
-  } 
+.copper-btns, .tin-btns{
+  margin-top: 0px;
+} 
   
-  .sell-btn{
-    background-color: rgba(255, 255, 255, 0.2);
-    font-family: tahoma;
-    color: #ebe2d5;
-    padding: 5px;
-    width: 120px;
-    border-radius: 10px;
-    display: none;
-  }
+.sell-btn{
+  background-color: rgba(255, 255, 255, 0.2);
+  font-family: tahoma;
+  color: #ebe2d5;
+  padding: 5px;
+  width: 120px;
+  border-radius: 10px;
+}
   
-  .sell-one{
-    margin-right: 15px;
-  }
+#sell-one{
+  margin-right: 15px;
+}
   
   #coins, #coins-count{
     display: inline;

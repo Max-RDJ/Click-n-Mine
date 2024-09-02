@@ -15,34 +15,34 @@
   <div class="column" id="column-left">
     <!-- Counters for resources and info msg -->
     <h1 class="unselectable">Resources</h1>
+    
     <div class="ore-counter">
        <div class="resources" id="coins"><img id="coins-image" src="https://oldschool.runescape.wiki/images/Coins_25.png?cbfd9">&nbsp&nbsp
     <div id="coins-count" value="0">0</div>
        </div>
-       <div class="resources" id="resource-stone"><img height = 30px width = 30px src="https://oldschool.runescape.wiki/images/thumb/Rune_essence_detail.png/800px-Rune_essence_detail.png?10d0e">&nbsp&nbsp&nbsp<span type="text" id="stone-count">0</span>  
-       </div>
-       <div class="resources" id="resource-copper"><img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Copper_ore_detail.png/1200px-Copper_ore_detail.png?f45ee">&nbsp&nbsp&nbsp<span type="text" id="copper-count" value="0">0</span>
-       </div>
-       <div class="resources" id="resource-tin"><img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Tin_ore_detail.png/1200px-Tin_ore_detail.png?6a110">&nbsp&nbsp&nbsp<span type="text" id="tin-count" value="0">0</span></div>
-       <div id="motherload">
-          <div  class="resources" id="resource-motherload"><img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Tin_rocks.png/220px-Tin_rocks.png?29a7c"> &nbsp&nbsp<span type="text" id="motherload-count" value="100">100</span></div>
-       </div>
+
+    <div class="resources sellable" id="resource-stone">
+      <img height = 30px width = 30px src="https://oldschool.runescape.wiki/images/thumb/Rune_essence_detail.png/800px-Rune_essence_detail.png?10d0e">&nbsp&nbsp&nbsp<span type="text" id="stone-count">0</span>  
+    </div>
+
+    <div class="resources sellable" id="resource-copper">
+      <img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Copper_ore_detail.png/1200px-Copper_ore_detail.png?f45ee">&nbsp&nbsp&nbsp<span type="text" id="copper-count" value="0">0</span>
+    </div>
+
+    <div class="resources sellable" id="resource-tin">
+      <img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Tin_ore_detail.png/1200px-Tin_ore_detail.png?6a110">&nbsp&nbsp&nbsp<span type="text" id="tin-count" value="0">0</span>
+    </div>
+
+    <div id="motherload">
+        <div class="resources" id="resource-motherload"><img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Tin_rocks.png/220px-Tin_rocks.png?29a7c"> &nbsp&nbsp<span type="text" id="motherload-count" value="100">100</span></div>
+    </div>
       
-      <div class="sell-btns stone-btns">
-     <button class="sell-btn sell-one" id="sell-stone-one" data-resource: "stone">Sell 1 stone</button>
-      <button class="sell-btn sell-all" id="sell-stone-all" data-resource: "stone">Sell all stone</button>
-      </div>
+    <div id="sell-panel">
+     <button class="sell-btn sell-one" id="sell-one">Sell 1</button>
+      <button class="sell-btn sell-all" id="sell-all">Sell all stone</button>
+    </div>
      
-      <div class="sell-btns copper-btns">
-      <button class="sell-btn sell-one" id="sell-copper-one" data-resource: "copper">Sell 1 copper</button>
-      <button class="sell-btn sell-all" id="sell-copper-all" data-resource: "copper">Sell all copper</button>
-      </div>
-      
-      <div class="sell-btns tin-btns">
-      <button class="sell-btn sell-one" id="sell-tin-one" data-resource: "tin">Sell 1 tin</button>
-      <button class="sell-btn sell-all" id="sell-tin-all" data-resource: "tin">Sell all tin</button>
-        </div>
-     </div>
+    </div>
       <div class="info"><span id="info-message">Welcome</span></div>
       <button id="mo-money">+100</button>
   </div>
@@ -51,18 +51,23 @@
   <div class="column" id="column-middle">
      <div id="ores">
       <h1 class="unselectable">Mineshaft</h1>
+
       <div class="ore-node unselectable" id="stone-node" type="button"></div>
+
       <div class="ore-node unselectable" id="copper-node" type="button">
         <div id="ore-vein-copper1"></div>
         <div id="ore-vein-copper2"></div>
         <div id="ore-vein-copper3"></div>
       </div>
+
       <div class="ore-node unselectable" id="tin-node" type="button">
         <div id="ore-vein-tin1"></div>
         <div id="ore-vein-tin2"></div>
         <div id="ore-vein-tin3"></div>
       </div>
+
       <div class="motherload-icon" id="motherload-node" type="button"></div>
+
       </div>
   </div>
     

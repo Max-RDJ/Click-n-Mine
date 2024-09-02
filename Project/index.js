@@ -2,7 +2,7 @@
   const stoneNode = document.getElementById("stone-node");
   const copperNode = document.getElementById("copper-node");
   const tinNode = document.getElementById("tin-node");
-  const motherloadNode = document.getElementById("tin-node");
+  const motherloadNode = document.getElementById("motherload-node");
   const oreNodeList = [stoneNode, copperNode, tinNode];
 
 // Select random ore to display
@@ -140,27 +140,86 @@ document.getElementById("auto-miner1").addEventListener("click", () => {
   }
 });
 
-// Selling resources
-function sellResource(resource, count, increment) {
-  if (count > 0) {
-    countCoins += increment;
-    count--;
-    updateCoinsDisplay();
-    updateDisplay(resource, count);
-    document.getElementById("info-message").textContent = `You sell some ${resource.id.split('-')[1]}.`;
-  }
-}
-
-document.getElementById("sell-stone-one").addEventListener("click", () => sellResource(counterStoneDisplay, countStone, 1));
-document.getElementById("sell-stone-all").addEventListener("click", () => {
-  countCoins += countStone;
-  countStone = 0;
-  updateCoinsDisplay();
-  updateDisplay(counterStoneDisplay, countStone);
-  document.getElementById("info-message").textContent = "You sell all your stone.";
+// Sell resources
+$(".sellable").click(function() {
+  $(".sell-btn").css("display", "block");
 });
 
+let currentCounter;
+let currentOre;
 
+function selectOre(element)
+{
+  $(element).addClass("selectedOre");
+}
+
+$(".sellable").on("click", function()
+{
+  $(".sellable").removeClass("selectedOre");
+  if (!$(this).hasClass("selectedOre"))
+  {
+    selectOre(this);
+
+    // Trying to select the word 'copper' or 'tin' and append it to a selector
+    console.log($(this).children("span")[0].innerHTML);
+    console.log(this.id);
+   
+    currentCounter = $(this).children("span")[0].innerHTML;
+    oreNameToSplit = this.id;
+    
+    currentOre = oreNameToSplit.split("-").pop()
+    console.log(currentOre);
+  }
+});
+
+// TODO: take currentOre and use it to find e.g. 'copperCount'
+
+let counterCurrentDisplay;
+let countCurrent;
+
+$("#sell-one").on("click", function()
+  {
+    counterCurrentDisplay = "counter" + currentOre[0].toUpperCase() + currentOre.substring(1) + "Display";
+    countCurrent = "count" + currentOre[0].toUpperCase() + currentOre.substring(1);
+
+    console.log(counterCurrentDisplay);
+    console.log(counterCurrentDisplay.valueOf);
+    console.log(countCurrent);
+
+    let countCurrentValue = window[countCurrent];
+    
+    sellResource(counterCurrentDisplay, countCurrentValue, 1);
+    $("#info-message").html(`You sell some ${currentOre}.`);
+  }
+);
+
+// $("#sell-all").on("click", function()
+// {
+//     sellAllResource()
+//     countCoins += countStone;
+//     countStone = 0;
+//     updateCoinsDisplay();
+//     updateDisplay(counterStoneDisplay, countStone);
+//     $("info-message").textContent = `You sell all your ${currentOre}.`;
+//   }
+// );
+
+function sellResource(counterCurrentDisplay, countCurrentValue, increment) {
+  // let countCurrentValue = window[countCurrent];
+
+  if (countCurrentValue > 0) {
+    countCoins += increment;
+    countCurrentValue--;
+
+    window[counterCurrentDisplay.replace("counter", "count").replace("Display", "")] = countCurrentValue;
+
+
+    updateCoinsDisplay();
+    updateDisplay(counterCurrentDisplay, countCurrentValue);
+
+    document.getElementById("info-message").textContent = `You sell some ${currentOre}.`;
+  }
+}
 
 
 // Temporarily increase scale of coins and its icon when number changes
