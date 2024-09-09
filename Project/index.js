@@ -176,19 +176,22 @@ $(".sellable").on("click", function()
 
 let counterCurrentDisplay;
 let countCurrent;
+let countCurrentValue;
+let increment;
 
 $("#sell-one").on("click", function()
   {
     counterCurrentDisplay = "counter" + currentOre[0].toUpperCase() + currentOre.substring(1) + "Display";
     countCurrent = "count" + currentOre[0].toUpperCase() + currentOre.substring(1);
 
-    console.log(counterCurrentDisplay);
-    console.log(counterCurrentDisplay.valueOf);
-    console.log(countCurrent);
+    console.log("counterCurrentDisplay: " + counterCurrentDisplay);
+    console.log("counterCurrentDisplayValue: " + counterCurrentDisplay.valueOf);
+    console.log("countCurrent: " + countCurrent);
 
-    let countCurrentValue = window[countCurrent];
+    // countCurrentValue = window[countCurrent];
     
     sellResource(counterCurrentDisplay, countCurrentValue, 1);
+    updateDisplay(counterCurrentDisplay)
     $("#info-message").html(`You sell some ${currentOre}.`);
   }
 );
@@ -204,18 +207,26 @@ $("#sell-one").on("click", function()
 //   }
 // );
 
-function sellResource(counterCurrentDisplay, countCurrentValue, increment) {
-  // let countCurrentValue = window[countCurrent];
-
-  if (countCurrentValue > 0) {
-    countCoins += increment;
-    countCurrentValue--;
-
-    window[counterCurrentDisplay.replace("counter", "count").replace("Display", "")] = countCurrentValue;
+function sellResource() {
+  // let currentResourceCount = window[countCurrent];
 
 
-    updateCoinsDisplay();
-    updateDisplay(counterCurrentDisplay, countCurrentValue);
+  if (countCurrent = "countStone")
+    {
+      countCurrentValue = countStone;
+      increment = 1;
+    };
+
+  if (countCurrentValue > 0)
+    {
+      countCoins += increment;
+      countStone--;
+      console.log(countStone)
+
+      // window[counterCurrentDisplay.replace("counter", "count").replace("Display", "")] = countCurrentValue;
+
+      updateCoinsDisplay();
+      updateDisplay(counterCurrentDisplay, countCurrentValue);
 
     document.getElementById("info-message").textContent = `You sell some ${currentOre}.`;
   }
