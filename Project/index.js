@@ -80,9 +80,8 @@ stoneNode.addEventListener("click", () => {
 });
 
 copperNode.addEventListener("click", () => {
-  const pickaxeBronze = document.getElementById("pickaxe-bronze");
-  if (pickaxeBronze.style.opacity === "1") {
-    countCopper += 1 * miningRate;
+  if (hasPickaxe == true) {
+    countCopper += 0.5 * miningRate;
     updateDisplay(counterCopperDisplay, countCopper);
     updateInfoMessage("You mine some copper.");
   } else {
@@ -91,9 +90,8 @@ copperNode.addEventListener("click", () => {
 });
 
 tinNode.addEventListener("click", () => {
-  const pickaxeBronze = document.getElementById("pickaxe-bronze");
-  if (pickaxeBronze.style.opacity === "1") {
-    countTin += 1 * miningRate;
+  if (hasPickaxe == true) {
+    countTin += 0.5 * miningRate;
     updateDisplay(counterTinDisplay, countTin);
     updateInfoMessage("You mine some tin.");
   } else {
@@ -109,25 +107,42 @@ motherlodeNode.addEventListener("click", () => {
   }
 });
 
+// Pickaxes
+let hasPickaxe = false;
+const pickaxes = [
+  { id: "pickaxe-bronze", cost: 30, miningRate: 2, type: "bronze" },
+  { id: "pickaxe-iron", cost: 150, miningRate: 4, type: "iron" },
+  { id: "pickaxe-steel", cost: 500, miningRate: 8, type: "steel" },
+  { id: "pickaxe-black", cost: 1000, miningRate: 10, type: "black" },
+  { id: "pickaxe-gold", cost: 3000, miningRate: 15, type: "gold" },
+  { id: "pickaxe-mithril", cost: 4000, miningRate: 18, type: "mithril" },
+  { id: "pickaxe-adamant", cost: 10000, miningRate: 20, type: "adamant" },
+  { id: "pickaxe-rune", cost: 50000, miningRate: 30, type: "rune" },
+  { id: "pickaxe-dragon", cost: 250000, miningRate: 50, type: "dragon" }
+];
 
-// Purchasing tools
-function buyPickaxe(element, cost, newMiningRate, pickaxeType) {
+
+pickaxes.forEach(({ id, cost, miningRate, type }) => {
+  document.getElementById(id).addEventListener("click", () => buyPickaxe(id, cost, miningRate, type));
+});
+
+
+function buyPickaxe(id, cost, newMiningRate, type) {
+const element = document.getElementById(id);
+
   if (element.style.opacity !== "1" && countCoins >= cost) {
     element.style.opacity = "1";
     countCoins -= cost;
     miningRate = newMiningRate;
     updateCoinsDisplay();
-    updateInfoMessage(`You buy a ${pickaxeType} pickaxe.`);
+    updateInfoMessage(`You buy a ${type} pickaxe.`);
+    hasPickaxe = true;
   } else if (element.style.opacity === "1") {
     updateInfoMessage("You've already bought that.");
   } else {
     updateInfoMessage("You don't have enough coins.");
   }
 }
-
-document.getElementById("pickaxe-bronze").addEventListener("click", () => buyPickaxe(document.getElementById("pickaxe-bronze"), 100, 2, "bronze"));
-document.getElementById("pickaxe-iron").addEventListener("click", () => buyPickaxe(document.getElementById("pickaxe-iron"), 500, 8, "iron"));
-
 
 // Purchasing auto-miners
 document.getElementById("auto-miner1").addEventListener("click", () => {
