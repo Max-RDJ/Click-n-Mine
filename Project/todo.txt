@@ -8,7 +8,7 @@
 - Add more hidden ores which will become visible when enough resources to open up caves
 - Hover over purchasable items to examine stats
 - Add dwarves or auto-miners
-- Motherload to give mix of random resources in random amounts upon finishing 
+- Motherlode to give mix of random resources in random amounts upon finishing 
 - Power-up to greatly increase mining speed temporarily - smashing!
 - Office assistant 'Picky'/'Axy'?
 - Light up corresponding resource text when something mined

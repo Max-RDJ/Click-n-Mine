@@ -121,19 +121,21 @@ const pickaxes = [
   { id: "pickaxe-dragon", cost: 250000, miningRate: 50, type: "dragon" }
 ];
 
-
-pickaxes.forEach(({ id, cost, miningRate, type }) => {
-  document.getElementById(id).addEventListener("click", () => buyPickaxe(id, cost, miningRate, type));
-});
-
+window.addEventListener("DOMContentLoaded", (event) => {
+  pickaxes.forEach(({ id, cost, miningRate, type }) => {
+    document.getElementById(id).addEventListener("click", () => buyPickaxe(id, cost, miningRate, type));
+  });
+})
 
 function buyPickaxe(id, cost, newMiningRate, type) {
 const element = document.getElementById(id);
 
   if (element.style.opacity !== "1" && countCoins >= cost) {
     element.style.opacity = "1";
+    if (miningRate < newMiningRate) {
+      miningRate = newMiningRate;
+    }
     countCoins -= cost;
-    miningRate = newMiningRate;
     updateCoinsDisplay();
     updateInfoMessage(`You buy a ${type} pickaxe.`);
     hasPickaxe = true;
@@ -143,6 +145,7 @@ const element = document.getElementById(id);
     updateInfoMessage("You don't have enough coins.");
   }
 }
+
 
 // Purchasing auto-miners
 document.getElementById("auto-miner1").addEventListener("click", () => {
@@ -284,6 +287,6 @@ function savePlayerProgress() {
 
 // Dev tools
 $("#mo-money").click(function() {
-  countCoins += 100;
+  countCoins += 1000;
   updateCoinsDisplay();
 });
