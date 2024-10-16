@@ -148,23 +148,68 @@ const element = document.getElementById(id);
 
 
 // Purchasing auto-miners
-document.getElementById("auto-miner1").addEventListener("click", () => {
-  const autoMiner = document.getElementById("auto-miner1");
-  if (autoMiner.style.opacity !== "1" && countCoins >= 100) {
-    autoMiner.style.opacity = "1";
-    countCoins -= 100;
+const autoMiners = [
+  { id: "human-miner-1", cost: 500, autoMiningRate: 1, ore: counterStoneDisplay, oreCounter: countStone },
+  { id: "human-miner-2", cost: 500,autoMiningRate: 1, ore: counterStoneDisplay, oreCounter: countStone },
+  { id: "human-miner-3", cost: 500,autoMiningRate: 1, ore: counterStoneDisplay, oreCounter: countStone }
+] 
+
+window.addEventListener("DOMContentLoaded", (event) => {
+  autoMiners.forEach(({ id, cost, autoMiningRate, ore, oreCounter }) => {
+    document.getElementById(id).addEventListener("click", () => buyMiner(id, cost, autoMiningRate, ore, oreCounter));
+  });
+})
+
+let currentAutoMiningRate = 0;
+let miningIntervalId = null;
+
+function buyMiner(id, cost, autoMiningRate) {
+  const element = document.getElementById(id);
+  
+  if (element.style.opacity !== "1" && countCoins >= cost) {
+    element.style.opacity = "1";
+    countCoins -= cost;
+    currentAutoMiningRate += autoMiningRate;
+
     updateCoinsDisplay();
-    setInterval(() => {
-      countStone++;
-      updateDisplay(counterStoneDisplay, countStone);
-    }, 1500);
-  } else if (countCoins < 100) {
+    updateInfoMessage("You buy a miner.");
+
+    startMining();
+
+    // const intervalDuration = 3000 / currentAutoMiningRate;
+
+    // element.autoMiningInterval = setInterval(() => {
+    //   countStone++;
+    //   updateDisplay(ore, countStone);
+    // }, intervalDuration);
+
+  } else if (countCoins < cost) {
     infoMessage = "You don't have enough coins.";
+
   } else {
     infoMessage = "You've already bought that.";
   }
-});
+}
 
+function startMining(ore, oreCounter) {
+  if (miningIntervalId) {
+    clearInterval(miningIntervalId);
+  }
+
+  if (currentAutoMiningRate > 0) {
+    const intervalDuration = 3000 / currentAutoMiningRate;
+    miningIntervalId = setInterval(() => {
+      countStone++;
+      updateDisplay(counterStoneDisplay, countStone);
+    }, intervalDuration);
+  }
+}
+
+startMining();
+
+
+
+// Selling ores
 let selectedCounter;
 let selectedOre;
 
