@@ -1,7 +1,9 @@
-/*TODO
-- Use JS classes to create ore node sprites -- push and shift to an array
-- Display number added next to resource count for a split second (e.g. "+5")
-- Make shop sections appear after certain numbers mined
+BUGS:
+
+FEATURES:
+- Make ores appear and disappear randomly
+    - Use JS classes to create ore node sprites -- push and shift to an array
+- Display number added next to resource count for .5s (e.g. "+5")
 - Auto-miners can be set to desired ore to be mined
 - Coin icon and number do not scale up or flash green if nothing to sell
 - Update coinBounce function to trigger when money increases or decreases
@@ -15,4 +17,5 @@
 - Add animations via jQuery + Animate.css library
 - Make shop sections reshufflable
 - Add an achievements list, e.g. reach 10K coins
-*/
+- Make purchasable goodie bag containing random ores
+- Add blacksmiths to turn ingots into items
