@@ -5,12 +5,10 @@ FEATURES:
     - Use JS classes to create ore node sprites -- push and shift to an array
 - Display number added next to resource count for .5s (e.g. "+5")
 - Auto-miners can be set to desired ore to be mined
-- Coin icon and number do not scale up or flash green if nothing to sell
 - Update coinBounce function to trigger when money increases or decreases
+    - Coin icon and number do not scale up or flash green if nothing to sell
 - Add more hidden ores which will become visible when enough resources to open up caves
 - Hover over purchasable items to examine stats
-- Add dwarves or auto-miners
-- Motherlode to give mix of random resources in random amounts upon finishing 
 - Power-up to greatly increase mining speed temporarily - smashing!
 - Office assistant 'Picky'/'Axy'?
 - Light up corresponding resource text when something mined

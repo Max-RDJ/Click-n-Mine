@@ -428,15 +428,21 @@ const furnaceList = [
 ] 
 
 
+const counterBronzeDisplay = document.getElementById("bronze-count");
+
+const ingotList = [
+  { type: "bronze", count: countBronze, counter: counterBronzeDisplay, rawMaterials: {countCopper: 1, countTin: 1} }
+]
+
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  furnaces.forEach(({ id, cost, smeltingRate, ingotCounter }) => {
+  furnaceList.forEach(({ id, cost, smeltingRate, ingotCounter }) => {
     document.getElementById(id).addEventListener("click", () => buyFurnace(id, cost, smeltingRate, ingotCounter));
   });
 })
 
-
-function buyFurnace(id, cost, smeltingRate, selectedIngot) {
+let currentSmeltingRate = 0;
+function buyFurnace(id, cost, smeltingRate) {
   const element = document.getElementById(id);
   
   if (element.style.opacity !== "1" && countCoins >= cost) {
@@ -448,35 +454,59 @@ function buyFurnace(id, cost, smeltingRate, selectedIngot) {
     updateInfoMessage("You buy a furnace.");
 
   } else if (countCoins < cost) {
-    infoMessage = "You don't have enough coins.";
+    updateInfoMessage("You don't have enough coins.");
 
   } else {
-    infoMessage = "You've already bought that.";
+    updateInfoMessage("You've already bought that.");
   }
 }
 
-let currentSmeltingRate = 0;
-let smeltingIntervalId = null;
-const counterBronzeDisplay = document.getElementById("bronze-count");
 
-function startSmelting(selectedIngot) {
+
+let smeltingIntervalId = 0;
+
+function startSmelting() {
   if (smeltingIntervalId) {
     clearInterval(smeltingIntervalId);
   }
 
-  if (currentSmeltingRate > 0) {
+  const ingotType = document.getElementById("ingot-selection").value;
+  const selectedIngotObj = ingotList.find(ingot => ingot.type === ingotType);
+
+  if (selectedIngotObj && currentSmeltingRate > 0) {
     const intervalDuration = 3000 / currentSmeltingRate;
-    miningIntervalId = setInterval(() => {
-      selectedIngot++;
-      updateDisplay(counterBronzeDisplay, selectedIngot);
+
+    smeltingIntervalId = setInterval(() => {
+      let canSmelt = true;
+
+      for (const material in selectedIngotObj.rawMaterials) {
+        const requiredAmount = selectedIngotObj.rawMaterials[material];
+        if (window[`count${capitalize(material)}`] < requiredAmount) {
+          canSmelt = false;
+          break;
+        }
+      }
+
+      if (canSmelt) {
+        for (const material in selectedIngotObj.rawMaterials) {
+          const requiredAmount = selectedIngotObj.rawMaterials[material];
+          window[`count${capitalize(material)}`] -= requiredAmount;
+          updateDisplay(document.getElementById(`${material}-count`), window[`count${capitalize(material)}`]);
+        }
+
+        selectedIngotObj.count++;
+        updateDisplay(selectedIngotObj.counter, selectedIngotObj.count);
+      }
     }, intervalDuration);
   }
 }
 
-let selectedIngot = document.getElementById("ingotSelection").value;
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 window.addEventListener("DOMContentLoaded", (event) => {
-    document.getElementById("ingot-selection").addEventListener("change", () => startSmelting(selectedIngot));
+    document.getElementById("ingot-selection").addEventListener("change", () => startSmelting());
   });
 
 
