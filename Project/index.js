@@ -80,6 +80,7 @@ stoneNode.addEventListener("click", () => {
   completeObjective("stone30");
   updateInfoMessage("You mine some stone.");
 });
+// Would this be better to create a separate event listener and then removeEventListener for the objectives?
 
 copperNode.addEventListener("click", () => {
   if (hasPickaxe == true) {
@@ -431,7 +432,7 @@ const furnaceList = [
 const counterBronzeDisplay = document.getElementById("bronze-count");
 
 const ingotList = [
-  { type: "bronze", count: countBronze, counter: counterBronzeDisplay, rawMaterials: {countCopper: 1, countTin: 1} }
+  { type: "bronze", count: countBronze, counter: counterBronzeDisplay, rawMaterials: {copper: 1, tin: 1} }
 ]
 
 
@@ -481,6 +482,7 @@ function startSmelting() {
 
       for (const material in selectedIngotObj.rawMaterials) {
         const requiredAmount = selectedIngotObj.rawMaterials[material];
+
         if (window[`count${capitalize(material)}`] < requiredAmount) {
           canSmelt = false;
           break;
@@ -490,8 +492,21 @@ function startSmelting() {
       if (canSmelt) {
         for (const material in selectedIngotObj.rawMaterials) {
           const requiredAmount = selectedIngotObj.rawMaterials[material];
-          window[`count${capitalize(material)}`] -= requiredAmount;
-          updateDisplay(document.getElementById(`${material}-count`), window[`count${capitalize(material)}`]);
+
+          const materialVariable = `count${capitalize(material)}`;
+          console.log(materialVariable)
+          console.log(countTin)
+
+          const materialDisplay = document.getElementById(`counter${material}Display`);
+          console.log(materialDisplay)
+
+          window[materialVariable] -= requiredAmount;
+
+          console.log(window[materialVariable])
+
+          updateDisplay(materialDisplay, materialVariable);
+
+          console.log(materialVariable)
         }
 
         selectedIngotObj.count++;
