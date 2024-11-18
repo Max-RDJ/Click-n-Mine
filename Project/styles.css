@@ -154,7 +154,7 @@ select {
 }
 
 #tools, #furnaces, #auto-miner-shop{
-  /* display: none; */
+  display: none;
 }
 
 #tool-shop{
@@ -269,6 +269,10 @@ select {
 #coins, #resource-stone, #resource-copper, #resource-tin, #resource-bronze {
   margin-top: 10px;
   margin-right: 50px;
+}
+
+#resource-bronze {
+  display: none;
 }
   
 #messages {

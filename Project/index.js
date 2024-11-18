@@ -52,17 +52,17 @@ updateCoinsDisplay();
 
 
 // Mining resources
-// let resourceCounts = {
-//   stone: 0,
-//   copper: 0,
-//   tin: 0,
-//   bronze: 0,
-// };
+let resourceCounts = {
+  stone: 0,
+  copper: 0,
+  tin: 0,
+  bronze: 0,
+};
 let miningRate = 1;
-let countStone = 0;
-let countCopper = 0;
-let countTin = 0;
-let countBronze = 0;
+// let countStone = 0;
+// let countCopper = 0;
+// let countTin = 0;
+// let countBronze = 0;
 
 function updateDisplay(element, count) {
   element.innerHTML = count;
@@ -80,8 +80,8 @@ const counterTinDisplay = document.querySelector('#tin-count');
 const countermotherlodeDisplay = document.querySelector('#motherlode-count');
 
 stoneNode.addEventListener("click", () => {
-  countStone += 1 * miningRate;
-  updateDisplay(counterStoneDisplay, countStone);
+  resourceCounts.stone += 1 * miningRate;
+  updateDisplay(counterStoneDisplay, resourceCounts.stone);
   completeObjective("stone10");
   completeObjective("stone30");
   updateInfoMessage("You mine some stone.");
@@ -90,8 +90,8 @@ stoneNode.addEventListener("click", () => {
 
 copperNode.addEventListener("click", () => {
   if (hasPickaxe == true) {
-    countCopper += 0.5 * miningRate;
-    updateDisplay(counterCopperDisplay, countCopper);
+    resourceCounts.copper += 0.5 * miningRate;
+    updateDisplay(counterCopperDisplay, resourceCounts.copper);
     updateInfoMessage("You mine some copper.");
     completeObjective("copperAndTin");
   } else {
@@ -101,8 +101,8 @@ copperNode.addEventListener("click", () => {
 
 tinNode.addEventListener("click", () => {
   if (hasPickaxe == true) {
-    countTin += 0.5 * miningRate;
-    updateDisplay(counterTinDisplay, countTin);
+    resourceCounts.tin += 0.5 * miningRate;
+    updateDisplay(counterTinDisplay, resourceCounts.tin);
     updateInfoMessage("You mine some tin.");
     completeObjective("copperAndTin");
   } else {
@@ -122,13 +122,13 @@ let objective = [
   {
     id: "stone10",
     message: "Mine 10 stone by clicking on the node in the Mineshaft.",
-    condition: (countStone) => countStone >= 10,
+    condition: () => resourceCounts.stone >= 10,
     complete: false,
   },
   {
     id: "stone30",
     message: "Mine 30 stone.",
-    condition: (countStone) => countStone >= 30,
+    condition: () => resourceCounts.stone >= 12,
     complete: false
   },
   {
@@ -153,18 +153,20 @@ let objective = [
   {
     id: "copperAndTin",
     message: "Mine some copper and tin.",
-    condition: () => countCopper > 0 && countTin > 0,
+    condition: () => resourceCounts.copper > 0 && resourceCounts.tin > 0,
     complete: false,
     unlock: () => {
       $("#furnaces").css("display", "block");
+      $("#resource-bronze").css("display", "block");
     }
   },
   {
     id: "smeltIngot",
     message: "Once you have enough money, purchase your first Furnace and select Bronze in the drop-down menu.",
-    condition: () => $("#ingotSelection") = "Bronze",
+    condition: () => resourceCounts.bronze >= 1,
+    complete: false,
     unlock: () => {
-      // Display ingot counts under Resources
+      $("#auto-miner-shop").css("display", "block");
     }
   }
 ]
@@ -186,7 +188,7 @@ updateObjectiveMessage();
 function completeObjective(objectiveId) {
   const obj = objective.find(obj => obj.id === objectiveId);
 
-  if (obj && obj.condition(countStone, countCopper, countTin)) {
+  if (obj && obj.condition(resourceCounts.stone, resourceCounts.copper, resourceCounts.tin, resourceCounts.bronze)) {
     obj.complete = true;
     updateObjectiveMessage();
     if (obj.unlock) obj.unlock();
@@ -281,8 +283,8 @@ function startMining(ore, oreCounter) {
   if (currentAutoMiningRate > 0) {
     const intervalDuration = 3000 / currentAutoMiningRate;
     miningIntervalId = setInterval(() => {
-      countStone++;
-      updateDisplay(counterStoneDisplay, countStone);
+      resourceCounts.stone++;
+      updateDisplay(counterStoneDisplay, resourceCounts.stone);
     }, intervalDuration);
   }
 }
@@ -322,29 +324,29 @@ $("#sell-one").on("click", function()
   {
     switch(selectedOre) {
       case "resource-stone":
-        if (countStone > 0) {
+        if (resourceCounts.stone > 0) {
           countCoins++;
-          countStone--;
+          resourceCounts.stone--;
           updateCoinsDisplay();
-          updateDisplay(counterStoneDisplay, countStone);
+          updateDisplay(counterStoneDisplay, resourceCounts.stone);
           updateInfoMessage("You sell some stone.");
         }
         break;
       case "resource-copper":
-        if (countCopper > 0) {
+        if (resourceCounts.copper > 0) {
           countCoins += 2;
-          countCopper--;
+          resourceCounts.copper--;
           updateCoinsDisplay();
-          updateDisplay(counterCopperDisplay, countCopper);
+          updateDisplay(counterCopperDisplay, resourceCounts.copper);
           updateInfoMessage("You sell some copper.");
         }
         break;
       case "resource-tin":
-        if (countTin > 0) {
+        if (resourceCounts.tin > 0) {
           countCoins += 2;
-          countStone--;
+          resourceCounts.stone--;
           updateCoinsDisplay();
-          updateDisplay(counterTinDisplay, countTin);
+          updateDisplay(counterTinDisplay, resourceCounts.tin);
           updateInfoMessage("You sell some tin.");
           }
           break;
@@ -356,30 +358,30 @@ $("#sell-all").on("click", function()
   {
     switch(selectedOre) {
       case "resource-stone":
-        if (countStone > 0) {
-          countCoins += countStone;
-          countStone = 0;
+        if (resourceCounts.stone > 0) {
+          countCoins += resourceCounts.stone;
+          resourceCounts.stone = 0;
           updateCoinsDisplay();
-          updateDisplay(counterStoneDisplay, countStone);
+          updateDisplay(counterStoneDisplay, resourceCounts.stone);
           updateInfoMessage("You sell all your stone.");
           completeObjective("sellAll");
         }
         break;
       case "resource-copper":
-        if (countCopper > 0) {
-          countCoins += countCopper * 2;
-          countCopper = 0;
+        if (resourceCounts.copper > 0) {
+          countCoins += resourceCounts.copper * 2;
+          resourceCounts.copper = 0;
           updateCoinsDisplay();
-          updateDisplay(counterCopperDisplay, countCopper);
+          updateDisplay(counterCopperDisplay, resourceCounts.copper);
           updateInfoMessage("You sell all your copper.");
         }
         break;
       case "resource-tin":
-        if (countTin > 0) {
-          countCoins += countTin * 2;
-          countTin = 0;
+        if (resourceCounts.tin > 0) {
+          countCoins += resourceCounts.tin * 2;
+          resourceCounts.tin = 0;
           updateCoinsDisplay();
-          updateDisplay(counterTinDisplay, countTin);
+          updateDisplay(counterTinDisplay, resourceCounts.tin);
           updateInfoMessage("You sell all your tin.");
         }
         break;
@@ -393,29 +395,29 @@ $("#sell-custom-amount-btn").on("click", function()
   {
     switch(selectedOre) {
       case "resource-stone":
-        if (countStone > 0) {
+        if (resourceCounts.stone > 0) {
           countCoins += customAmount;
-          countStone =- customAmount;
+          resourceCounts.stone =- customAmount;
           updateCoinsDisplay();
-          updateDisplay(counterStoneDisplay, countStone);
+          updateDisplay(counterStoneDisplay, resourceCounts.stone);
           updateInfoMessage(`You sell ${customAmount} stone.`);
         }
         break;
       case "resource-copper":
-        if (countCopper > 0) {
+        if (resourceCounts.copper > 0) {
           countCoins += customAmount * 2;
-          countCopper += customAmount;
+          resourceCounts.copper += customAmount;
           updateCoinsDisplay();
-          updateDisplay(counterCopperDisplay, countCopper);
+          updateDisplay(counterCopperDisplay, resourceCounts.copper);
           updateInfoMessage(`You sell ${customAmount} copper.`);
         }
         break;
       case "resource-tin":
-        if (countTin > 0) {
+        if (resourceCounts.tin > 0) {
           countCoins += customAmount * 2;
-          countStone += customAmount;
+          resourceCounts.stone += customAmount;
           updateCoinsDisplay();
-          updateDisplay(counterTinDisplay, countTin);
+          updateDisplay(counterTinDisplay, resourceCounts.tin);
           updateInfoMessage(`You sell ${customAmount} tin.`);
           }
           break;
@@ -439,7 +441,7 @@ const furnaceList = [
 const counterBronzeDisplay = document.getElementById("bronze-count");
 
 const ingotList = [
-  { type: "bronze", count: countBronze, counter: counterBronzeDisplay, rawMaterials: {copper: 1, tin: 1} }
+  { type: "bronze", count: resourceCounts.bronze, counter: counterBronzeDisplay, rawMaterials: {copper: 1, tin: 1} }
 ]
 
 
@@ -490,7 +492,7 @@ function startSmelting() {
 
       for (const material in selectedIngotObj.rawMaterials) {
         const requiredAmount = selectedIngotObj.rawMaterials[material];
-        if (`count${capitalize(material)}` < requiredAmount) {
+        if (resourceCounts[material] < requiredAmount) {
           canSmelt = false;
           break;
         }
@@ -501,21 +503,18 @@ function startSmelting() {
           const requiredAmount = selectedIngotObj.rawMaterials[material];
           console.log("Required amount: " + requiredAmount)
 
-          let materialVariable = `count${capitalize(material)}`;
-          console.log("Material variable: " + materialVariable);
+          resourceCounts[material] -= requiredAmount;
 
-          const materialDisplay = document.getElementById(`${material}-count`).innerHTML;
+          let materialDisplay = document.getElementById(`${material}-count`);
           console.log("Material display: " + materialDisplay)
 
-          materialVariable -= requiredAmount;
-
-          console.log("Current count: " + materialVariable);
-
-          updateDisplay(materialDisplay, materialVariable);
+          updateDisplay(materialDisplay, resourceCounts[material]);
+          console.log("Copper: " + resourceCounts.copper)
         }
 
         selectedIngotObj.count++;
         updateDisplay(selectedIngotObj.counter, selectedIngotObj.count);
+        completeObjective("smeltIngot");
       }
     }, intervalDuration);
   }
