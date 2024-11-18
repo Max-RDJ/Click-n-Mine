@@ -52,6 +52,12 @@ updateCoinsDisplay();
 
 
 // Mining resources
+// let resourceCounts = {
+//   stone: 0,
+//   copper: 0,
+//   tin: 0,
+//   bronze: 0,
+// };
 let miningRate = 1;
 let countStone = 0;
 let countCopper = 0;
@@ -103,6 +109,7 @@ tinNode.addEventListener("click", () => {
     updateInfoMessage("You need a pickaxe.");
   }
 });
+
 
 let objective = [
   {
@@ -474,6 +481,7 @@ function startSmelting() {
   const ingotType = document.getElementById("ingot-selection").value;
   const selectedIngotObj = ingotList.find(ingot => ingot.type === ingotType);
 
+
   if (selectedIngotObj && currentSmeltingRate > 0) {
     const intervalDuration = 3000 / currentSmeltingRate;
 
@@ -482,8 +490,7 @@ function startSmelting() {
 
       for (const material in selectedIngotObj.rawMaterials) {
         const requiredAmount = selectedIngotObj.rawMaterials[material];
-
-        if (window[`count${capitalize(material)}`] < requiredAmount) {
+        if (`count${capitalize(material)}` < requiredAmount) {
           canSmelt = false;
           break;
         }
@@ -492,21 +499,19 @@ function startSmelting() {
       if (canSmelt) {
         for (const material in selectedIngotObj.rawMaterials) {
           const requiredAmount = selectedIngotObj.rawMaterials[material];
+          console.log("Required amount: " + requiredAmount)
 
-          const materialVariable = `count${capitalize(material)}`;
-          console.log(materialVariable)
-          console.log(countTin)
+          let materialVariable = `count${capitalize(material)}`;
+          console.log("Material variable: " + materialVariable);
 
-          const materialDisplay = document.getElementById(`counter${material}Display`);
-          console.log(materialDisplay)
+          const materialDisplay = document.getElementById(`${material}-count`).innerHTML;
+          console.log("Material display: " + materialDisplay)
 
-          window[materialVariable] -= requiredAmount;
+          materialVariable -= requiredAmount;
 
-          console.log(window[materialVariable])
+          console.log("Current count: " + materialVariable);
 
           updateDisplay(materialDisplay, materialVariable);
-
-          console.log(materialVariable)
         }
 
         selectedIngotObj.count++;
