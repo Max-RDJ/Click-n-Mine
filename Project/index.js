@@ -513,10 +513,12 @@ function startSmelting() {
         }
 
         selectedIngotObj.count++;
-        updateDisplay(selectedIngotObj.counter, selectedIngotObj.count);
         completeObjective("smeltIngot");
+        updateDisplay(selectedIngotObj.counter, selectedIngotObj.count);
+        
       }
     }, intervalDuration);
+    
   }
 }
 
