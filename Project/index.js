@@ -57,7 +57,9 @@ let resourceCounts = {
   copper: 0,
   tin: 0,
   bronze: 0,
+  bronzeMediumHelmet: 0
 };
+
 let miningRate = 1;
 // let countStone = 0;
 // let countCopper = 0;
@@ -163,7 +165,16 @@ let objective = [
   {
     id: "smeltIngot",
     message: "Once you have enough money, purchase your first Furnace and select Bronze in the drop-down menu.",
-    condition: () => resourceCounts.bronze >= 1,
+    condition: () => resourceCounts.bronze > 0,
+    complete: false,
+    unlock: () => {
+      $("#blacksmiths").css("display", "block");
+    }
+  },
+  {
+    id: "buyAutominer",
+    message: "Let's enlist some help. Hire a miner from the shop.",
+    condition: () => resourceCounts.stone > 40,
     complete: false,
     unlock: () => {
       $("#auto-miner-shop").css("display", "block");
@@ -193,6 +204,8 @@ function completeObjective(objectiveId) {
     updateObjectiveMessage();
     if (obj.unlock) obj.unlock();
   }
+  else {
+    console.log(`Condition /// ${objectiveId} /// not met.`) }
 }
 
 
@@ -318,8 +331,6 @@ $(".sellable").on("click", function()
   }
 });
 
-
-
 $("#sell-one").on("click", function()
   {
     switch(selectedOre) {
@@ -426,6 +437,8 @@ $("#sell-custom-amount-btn").on("click", function()
 );
 
 
+
+// SMELTING
 const furnaceList = [
   { id: "furnace1", cost: 50, smeltingRate: 1 },
   { id: "furnace2", cost: 200, smeltingRate: 1 },
@@ -443,13 +456,6 @@ const counterBronzeDisplay = document.getElementById("bronze-count");
 const ingotList = [
   { type: "bronze", count: resourceCounts.bronze, counter: counterBronzeDisplay, rawMaterials: {copper: 1, tin: 1} }
 ]
-
-
-window.addEventListener("DOMContentLoaded", (event) => {
-  furnaceList.forEach(({ id, cost, smeltingRate, ingotCounter }) => {
-    document.getElementById(id).addEventListener("click", () => buyFurnace(id, cost, smeltingRate, ingotCounter));
-  });
-})
 
 let currentSmeltingRate = 0;
 function buyFurnace(id, cost, smeltingRate) {
@@ -471,7 +477,11 @@ function buyFurnace(id, cost, smeltingRate) {
   }
 }
 
-
+window.addEventListener("DOMContentLoaded", (event) => {
+  furnaceList.forEach(({ id, cost, smeltingRate, ingotCounter }) => {
+    document.getElementById(id).addEventListener("click", () => buyFurnace(id, cost, smeltingRate, ingotCounter));
+  });
+})
 
 let smeltingIntervalId = 0;
 
@@ -501,34 +511,150 @@ function startSmelting() {
       if (canSmelt) {
         for (const material in selectedIngotObj.rawMaterials) {
           const requiredAmount = selectedIngotObj.rawMaterials[material];
-          console.log("Required amount: " + requiredAmount)
 
           resourceCounts[material] -= requiredAmount;
 
           let materialDisplay = document.getElementById(`${material}-count`);
-          console.log("Material display: " + materialDisplay)
 
           updateDisplay(materialDisplay, resourceCounts[material]);
-          console.log("Copper: " + resourceCounts.copper)
         }
 
         selectedIngotObj.count++;
+        resourceCounts[ingotType]++;
+
         completeObjective("smeltIngot");
         updateDisplay(selectedIngotObj.counter, selectedIngotObj.count);
-        
-      }
+        }
     }, intervalDuration);
     
   }
 }
 
+window.addEventListener("DOMContentLoaded", (event) => {
+  document.getElementById("ingot-selection").addEventListener("change", () => startSmelting());
+});
+// END OF SMELTING
+
+
+
+
+
+// SMITHING
+const bronzeMedHelmCount = document.getElementById("bronze-med-helm-count");
+
+const productList = [
+  {
+    type: "Bronze  helmet", count: resourceCounts.bronzeMediumHelmet, counter: bronzeMedHelmCount, ingots: {bronze: 1}, price: 10, smithingRate: 1
+  }
+]
+
+const blacksmiths = [
+  { id: "human-smith-1", cost: 30, smithingRate: 1 },
+  { id: "human-smith-2", cost: 50, smithingRate: 1 },
+  { id: "human-smith-3", cost: 100, smithingRate: 1 }
+]
+
+
+window.addEventListener("DOMContentLoaded", (event) => {
+  blacksmiths.forEach(({ id, cost, smithingRate }) => {
+    document.getElementById(id).addEventListener("click", () => buySmith(id, cost, smithingRate));
+  });
+})
+
+let currentSmithingRate = 0;
+function buySmith(id, cost, smithingRate) {
+  const element = document.getElementById(id);
+  
+  if (element.style.opacity !== "1" && countCoins >= cost) {
+    element.style.opacity = "1";
+    countCoins -= cost;
+    currentSmithingRate += smithingRate;
+
+    updateCoinsDisplay();
+    updateInfoMessage("You hire a Blacksmith.");
+
+  } else if (countCoins < cost) {
+    updateInfoMessage("You don't have enough coins.");
+
+  } else {
+    updateInfoMessage("You've already bought that.");
+  }
+}
+
+
+
+const smithList = [
+  { id: "human-smith-1", cost: 50, smithingRate: 1 },
+  { id: "human-smith-2", cost: 200, smithingRate: 1 },
+  { id: "human-smith-3", cost: 500, smithingRate: 1 }
+]
+
+let smithingIntervalId = 0;
+
+function startSmithing() {
+  if (smithingIntervalId) {
+    clearInterval(smithingIntervalId);
+  }
+
+  const productType = document.getElementById("smithing-selection").value;
+  const selectedProductObj = productList.find(product => product.type === productType);
+
+
+  if (selectedProductObj && currentSmithingRate > 0) {
+    const intervalDuration = 3000 / currentSmithingRate;
+
+    smithingIntervalId = setInterval(() => {
+      let canSmith = true;
+
+      for (const material in selectedProductObj.ingots) {
+        const requiredAmount = selectedProductObj.product[material];
+        if (resourceCounts[material] < requiredAmount) {
+          canSmith = false;
+          break;
+        }
+      }
+
+      if (canSmith) {
+        for (const material in selectedProductObj.ingots) {
+          const requiredAmount = selectedProductObj.ingots[material];
+
+          resourceCounts[ingots] -= requiredAmount;
+
+          let ingotDisplay = document.getElementById(`${ingotType}-count`);
+
+          updateDisplay(ingotDisplay, resourceCounts[ingots]);
+        }
+
+        console.log(selectedProductObj.count);
+        console.log(resourceCounts[ingotType]);
+
+        selectedProductObj.count++;
+        resourceCounts[ingotType]++;
+
+        completeObjective("smithHelmet");
+        updateDisplay(selectedProductObj.counter, selectedProductObj.count);
+        }
+    }, intervalDuration);
+    
+  }
+}
+// END OF SMITHING
+
+
+
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+
+
+
 window.addEventListener("DOMContentLoaded", (event) => {
-    document.getElementById("ingot-selection").addEventListener("change", () => startSmelting());
+  document.getElementById("smithing-selection").addEventListener("change", () => {
+    startSmithing();
+    console.log("Start smithing");
   });
+});
 
 
 // Temporarily increase scale of coins and its icon when number changes

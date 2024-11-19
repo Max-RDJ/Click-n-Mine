@@ -153,7 +153,7 @@ select {
   cursor: pointer;
 }
 
-#tools, #furnaces, #auto-miner-shop{
+#tools, #furnaces, #auto-miner-shop, #blacksmiths{
   display: none;
 }
 
@@ -201,7 +201,7 @@ select {
     margin-top: 17.5px;
   }
 
-.auto-miners{
+.auto-miners, .blacksmiths{
   height: 40px;
   opacity: 0.5;
 }
@@ -266,9 +266,13 @@ select {
   display: inline;
 }
   
-#coins, #resource-stone, #resource-copper, #resource-tin, #resource-bronze {
+#coins, #resource-stone, #resource-copper, #resource-tin, #resource-bronze, #resource-bronze-med-helm {
   margin-top: 10px;
   margin-right: 50px;
+}
+
+#resource-bronze-med-helm {
+
 }
 
 #resource-bronze {
@@ -291,7 +295,8 @@ select {
 }
 
 #objective-message {
-  font-size: 1.2em;
+  font-size: 1em;
+  text-align: left;
 }
 
 #dev-tools {
