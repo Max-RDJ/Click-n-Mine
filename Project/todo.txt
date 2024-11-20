@@ -1,19 +1,22 @@
 BUGS:
+- Bronze ingot count display updates to what it was previously, then updates to correct amount once processed into product.
 
 FEATURES:
 - Make ores appear and disappear randomly
     - Use JS classes to create ore node sprites -- push and shift to an array
-- Display number added next to resource count for .5s (e.g. "+5")
+- Display number next to resource count temporarily when it increases (e.g. "+5")
 - Auto-miners can be set to desired ore to be mined
 - Update coinBounce function to trigger when money increases or decreases
     - Coin icon and number do not scale up or flash green if nothing to sell
-- Add more hidden ores which will become visible when enough resources to open up caves
 - Hover over purchasable items to examine stats
 - Power-up to greatly increase mining speed temporarily - smashing!
-- Office assistant 'Picky'/'Axy'?
 - Light up corresponding resource text when something mined
 - Add animations via jQuery + Animate.css library
-- Make shop sections reshufflable
 - Add an achievements list, e.g. reach 10K coins
 - Make purchasable goodie bag containing random ores
-- Add blacksmiths to turn ingots into items
+- Have select dropdown for each furnace and blacksmith. Use icons and clicking icon opens up menu of icons of products to select from.
+- Selected resource should be highlighted
+
+NICE TO HAVE:
+- Make shop sections draggable and re-arrangable
+- Office assistant 'Picky'/'Axy' to give objectives
