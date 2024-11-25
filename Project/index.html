@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Click-n-Mine Game</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="jquery-3.7.1.min.js"></script>
+</head>
+    
+<body>
+
+  <div class="column" id="column-left">
+    <h1 class="unselectable">Resources</h1>
+    
+    <div class="ore-counter">
+       <div class="resources" id="coins"><img id="coins-image" src="https://oldschool.runescape.wiki/images/Coins_25.png?cbfd9">&nbsp&nbsp
+    <div id="coins-count" value="0">0</div>
+       </div>
+
+    <div class="resources sellable" id="resource-stone">
+      <img height = 30px width = 30px src="https://oldschool.runescape.wiki/images/thumb/Rune_essence_detail.png/800px-Rune_essence_detail.png?10d0e">&nbsp&nbsp&nbsp<span type="text" id="stone-count">0</span>  
+    </div>
+
+    <div class="resources sellable" id="resource-copper">
+      <img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Copper_ore_detail.png/1200px-Copper_ore_detail.png?f45ee">&nbsp&nbsp&nbsp<span type="text" id="copper-count" value="0">0</span>
+    </div>
+
+    <div class="resources sellable" id="resource-tin">
+      <img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Tin_ore_detail.png/1200px-Tin_ore_detail.png?6a110">&nbsp&nbsp&nbsp<span type="text" id="tin-count" value="0">0</span>
+    </div>
+
+    <div class="resources sellable" id="resource-bronze">
+      <img height=25px width=30px src="https://oldschool.runescape.wiki/images/thumb/Bronze_bar_detail.png/1280px-Bronze_bar_detail.png?603dc">&nbsp&nbsp&nbsp<span type="text" id="bronze-count" value="0">0</span>
+    </div>
+
+    <div class="resources sellable" id="resource-bronze-med-helm">
+      <img height=25px width=25px src="https://oldschool.runescape.wiki/images/thumb/Bronze_med_helm_detail.png/130px-Bronze_med_helm_detail.png?c6333c">&nbsp&nbsp&nbsp<span type="text" id="bronze-med-helm-count" value="0">0</span>
+    </div>
+      
+    <div class="sell-btns">
+     <button class="sell-btn sell-one" id="sell-one">Sell 1</button>
+      <button class="sell-btn sell-all" id="sell-all">Sell all</button>
+    </div>
+
+    <div class="sell-btns">
+      <input id="sell-custom-amount" type="number" placeholder="Enter custom amount">
+      <button class="sell-btn" id="sell-custom-amount-btn">Sell</button>
+    </div>
+     
+    </div>
+      <div id="messages">
+        <div class="info"><span id="info-message">Welcome</span></div>
+        <div class="info"><span id="objective-message">Current objective:</span></div>
+      </div>
+      <div id="dev-tools">
+        <h3>Dev tools</h3>
+        <button id="reset-money">0</button>
+        <button id="mo-money">+1000</button>
+      </div>
+  </div>
+
+  <!-- staging -->
+      
+    <!-- Area for ore nodes to appear and disappear randomly -->
+  <div class="column" id="column-middle">
+     <div id="ores">
+      <h1 class="unselectable">Mineshaft</h1>
+
+      <div class="ore-node unselectable" id="stone-node" type="button"></div>
+
+      <div class="ore-node unselectable" id="copper-node" type="button">
+        <div id="ore-vein-copper1"></div>
+        <div id="ore-vein-copper2"></div>
+        <div id="ore-vein-copper3"></div>
+      </div>
+
+      <div class="ore-node unselectable" id="tin-node" type="button">
+        <div id="ore-vein-tin1"></div>
+        <div id="ore-vein-tin2"></div>
+        <div id="ore-vein-tin3"></div>
+      </div>
+
+      </div>
+  </div>
+
+
+<div class="column" id="column-right">
+    <!-- Purchase tools to improve mining speed and access new ores -->
+  <h1 class="unselectable">Shop</h1>
+    <fieldset id="tools">
+      <legend class="unselectable">Tools</legend>
+      <div id="tool-shop">
+        <div class="purchasable-item" id="pickaxe-bronze">
+          <img type="button"  src=https://oldschool.runescape.wiki/images/Bronze_pickaxe.png?fe489>
+        </div>
+        <div class="purchasable-item" id="pickaxe-iron">
+          <img type="button"  src=https://oldschool.runescape.wiki/images/Iron_pickaxe.png?9e4d4>
+        </div>
+       <div class="purchasable-item" id="pickaxe-steel">
+           <img type="button"  src=https://oldschool.runescape.wiki/images/Steel_pickaxe.png?421a5>
+         </div>
+      <div class="purchasable-item" id="pickaxe-black">
+          <img type="button"  src=https://oldschool.runescape.wiki/images/Black_pickaxe.png?0d4ed>
+         </div>
+      <div class="purchasable-item" id="pickaxe-gold">
+          <img type="button"  src=https://oldschool.runescape.wiki/images/Gilded_pickaxe.png?583e2>
+         </div>
+      <div class="purchasable-item" id="pickaxe-mithril">
+        <img type="button"  src=https://oldschool.runescape.wiki/images/Mithril_pickaxe.png?c2098>
+         </div>
+      <div class="purchasable-item" id="pickaxe-adamant">
+        <img type="button"  src=https://oldschool.runescape.wiki/images/Adamant_pickaxe.png?e716d>
+         </div>
+      <div class="purchasable-item" id="pickaxe-runite">
+        <img type="button"  src=https://oldschool.runescape.wiki/images/Rune_pickaxe.png?e8496>
+         </div>
+      <div class="purchasable-item" id="pickaxe-dragon">
+        <img type="button"  src=https://oldschool.runescape.wiki/images/Dragon_pickaxe.png?c85b3>
+      </div>
+    </div>
+  </fieldset>
+    
+  <!-- Process materials with furnaces -->
+  <fieldset id="furnaces"> 
+    <legend>Furnaces</legend>
+    <select id="ingot-selection">
+      <option value="none">None</option>
+      <option value="bronze">Bronze</option>
+      <option value="iron">Iron</option>
+    </select>
+    <div id="furnace-shop">
+       <img class="purchasable-item" id="furnace1" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+       <img class="purchasable-item" id="furnace2" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+      <img class="purchasable-item" id="furnace3" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+      <img class="purchasable-item" id="furnace4" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+      <img class="purchasable-item" id="furnace5" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+      <img class="purchasable-item" id="furnace6" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+      <img class="purchasable-item" id="furnace7" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+      <img class="purchasable-item" id="furnace8" src="https://oldschool.runescape.wiki/images/thumb/Furnace.png/200px-Furnace.png?6479b"></img>
+    </div>
+  </fieldset>
+
+  <fieldset id="blacksmiths">
+    <legend>Blacksmiths</legend>
+    <select id="smithing-selection">
+      <option value="none">None</option>
+      <option value="bronzeMediumHelmet">Bronze medium helmet</option>
+      <option value="ironMediumHelmet">Iron medium helmet</option>
+    </select>
+    <div id="blacksmith-shop">
+      <img class="purchasable-item blacksmiths" id="human-smith-1" src="https://oldschool.runescape.wiki/images/thumb/Anvil.png/200px-Anvil.png?a1e23"></img>
+    <img class="purchasable-item blacksmiths" id="human-smith-2" src="https://oldschool.runescape.wiki/images/thumb/Anvil.png/200px-Anvil.png?a1e23"></img>
+  <img class="purchasable-item blacksmiths" id="human-smith-3" src="https://oldschool.runescape.wiki/images/thumb/Anvil.png/200px-Anvil.png?a1e23"></img>
+    </div>
+  </fieldset>
+
+
+    <!-- Buy miners to mine resources automatically -->
+    <fieldset id="auto-miner-shop">
+      <legend>Miners</legend>
+      <div id="auto-miners-shop">
+        <img class="purchasable-item auto-miners" id="human-miner-1" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+      <img class="purchasable-item auto-miners" id="human-miner-2" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+    <img class="purchasable-item auto-miners" id="human-miner-3" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+      </div>
+    </fieldset>
+    
+     
+    
+    
+  </div>
+  <script src="index.js" defer></script>
+</body>
+    
+  <footer>
+      
+  </footer>
+
+</html>
