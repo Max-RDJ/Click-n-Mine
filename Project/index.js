@@ -40,15 +40,8 @@ const oreNodeList = [stoneNode, copperNode, tinNode];
 // setInterval(createRandomOreNode, 3000);
 
 
-// RETRIEVE PLAYER PROGRESS
+// Keep track of player's coins
 let countCoins = localStorage.getItem("countCoins") ? JSON.parse(localStorage.getItem("countCoins")).countCoins : 150;
-
-let resourceCounts = localStorage.getItem("resourceCounts")
-  ? JSON.parse(localStorage.getItem("resourceCounts"))
-  : { stone: 0, copper: 0, tin: 0, bronze: 0, bronzeMediumHelmet: 0 };
-  console.log(resourceCounts);
-
-
 
 let counterCoinsDisplay = document.querySelector('#coins-count');
 function updateCoinsDisplay() {
@@ -59,13 +52,13 @@ updateCoinsDisplay();
 
 
 // Mining resources
-// let resourceCounts = {
-//   stone: 0,
-//   copper: 0,
-//   tin: 0,
-//   bronze: 0,
-//   bronzeMediumHelmet: 0
-// };
+let resourceCounts = {
+  stone: 0,
+  copper: 0,
+  tin: 0,
+  bronze: 0,
+  bronzeMediumHelmet: 0
+};
 
 let miningRate = 1;
 // let countStone = 0;
@@ -79,7 +72,6 @@ function updateDisplay(element, count) {
 
 function updateInfoMessage(message) {
   document.getElementById("info-message").textContent = message;
-  savePlayerProgress();
 }
 
 
@@ -394,7 +386,7 @@ $("#sell-one").on("click", function()
           resourceCounts.bronzeMediumHelmet = 0;
           updateCoinsDisplay();
           updateDisplay(bronzeMedHelmCount, resourceCounts.bronzeMediumHelmet);
-          updateInfoMessage("You sell a Bronze Medium Helmet.");
+          updateInfoMessage("You sell all a Bronze Medium Helmet.");
         }
         break;
     }
@@ -460,7 +452,7 @@ $("#sell-custom-amount-btn").on("click", function()
 
     switch(selectedOre) {
       case "resource-stone":
-        if (resourceCounts.stone > customAmount && customAmount > 0) {
+        if (resourceCounts.stone > 0) {
           countCoins += customAmount;
           resourceCounts.stone -= customAmount;
           updateCoinsDisplay();
@@ -738,11 +730,30 @@ window.addEventListener("DOMContentLoaded", (event) => {
   });
 });
 
+
+// Temporarily increase scale of coins and its icon when number changes
+// function coinBounce()
+// {
+//   const coinsCount = document.getElementById("coins-count");
+//   const coinsImage = document.getElementById("coins-image");
+//   const coinsDiv = document.getElementById("coins");
+
+//    // Set the styles for bounce effect
+//    coinsCount.style.fontSize = "18px";
+//    coinsCount.style.color = "lightgreen";
+//    coinsImage.style.scale = 1.2; 
+
+//    // Return to normal size
+//    setTimeout(() => {
+//    coinsCount.style.fontSize = "";
+//    coinsCount.style.color = "";
+//    coinsImage.style.scale = "";
+//     }, 100);
+// }
+
 // Persist resource counts and purchases
-function savePlayerProgress(resourceCounts) {
+function savePlayerProgress() {
   localStorage.setItem("countCoins", JSON.stringify({countCoins}));
-  localStorage.setItem("resourceCounts", JSON.stringify({resourceCounts}));
-  
   // localStorage.setItem("playerItems", JSON.stringify({playerItems}));
 }
 
