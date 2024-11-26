@@ -6,49 +6,8 @@ const motherlodeNode = document.getElementById("motherlode-node");
 const oreNodeList = [stoneNode, copperNode, tinNode]; 
 
 
-// Select random ore to display
-// let currentOreNode = null;
-
-// function createRandomOreNode() {
-//   if (currentOreNode && currentOreNode.style.display === "block") {
-//     return;
-//   }
-
-//   var ore = oreNodeList[Math.floor(Math.random() * oreNodeList.length)];
-
-//   ore.style.display = "block";
-//   ore.style.marginTop = `${Math.floor(Math.random() * 450)}px`;
-//   ore.style.marginLeft = `${Math.floor(Math.random() * 80)}px`;
-
-//   currentOreNode = ore;
-
-//   function getRandomTimeout(min, max) {
-//     return Math.floor(Math.random() * (max - min) + min);
-//   }
-
-//   const randomTimeout = getRandomTimeout(10000, 30000);
-//   console.log(randomTimeout);
-
-//   setTimeout(() => {
-//     ore.style.display = "none";
-//     ore.style.marginTop = "";
-//     ore.style.marginLeft = "";
-//     currentOreNode = null;
-//   }, randomTimeout);
-// }
-
-// setInterval(createRandomOreNode, 3000);
-
-
 // RETRIEVE PLAYER PROGRESS
 let countCoins = localStorage.getItem("countCoins") ? JSON.parse(localStorage.getItem("countCoins")).countCoins : 150;
-
-let resourceCounts = localStorage.getItem("resourceCounts")
-  ? JSON.parse(localStorage.getItem("resourceCounts"))
-  : { stone: 0, copper: 0, tin: 0, bronze: 0, bronzeMediumHelmet: 0 };
-  console.log(resourceCounts);
-
-
 
 let counterCoinsDisplay = document.querySelector('#coins-count');
 function updateCoinsDisplay() {
@@ -58,24 +17,44 @@ function updateCoinsDisplay() {
 updateCoinsDisplay();
 
 
-// Mining resources
-// let resourceCounts = {
-//   stone: 0,
-//   copper: 0,
-//   tin: 0,
-//   bronze: 0,
-//   bronzeMediumHelmet: 0
-// };
+// Default resource counts
+const defaultResourceCounts = { stone: 0, copper: 0, tin: 0, bronze: 0, bronzeMediumHelmet: 0 };
+
+// Retrieve and validate resourceCounts from local storage
+let resourceCounts = (() => {
+  const storedData = localStorage.getItem("resourceCounts");
+  if (storedData) {
+    try {
+      return JSON.parse(storedData);
+    } catch (e) {
+      console.error("Error parsing resourceCounts from localStorage:", e);
+    }
+  }
+  return { ...defaultResourceCounts };
+})();
+
+function updateResource(resource, amount) {
+  if (resourceCounts[resource] !== undefined) {
+    resourceCounts[resource] += amount;
+    console.log(`${resource} updated to ${resourceCounts[resource]}`);
+    localStorage.setItem("resourceCounts", JSON.stringify(resourceCounts));
+    updateDisplay(); // Update the UI when resources change
+  } else {
+    console.error(`Resource '${resource}' does not exist in resourceCounts.`);
+  }
+}
+
 
 let miningRate = 1;
-// let countStone = 0;
-// let countCopper = 0;
-// let countTin = 0;
-// let countBronze = 0;
 
-function updateDisplay(element, count) {
-  element.innerHTML = count;
+
+function updateDisplay() {
+  document.querySelector('#stone-count').innerHTML = resourceCounts.stone;
+  document.querySelector('#copper-count').innerHTML = resourceCounts.copper;
+  document.querySelector('#tin-count').innerHTML = resourceCounts.tin;
 }
+
+updateDisplay();
 
 function updateInfoMessage(message) {
   document.getElementById("info-message").textContent = message;
@@ -90,8 +69,9 @@ const counterTinDisplay = document.querySelector('#tin-count');
 const countermotherlodeDisplay = document.querySelector('#motherlode-count');
 
 stoneNode.addEventListener("click", () => {
-  resourceCounts.stone += 1 * miningRate;
+  // resourceCounts.stone += 1 * miningRate;
   updateDisplay(counterStoneDisplay, resourceCounts.stone);
+  updateResource("stone", 1 * miningRate); // Update resource count and save to localStorage
   completeObjective("stone5");
   completeObjective("stone10");
   updateInfoMessage("You mine some stone.");
@@ -606,8 +586,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
   document.getElementById("ingot-selection").addEventListener("change", () => startSmelting());
 });
 // END OF SMELTING
-
-
 
 
 
