@@ -1,11 +1,10 @@
 BUGS:
-- Bronze ingot count display updates to what it was previously, then updates to correct amount once processed into product.
 
 FEATURES:
+- Furnaces and other 'machinery' can be individually set to process specific raw material, e.g. one auto-miner on stone, another one copper
 - Make ores appear and disappear randomly
     - Use JS classes to create ore node sprites -- push and shift to an array
 - Display number next to resource count temporarily when it increases (e.g. "+5")
-- Auto-miners can be set to desired ore to be mined
 - Update coinBounce function to trigger when money increases or decreases
     - Coin icon and number do not scale up or flash green if nothing to sell
 - Hover over purchasable items to examine stats

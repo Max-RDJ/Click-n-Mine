@@ -35,10 +35,12 @@
     <div class="resources sellable" id="resource-bronze">
       <img height=25px width=30px src="https://oldschool.runescape.wiki/images/thumb/Bronze_bar_detail.png/1280px-Bronze_bar_detail.png?603dc">&nbsp&nbsp&nbsp<span type="text" id="bronze-count" value="0">0</span>
     </div>
-
-    <div class="resources sellable" id="resource-bronze-med-helm">
-      <img height=25px width=25px src="https://oldschool.runescape.wiki/images/thumb/Bronze_med_helm_detail.png/130px-Bronze_med_helm_detail.png?c6333c">&nbsp&nbsp&nbsp<span type="text" id="bronze-med-helm-count" value="0">0</span>
-    </div>
+    <fieldset id="resources-products">
+    <legend class="unselectable">Products</legend>
+      <div class="resources sellable" id="resource-bronze-med-helm">
+        <img height=25px width=25px src="https://oldschool.runescape.wiki/images/thumb/Bronze_med_helm_detail.png/130px-Bronze_med_helm_detail.png?c6333c">&nbsp&nbsp&nbsp<span type="text" id="bronze-med-helm-count" value="0">0</span>
+      </div>
+    </fieldset>
       
     <div class="sell-btns">
      <button class="sell-btn sell-one" id="sell-one">Sell 1</button>
@@ -159,10 +161,16 @@
     <!-- Buy miners to mine resources automatically -->
     <fieldset id="auto-miner-shop">
       <legend>Miners</legend>
+      <select id="mining-selection">
+        <option value="none">None</option>
+        <option value="stone">Stone</option>
+        <option value="copper">Copper</option>
+        <option value="tin">Tin</option>
+      </select>
       <div id="auto-miners-shop">
         <img class="purchasable-item auto-miners" id="human-miner-1" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
-      <img class="purchasable-item auto-miners" id="human-miner-2" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
-    <img class="purchasable-item auto-miners" id="human-miner-3" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+        <img class="purchasable-item auto-miners" id="human-miner-2" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+        <img class="purchasable-item auto-miners" id="human-miner-3" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
       </div>
     </fieldset>
     

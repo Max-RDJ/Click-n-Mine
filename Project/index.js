@@ -12,12 +12,12 @@ let countCoins = localStorage.getItem("countCoins") ? JSON.parse(localStorage.ge
 let counterCoinsDisplay = document.querySelector('#coins-count');
 function updateCoinsDisplay() {
   counterCoinsDisplay.innerHTML = countCoins;
+  
   savePlayerProgress();
 }
 updateCoinsDisplay();
 
 
-// Default resource counts
 const defaultResourceCounts = { stone: 0, copper: 0, tin: 0, bronze: 0, bronzeMediumHelmet: 0 };
 
 // Retrieve and validate resourceCounts from local storage
@@ -25,7 +25,8 @@ let resourceCounts = (() => {
   const storedData = localStorage.getItem("resourceCounts");
   if (storedData) {
     try {
-      return JSON.parse(storedData);
+      const parsedData = JSON.parse(storedData);
+      return { ...defaultResourceCounts, ...parsedData };
     } catch (e) {
       console.error("Error parsing resourceCounts from localStorage:", e);
     }
@@ -34,11 +35,11 @@ let resourceCounts = (() => {
 })();
 
 function updateResource(resource, amount) {
-  if (resourceCounts[resource] !== undefined) {
+  if (resourceCounts.hasOwnProperty(resource)) {
     resourceCounts[resource] += amount;
     console.log(`${resource} updated to ${resourceCounts[resource]}`);
     localStorage.setItem("resourceCounts", JSON.stringify(resourceCounts));
-    updateDisplay(); // Update the UI when resources change
+    updateDisplay();
   } else {
     console.error(`Resource '${resource}' does not exist in resourceCounts.`);
   }
@@ -49,9 +50,12 @@ let miningRate = 1;
 
 
 function updateDisplay() {
-  document.querySelector('#stone-count').innerHTML = resourceCounts.stone;
-  document.querySelector('#copper-count').innerHTML = resourceCounts.copper;
-  document.querySelector('#tin-count').innerHTML = resourceCounts.tin;
+  document.querySelector('#stone-count').innerHTML = resourceCounts.stone || 0;
+  document.querySelector('#copper-count').innerHTML = resourceCounts.copper || 0;
+  document.querySelector('#tin-count').innerHTML = resourceCounts.tin || 0;
+  document.querySelector('#bronze-count').innerHTML = resourceCounts.bronze || 0;
+  document.querySelector('#bronze-count').innerHTML = resourceCounts.bronze || 0;
+  document.querySelector('#bronze-med-helm-count').innerHTML = resourceCounts.bronzeMediumHelmet || 0;
 }
 
 updateDisplay();
@@ -66,12 +70,11 @@ function updateInfoMessage(message) {
 const counterStoneDisplay = document.querySelector('#stone-count');
 const counterCopperDisplay = document.querySelector('#copper-count');
 const counterTinDisplay = document.querySelector('#tin-count');
-const countermotherlodeDisplay = document.querySelector('#motherlode-count');
 
 stoneNode.addEventListener("click", () => {
   // resourceCounts.stone += 1 * miningRate;
   updateDisplay(counterStoneDisplay, resourceCounts.stone);
-  updateResource("stone", 1 * miningRate); // Update resource count and save to localStorage
+  updateResource("stone", 1 * miningRate);
   completeObjective("stone5");
   completeObjective("stone10");
   updateInfoMessage("You mine some stone.");
@@ -158,6 +161,7 @@ let objective = [
     unlock: () => {
       $("#blacksmiths").css("display", "block");
       $("#resource-bronze-med-helm").css("display", "block");
+      $("#resources-products").css("display", "block");
     }
   },
   {
@@ -175,7 +179,16 @@ let objective = [
     condition: () => resourceCounts.bronzeMediumHelmet > 0,
     complete: false,
     unlock: () => {
-
+      // Unlock more products to smith
+    }
+  },
+  {
+    id: "coins250",
+    message: "See if you can get to 500 coins.",
+    condition: () => countCoins >= 500,
+    complete: false,
+    unlock: () => {
+      $("#auto-miner-shop").css("display", "block")
     }
   }
 ]
@@ -199,13 +212,13 @@ function completeObjective(objectiveId) {
 
   if (obj && obj.condition(resourceCounts.stone, resourceCounts.copper, resourceCounts.tin, resourceCounts.bronze)) {
     obj.complete = true;
+    // Remove event listener
     updateObjectiveMessage();
     if (obj.unlock) obj.unlock();
   }
   else {
     console.log(`Condition '${objectiveId}' not met.`) }
 }
-
 
 
 // PICKAXES
@@ -300,7 +313,9 @@ function startMining(ore, oreCounter) {
   }
 }
 
-startMining();
+
+
+// startMining();
 
 
 
@@ -331,6 +346,7 @@ $(".sellable").on("click", function()
 
 $("#sell-one").on("click", function()
   {
+    completeObjective("coins250");
     switch(selectedOre) {
       case "resource-stone":
         if (resourceCounts.stone > 0) {
@@ -370,8 +386,8 @@ $("#sell-one").on("click", function()
         break;
       case "resource-bronze-med-helm":
         if (resourceCounts.bronzeMediumHelmet > 0) {
-          countCoins += resourceCounts.bronzeMediumHelmet * 15;
-          resourceCounts.bronzeMediumHelmet = 0;
+          countCoins += 15;
+          resourceCounts.bronzeMediumHelmet--;
           updateCoinsDisplay();
           updateDisplay(bronzeMedHelmCount, resourceCounts.bronzeMediumHelmet);
           updateInfoMessage("You sell a Bronze Medium Helmet.");
@@ -383,6 +399,7 @@ $("#sell-one").on("click", function()
 
 $("#sell-all").on("click", function()
   {
+    completeObjective("coins250");
     switch(selectedOre) {
       case "resource-stone":
         if (resourceCounts.stone > 0) {
@@ -437,6 +454,8 @@ $("#sell-all").on("click", function()
 $("#sell-custom-amount-btn").on("click", function()
   {
     const customAmount = parseInt(document.getElementById("sell-custom-amount").value) || 0;
+
+    completeObjective("coins250");
 
     switch(selectedOre) {
       case "resource-stone":

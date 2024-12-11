@@ -142,6 +142,11 @@ legend{
   font-size: 18px;
 }
 
+#resources-products{
+  display: none;
+  margin-block: 25px;
+}
+
 select {
   font-family: tahoma;
   font-size: 0.8em;
