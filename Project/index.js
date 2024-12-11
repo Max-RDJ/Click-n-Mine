@@ -184,8 +184,8 @@ let objective = [
   },
   {
     id: "coins250",
-    message: "See if you can get to 500 coins.",
-    condition: () => countCoins >= 500,
+    message: "See if you can get to 250 coins.",
+    condition: () => countCoins >= 250,
     complete: false,
     unlock: () => {
       $("#auto-miner-shop").css("display", "block")
@@ -299,24 +299,62 @@ function buyMiner(id, cost, autoMiningRate) {
   }
 }
 
-function startMining(ore, oreCounter) {
+const oreList = [
+  { type: "stone", count: resourceCounts.stone, counter: counterStoneDisplay },
+  { type: "copper", count: resourceCounts.copper, counter: counterCopperDisplay },
+  { type: "tin", count: resourceCounts.tin, counter: counterTinDisplay },
+]
+
+function startMining() {
   if (miningIntervalId) {
     clearInterval(miningIntervalId);
   }
 
-  if (currentAutoMiningRate > 0) {
+  const oreType = document.getElementById("mining-selection").value;
+
+  console.log("Ore type:", oreType)
+
+  const selectedOreObj = oreList.find(ore => ore.type === oreType);
+
+
+  if (selectedOreObj && currentAutoMiningRate > 0) {
     const intervalDuration = 3000 / currentAutoMiningRate;
+
     miningIntervalId = setInterval(() => {
-      resourceCounts.stone++;
-      updateDisplay(counterStoneDisplay, resourceCounts.stone);
-    }, intervalDuration);
+      // let canMine = true;
+
+      // for (const material in selectedOreObj.rawMaterials) {
+      //   const requiredAmount = selectedIngotObj.rawMaterials[material];
+      //   if (resourceCounts[material] < requiredAmount) {
+      //     canSmelt = false;
+      //     break;
+      //   }
+      // }
+
+      // if (canSmelt) {
+      //   for (const material in selectedIngotObj.rawMaterials) {
+      //     const requiredAmount = selectedIngotObj.rawMaterials[material];
+
+      //     resourceCounts[material] -= requiredAmount;
+
+        // let oreDisplay = `counter${capitalize(JSON.stringify(selectedOreObj))}Count`;
+        // console.log("Ore display:", oreDisplay);
+
+        // updateDisplay(oreDisplay, resourceCounts[ore]);
+
+        selectedOreObj.count++;
+        resourceCounts[oreType]++;
+
+        // completeObjective("automine");
+        updateDisplay(selectedOreObj.counter, selectedOreObj.count);
+    }, intervalDuration); 
   }
 }
 
-
-
-// startMining();
-
+window.addEventListener("DOMContentLoaded", (event) => {
+  document.getElementById("mining-selection").addEventListener("change", () => startMining());
+});
+// END OF MINING
 
 
 // Sell resources
