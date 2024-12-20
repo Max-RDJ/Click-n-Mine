@@ -11,30 +11,31 @@
 </head>
     
 <body>
-
-  <div class="column" id="column-left">
-    <h1 class="unselectable">Resources</h1>
+  <div id="page-container">
+    <div id="columns-container">
+    <div class="column" id="column-left">
+      <h1 class="unselectable">Resources</h1>
     
-    <div class="ore-counter">
-       <div class="resources" id="coins"><img id="coins-image" src="https://oldschool.runescape.wiki/images/Coins_25.png?cbfd9">&nbsp&nbsp
-    <div id="coins-count" value="0">0</div>
+      <div class="ore-counter">
+        <div class="resources" id="coins"><img id="coins-image" src="https://oldschool.runescape.wiki/images/Coins_25.png?cbfd9">&nbsp&nbsp
+      <div id="coins-count" value="0">0</div>
        </div>
 
-    <div class="resources sellable" id="resource-stone">
-      <img height = 30px width = 30px src="https://oldschool.runescape.wiki/images/thumb/Rune_essence_detail.png/800px-Rune_essence_detail.png?10d0e">&nbsp&nbsp&nbsp<span type="text" id="stone-count">0</span>  
-    </div>
+      <div class="resources sellable" id="resource-stone">
+        <img height = 30px width = 30px src="https://oldschool.runescape.wiki/images/thumb/Rune_essence_detail.png/800px-Rune_essence_detail.png?10d0e">&nbsp&nbsp&nbsp<span type="text" id="stone-count">0</span>  
+      </div>
 
-    <div class="resources sellable" id="resource-copper">
-      <img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Copper_ore_detail.png/1200px-Copper_ore_detail.png?f45ee">&nbsp&nbsp&nbsp<span type="text" id="copper-count" value="0">0</span>
-    </div>
+      <div class="resources sellable" id="resource-copper">
+        <img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Copper_ore_detail.png/1200px-Copper_ore_detail.png?f45ee">&nbsp&nbsp&nbsp<span type="text" id="copper-count" value="0">0</span>
+      </div>
 
-    <div class="resources sellable" id="resource-tin">
-      <img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Tin_ore_detail.png/1200px-Tin_ore_detail.png?6a110">&nbsp&nbsp&nbsp<span type="text" id="tin-count" value="0">0</span>
-    </div>
+      <div class="resources sellable" id="resource-tin">
+        <img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Tin_ore_detail.png/1200px-Tin_ore_detail.png?6a110">&nbsp&nbsp&nbsp<span type="text" id="tin-count" value="0">0</span>
+      </div>
 
-    <div class="resources sellable" id="resource-bronze">
-      <img height=25px width=30px src="https://oldschool.runescape.wiki/images/thumb/Bronze_bar_detail.png/1280px-Bronze_bar_detail.png?603dc">&nbsp&nbsp&nbsp<span type="text" id="bronze-count" value="0">0</span>
-    </div>
+      <div class="resources sellable" id="resource-bronze">
+        <img height=25px width=30px src="https://oldschool.runescape.wiki/images/thumb/Bronze_bar_detail.png/1280px-Bronze_bar_detail.png?603dc">&nbsp&nbsp&nbsp<span type="text" id="bronze-count" value="0">0</span>
+      </div>
     <fieldset id="resources-products">
     <legend class="unselectable">Products</legend>
       <div class="resources sellable" id="resource-bronze-med-helm">
@@ -55,7 +56,6 @@
     </div>
       <div id="messages">
         <div class="info"><span id="info-message">Welcome</span></div>
-        <div class="info"><span id="objective-message">Current objective:</span></div>
       </div>
       <div id="dev-tools">
         <h3>Dev tools</h3>
@@ -144,7 +144,7 @@
   </fieldset>
 
   <fieldset id="blacksmiths">
-    <legend>Blacksmiths</legend>
+    <legend>Anvils</legend>
     <select id="smithing-selection">
       <option value="none">None</option>
       <option value="bronzeMediumHelmet">Bronze medium helmet</option>
@@ -173,16 +173,15 @@
         <img class="purchasable-item auto-miners" id="human-miner-3" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
       </div>
     </fieldset>
-    
-     
-    
-    
   </div>
+
+  <div id="objective-message-container"><span id="objective-message" class="unselectable">Current objective:</span></div>
+  <div id="stats-popup">Popup</div>
+  </div>
+</div>
+
   <script src="index.js" defer></script>
 </body>
-    
-  <footer>
-      
-  </footer>
-
+<footer>
+</footer>
 </html>

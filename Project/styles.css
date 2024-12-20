@@ -21,6 +21,31 @@ body {
   color: #ebe2d5;
   text-align: center;
 }
+
+#page-container {
+  display: grid;
+}
+
+#objective-message-container {
+  display: flex;
+  position: fixed;
+  border: solid rgba(255, 255, 255, 0) 1px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 30px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#objective-message {
+  padding: 10px;
+  border-radius: 10px;
+  margin-inline: 5em;
+  font-size: 1.8em;
+  background-color: #38352db6;
+  width: calc(100% - 10em);
+}
   
 h1 {
   background-color: rgba(255, 255, 255, 0.1);
@@ -39,17 +64,25 @@ h2 {
   margin-bottom: 20px;
 }
 
-.column{
+#stats-popup {
+  display: none;
+  position: fixed;
+  pointer-events: none;
+}
+
+.column {
+  position: relative;
   background-color: rgba(255, 255, 255, 0.1);
   float: left;
   width: 33.33%;
   min-height: 100vh;
+  height: 100%;
   padding: 0 3em 3em 3em;
   border-right: var(--accent-transparent);
 }
   
 #column-right{
-  /* border-right: 0; */
+  border-right: 0;
 }
   
 div.resources > img:hover {
@@ -295,16 +328,9 @@ select {
 
 .info {
   height: 50px;
-  border-radius: 10px;
   padding: 10px;
   margin-top: 10px;
-  /* margin-bottom: 60px; */
   width: 100%;
-}
-
-#objective-message {
-  font-size: 1em;
-  text-align: left;
 }
 
 #dev-tools {

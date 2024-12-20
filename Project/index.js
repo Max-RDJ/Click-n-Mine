@@ -166,7 +166,7 @@ let objective = [
   },
   {
     id: "buySmith",
-    message: "Let's turn your bronze into something useful. Grab yourself a blacksmith from the shop.",
+    message: "Let's turn your bronze into something useful. Grab yourself an anvil from the shop.",
     condition: () => document.getElementById("human-smith-1").style.opacity = 1,
     complete: false,
     unlock: () => {
@@ -764,7 +764,47 @@ function camelCase(str) {
 }
 
 
+// STATS POPUP
+let mouseX = 0;
+let mouseY = 0;
+let isMouseMoving = false;
 
+const popup = document.getElementById("stats-popup");
+
+function updatePopupPosition() {
+  popup.style.transform = `translate(${mouseX - 50}px, ${mouseY - 30}px)`;
+
+  if (isMouseMoving) {
+    requestAnimationFrame(updatePopupPosition);
+  }
+}
+
+document.addEventListener("mousemove", (event) => {
+  mouseX = event.clientX;
+  mouseY = event.clientY;
+
+  const hoveredElement = document.elementFromPoint(mouseX, mouseY);
+
+  if (hoveredElement && hoveredElement.classList.contains("purchasable-item")) {
+    popup.style.display = "block";
+    /* switch(item) {
+      case "bronze-pickaxe":
+        popup.innerhtml = 
+      }
+    */
+  } else {
+    popup.style.display = "none";
+  }
+
+  if (!isMouseMoving) {
+    isMouseMoving = true;
+    requestAnimationFrame(updatePopupPosition);
+  }
+});
+
+document.addEventListener("mouseout", () => {
+  isMouseMoving = false;
+});
 
 window.addEventListener("DOMContentLoaded", (event) => {
   document.getElementById("smithing-selection").addEventListener("change", () => {
