@@ -231,7 +231,7 @@ const pickaxes = [
   { id: "pickaxe-gold", cost: 3000, miningRate: 15, type: "gold" },
   { id: "pickaxe-mithril", cost: 4000, miningRate: 18, type: "mithril" },
   { id: "pickaxe-adamant", cost: 10000, miningRate: 20, type: "adamant" },
-  { id: "pickaxe-rune", cost: 50000, miningRate: 30, type: "rune" },
+  { id: "pickaxe-runite", cost: 50000, miningRate: 30, type: "rune" },
   { id: "pickaxe-dragon", cost: 250000, miningRate: 50, type: "dragon" }
 ];
 
@@ -784,14 +784,32 @@ document.addEventListener("mousemove", (event) => {
   mouseY = event.clientY;
 
   const hoveredElement = document.elementFromPoint(mouseX, mouseY);
+  // const purchasableItem = hoveredElement?.closest(".purchasable-item");
 
-  if (hoveredElement && hoveredElement.classList.contains("purchasable-item")) {
+  if (!hoveredElement) {
+    popup.style.display = "none";
+    return;
+  }
+
+  const allPurchasableItems = [...pickaxes, ...furnaceList];
+
+  const hoveredElementData = allPurchasableItems.find(item => item.id === hoveredElement.id);
+
+
+  if (hoveredElementData && hoveredElement.classList.contains("purchasable-item")) {
     popup.style.display = "block";
-    /* switch(item) {
-      case "bronze-pickaxe":
-        popup.innerhtml = 
-      }
-    */
+
+    switch (hoveredElementData.id) {
+      case "pickaxe-bronze":
+        popup.innerHTML = `Price: ${hoveredElementData.cost}`;
+        break;
+      case "pickaxe-iron":
+        popup.innerHTML = `Price: ${hoveredElementData.cost}`;
+        break;
+      default:
+        popup.innerHTML = "???";
+        break;     
+    }
   } else {
     popup.style.display = "none";
   }
@@ -804,6 +822,7 @@ document.addEventListener("mousemove", (event) => {
 
 document.addEventListener("mouseout", () => {
   isMouseMoving = false;
+  popup.style.display = "none";
 });
 
 window.addEventListener("DOMContentLoaded", (event) => {
