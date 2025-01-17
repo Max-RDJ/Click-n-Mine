@@ -1,3 +1,6 @@
+import data from './player_progress.js'
+
+
 // Mineshaft
 const stoneNode = document.getElementById("stone-node");
 const copperNode = document.getElementById("copper-node");
@@ -224,15 +227,15 @@ function completeObjective(objectiveId) {
 // PICKAXES
 let hasPickaxe = false;
 const pickaxes = [
-  { id: "pickaxe-bronze", cost: 10, miningRate: 2, type: "bronze" },
-  { id: "pickaxe-iron", cost: 150, miningRate: 4, type: "iron" },
-  { id: "pickaxe-steel", cost: 500, miningRate: 8, type: "steel" },
-  { id: "pickaxe-black", cost: 1000, miningRate: 10, type: "black" },
-  { id: "pickaxe-gold", cost: 3000, miningRate: 15, type: "gold" },
-  { id: "pickaxe-mithril", cost: 4000, miningRate: 18, type: "mithril" },
-  { id: "pickaxe-adamant", cost: 10000, miningRate: 20, type: "adamant" },
-  { id: "pickaxe-runite", cost: 50000, miningRate: 30, type: "rune" },
-  { id: "pickaxe-dragon", cost: 250000, miningRate: 50, type: "dragon" }
+  { itemName: "Bronze pickaxe", id: "pickaxe-bronze", cost: 10, miningRate: 2, type: "bronze" },
+  { itemName: "Iron pickaxe", id: "pickaxe-iron", cost: 150, miningRate: 4, type: "iron" },
+  { itemName: "Steel pickaxe", id: "pickaxe-steel", cost: 500, miningRate: 8, type: "steel" },
+  { itemName: "Black pickaxe", id: "pickaxe-black", cost: 1000, miningRate: 10, type: "black" },
+  { itemName: "Gold pickaxe", id: "pickaxe-gold", cost: 3000, miningRate: 15, type: "gold" },
+  { itemName: "Mithril pickaxe", id: "pickaxe-mithril", cost: 4000, miningRate: 18, type: "mithril" },
+  { itemName: "Adamant pickaxe", id: "pickaxe-adamant", cost: 10000, miningRate: 20, type: "adamant" },
+  { itemName: "Runite pickaxe", id: "pickaxe-runite", cost: 50000, miningRate: 30, type: "rune" },
+  { itemName: "Dragon pickaxe", id: "pickaxe-dragon", cost: 250000, miningRate: 50, type: "dragon" }
 ];
 
 window.addEventListener("DOMContentLoaded", (event) => {
@@ -772,7 +775,7 @@ let isMouseMoving = false;
 const popup = document.getElementById("stats-popup");
 
 function updatePopupPosition() {
-  popup.style.transform = `translate(${mouseX - 50}px, ${mouseY - 30}px)`;
+  popup.style.transform = `translate(${mouseX - 100}px, ${mouseY - 60}px)`;
 
   if (isMouseMoving) {
     requestAnimationFrame(updatePopupPosition);
@@ -799,20 +802,21 @@ document.addEventListener("mousemove", (event) => {
   if (hoveredElementData && hoveredElement.classList.contains("purchasable-item")) {
     popup.style.display = "block";
 
-    switch (hoveredElementData.id) {
-      case "pickaxe-bronze":
-        popup.innerHTML = `Price: ${hoveredElementData.cost}`;
-        break;
-      case "pickaxe-iron":
-        popup.innerHTML = `Price: ${hoveredElementData.cost}`;
-        break;
-      default:
-        popup.innerHTML = "???";
-        break;     
+    let popupContent = `<span class="orange-highlight item-title">${hoveredElementData.itemName}</span><br>Price: <span class="orange-highlight">${hoveredElementData.cost}</span>`;
+
+    if (hoveredElementData.miningRate !== undefined)  {
+      popupContent += `<br>Mult: <span class="orange-highlight">x${hoveredElementData.miningRate}</span>`;
     }
-  } else {
-    popup.style.display = "none";
-  }
+  
+    if (hoveredElementData.smeltingRate !== undefined)  {
+      popupContent += `<br>Mult: x${hoveredElementData.smeltingRate}`;
+    }
+
+      popup.innerHTML = popupContent;
+    } else { 
+        popup.innerHTML = "???";    
+    }
+
 
   if (!isMouseMoving) {
     isMouseMoving = true;
