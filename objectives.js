@@ -12,14 +12,8 @@ export const objective = [
       condition: (resources) => resources.stone >= 10,
   },
   {
-      id: "sellOne",
-      message: "Click on the stone icon under Resources and then click 'Sell 1'.",
-      complete: false,
-      condition: (resources, coins) => coins >= 1
-  },
-  {
-      id: "sellAll",
-      message: "Keep stone selected under Resources and then click 'Sell all'.",
+      id: "sell10",
+      message: "Use the slider under Resources to select 10 Stone and then click 'Sell'.",
       condition: (resources, coins) => coins >= 10,
       complete: false,
       unlock: () => {

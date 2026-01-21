@@ -9,6 +9,7 @@ let miningRate = 1;
 let autoMiningRate = 0;
 let smithingRate = 1;
 let smeltingRate = 1;
+let achievementProgress = 0;
 
 
 const defaultPlayerState = {
@@ -299,195 +300,99 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 // Sell resources
 let selectedOre;
-let selectedCounter;
 
-function selectOre(element)
-{
-  $(element).addClass("selectedOre");
+
+let selectedResource = null;
+
+function selectResource(resourceId) {
+  selectedResource = resourceId;
+
+  const resourceCount = getResourceCount(resourceId);
+  const slider = document.getElementById("sell-slider");
+  const label = document.getElementById("sell-label");
+
+  slider.max = resourceCount;
+  slider.value = 0;
+  label.textContent = `Sell 0 ${getResourceName(resourceId)}`;
 }
 
-$(".sellable").on("click", function()
-{
+function getResourceCount(resourceId) {
+  switch(resourceId) {
+    case "resource-stone": return resourceCounts.stone;
+    case "resource-copper": return resourceCounts.copper;
+    case "resource-tin": return resourceCounts.tin;
+    case "resource-bronze": return resourceCounts.bronze;
+    case "resource-bronze-med-helm": return resourceCounts.bronzeMediumHelmet;
+    default: return 0;
+  }
+}
+
+function getResourceName(resourceId) {
+  return resourceId.split("-").slice(1).join(" "); // e.g. "resource-stone" → "stone"
+}
+
+// Update label dynamically as slider moves
+document.getElementById("sell-slider").addEventListener("input", (e) => {
+  const value = parseInt(e.target.value);
+  const label = document.getElementById("sell-label");
+  if (selectedResource) {
+    label.textContent = `Sell ${value} ${getResourceName(selectedResource)}`;
+  }
+});
+
+// Confirm sale
+$("#sell-confirm").on("click", () => {
+  if (!selectedResource) return;
+
+  const slider = document.getElementById("sell-slider");
+  const amountToSell = parseInt(slider.value);
+  if (amountToSell <= 0) return;
+
+  switch(selectedResource) {
+    case "resource-stone":
+      countCoins += amountToSell;
+      resourceCounts.stone -= amountToSell;
+      updateDisplay(counterStoneDisplay, resourceCounts.stone);
+      break;
+    case "resource-copper":
+      countCoins += amountToSell * 2;
+      resourceCounts.copper -= amountToSell;
+      updateDisplay(counterCopperDisplay, resourceCounts.copper);
+      break;
+    case "resource-tin":
+      countCoins += amountToSell * 2;
+      resourceCounts.tin -= amountToSell;
+      updateDisplay(counterTinDisplay, resourceCounts.tin);
+      break;
+    case "resource-bronze":
+      countCoins += amountToSell * 5;
+      resourceCounts.bronze -= amountToSell;
+      updateDisplay(counterBronzeDisplay, resourceCounts.bronze);
+      break;
+    case "resource-bronze-med-helm":
+      countCoins += amountToSell * 15;
+      resourceCounts.bronzeMediumHelmet -= amountToSell;
+      updateDisplay(bronzeMedHelmCount, resourceCounts.bronzeMediumHelmet);
+      break;
+  }
+
+  updateCoinsDisplay();
+  updateInfoMessage(`You sold ${amountToSell} ${getResourceName(selectedResource)}.`);
+
+  slider.value = 0;
+  slider.max = getResourceCount(selectedResource);
+  document.getElementById("sell-label").textContent = `Sell 0 ${getResourceName(selectedResource)}`;
+
+  completeObjective("sell10", resourceCounts, countCoins, hasPickaxe);
+});
+
+$(".sellable").on("click", function() {
   $(".sellable").removeClass("selectedOre");
-  if (!$(this).hasClass("selectedOre"))
-  {
-    selectOre(this);
-    selectedOre = this.id;
-    selectedCounter = $(this).children("span")[0].innerHTML;
+  $(this).addClass("selectedOre");
 
-    $("#sell-all").value = "Sell all " + selectedOre;
-
-    console.log("Selected resource: " + selectedOre)
-    console.log("Selected counter: " + selectedCounter);
-  }
+  const resourceId = this.id;
+  selectResource(resourceId);
 });
-
-let hasSoldOnce = false;
-$("#sell-one").on("click", function() {
-  switch(selectedOre) {
-    case "resource-stone":
-      if (resourceCounts.stone > 0) {
-        countCoins++;
-        resourceCounts.stone--;
-        updateCoinsDisplay();
-        updateDisplay(counterStoneDisplay, resourceCounts.stone);
-        updateInfoMessage("You sell some Stone.");
-      }
-      break;
-    case "resource-copper":
-      if (resourceCounts.copper > 0) {
-        countCoins += 2;
-        resourceCounts.copper--;
-        updateCoinsDisplay();
-        updateDisplay(counterCopperDisplay, resourceCounts.copper);
-        updateInfoMessage("You sell some Copper.");
-      }
-      break;
-    case "resource-tin":
-      if (resourceCounts.tin > 0) {
-        countCoins += 2;
-        resourceCounts.tin--;
-        updateCoinsDisplay();
-        updateDisplay(counterTinDisplay, resourceCounts.tin);
-        updateInfoMessage("You sell some Tin.");
-      }
-      break;
-    case "resource-bronze":
-      if (resourceCounts.bronze > 0) {
-        countCoins += 5;
-        resourceCounts.bronze--;
-        updateCoinsDisplay();
-        updateDisplay(counterBronzeDisplay, resourceCounts.bronze);
-        updateInfoMessage("You sell a Bronze ingot.");
-      }
-      break;
-    case "resource-bronze-med-helm":
-      if (resourceCounts.bronzeMediumHelmet > 0) {
-        countCoins += 15;
-        resourceCounts.bronzeMediumHelmet--;
-        updateCoinsDisplay();
-        updateDisplay(bronzeMedHelmCount, resourceCounts.bronzeMediumHelmet);
-        updateInfoMessage("You sell a Bronze Medium Helmet.");
-      }
-      break;
-  }
-  hasSoldOnce = true;
-  completeObjective("sellOne", resourceCounts, countCoins, hasPickaxe);
-});
-
-
-let hasSoldAllOnce = false;
-$("#sell-all").on("click", function() {
-  switch(selectedOre) {
-    case "resource-stone":
-      if (resourceCounts.stone > 0) {
-        countCoins += resourceCounts.stone;
-        resourceCounts.stone = 0;
-        updateCoinsDisplay();
-        updateDisplay(counterStoneDisplay, resourceCounts.stone);
-        updateInfoMessage("You sell all your stone.");
-        completeObjective("sellAll", resourceCounts, countCoins, hasPickaxe);
-      }
-      break;
-    case "resource-copper":
-      if (resourceCounts.copper > 0) {
-        countCoins += resourceCounts.copper * 2;
-        resourceCounts.copper = 0;
-        updateCoinsDisplay();
-        updateDisplay(counterCopperDisplay, resourceCounts.copper);
-        updateInfoMessage("You sell all your copper.");
-      }
-      break;
-    case "resource-tin":
-      if (resourceCounts.tin > 0) {
-        countCoins += resourceCounts.tin * 2;
-        resourceCounts.tin = 0;
-        updateCoinsDisplay();
-        updateDisplay(counterTinDisplay, resourceCounts.tin);
-        updateInfoMessage("You sell all your tin.");
-      }
-      break;
-    case "resource-bronze":
-      if (resourceCounts.bronze > 0) {
-        countCoins += resourceCounts.bronze * 5;
-        resourceCounts.bronze = 0;
-        updateCoinsDisplay();
-        updateDisplay(counterBronzeDisplay, resourceCounts.bronze);
-        updateInfoMessage("You sell all your bronze ingots.");
-      }
-      break;
-    case "resource-bronze-med-helm":
-      if (resourceCounts.bronzeMediumHelmet > 0) {
-        countCoins += resourceCounts.bronzeMediumHelmet * 15;
-        resourceCounts.bronzeMediumHelmet = 0;
-        updateCoinsDisplay();
-        updateDisplay(bronzeMedHelmCount, resourceCounts.bronzeMediumHelmet);
-        updateInfoMessage("You sell all your Bronze Medium Helmets.");
-      }
-      break;
-  }
-  hasSoldAllOnce = true;
-  completeObjective("sellAll", resourceCounts, countCoins, hasPickaxe);
-});
-
-$("#sell-custom-amount-btn").on("click", function()
-  {
-    const customAmount = parseInt(document.getElementById("sell-custom-amount").value) || 0;
-
-    completeObjective("coins250");
-
-    switch(selectedOre) {
-      case "resource-stone":
-        if (resourceCounts.stone > customAmount && customAmount > 0) {
-          countCoins += customAmount;
-          resourceCounts.stone -= customAmount;
-          updateCoinsDisplay();
-          updateDisplay(counterStoneDisplay, resourceCounts.stone);
-          updateInfoMessage(`You sell ${customAmount} stone.`);
-          console.log("Custom amount:", customAmount)
-        }
-        break;
-      case "resource-copper":
-        if (resourceCounts.copper > 0) {
-          countCoins += customAmount * 2;
-          resourceCounts.copper -= customAmount;
-          updateCoinsDisplay();
-          updateDisplay(counterCopperDisplay, resourceCounts.copper);
-          updateInfoMessage(`You sell ${customAmount} copper.`);
-        }
-        break;
-      case "resource-tin":
-        if (resourceCounts.tin > 0) {
-          countCoins += customAmount * 2;
-          resourceCounts.stone -= customAmount;
-          updateCoinsDisplay();
-          updateDisplay(counterTinDisplay, resourceCounts.tin);
-          updateInfoMessage(`You sell ${customAmount} tin.`);
-          }
-          break;
-      case "resource-bronze":
-        if (resourceCounts.bronze > 0) {
-          countCoins += customAmount * 5;
-          resourceCounts.bronze -= customAmount;
-          updateCoinsDisplay();
-          updateDisplay(counterBronzeDisplay, resourceCounts.bronze);
-          updateInfoMessage("You sell some Bronze ingots.");
-        }
-        break;
-      case "resource-bronze-med-helm":
-        if (resourceCounts.bronzeMediumHelmet > 0) {
-          countCoins += resourceCounts.bronzeMediumHelmet * 15;
-          resourceCounts.bronzeMediumHelmet -= customAmount;
-          updateCoinsDisplay();
-          updateDisplay(bronzeMedHelmCount, resourceCounts.bronzeMediumHelmet);
-          updateInfoMessage("You sell some Bronze Medium Helmets.");
-        }
-        break;
-    }
-  }
-);
-
-
 
 // SMELTING
 const furnaceList = [
