@@ -14,7 +14,7 @@ export const objective = [
     {
         id: "sellOne",
         message: "Click on the stone icon under Resources and then click 'Sell 1'.",
-        condition: (resources, coins) => coins >= 1,
+        condition: (coins) => coins >= 1,
         complete: false,
         unlock: () => {
             $("#tools").css("display", "block");
@@ -23,7 +23,7 @@ export const objective = [
     {
         id: "sellAll",
         message: "Click on the stone icon under Resources and then click 'Sell all'.",
-        condition: (resources, coins) => coins >= 30,
+        condition: (coins) => coins >= 30,
         complete: false,
         unlock: () => {
             $("#tools").css("display", "block");
