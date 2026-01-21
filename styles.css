@@ -230,8 +230,6 @@ select {
   margin-top: 17.5px;
 }
 
-
-/*  Counters for resources and msg box */
 .ore-counter{
   display: block;
   margin: auto;
@@ -245,14 +243,6 @@ select {
   margin: 3em 0 1em 0;
   justify-content: center;
   gap: 8px;
-}
-
-#sell-custom-amount{
-  background-color: rgba(255, 255, 255, 0.49);
-  font-family: tahoma;
-  color: #ebe2d5;
-  width: 12em;
-  padding: 5px;
 }
 
 #info-message{

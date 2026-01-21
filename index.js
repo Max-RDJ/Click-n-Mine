@@ -13,7 +13,6 @@ const storedCoins = localStorage.getItem("countCoins");
 export let countCoins = storedCoins
   ? JSON.parse(storedCoins).countCoins ?? 0
   : 0;
-let hasPickaxe = false;
 let miningRate = 1;
 let autoMiningRate = 0;
 let smithingRate = 1;
@@ -28,7 +27,6 @@ const defaultPlayerState = {
     bronze: 0,
     bronzeMediumHelmet: 0
   },
-  hasPickaxe: false,
   miningRate: 1,
   purchasedPickaxes: {},
   autoMiningRate: 0,
@@ -83,12 +81,9 @@ function loadPlayerState() {
   }
 }
 
-
-
 function savePlayerProgress() {
   playerState.coins = countCoins;
   playerState.resources = resourceCounts;
-  playerState.hasPickaxe = hasPickaxe;
   playerState.miningRate = miningRate;
   playerState.autoMiningRate = autoMiningRate;
   playerState.smeltingRate = smeltingRate;
@@ -121,9 +116,6 @@ function updateResource(resource, amount) {
   }
 }
 
-
-
-
 function updateDisplay() {
   document.querySelector('#stone-count').innerHTML = resourceCounts.stone || 0;
   document.querySelector('#copper-count').innerHTML = resourceCounts.copper || 0;
@@ -140,6 +132,48 @@ function updateInfoMessage(message) {
   savePlayerProgress();
 }
 
+const nodeCooldowns = {
+  copper: false,
+  tin: false,
+  iron: false
+};
+
+const NODE_CONFIG = {
+  copper: {
+    selector: ".node__copper img",
+    fullImg: "images/440px-Copper_rocks.png",
+    cooldown: 2000
+  },
+  tin: {
+    selector: ".node__tin img",
+    fullImg: "images/440px-Tin_rocks.png",
+    cooldown: 2000
+  },
+  iron: {
+    selector: ".node__iron img",
+    fullImg: "images/440px-Iron_rocks.png",
+    cooldown: 3000
+  }
+};
+
+const EMPTY_NODE_IMG = "images/440px-Rocks_(empty,_2).png";
+
+function nodeCooldown(type) {
+  if (nodeCooldowns[type]) return;
+
+  const config = NODE_CONFIG[type];
+  if (!config) return;
+
+  nodeCooldowns[type] = true;
+
+  const img = document.querySelector(config.selector);
+  img.src = EMPTY_NODE_IMG;
+
+  setTimeout(() => {
+    img.src = config.fullImg;
+    nodeCooldowns[type] = false;
+  }, config.cooldown);
+}
 
 // Mining ores
 const counterStoneDisplay = document.querySelector('#stone-count');
@@ -148,31 +182,26 @@ const counterTinDisplay = document.querySelector('#tin-count');
 
 $(".node__stone").on("click", () => {
   updateResource("stone", 1 * miningRate);
-  completeObjective("stone5", resourceCounts, countCoins, hasPickaxe);
-  completeObjective("stone10", resourceCounts, countCoins, hasPickaxe);
+  completeObjective("stone5", resourceCounts, countCoins);
+  completeObjective("stone10", resourceCounts, countCoins);
   updateInfoMessage("You mine some stone.");
 });
 
 $(".node__copper").on("click", () => {
-  if (hasPickaxe) {
-    updateResource("copper", 0.5 * miningRate);
-    updateInfoMessage("You mine some copper.");
-    completeObjective("copperAndTin", resourceCounts, countCoins, hasPickaxe);
-  } else {
-    updateInfoMessage("You need a pickaxe.");
-  }
+  if (nodeCooldowns.copper) return;
+
+  updateResource("copper", 0.5 * miningRate);
+  updateInfoMessage("You mine some copper.");
+  nodeCooldown("copper");
 });
 
 $(".node__tin").on("click", () => {
-  if (hasPickaxe) {
-    updateResource("tin", 0.5 * miningRate);
-    updateInfoMessage("You mine some tin.");
-    completeObjective("copperAndTin", resourceCounts, countCoins, hasPickaxe);
-  } else {
-    updateInfoMessage("You need a pickaxe.");
-  }
-});
+  if (nodeCooldowns.tin) return;
 
+  updateResource("tin", 0.5 * miningRate);
+  updateInfoMessage("You mine some tin.");
+  nodeCooldown("tin");
+});
 
 // PICKAXES
 const pickaxes = [
@@ -187,6 +216,33 @@ const pickaxes = [
   { itemName: "Dragon pickaxe", id: "pickaxe-dragon", cost: 250000, miningRate: 50, type: "dragon" }
 ];
 
+const pickaxeLevel = {
+  "pickaxe-bronze": 1,
+  "pickaxe-iron": 2,
+  "pickaxe-steel": 3,
+  "pickaxe-black": 4,
+  "pickaxe-gold": 5,
+  "pickaxe-mithril": 6,
+  "pickaxe-adamant": 7,
+  "pickaxe-runite": 8,
+  "pickaxe-dragon": 9
+};
+
+function getHighestPickaxeLevel () {
+  return Object.keys(playerState.purchasedPickaxes)
+    .map(id => pickaxeLevel[id] || 0)
+    .reduce((max, val) => Math.max(max, val), 0);
+}
+
+const nodeRequirements = {
+  tierOne: 0,
+  tierTwo: 1,
+  tierThree: 2,
+  tierFour: 6
+};
+
+
+
 window.addEventListener("DOMContentLoaded", (event) => {
   pickaxes.forEach(({ id, cost, miningRate, type }) => {
     document.getElementById(id).addEventListener("click", () => buyPickaxe(id, cost, miningRate, type));
@@ -198,19 +254,26 @@ function buyPickaxe(id, cost, newMiningRate, type) {
 
   if (element.style.opacity !== "1" && countCoins >= cost) {
     element.style.opacity = "1";
+
+    playerState.purchasedPickaxes[id] = true;
+
     if (miningRate < newMiningRate) miningRate = newMiningRate;
+
     countCoins -= cost;
     updateCoinsDisplay();
     updateInfoMessage(`You buy a ${type} pickaxe.`);
-    hasPickaxe = true;
-    completeObjective("buyPickaxe", resourceCounts, countCoins, hasPickaxe);
+
+    savePlayerProgress();
+
+    const currentlyHasPickaxe = Object.keys(playerState.purchasedPickaxes).length > 0;
+
+    completeObjective("buyPickaxe", resourceCounts, countCoins, currentlyHasPickaxe);
   } else if (element.style.opacity === "1") {
     updateInfoMessage("You've already bought that.");
   } else {
     updateInfoMessage("You don't have enough coins.");
   }
 }
-
 
 // Purchasing auto-miners
 const autoMinerList = [
@@ -391,7 +454,7 @@ $("#sell-confirm").on("click", () => {
   slider.max = getResourceCount(selectedResource);
   document.getElementById("sell-label").textContent = `Sell 0 ${getResourceName(selectedResource)}`;
 
-  completeObjective("sell10", resourceCounts, countCoins, hasPickaxe);
+  completeObjective("sell10", resourceCounts, countCoins);
 });
 
 $(".sellable").on("click", function() {
@@ -474,7 +537,7 @@ function startSmelting() {
         }
         selectedIngotObj.count++;
         resourceCounts[selectedIngotObj.type]++;
-        completeObjective("smeltIngot", resourceCounts, countCoins, hasPickaxe);
+        completeObjective("smeltIngot", resourceCounts, countCoins);
         updateDisplay(selectedIngotObj.counter, selectedIngotObj.count);
       }
     }, intervalDuration);
@@ -571,7 +634,7 @@ function startSmithing() {
         selectedProductObj.count++;
         resourceCounts[selectedProductObj.type]++;
         updateDisplay(selectedProductObj.counter, selectedProductObj.count);
-        completeObjective("smithHelmet", resourceCounts, countCoins, hasPickaxe);
+        completeObjective("smithHelmet", resourceCounts, countCoins);
       }
     }, intervalDuration);
   }

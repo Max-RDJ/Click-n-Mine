@@ -30,10 +30,11 @@ export const objective = [
     complete: false,
     condition: (resources, coins, hasPickaxe) => hasPickaxe === true,
     unlock: () => {
-        $(".node__tier-two").css("display", "block");
-      }
+      $(".node__tier-two").css("display", "block");
+    }
   },
   {
+    objectiveNo: 5,
     id: "copperAndTin",
     message: "Mine 1 Copper and 1 Tin",
     complete: false,
@@ -43,6 +44,7 @@ export const objective = [
       }
   },
   {
+    objectiveNo: 6,
     id: "buyFurnace",
     message: "Click on the first furnace to buy it once you have enough coins",
     complete: false,
@@ -52,18 +54,21 @@ export const objective = [
       }
   },
   {
+    objectiveNo: 7,
     id: "smeltIngot",
     message: "Smelt your first bronze ingot",
     complete: false,
     condition: (resources) => resources.bronze >= 1
   },
   {
+    objectiveNo: 8,
     id: "smithHelmet",
     message: "Craft your first Bronze Medium Helmet",
     complete: false,
     condition: (resources) => resources.bronzeMediumHelmet >= 1
   },
   {
+    objectiveNo: 9,
     id: "coins250",
     message: "Accumulate 250 coins",
     complete: false,
