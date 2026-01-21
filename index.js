@@ -1,6 +1,3 @@
-import data from './player_progress.js'
-
-
 // Mineshaft
 const stoneNode = document.getElementById("stone-node");
 const copperNode = document.getElementById("copper-node");
@@ -11,8 +8,8 @@ const oreNodeList = [stoneNode, copperNode, tinNode];
 
 // RETRIEVE PLAYER PROGRESS
 let countCoins = localStorage.getItem("countCoins") ? JSON.parse(localStorage.getItem("countCoins")).countCoins : 150;
-
 let counterCoinsDisplay = document.querySelector('#coins-count');
+
 function updateCoinsDisplay() {
   counterCoinsDisplay.innerHTML = countCoins;
   

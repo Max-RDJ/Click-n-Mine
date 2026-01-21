@@ -22,15 +22,15 @@
        </div>
 
       <div class="resources sellable" id="resource-stone">
-        <img height = 30px width = 30px src="https://oldschool.runescape.wiki/images/thumb/Rune_essence_detail.png/800px-Rune_essence_detail.png?10d0e">&nbsp&nbsp&nbsp<span type="text" id="stone-count">0</span>  
+        <img height = 30px width = 30px src="images/240px-Rune_essence_detail.png">&nbsp&nbsp&nbsp<span type="text" id="stone-count">0</span>  
       </div>
 
       <div class="resources sellable" id="resource-copper">
-        <img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Copper_ore_detail.png/1200px-Copper_ore_detail.png?f45ee">&nbsp&nbsp&nbsp<span type="text" id="copper-count" value="0">0</span>
+        <img height=30px width=30px src="images/260px-Copper_ore_detail.png">&nbsp&nbsp&nbsp<span type="text" id="copper-count" value="0">0</span>
       </div>
 
       <div class="resources sellable" id="resource-tin">
-        <img height=30px width=30px src="https://oldschool.runescape.wiki/images/thumb/Tin_ore_detail.png/1200px-Tin_ore_detail.png?6a110">&nbsp&nbsp&nbsp<span type="text" id="tin-count" value="0">0</span>
+        <img height=30px width=30px src="images/260px-Tin_ore_detail.png">&nbsp&nbsp&nbsp<span type="text" id="tin-count" value="0">0</span>
       </div>
 
       <div class="resources sellable" id="resource-bronze">
@@ -69,9 +69,12 @@
      <div id="ores">
       <h1 class="unselectable">Mineshaft</h1>
 
-      <div class="ore-node unselectable" id="stone-node" type="button"></div>
 
-      <div class="ore-node unselectable" id="copper-node" type="button">
+      <div class="ore-node unselectable" class="node__tier-one" type="button">
+        <img class="node-image" src="images/480px-Ring_of_stone_equipped.png">&nbsp&nbsp&nbsp
+      </div>
+
+      <div class="ore-node unselectable" class="node__tier-two" type="button">
         <div id="ore-vein-copper1"></div>
         <div id="ore-vein-copper2"></div>
         <div id="ore-vein-copper3"></div>
@@ -185,3 +188,4 @@
 <footer>
 </footer>
 </html>
+

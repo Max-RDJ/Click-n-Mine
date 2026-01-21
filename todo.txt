@@ -1,10 +1,11 @@
 BUGS:
 
 FEATURES:
+- Miners need pickaxes
+    - Creates need to buy more pickaxes and possibly buy auto-buyers
 - Furnaces and other 'machinery' can be individually set to process specific raw material, e.g. one auto-miner on stone, another one copper
-- Make ores appear and disappear randomly
-    - Use JS classes to create ore node sprites -- push and shift to an array
-- Display number next to resource count temporarily when it increases (e.g. "+5")
+- Make ores deplete and replenish over time
+- Display number next to resource count temporarily when it increases (e.g. "+5"), disappears with upward movement and fade
 - Update coinBounce function to trigger when money increases or decreases
     - Coin icon and number do not scale up or flash green if nothing to sell
 - Hover over purchasable items to examine stats
@@ -16,8 +17,10 @@ FEATURES:
 - Have select dropdown for each furnace and blacksmith. Use icons and clicking icon opens up menu of icons of products to select from.
 - Selected resource should be highlighted
 - Add merchants to auto-sell products
-- Materials required in addition to money for furnaces etc.
+- Materials required in addition to money to build furnaces etc.
 
-NICE TO HAVE:
+RANDOM IDEAS:
 - Make shop sections draggable and re-arrangable
 - Office assistant 'Picky'/'Axy' to give objectives
+- Achievements expandable sidebar
+- Miners work faster when you buy kitchen for food
