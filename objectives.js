@@ -1,66 +1,69 @@
 export const objective = [
-    {
-        id: "stone5",
-        message: "Mine 5 stone",
-        complete: false,
-        condition: (resources) => resources.stone >= 5
-    },
-    {
-        id: "stone10",
-        message: "Mine 10 stone",
-        complete: false,
-        condition: (resources) => resources.stone >= 10,
-    },
-    {
-        id: "sellOne",
-        message: "Click on the stone icon under Resources and then click 'Sell 1'.",
-        complete: false,
-        condition: (resources, coins) => coins >= 1
-    },
-    {
-        id: "sellAll",
-        message: "Keep stone selected under Resources and then click 'Sell all'.",
-        condition: (resources, coins) => coins >= 10,
-        complete: false,
-        unlock: () => {
-            $("#tools").css("display", "block");
-        }
-    },
-    {
-      id: "buyPickaxe",
-      message: "Buy your first pickaxe",
+  {
+      id: "stone5",
+      message: "Mine 5 stone",
       complete: false,
-      condition: (resources, coins, hasPickaxe) => hasPickaxe === true,
+      condition: (resources) => resources.stone >= 5
+  },
+  {
+      id: "stone10",
+      message: "Mine 10 stone",
+      complete: false,
+      condition: (resources) => resources.stone >= 10,
+  },
+  {
+      id: "sellOne",
+      message: "Click on the stone icon under Resources and then click 'Sell 1'.",
+      complete: false,
+      condition: (resources, coins) => coins >= 1
+  },
+  {
+      id: "sellAll",
+      message: "Keep stone selected under Resources and then click 'Sell all'.",
+      condition: (resources, coins) => coins >= 10,
+      complete: false,
       unlock: () => {
-          $(".node__tier-two").css("display", "block");
-        }
-    },
-    {
-      id: "copperAndTin",
-      message: "Mine 1 Copper and 1 Tin",
-      complete: false,
-      condition: (resources) => resources.copper >= 1 && resources.tin >= 1
-    },
-    
-    {
-      id: "smeltIngot",
-      message: "Smelt your first bronze ingot",
-      complete: false,
-      condition: (resources) => resources.bronze >= 1
-    },
-    {
-      id: "smithHelmet",
-      message: "Craft your first Bronze Medium Helmet",
-      complete: false,
-      condition: (resources) => resources.bronzeMediumHelmet >= 1
-    },
-    {
-      id: "coins250",
-      message: "Accumulate 250 coins",
-      complete: false,
-      condition: (resources, coins) => coins >= 250
-    }
-  ];
+          $("#tools").css("display", "block");
+      }
+  },
+  {
+    id: "buyPickaxe",
+    message: "Buy your first pickaxe",
+    complete: false,
+    condition: (resources, coins, hasPickaxe) => hasPickaxe === true,
+    unlock: () => {
+        $(".node__tier-two").css("display", "block");
+      }
+  },
+  {
+    id: "copperAndTin",
+    message: "Mine 1 Copper and 1 Tin",
+    complete: false,
+    condition: (resources) => resources.copper >= 1 && resources.tin >= 1,
+    unlock: () => {
+          $("#furnaces").css("display", "block");
+      }
+  },
+  
+  {
+    id: "smeltIngot",
+    message: "Smelt your first bronze ingot",
+    complete: false,
+    condition: (resources) => resources.bronze >= 1
+  },
+  {
+    id: "smithHelmet",
+    message: "Craft your first Bronze Medium Helmet",
+    complete: false,
+    condition: (resources) => resources.bronzeMediumHelmet >= 1
+  },
+  {
+    id: "coins250",
+    message: "Accumulate 250 coins",
+    complete: false,
+    condition: (resources, coins) => coins >= 250
+  }
+];
   
 /**
  * Utility function to check and mark objectives as complete

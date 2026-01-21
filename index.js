@@ -1,32 +1,105 @@
-import { objective, completeObjective, getActiveObjectiveMessage } from "./objectives.js";
+import { completeObjective, getActiveObjectiveMessage } from "./objectives.js";
 
-// RETRIEVE PLAYER PROGRESS
-export let countCoins = JSON.parse(localStorage.getItem("countCoins")).countCoins;
-let counterCoinsDisplay = document.querySelector('#coins-count');
+const storedCoins = localStorage.getItem("countCoins");
+export let countCoins = storedCoins
+  ? JSON.parse(storedCoins).countCoins ?? 0
+  : 0;
+let hasPickaxe = false;
+let miningRate = 1;
+let autoMiningRate = 0;
+let smithingRate = 1;
+let smeltingRate = 1;
+
+
+const defaultPlayerState = {
+  coins: 0,
+  resources: {
+    stone: 0,
+    copper: 0,
+    tin: 0,
+    bronze: 0,
+    bronzeMediumHelmet: 0
+  },
+  hasPickaxe: false,
+  miningRate: 1,
+  purchasedPickaxes: {},
+  autoMiningRate: 0,
+  smeltingRate: 0,
+  smithingRate: 0
+};
+
+const defaultResourceCounts = {
+  stone: 0,
+  copper: 0,
+  tin: 0,
+  bronze: 0,
+  bronzeMediumHelmet: 0
+};
+
+let resourceCounts = (() => {
+  const storedData = localStorage.getItem("resourceCounts");
+
+  if (!storedData || storedData === "undefined") {
+    return structuredClone(defaultResourceCounts);
+  }
+
+  try {
+    const parsedData = JSON.parse(storedData);
+    return { ...defaultResourceCounts, ...parsedData };
+  } catch (e) {
+    console.error("Error parsing resourceCounts:", e);
+    return structuredClone(defaultResourceCounts);
+  }
+})();
+
+
+let playerState = loadPlayerState();
+
+
+function loadPlayerState() {
+  const saved = localStorage.getItem("playerState");
+  if (!saved) return structuredClone(defaultPlayerState);
+
+  try {
+    return {
+      ...defaultPlayerState,
+      ...JSON.parse(saved),
+      resources: {
+        ...defaultPlayerState.resources,
+        ...JSON.parse(saved).resources
+      }
+    };
+  } catch {
+    return structuredClone(defaultPlayerState);
+  }
+}
+
+
+
+function savePlayerProgress() {
+  playerState.coins = countCoins;
+  playerState.resources = resourceCounts;
+  playerState.hasPickaxe = hasPickaxe;
+  playerState.miningRate = miningRate;
+  playerState.autoMiningRate = autoMiningRate;
+  playerState.smeltingRate = smeltingRate;
+  playerState.smithingRate = smithingRate;
+
+  localStorage.setItem("playerState", JSON.stringify(playerState));
+}
+
+Object.keys(playerState.purchasedPickaxes).forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.style.opacity = "1";
+});
 
 function updateCoinsDisplay() {
-  counterCoinsDisplay.innerHTML = countCoins;
+  $("counter-coins-display").innerHTML = countCoins;
   
   savePlayerProgress();
 }
 updateCoinsDisplay();
 $("#objective-message").text(getActiveObjectiveMessage);
-
-const defaultResourceCounts = { stone: 0, copper: 0, tin: 0, bronze: 0, bronzeMediumHelmet: 0 };
-
-// Retrieve and validate resourceCounts from local storage
-let resourceCounts = (() => {
-  const storedData = localStorage.getItem("resourceCounts");
-  if (storedData) {
-    try {
-      const parsedData = JSON.parse(storedData);
-      return { ...defaultResourceCounts, ...parsedData };
-    } catch (e) {
-      console.error("Error parsing resourceCounts from localStorage:", e);
-    }
-  }
-  return { ...defaultResourceCounts };
-})();
 
 function updateResource(resource, amount) {
   if (resourceCounts.hasOwnProperty(resource)) {
@@ -40,7 +113,6 @@ function updateResource(resource, amount) {
 }
 
 
-let miningRate = 1;
 
 
 function updateDisplay() {
@@ -94,7 +166,6 @@ $(".node__tin").on("click", () => {
 
 
 // PICKAXES
-let hasPickaxe = false;
 const pickaxes = [
   { itemName: "Bronze pickaxe", id: "pickaxe-bronze", cost: 10, miningRate: 2, type: "bronze" },
   { itemName: "Iron pickaxe", id: "pickaxe-iron", cost: 150, miningRate: 4, type: "iron" },
@@ -145,7 +216,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
   });
 })
 
-let currentAutoMiningRate = 0;
 let miningIntervalId = null;
 
 function buyMiner(id, cost, autoMiningRate) {
@@ -154,7 +224,7 @@ function buyMiner(id, cost, autoMiningRate) {
   if (element.style.opacity !== "1" && countCoins >= cost) {
     element.style.opacity = "1";
     countCoins -= cost;
-    currentAutoMiningRate += autoMiningRate;
+    autoMiningRate += autoMiningRate;
 
     updateCoinsDisplay();
     updateInfoMessage("You buy a miner.");
@@ -254,8 +324,6 @@ $(".sellable").on("click", function()
 
 let hasSoldOnce = false;
 $("#sell-one").on("click", function() {
-  
-
   switch(selectedOre) {
     case "resource-stone":
       if (resourceCounts.stone > 0) {
@@ -310,8 +378,6 @@ $("#sell-one").on("click", function() {
 
 let hasSoldAllOnce = false;
 $("#sell-all").on("click", function() {
-  hasSoldAllOnce = true;
-  completeObjective("sellAll", resourceCounts, countCoins, hasPickaxe);
   switch(selectedOre) {
     case "resource-stone":
       if (resourceCounts.stone > 0) {
@@ -360,6 +426,8 @@ $("#sell-all").on("click", function() {
       }
       break;
   }
+  hasSoldAllOnce = true;
+  completeObjective("sellAll", resourceCounts, countCoins, hasPickaxe);
 });
 
 $("#sell-custom-amount-btn").on("click", function()
@@ -595,20 +663,7 @@ function startSmithing() {
     }, intervalDuration);
   }
 }
-// END OF SMITHING
 
-
-
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-function camelCase(str) {
-  return str.charAt(0).toLowerCase() + str.slice
-}
-
-
-// STATS POPUP
 let mouseX = 0;
 let mouseY = 0;
 let isMouseMoving = false;
@@ -646,7 +701,6 @@ document.addEventListener("mousemove", (event) => {
   mouseY = event.clientY;
 
   const hoveredElement = document.elementFromPoint(mouseX, mouseY);
-  // const purchasableItem = hoveredElement?.closest(".purchasable-item");
 
   if (!hoveredElement) {
     popup.style.display = "none";
@@ -695,14 +749,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
   });
 });
 
-// Persist resource counts and purchases
-function savePlayerProgress(resourceCounts) {
-  localStorage.setItem("countCoins", JSON.stringify({countCoins}));
-  localStorage.setItem("resourceCounts", JSON.stringify({resourceCounts}));
-
-  // localStorage.setItem("playerItems", JSON.stringify({playerItems}));
-}
-
 // Dev tools
 $("#reset-money").on("click", function() {
   countCoins = 0;
@@ -712,5 +758,10 @@ $("#reset-money").on("click", function() {
 $("#mo-money").on("click", function() {
   countCoins += 1000;
   updateCoinsDisplay();
+});
+
+$("#reset-all").on("click", function() {
+  localStorage.clear();
+  window.location.reload();
 });
 

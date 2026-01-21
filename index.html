@@ -43,14 +43,10 @@
       </div>
     </fieldset>
       
-    <div class="sell-btns">
-     <button class="sell-btn sell-one" id="sell-one">Sell 1</button>
-      <button class="sell-btn sell-all" id="sell-all">Sell all</button>
-    </div>
-
-    <div class="sell-btns">
-      <input id="sell-custom-amount" type="number" placeholder="Enter custom amount">
-      <button class="sell-btn" id="sell-custom-amount-btn">Sell</button>
+    <div class="sell-section">
+     <label for="sell-slider" id="sell-label">Sell 0 Stone</label>
+      <input type="range" id="sell-slider" min="0" max="0" value="0">
+      <button id="sell-confirm">Sell</button>
     </div>
      
     </div>
@@ -59,8 +55,9 @@
       </div>
       <div id="dev-tools">
         <h3>Dev tools</h3>
-        <button id="reset-money">0</button>
-        <button id="mo-money">+1000</button>
+        <button class="dev-button" id="reset-money">$0</button>
+        <button class="dev-button" id="mo-money">+$1000</button>
+        <button class="dev-button" id="reset-all">RESET ALL</button>
       </div>
   </div>
       
@@ -121,7 +118,6 @@
     </div>
   </fieldset>
     
-  <!-- Process materials with furnaces -->
   <fieldset id="furnaces"> 
     <legend>Furnaces</legend>
     <select id="ingot-selection">
