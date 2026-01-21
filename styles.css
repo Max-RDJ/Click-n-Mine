@@ -66,8 +66,9 @@ h2 {
 
 #stats-popup {
   display: none;
-  position: absolute;
+  position: fixed;
   pointer-events: none;
+  will-change: transform;
   background-color: rgba(0, 0, 0, 0.555);
   border: solid orange 1px;
   padding: 10px;

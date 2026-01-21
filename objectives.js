@@ -14,33 +14,34 @@ export const objective = [
     {
         id: "sellOne",
         message: "Click on the stone icon under Resources and then click 'Sell 1'.",
-        condition: (coins) => coins >= 1,
         complete: false,
-        unlock: () => {
-            $("#tools").css("display", "block");
-        }
+        condition: (resources, coins) => coins >= 1
     },
     {
         id: "sellAll",
-        message: "Click on the stone icon under Resources and then click 'Sell all'.",
-        condition: (coins) => coins >= 30,
+        message: "Keep stone selected under Resources and then click 'Sell all'.",
+        condition: (resources, coins) => coins >= 10,
         complete: false,
         unlock: () => {
             $("#tools").css("display", "block");
         }
-    },
-    {
-      id: "copperAndTin",
-      message: "Mine at least 1 copper and 1 tin",
-      complete: false,
-      condition: (resources) => resources.copper >= 1 && resources.tin >= 1
     },
     {
       id: "buyPickaxe",
       message: "Buy your first pickaxe",
       complete: false,
-      condition: (resources, coins, hasPickaxe) => hasPickaxe === true
+      condition: (resources, coins, hasPickaxe) => hasPickaxe === true,
+      unlock: () => {
+          $(".node__tier-two").css("display", "block");
+        }
     },
+    {
+      id: "copperAndTin",
+      message: "Mine 1 Copper and 1 Tin",
+      complete: false,
+      condition: (resources) => resources.copper >= 1 && resources.tin >= 1
+    },
+    
     {
       id: "smeltIngot",
       message: "Smelt your first bronze ingot",
@@ -58,15 +59,6 @@ export const objective = [
       message: "Accumulate 250 coins",
       complete: false,
       condition: (resources, coins) => coins >= 250
-    },
-    {
-      id: "sellAll",
-      message: "Sell all your resources",
-      complete: false,
-      condition: (resources) => {
-        // Consider complete if all basic resources are zero
-        return resources.stone === 0 && resources.copper === 0 && resources.tin === 0;
-      }
     }
   ];
   

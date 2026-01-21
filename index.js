@@ -1,7 +1,7 @@
 import { objective, completeObjective, getActiveObjectiveMessage } from "./objectives.js";
 
 // RETRIEVE PLAYER PROGRESS
-export let countCoins = localStorage.getItem("countCoins") ? JSON.parse(localStorage.getItem("countCoins")).countCoins : 150;
+export let countCoins = JSON.parse(localStorage.getItem("countCoins")).countCoins;
 let counterCoinsDisplay = document.querySelector('#coins-count');
 
 function updateCoinsDisplay() {
@@ -252,8 +252,9 @@ $(".sellable").on("click", function()
   }
 });
 
+let hasSoldOnce = false;
 $("#sell-one").on("click", function() {
-  completeObjective("coins250", resourceCounts, countCoins, hasPickaxe);
+  
 
   switch(selectedOre) {
     case "resource-stone":
@@ -302,12 +303,15 @@ $("#sell-one").on("click", function() {
       }
       break;
   }
+  hasSoldOnce = true;
+  completeObjective("sellOne", resourceCounts, countCoins, hasPickaxe);
 });
 
 
+let hasSoldAllOnce = false;
 $("#sell-all").on("click", function() {
-  completeObjective("coins250", resourceCounts, countCoins, hasPickaxe);
-
+  hasSoldAllOnce = true;
+  completeObjective("sellAll", resourceCounts, countCoins, hasPickaxe);
   switch(selectedOre) {
     case "resource-stone":
       if (resourceCounts.stone > 0) {
@@ -612,12 +616,30 @@ let isMouseMoving = false;
 const popup = document.getElementById("stats-popup");
 
 function updatePopupPosition() {
-  popup.style.transform = `translate(${mouseX - 100}px, ${mouseY - 60}px)`;
+  const popupRect = popup.getBoundingClientRect();
+  const popupWidth = popupRect.width;
+
+  const offsetX = 10;
+  const offsetY = -80;
+
+  let x = mouseX + offsetX;
+  let y = mouseY + offsetY;
+
+  if (x + popupWidth > window.innerWidth) {
+    x = mouseX - popupWidth - offsetX;
+  }
+
+  if (y < 0) {
+    y = mouseY + 20;
+  }
+
+  popup.style.transform = `translate(${x}px, ${y}px)`;
 
   if (isMouseMoving) {
     requestAnimationFrame(updatePopupPosition);
   }
 }
+
 
 document.addEventListener("mousemove", (event) => {
   mouseX = event.clientX;
