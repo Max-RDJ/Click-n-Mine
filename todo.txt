@@ -2,6 +2,7 @@ BUGS:
 
 FEATURES:
 - Re-arrange columns into tabs in mobile
+- Sell amount slider
 - Miners need pickaxes
     - Creates need to buy more pickaxes and possibly buy auto-buyers
 - Furnaces and other 'machinery' can be individually set to process specific raw material, e.g. one auto-miner on stone, another one copper

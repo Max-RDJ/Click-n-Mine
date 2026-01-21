@@ -1,13 +1,7 @@
-// Mineshaft
-const stoneNode = document.getElementById("stone-node");
-const copperNode = document.getElementById("copper-node");
-const tinNode = document.getElementById("tin-node");
-const motherlodeNode = document.getElementById("motherlode-node");
-const oreNodeList = [stoneNode, copperNode, tinNode]; 
-
+import { objective, completeObjective, getActiveObjectiveMessage } from "./objectives.js";
 
 // RETRIEVE PLAYER PROGRESS
-let countCoins = localStorage.getItem("countCoins") ? JSON.parse(localStorage.getItem("countCoins")).countCoins : 150;
+export let countCoins = localStorage.getItem("countCoins") ? JSON.parse(localStorage.getItem("countCoins")).countCoins : 150;
 let counterCoinsDisplay = document.querySelector('#coins-count');
 
 function updateCoinsDisplay() {
@@ -16,7 +10,7 @@ function updateCoinsDisplay() {
   savePlayerProgress();
 }
 updateCoinsDisplay();
-
+$("#objective-message").text(getActiveObjectiveMessage);
 
 const defaultResourceCounts = { stone: 0, copper: 0, tin: 0, bronze: 0, bronzeMediumHelmet: 0 };
 
@@ -71,154 +65,32 @@ const counterStoneDisplay = document.querySelector('#stone-count');
 const counterCopperDisplay = document.querySelector('#copper-count');
 const counterTinDisplay = document.querySelector('#tin-count');
 
-stoneNode.addEventListener("click", () => {
-  // resourceCounts.stone += 1 * miningRate;
-  updateDisplay(counterStoneDisplay, resourceCounts.stone);
+$(".node__stone").on("click", () => {
   updateResource("stone", 1 * miningRate);
-  completeObjective("stone5");
-  completeObjective("stone10");
+  completeObjective("stone5", resourceCounts, countCoins, hasPickaxe);
+  completeObjective("stone10", resourceCounts, countCoins, hasPickaxe);
   updateInfoMessage("You mine some stone.");
 });
-// Would this be better to create a separate event listener and then removeEventListener for the objectives?
 
-copperNode.addEventListener("click", () => {
-  if (hasPickaxe == true) {
-    resourceCounts.copper += 0.5 * miningRate;
-    updateDisplay(counterCopperDisplay, resourceCounts.copper);
+$(".node__copper").on("click", () => {
+  if (hasPickaxe) {
+    updateResource("copper", 0.5 * miningRate);
     updateInfoMessage("You mine some copper.");
-    completeObjective("copperAndTin");
+    completeObjective("copperAndTin", resourceCounts, countCoins, hasPickaxe);
   } else {
     updateInfoMessage("You need a pickaxe.");
   }
 });
 
-tinNode.addEventListener("click", () => {
-  if (hasPickaxe == true) {
-    resourceCounts.tin += 0.5 * miningRate;
-    updateDisplay(counterTinDisplay, resourceCounts.tin);
+$(".node__tin").on("click", () => {
+  if (hasPickaxe) {
+    updateResource("tin", 0.5 * miningRate);
     updateInfoMessage("You mine some tin.");
-    completeObjective("copperAndTin");
+    completeObjective("copperAndTin", resourceCounts, countCoins, hasPickaxe);
   } else {
     updateInfoMessage("You need a pickaxe.");
   }
 });
-
-
-let objective = [
-  {
-    id: "dummy",
-    message: "You shouldn't be seeing this.",
-    condition: "None.",
-    complete: true,
-    unlock: "none"
-  },
-  {
-    id: "stone5",
-    message: "Mine 5 stone by clicking on the node in the Mineshaft.",
-    condition: () => resourceCounts.stone >= 5,
-    complete: false,
-  },
-  {
-    id: "stone10",
-    message: "Mine 10 stone.",
-    condition: () => resourceCounts.stone >= 10,
-    complete: false
-  },
-  {
-    id: "sellAll",
-    message: "Click on the stone icon under Resources and then click 'Sell all'.",
-    condition: () => countCoins >= 30,
-    complete: false,
-    unlock: () => {
-      $("#tools").css("display", "block");
-    }
-  },
-  {
-    id: "buyPickaxe",
-    message: "Now, buy yourself a pickaxe from the Shop by clicking on it.",
-    condition: () => hasPickaxe == true,
-    complete: false,
-    unlock: () => {
-      $("#copper-node").css("display", "block");
-      $("#tin-node").css("display", "block");
-    }
-  },
-  {
-    id: "copperAndTin",
-    message: "Mine some copper and tin.",
-    condition: () => resourceCounts.copper > 0 && resourceCounts.tin > 0,
-    complete: false,
-    unlock: () => {
-      $("#furnaces").css("display", "block");
-      $("#resource-bronze").css("display", "block");
-    }
-  },
-  {
-    id: "smeltIngot",
-    message: "Once you have enough money, purchase your first Furnace and select Bronze in the drop-down menu.",
-    condition: () => resourceCounts.bronze > 0,
-    complete: false,
-    unlock: () => {
-      $("#blacksmiths").css("display", "block");
-      $("#resource-bronze-med-helm").css("display", "block");
-      $("#resources-products").css("display", "block");
-    }
-  },
-  {
-    id: "buySmith",
-    message: "Let's turn your bronze into something useful. Grab yourself an anvil from the shop.",
-    condition: () => document.getElementById("human-smith-1").style.opacity = 1,
-    complete: false,
-    unlock: () => {
-      
-    }
-  },
-  {
-    id: "smithHelmet",
-    message: "Now select 'Bronze medium helmet' from the drop-down menu.",
-    condition: () => resourceCounts.bronzeMediumHelmet > 0,
-    complete: false,
-    unlock: () => {
-      // Unlock more products to smith
-    }
-  },
-  {
-    id: "coins250",
-    message: "See if you can get to 250 coins.",
-    condition: () => countCoins >= 250,
-    complete: false,
-    unlock: () => {
-      $("#auto-miner-shop").css("display", "block")
-    }
-  }
-]
-
-let objectiveMessage = document.getElementById("objective-message");
-
-
-function updateObjectiveMessage() {
-  const activeObjective = objective.find(obj => !obj.complete);
-  if (activeObjective) {
-    objectiveMessage.innerHTML = activeObjective.message;
-  } else {
-    objectiveMessage.innerHTML = "All objectives completed!";
-  }
-}
-
-updateObjectiveMessage();
-
-function completeObjective(objectiveId) {
-  const obj = objective.find(obj => obj.id === objectiveId);
-
-  if (obj && obj.condition(resourceCounts.stone, resourceCounts.copper, resourceCounts.tin, resourceCounts.bronze)) {
-    obj.complete = true;
-    // Remove event listener
-    updateObjectiveMessage();
-    if (obj.unlock) obj.unlock();
-  }
-  else {
-    console.log(`Condition '${objectiveId}' not met.`) }
-}
 
 
 // PICKAXES
@@ -242,18 +114,16 @@ window.addEventListener("DOMContentLoaded", (event) => {
 })
 
 function buyPickaxe(id, cost, newMiningRate, type) {
-const element = document.getElementById(id);
+  const element = document.getElementById(id);
 
   if (element.style.opacity !== "1" && countCoins >= cost) {
     element.style.opacity = "1";
-    if (miningRate < newMiningRate) {
-      miningRate = newMiningRate;
-    }
+    if (miningRate < newMiningRate) miningRate = newMiningRate;
     countCoins -= cost;
     updateCoinsDisplay();
     updateInfoMessage(`You buy a ${type} pickaxe.`);
     hasPickaxe = true;
-    completeObjective("buyPickaxe");
+    completeObjective("buyPickaxe", resourceCounts, countCoins, hasPickaxe);
   } else if (element.style.opacity === "1") {
     updateInfoMessage("You've already bought that.");
   } else {
@@ -382,112 +252,111 @@ $(".sellable").on("click", function()
   }
 });
 
-$("#sell-one").on("click", function()
-  {
-    completeObjective("coins250");
-    switch(selectedOre) {
-      case "resource-stone":
-        if (resourceCounts.stone > 0) {
-          countCoins++;
-          resourceCounts.stone--;
-          updateCoinsDisplay();
-          updateDisplay(counterStoneDisplay, resourceCounts.stone);
-          updateInfoMessage("You sell some Stone.");
-        }
-        break;
-      case "resource-copper":
-        if (resourceCounts.copper > 0) {
-          countCoins += 2;
-          resourceCounts.copper--;
-          updateCoinsDisplay();
-          updateDisplay(counterCopperDisplay, resourceCounts.copper);
-          updateInfoMessage("You sell some Copper.");
-        }
-        break;
-      case "resource-tin":
-        if (resourceCounts.tin > 0) {
-          countCoins += 2;
-          resourceCounts.stone--;
-          updateCoinsDisplay();
-          updateDisplay(counterTinDisplay, resourceCounts.tin);
-          updateInfoMessage("You sell some Tin.");
-          }
-          break;
-      case "resource-bronze":
-        if (resourceCounts.bronze > 0) {
-          countCoins += 5;
-          resourceCounts.bronze--;
-          updateCoinsDisplay();
-          updateDisplay(counterBronzeDisplay, resourceCounts.bronze);
-          updateInfoMessage("You sell a Bronze ingot.");
-        }
-        break;
-      case "resource-bronze-med-helm":
-        if (resourceCounts.bronzeMediumHelmet > 0) {
-          countCoins += 15;
-          resourceCounts.bronzeMediumHelmet--;
-          updateCoinsDisplay();
-          updateDisplay(bronzeMedHelmCount, resourceCounts.bronzeMediumHelmet);
-          updateInfoMessage("You sell a Bronze Medium Helmet.");
-        }
-        break;
-    }
-  }
-);
+$("#sell-one").on("click", function() {
+  completeObjective("coins250", resourceCounts, countCoins, hasPickaxe);
 
-$("#sell-all").on("click", function()
-  {
-    completeObjective("coins250");
-    switch(selectedOre) {
-      case "resource-stone":
-        if (resourceCounts.stone > 0) {
-          countCoins += resourceCounts.stone;
-          resourceCounts.stone = 0;
-          updateCoinsDisplay();
-          updateDisplay(counterStoneDisplay, resourceCounts.stone);
-          updateInfoMessage("You sell all your stone.");
-          completeObjective("sellAll");
-        }
-        break;
-      case "resource-copper":
-        if (resourceCounts.copper > 0) {
-          countCoins += resourceCounts.copper * 2;
-          resourceCounts.copper = 0;
-          updateCoinsDisplay();
-          updateDisplay(counterCopperDisplay, resourceCounts.copper);
-          updateInfoMessage("You sell all your copper.");
-        }
-        break;
-      case "resource-tin":
-        if (resourceCounts.tin > 0) {
-          countCoins += resourceCounts.tin * 2;
-          resourceCounts.tin = 0;
-          updateCoinsDisplay();
-          updateDisplay(counterTinDisplay, resourceCounts.tin);
-          updateInfoMessage("You sell all your tin.");
-        }
-        break;
-      case "resource-bronze":
-        if (resourceCounts.bronze > 0) {
-          countCoins += resourceCounts.bronze * 5;
-          resourceCounts.bronze = 0;
-          updateCoinsDisplay();
-          updateDisplay(counterBronzeDisplay, resourceCounts.bronze);
-          updateInfoMessage("You sell all your bronze ingots.");
-        }
-        break;
-      case "resource-bronze-med-helm":
-        if (resourceCounts.bronzeMediumHelmet > 0) {
-          countCoins += resourceCounts.bronzeMediumHelmet * 15;
-          resourceCounts.bronzeMediumHelmet = 0;
-          updateCoinsDisplay();
-          updateDisplay(bronzeMedHelmCount, resourceCounts.bronzeMediumHelmet);
-          updateInfoMessage("You sell all your Bronze Medium Helmets.");
-        }
-        break;
-    }
+  switch(selectedOre) {
+    case "resource-stone":
+      if (resourceCounts.stone > 0) {
+        countCoins++;
+        resourceCounts.stone--;
+        updateCoinsDisplay();
+        updateDisplay(counterStoneDisplay, resourceCounts.stone);
+        updateInfoMessage("You sell some Stone.");
+      }
+      break;
+    case "resource-copper":
+      if (resourceCounts.copper > 0) {
+        countCoins += 2;
+        resourceCounts.copper--;
+        updateCoinsDisplay();
+        updateDisplay(counterCopperDisplay, resourceCounts.copper);
+        updateInfoMessage("You sell some Copper.");
+      }
+      break;
+    case "resource-tin":
+      if (resourceCounts.tin > 0) {
+        countCoins += 2;
+        resourceCounts.tin--;
+        updateCoinsDisplay();
+        updateDisplay(counterTinDisplay, resourceCounts.tin);
+        updateInfoMessage("You sell some Tin.");
+      }
+      break;
+    case "resource-bronze":
+      if (resourceCounts.bronze > 0) {
+        countCoins += 5;
+        resourceCounts.bronze--;
+        updateCoinsDisplay();
+        updateDisplay(counterBronzeDisplay, resourceCounts.bronze);
+        updateInfoMessage("You sell a Bronze ingot.");
+      }
+      break;
+    case "resource-bronze-med-helm":
+      if (resourceCounts.bronzeMediumHelmet > 0) {
+        countCoins += 15;
+        resourceCounts.bronzeMediumHelmet--;
+        updateCoinsDisplay();
+        updateDisplay(bronzeMedHelmCount, resourceCounts.bronzeMediumHelmet);
+        updateInfoMessage("You sell a Bronze Medium Helmet.");
+      }
+      break;
   }
-);
+});
+
+
+$("#sell-all").on("click", function() {
+  completeObjective("coins250", resourceCounts, countCoins, hasPickaxe);
+
+  switch(selectedOre) {
+    case "resource-stone":
+      if (resourceCounts.stone > 0) {
+        countCoins += resourceCounts.stone;
+        resourceCounts.stone = 0;
+        updateCoinsDisplay();
+        updateDisplay(counterStoneDisplay, resourceCounts.stone);
+        updateInfoMessage("You sell all your stone.");
+        completeObjective("sellAll", resourceCounts, countCoins, hasPickaxe);
+      }
+      break;
+    case "resource-copper":
+      if (resourceCounts.copper > 0) {
+        countCoins += resourceCounts.copper * 2;
+        resourceCounts.copper = 0;
+        updateCoinsDisplay();
+        updateDisplay(counterCopperDisplay, resourceCounts.copper);
+        updateInfoMessage("You sell all your copper.");
+      }
+      break;
+    case "resource-tin":
+      if (resourceCounts.tin > 0) {
+        countCoins += resourceCounts.tin * 2;
+        resourceCounts.tin = 0;
+        updateCoinsDisplay();
+        updateDisplay(counterTinDisplay, resourceCounts.tin);
+        updateInfoMessage("You sell all your tin.");
+      }
+      break;
+    case "resource-bronze":
+      if (resourceCounts.bronze > 0) {
+        countCoins += resourceCounts.bronze * 5;
+        resourceCounts.bronze = 0;
+        updateCoinsDisplay();
+        updateDisplay(counterBronzeDisplay, resourceCounts.bronze);
+        updateInfoMessage("You sell all your bronze ingots.");
+      }
+      break;
+    case "resource-bronze-med-helm":
+      if (resourceCounts.bronzeMediumHelmet > 0) {
+        countCoins += resourceCounts.bronzeMediumHelmet * 15;
+        resourceCounts.bronzeMediumHelmet = 0;
+        updateCoinsDisplay();
+        updateDisplay(bronzeMedHelmCount, resourceCounts.bronzeMediumHelmet);
+        updateInfoMessage("You sell all your Bronze Medium Helmets.");
+      }
+      break;
+  }
+});
 
 $("#sell-custom-amount-btn").on("click", function()
   {
@@ -604,38 +473,26 @@ function startSmelting() {
 
 
   if (selectedIngotObj && currentSmeltingRate > 0) {
-    const intervalDuration = 3000 / currentSmeltingRate;
-
     smeltingIntervalId = setInterval(() => {
       let canSmelt = true;
-
+  
       for (const material in selectedIngotObj.rawMaterials) {
-        const requiredAmount = selectedIngotObj.rawMaterials[material];
-        if (resourceCounts[material] < requiredAmount) {
+        if (resourceCounts[material] < selectedIngotObj.rawMaterials[material]) {
           canSmelt = false;
           break;
         }
       }
-
+  
       if (canSmelt) {
         for (const material in selectedIngotObj.rawMaterials) {
-          const requiredAmount = selectedIngotObj.rawMaterials[material];
-
-          resourceCounts[material] -= requiredAmount;
-
-          let materialDisplay = document.getElementById(`${material}-count`);
-
-          updateDisplay(materialDisplay, resourceCounts[material]);
+          resourceCounts[material] -= selectedIngotObj.rawMaterials[material];
         }
-
         selectedIngotObj.count++;
-        resourceCounts[ingotType]++;
-
-        completeObjective("smeltIngot");
+        resourceCounts[selectedIngotObj.type]++;
+        completeObjective("smeltIngot", resourceCounts, countCoins, hasPickaxe);
         updateDisplay(selectedIngotObj.counter, selectedIngotObj.count);
-        }
+      }
     }, intervalDuration);
-    
   }
 }
 
@@ -712,43 +569,26 @@ function startSmithing() {
 
 
   if (selectedProductObj && currentSmithingRate > 0) {
-    const intervalDuration = 3000 / currentSmithingRate;
-
     smithingIntervalId = setInterval(() => {
       let canSmith = true;
-
+  
       for (const material in selectedProductObj.ingots) {
-        const requiredAmount = selectedProductObj.ingots[material];
-        if (resourceCounts[material] < requiredAmount) {
+        if (resourceCounts[material] < selectedProductObj.ingots[material]) {
           canSmith = false;
           break;
         }
       }
-
+  
       if (canSmith) {
         for (const material in selectedProductObj.ingots) {
-          const requiredAmount = selectedProductObj.ingots[material];
-
-          resourceCounts[material] -= requiredAmount;
-
-          let ingotDisplay = document.getElementById(`${material}-count`);
-
-          updateDisplay(ingotDisplay, resourceCounts[material]);
+          resourceCounts[material] -= selectedProductObj.ingots[material];
         }
-
         selectedProductObj.count++;
-        resourceCounts[productType]++;
-
+        resourceCounts[selectedProductObj.type]++;
         updateDisplay(selectedProductObj.counter, selectedProductObj.count);
-        completeObjective("smithHelmet");
-
-        console.log("Selected product count:", selectedProductObj.count)
-        console.log('resourceCounts:', resourceCounts);
-        console.log("Helmet count:", resourceCounts.bronzeMediumHelmet);
-        console.log('Checking smithHelmet condition:', objective.find(obj => obj.id === "smithHelmet").condition());
-        }
+        completeObjective("smithHelmet", resourceCounts, countCoins, hasPickaxe);
+      }
     }, intervalDuration);
-    
   }
 }
 // END OF SMITHING
@@ -837,17 +677,17 @@ window.addEventListener("DOMContentLoaded", (event) => {
 function savePlayerProgress(resourceCounts) {
   localStorage.setItem("countCoins", JSON.stringify({countCoins}));
   localStorage.setItem("resourceCounts", JSON.stringify({resourceCounts}));
-  
+
   // localStorage.setItem("playerItems", JSON.stringify({playerItems}));
 }
 
 // Dev tools
-$("#reset-money").click(function() {
+$("#reset-money").on("click", function() {
   countCoins = 0;
   updateCoinsDisplay();
 });
 
-$("#mo-money").click(function() {
+$("#mo-money").on("click", function() {
   countCoins += 1000;
   updateCoinsDisplay();
 });
