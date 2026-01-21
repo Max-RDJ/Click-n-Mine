@@ -1,4 +1,13 @@
-import { completeObjective, getActiveObjectiveMessage } from "./objectives.js";
+import {
+  completeObjective,
+  getActiveObjectiveMessage,
+  loadObjectivesProgress
+} from "./objectives.js";
+
+window.addEventListener("DOMContentLoaded", () => {
+  loadObjectivesProgress();
+  $("#objective-message").text(getActiveObjectiveMessage());
+});
 
 const storedCoins = localStorage.getItem("countCoins");
 export let countCoins = storedCoins
@@ -9,8 +18,6 @@ let miningRate = 1;
 let autoMiningRate = 0;
 let smithingRate = 1;
 let smeltingRate = 1;
-let achievementProgress = 0;
-
 
 const defaultPlayerState = {
   coins: 0,
@@ -26,8 +33,9 @@ const defaultPlayerState = {
   purchasedPickaxes: {},
   autoMiningRate: 0,
   smeltingRate: 0,
-  smithingRate: 0
-};
+  smithingRate: 0,
+  objectivesProgress: 0
+}
 
 const defaultResourceCounts = {
   stone: 0,

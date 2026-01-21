@@ -244,6 +244,7 @@ select {
   flex-direction: row;
   margin: 3em 0 1em 0;
   justify-content: center;
+  gap: 8px;
 }
 
 #sell-custom-amount{
