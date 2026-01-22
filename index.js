@@ -128,7 +128,7 @@ function updateDisplay() {
 updateDisplay();
 
 function updateInfoMessage(message) {
-  $("#info-message").text = message;
+  $("#info-message").text(message);
   savePlayerProgress();
 }
 
