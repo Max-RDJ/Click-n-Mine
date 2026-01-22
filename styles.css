@@ -274,10 +274,9 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   margin-top: 10px;
   margin-right: 50px;
-  gap: 16px;
+  gap: 20px;
 }
 
 .resources img {

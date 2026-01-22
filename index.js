@@ -13,7 +13,7 @@ const storedCoins = localStorage.getItem("countCoins");
 export let countCoins = storedCoins
   ? JSON.parse(storedCoins).countCoins ?? 0
   : 0;
-let miningRate = 1;
+let playerMiningRate = 1;
 let autoMiningRate = 0;
 let smithingRate = 1;
 let smeltingRate = 1;
@@ -27,11 +27,11 @@ const defaultPlayerState = {
     bronze: 0,
     bronzeMediumHelmet: 0
   },
-  miningRate: 1,
+  playerMiningRate: 1,
   purchasedPickaxes: {},
   autoMiningRate: 0,
-  smeltingRate: 0,
-  smithingRate: 0,
+  smeltingRate: 1,
+  smithingRate: 1,
   objectivesProgress: 0
 }
 
@@ -84,7 +84,7 @@ function loadPlayerState() {
 function savePlayerProgress() {
   playerState.coins = countCoins;
   playerState.resources = resourceCounts;
-  playerState.miningRate = miningRate;
+  playerState.playerMiningRate = playerMiningRate;
   playerState.autoMiningRate = autoMiningRate;
   playerState.smeltingRate = smeltingRate;
   playerState.smithingRate = smithingRate;
@@ -128,7 +128,7 @@ function updateDisplay() {
 updateDisplay();
 
 function updateInfoMessage(message) {
-  document.getElementById("info-message").textContent = message;
+  $("#info-message").text = message;
   savePlayerProgress();
 }
 
@@ -175,13 +175,12 @@ function nodeCooldown(type) {
   }, config.cooldown);
 }
 
-// Mining ores
 const counterStoneDisplay = document.querySelector('#stone-count');
 const counterCopperDisplay = document.querySelector('#copper-count');
 const counterTinDisplay = document.querySelector('#tin-count');
 
 $(".node__stone").on("click", () => {
-  updateResource("stone", 1 * miningRate);
+  updateResource("stone", 1 * playerMiningRate);
   completeObjective("stone5", resourceCounts, countCoins);
   completeObjective("stone10", resourceCounts, countCoins);
   updateInfoMessage("You mine some stone.");
@@ -190,7 +189,7 @@ $(".node__stone").on("click", () => {
 $(".node__copper").on("click", () => {
   if (nodeCooldowns.copper) return;
 
-  updateResource("copper", 0.5 * miningRate);
+  updateResource("copper", 0.5 * playerMiningRate);
   updateInfoMessage("You mine some copper.");
   nodeCooldown("copper");
 });
@@ -198,7 +197,7 @@ $(".node__copper").on("click", () => {
 $(".node__tin").on("click", () => {
   if (nodeCooldowns.tin) return;
 
-  updateResource("tin", 0.5 * miningRate);
+  updateResource("tin", 0.5 * playerMiningRate);
   updateInfoMessage("You mine some tin.");
   nodeCooldown("tin");
 });
@@ -249,7 +248,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   });
 })
 
-function buyPickaxe(id, cost, newMiningRate, type) {
+function buyPickaxe(id, cost, miningRate, type) {
   const element = document.getElementById(id);
 
   if (element.style.opacity !== "1" && countCoins >= cost) {
@@ -257,7 +256,7 @@ function buyPickaxe(id, cost, newMiningRate, type) {
 
     playerState.purchasedPickaxes[id] = true;
 
-    if (miningRate < newMiningRate) miningRate = newMiningRate;
+    if (playerMiningRate < miningRate) playerMiningRate = miningRate;
 
     countCoins -= cost;
     updateCoinsDisplay();
@@ -370,9 +369,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 
 // Sell resources
-let selectedOre;
-
-
 let selectedResource = null;
 
 function selectResource(resourceId) {
