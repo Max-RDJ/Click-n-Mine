@@ -116,9 +116,6 @@ Object.keys(playerState.purchasedPickaxes).forEach(id => {
   if (el) el.style.opacity = "1";
 });
 
-
-
-
 function getFurnaceCost() {
   return Math.floor(
     FURNACE_CONFIG.baseCost *
@@ -541,6 +538,7 @@ function buyFurnace() {
 
     countCoins -= cost;
     playerFurnaces++;
+    console.log(playerFurnaces)
     recalcSmeltingRate();
 
     updateCoinsDisplay();

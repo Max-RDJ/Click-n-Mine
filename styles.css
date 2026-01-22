@@ -1,8 +1,11 @@
 :root{
-    --accent-transparent: solid rgba(255, 255, 255, 0.3) 1px; 
+  --accent-transparent: solid rgba(255, 255, 255, 0.3) 1px;
+  --primary: #343f51; 
+  --button-neutral-text: #ebe2d5;
 }
   
-*{
+* {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   box-sizing: border-box;
   margin: 0;
 }
@@ -16,7 +19,6 @@
 }
 
 body {
-  font-family: trebuchet ms;
   background-color: rgba(24, 26, 27, 1);
   color: #ebe2d5;
   text-align: center;
@@ -54,7 +56,6 @@ h1 {
   margin-top: 30px;
   margin-bottom: 30px;
   padding: 5px;
-  font-family: trebuchet ms;
   border-radius: 10px;
   cursor: default;
   max-width: 300px;
@@ -102,7 +103,7 @@ div.resources > img:hover {
   cursor: pointer;
   box-shadow: 20px 20px 125px 0;
 }
-  
+
 button:hover {
   cursor: pointer;
   box-shadow: 0px 0px 5px 0px white;
@@ -149,7 +150,6 @@ legend{
 }
 
 select {
-  font-family: tahoma;
   font-size: 0.8em;
   color: #1e1d1b;
   background-color: rgba(255, 255, 255, 0.49);
@@ -165,21 +165,24 @@ select {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0);
   pointer-events: auto;
 }
   
-.purchasable-item:hover{
+.purchasable-item:hover {
   cursor: pointer;
 }
 
-#tools, #furnaces, #auto-miner-shop, #blacksmiths{
+#furnace-shop:after {
+  pointer-events: none;
+}
+
+#tools, #furnaces, #auto-miner-shop, #blacksmiths {
   display: none;
 }
 
-#tool-shop{
+#tool-shop {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -199,28 +202,25 @@ select {
     opacity: 0.5;
     padding: 0 5px 0 5px;
     margin-top: 17.5px;
-}
+  }
 
-#furnace-buy {
+#furnace-shop {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  margin: auto;
-  margin-bottom: 10px;
+  gap: 16px;
   height: 100%;
   position: relative;
+  padding: 8px;
 }
 
-#furnace-buy img {
+#furnace-shop img {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  max-width: 100%;
-  max-height: 100%;
-  height: 40px;
-  padding: 0 5px 0 5px;
-  margin-top: 17.5px;
+  width: 40px;
+  height: auto;
 }
 
 .auto-miners, .blacksmiths{
@@ -242,6 +242,15 @@ select {
   font-size: 1.2em;
 }
 
+.button-neutral {
+  font-size: 1em;
+  background-color: var(--primary);
+  color: var(--button-neutral-text);
+  padding: 5px;
+  width: 120px;
+  border-radius: 10px;
+}
+
 .dev-button {
   margin-top: 40px;
   font-size: 1.5em;
@@ -252,11 +261,7 @@ select {
   width: 120px;
   border-radius: 10px;
 }
-  
-.copper-btns, .tin-btns{
-  margin-top: 0px;
-} 
-  
+
 .sell-btn {
   background-color: rgba(255, 255, 255, 0.2);
   font-family: tahoma;

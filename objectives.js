@@ -56,7 +56,7 @@ export const objective = [
   {
     objectiveNo: 7,
     id: "smeltIngot",
-    message: "Smelt your first bronze ingot",
+    message: "Smelt your first bronze ingot by selecting Bronze from the dropdown",
     complete: false,
     condition: (resources) => resources.bronze >= 1
   },

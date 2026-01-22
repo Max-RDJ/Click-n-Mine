@@ -122,15 +122,16 @@
     
   <fieldset id="furnaces"> 
     <legend>Furnaces</legend>
-    <select id="ingot-selection">
+    <div id="furnace-shop">
+      <select id="ingot-selection">
         <option value="" disabled selected>Select output</option>
-      <option value="bronze">Bronze</option>
-      <option value="iron">Iron</option>
-    </select>
-    <div id="furnace-buy" class="purchasable-item">
-      <img class="purchasable-item" id="furnace1" src="images\Furnace.png"></img>
-      <div id="furnace-cost"></div>
-      <div id="furnace-count"></div>
+        <option value="bronze">Bronze</option>
+        <option value="iron">Iron</option>
+      </select>
+      <img id="furnace-image" src="images\Furnace.png"></img>
+      <button id="furnace-buy" class="button-neutral">Buy furnace</button>
+      <div id="furnace-cost">Cost: 50 coins</div>
+      <div id="furnace-count">Furnaces:</div>
     </div>
   </fieldset>
 
