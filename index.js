@@ -17,6 +17,7 @@ let playerMiningRate = 1;
 let autoMiningRate = 0;
 let smithingRate = 1;
 let smeltingRate = 1;
+let playerFurnaces = 0;
 
 const defaultPlayerState = {
   coins: 0,
@@ -32,7 +33,8 @@ const defaultPlayerState = {
   autoMiningRate: 0,
   smeltingRate: 1,
   smithingRate: 1,
-  objectivesProgress: 0
+  objectivesProgress: 0,
+  playerFurnaces: 0
 }
 
 const defaultResourceCounts = {
@@ -59,9 +61,12 @@ let resourceCounts = (() => {
   }
 })();
 
-
 let playerState = loadPlayerState();
-
+playerMiningRate = playerState.playerMiningRate ?? 1;
+autoMiningRate   = playerState.autoMiningRate ?? 0;
+smeltingRate     = playerState.smeltingRate ?? 1;
+smithingRate     = playerState.smithingRate ?? 1;
+countCoins       = playerState.coins ?? countCoins;
 
 function loadPlayerState() {
   const saved = localStorage.getItem("playerState");
@@ -98,7 +103,7 @@ Object.keys(playerState.purchasedPickaxes).forEach(id => {
 });
 
 function updateCoinsDisplay() {
-  $("counter-coins-display").innerHTML = countCoins;
+  $("#coins-count").text(countCoins);
   
   savePlayerProgress();
 }
@@ -142,12 +147,12 @@ const NODE_CONFIG = {
   copper: {
     selector: ".node__copper img",
     fullImg: "images/440px-Copper_rocks.png",
-    cooldown: 2000
+    cooldown: 250
   },
   tin: {
     selector: ".node__tin img",
     fullImg: "images/440px-Tin_rocks.png",
-    cooldown: 2000
+    cooldown: 250
   },
   iron: {
     selector: ".node__iron img",
@@ -179,6 +184,36 @@ const counterStoneDisplay = document.querySelector('#stone-count');
 const counterCopperDisplay = document.querySelector('#copper-count');
 const counterTinDisplay = document.querySelector('#tin-count');
 
+const NODE_REQUIREMENTS = {
+  stone: 0,
+  copper: 1,
+  tin: 1,
+  iron: 2,
+};
+
+const pickaxeLevel = {
+  "pickaxe-bronze": 1,
+  "pickaxe-iron": 2,
+  "pickaxe-steel": 3,
+  "pickaxe-black": 4,
+  "pickaxe-gold": 5,
+  "pickaxe-mithril": 6,
+  "pickaxe-adamant": 7,
+  "pickaxe-runite": 8,
+  "pickaxe-dragon": 9
+};
+
+function canMine(nodeType) {
+  const requiredLevel = NODE_REQUIREMENTS[nodeType] ?? 0;
+  const playerLevel = getHighestPickaxeLevel();
+
+  if (playerLevel < requiredLevel) {
+    updateInfoMessage("You need a better pickaxe to mine this.");
+    return false;
+  }
+  return true;
+}
+
 $(".node__stone").on("click", () => {
   updateResource("stone", 1 * playerMiningRate);
   completeObjective("stone5", resourceCounts, countCoins);
@@ -188,16 +223,20 @@ $(".node__stone").on("click", () => {
 
 $(".node__copper").on("click", () => {
   if (nodeCooldowns.copper) return;
+  if (!canMine("copper")) return;
 
   updateResource("copper", 0.5 * playerMiningRate);
+  completeObjective("copperAndTin", resourceCounts, countCoins);
   updateInfoMessage("You mine some copper.");
   nodeCooldown("copper");
 });
 
 $(".node__tin").on("click", () => {
   if (nodeCooldowns.tin) return;
+  if (!canMine("tin")) return;
 
   updateResource("tin", 0.5 * playerMiningRate);
+  completeObjective("copperAndTin", resourceCounts, countCoins);
   updateInfoMessage("You mine some tin.");
   nodeCooldown("tin");
 });
@@ -215,17 +254,8 @@ const pickaxes = [
   { itemName: "Dragon pickaxe", id: "pickaxe-dragon", cost: 250000, miningRate: 50, type: "dragon" }
 ];
 
-const pickaxeLevel = {
-  "pickaxe-bronze": 1,
-  "pickaxe-iron": 2,
-  "pickaxe-steel": 3,
-  "pickaxe-black": 4,
-  "pickaxe-gold": 5,
-  "pickaxe-mithril": 6,
-  "pickaxe-adamant": 7,
-  "pickaxe-runite": 8,
-  "pickaxe-dragon": 9
-};
+
+
 
 function getHighestPickaxeLevel () {
   return Object.keys(playerState.purchasedPickaxes)
@@ -444,7 +474,7 @@ $("#sell-confirm").on("click", () => {
   }
 
   updateCoinsDisplay();
-  updateInfoMessage(`You sold ${amountToSell} ${getResourceName(selectedResource)}.`);
+  updateInfoMessage(`You sell ${amountToSell} ${getResourceName(selectedResource)}.`);
 
   slider.value = 0;
   slider.max = getResourceCount(selectedResource);
@@ -487,8 +517,10 @@ function buyFurnace(id, cost, smeltingRate) {
     element.style.opacity = "1";
     countCoins -= cost;
     currentSmeltingRate += smeltingRate;
+    playerFurnaces++;
 
     updateCoinsDisplay();
+    completeObjective("buyFurnace", playerFurnaces)
     updateInfoMessage("You buy a furnace.");
 
   } else if (countCoins < cost) {

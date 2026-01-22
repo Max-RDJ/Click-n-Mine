@@ -40,15 +40,15 @@ export const objective = [
     complete: false,
     condition: (resources) => resources.copper >= 1 && resources.tin >= 1,
     unlock: () => {
-          $("#furnaces").css("display", "block");
-      }
+      $("#furnaces").css("display", "block");
+    }
   },
   {
     objectiveNo: 6,
     id: "buyFurnace",
     message: "Click on the first furnace to buy it once you have enough coins",
     complete: false,
-    condition: (resources) => resources.copper >= 1 && resources.tin >= 1,
+    condition: (playerFurnaces) => playerFurnaces >= 1,
     unlock: () => {
           $("#furnaces").css("display", "block");
       }
