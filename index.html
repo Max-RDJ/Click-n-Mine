@@ -1,55 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Click-n-Mine Game</title>
-    <link rel="stylesheet" href="styles.css">
-    
-    <script src="jquery-3.7.1.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Click-n-Mine Game</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="jquery-3.7.1.min.js"></script>
 </head>
     
 <body>
   <div id="page-container">
     <div id="columns-container">
-    <div class="column" id="column-left">
-      <h1 class="unselectable">Resources</h1>
-    
-      <div class="ore-counter">
-        <div class="resources" id="coins"><img id="coins-image" src="https://oldschool.runescape.wiki/images/Coins_25.png?cbfd9">&nbsp&nbsp
-      <div id="coins-count" value="0">0</div>
-       </div>
 
-      <div class="resources sellable" id="resource-stone">
-        <img height = 30px width = 30px src="images/240px-Rune_essence_detail.png">&nbsp&nbsp&nbsp<span type="text" id="stone-count">0</span>  
-      </div>
-
-      <div class="resources sellable" id="resource-copper">
-        <img height=30px width=30px src="images/260px-Copper_ore_detail.png">&nbsp&nbsp&nbsp<span type="text" id="copper-count" value="0">0</span>
-      </div>
-
-      <div class="resources sellable" id="resource-tin">
-        <img height=30px width=30px src="images/260px-Tin_ore_detail.png">&nbsp&nbsp&nbsp<span type="text" id="tin-count" value="0">0</span>
-      </div>
-
-      <div class="resources sellable" id="resource-bronze">
-        <img height=25px width=30px src="https://oldschool.runescape.wiki/images/thumb/Bronze_bar_detail.png/1280px-Bronze_bar_detail.png?603dc">&nbsp&nbsp&nbsp<span type="text" id="bronze-count" value="0">0</span>
-      </div>
-    <fieldset id="resources-products">
-    <legend class="unselectable">Products</legend>
-      <div class="resources sellable" id="resource-bronze-med-helm">
-        <img height=25px width=25px src="https://oldschool.runescape.wiki/images/thumb/Bronze_med_helm_detail.png/130px-Bronze_med_helm_detail.png?c6333c">&nbsp&nbsp&nbsp<span type="text" id="bronze-med-helm-count" value="0">0</span>
-      </div>
-    </fieldset>
+      <div class="column" id="column-left">
+        <h1 class="unselectable">Resources</h1>
       
-    <div class="sell-section">
-     <label for="sell-slider" id="sell-label">Sell 0 Stone</label>
-      <input type="range" id="sell-slider" min="0" max="0" value="0">
-      <button id="sell-confirm">Sell</button>
-    </div>
+        <div class="resources resource-coins">
+          <img id="coins-image" src="images/240px-Coins_detail.png">
+          <span id="coins-count" value="0">0</span>
+        </div>
+
+        <div class="resources resource-stone sellable">
+          <img src="images/240px-Rune_essence_detail.png">
+          <span id="stone-count">0</span>  
+        </div>
+
+        <div class="resources resource-copper sellable">
+          <img src="images/260px-Copper_ore_detail.png">
+          <span id="copper-count" value="0">0</span>
+        </div>
+
+        <div class="resources resource-tin sellable">
+          <img src="images/260px-Tin_ore_detail.png">
+          <span id="tin-count" value="0">0</span>
+        </div>
+
+        <div class="resources resource-bronze sellable">
+          <img src="https://oldschool.runescape.wiki/images/thumb/Bronze_bar_detail.png/1280px-Bronze_bar_detail.png?603dc">
+          <span id="bronze-count" value="0">0</span>
+        </div>
+
+      <fieldset id="resources-products">
+        <legend class="unselectable">Products</legend>
+        <div class="resources sellable" id="resource-bronze-med-helm">
+          <img src="https://oldschool.runescape.wiki/images/thumb/Bronze_med_helm_detail.png/130px-Bronze_med_helm_detail.png?c6333c">
+          <span id="bronze-med-helm-count" value="0">0</span>
+        </div>
+      </fieldset>
+      
+      <div class="sell-section">
+        <label for="sell-slider" id="sell-label">Sell 0 Stone</label>
+        <input type="range" id="sell-slider" min="0" max="0" value="0">
+        <button id="sell-confirm">Sell</button>
+      </div>
      
-    </div>
       <div id="messages">
         <div class="info"><span id="info-message">Welcome</span></div>
       </div>
@@ -61,30 +66,27 @@
       </div>
   </div>
       
-    <!-- Area for ore nodes to appear and disappear randomly -->
   <div class="column" id="column-middle">
-     <div id="ores">
-      <h1 class="unselectable">Mineshaft</h1>
-
+    <h1 class="unselectable">Mineshaft</h1>
+    
+    <div id="ores">
       <div class="ore-node node__tier-one node__stone unselectable" type="button">
-        <img class="node-image" src="images/480px-Ring_of_stone_equipped.png">&nbsp&nbsp&nbsp
+        <img class="node-image" src="images/480px-Ring_of_stone_equipped.png">
       </div>
 
       <div class="ore-node node__tier-two node__copper unselectable" type="button">
-        <img class="node-image" src="images\440px-Copper_rocks.png">&nbsp&nbsp&nbsp
+        <img class="node-image" src="images\440px-Copper_rocks.png">
       </div>
 
       <div class="ore-node node__tier-two node__tin unselectable" type="button">
-        <img class="node-image" src="images\440px-Tin_rocks.png">&nbsp&nbsp&nbsp
+        <img class="node-image" src="images\440px-Tin_rocks.png">
       </div>
-
-      </div>
+    </div>
   </div>
 
+  <div class="column" id="column-right">
+    <h1 class="unselectable">Shop</h1>
 
-<div class="column" id="column-right">
-    <!-- Purchase tools to improve mining speed and access new ores -->
-  <h1 class="unselectable">Shop</h1>
     <fieldset id="tools">
       <legend class="unselectable">Tools</legend>
       <div id="tool-shop">
@@ -94,8 +96,8 @@
         <div class="purchasable-item" id="pickaxe-iron">
           <img type="button" src=https://oldschool.runescape.wiki/images/Iron_pickaxe.png?9e4d4>
         </div>
-       <div class="purchasable-item" id="pickaxe-steel">
-           <img type="button" src=https://oldschool.runescape.wiki/images/Steel_pickaxe.png?421a5>
+      <div class="purchasable-item" id="pickaxe-steel">
+          <img type="button" src=https://oldschool.runescape.wiki/images/Steel_pickaxe.png?421a5>
       </div>
       <div class="purchasable-item" id="pickaxe-black">
           <img type="button" src=https://oldschool.runescape.wiki/images/Black_pickaxe.png?0d4ed>
@@ -115,7 +117,6 @@
       <div class="purchasable-item" id="pickaxe-dragon">
         <img type="button" src=https://oldschool.runescape.wiki/images/Dragon_pickaxe.png?c85b3>
       </div>
-    </div>
   </fieldset>
     
   <fieldset id="furnaces"> 

@@ -229,13 +229,6 @@ select {
   padding: 0 5px 0 5px;
   margin-top: 17.5px;
 }
-
-.ore-counter{
-  display: block;
-  margin: auto;
-  text-align: center;
-  width: 100%;
-}
   
 .sell-section {
   display: flex;
@@ -276,14 +269,20 @@ select {
 #sell-one {
   margin-right: 15px;
 }
-  
-#coins, #coins-count {
-  display: inline;
-}
-  
-#coins, #resource-stone, #resource-copper, #resource-tin, #resource-bronze, #resource-bronze-med-helm {
+
+.resources {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   margin-top: 10px;
   margin-right: 50px;
+  gap: 16px;
+}
+
+.resources img {
+  height: 2rem;
+  width: 2rem;
 }
 
 #resource-bronze-med-helm {
