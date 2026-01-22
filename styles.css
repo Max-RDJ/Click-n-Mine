@@ -201,7 +201,7 @@ select {
     margin-top: 17.5px;
 }
 
-#furnace-shop {
+#furnace-buy {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -211,17 +211,17 @@ select {
   height: 100%;
   position: relative;
 }
-  #furnace1, #furnace2, #furnace3, #furnace4, #furnace5, #furnace6, #furnace7, #furnace8 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 100%;
-    max-height: 100%;
-    height: 40px;
-    opacity: 0.5;
-    padding: 0 5px 0 5px;
-    margin-top: 17.5px;
-  }
+
+#furnace-buy img {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+  max-height: 100%;
+  height: 40px;
+  padding: 0 5px 0 5px;
+  margin-top: 17.5px;
+}
 
 .auto-miners, .blacksmiths{
   height: 40px;
@@ -270,6 +270,12 @@ select {
   margin-right: 15px;
 }
 
+.resource-index {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .resources {
   display: flex;
   align-items: center;
@@ -280,7 +286,6 @@ select {
 }
 
 .resources img {
-  height: 2rem;
   width: 2rem;
 }
 

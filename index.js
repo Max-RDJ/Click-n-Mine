@@ -15,8 +15,8 @@ export let countCoins = storedCoins
   : 0;
 let playerMiningRate = 1;
 let autoMiningRate = 0;
-let smithingRate = 1;
-let smeltingRate = 1;
+let playerSmeltingRate = 1;
+let playerSmithingRate = 1;
 let playerFurnaces = 0;
 
 const defaultPlayerState = {
@@ -31,8 +31,8 @@ const defaultPlayerState = {
   playerMiningRate: 1,
   purchasedPickaxes: {},
   autoMiningRate: 0,
-  smeltingRate: 1,
-  smithingRate: 1,
+  playerSmeltingRate: 1,
+  playerSmithingRate: 1,
   objectivesProgress: 0,
   playerFurnaces: 0
 }
@@ -61,12 +61,25 @@ let resourceCounts = (() => {
   }
 })();
 
+const FURNACE_CONFIG = {
+  baseCost: 50,
+  costMultiplier: 1.6,
+  playerSmeltingRate: 1
+};
+
+
+
 let playerState = loadPlayerState();
-playerMiningRate = playerState.playerMiningRate ?? 1;
-autoMiningRate   = playerState.autoMiningRate ?? 0;
-smeltingRate     = playerState.smeltingRate ?? 1;
-smithingRate     = playerState.smithingRate ?? 1;
-countCoins       = playerState.coins ?? countCoins;
+playerMiningRate    = playerState.playerMiningRate ?? 1;
+autoMiningRate      = playerState.autoMiningRate ?? 0;
+playerSmithingRate  = playerState.playerSmithingRate ?? 1;
+countCoins          = playerState.coins ?? countCoins;
+playerFurnaces      = playerState.playerFurnaces ?? 0;
+playerSmeltingRate  = playerFurnaces * FURNACE_CONFIG.playerSmeltingRate;
+
+function recalcSmeltingRate() {
+  playerSmeltingRate = playerFurnaces * FURNACE_CONFIG.playerSmeltingRate;
+}
 
 function loadPlayerState() {
   const saved = localStorage.getItem("playerState");
@@ -91,8 +104,9 @@ function savePlayerProgress() {
   playerState.resources = resourceCounts;
   playerState.playerMiningRate = playerMiningRate;
   playerState.autoMiningRate = autoMiningRate;
-  playerState.smeltingRate = smeltingRate;
-  playerState.smithingRate = smithingRate;
+  playerState.playerSmeltingRate = playerSmeltingRate;
+  playerState.playerSmithingRate = playerSmithingRate;
+  playerState.playerFurnaces = playerFurnaces;
 
   localStorage.setItem("playerState", JSON.stringify(playerState));
 }
@@ -101,6 +115,18 @@ Object.keys(playerState.purchasedPickaxes).forEach(id => {
   const el = document.getElementById(id);
   if (el) el.style.opacity = "1";
 });
+
+
+
+
+function getFurnaceCost() {
+  return Math.floor(
+    FURNACE_CONFIG.baseCost *
+    Math.pow(FURNACE_CONFIG.costMultiplier, playerFurnaces)
+  );
+}
+
+$("#furnace-buy").on("click", buyFurnace);
 
 function updateCoinsDisplay() {
   $("#coins-count").text(countCoins);
@@ -491,51 +517,38 @@ $(".sellable").on("click", function() {
   selectResource(resourceId);
 });
 
-// SMELTING
-const furnaceList = [
-  { id: "furnace1", cost: 50, smeltingRate: 1 },
-  { id: "furnace2", cost: 200, smeltingRate: 1 },
-  { id: "furnace3", cost: 500, smeltingRate: 1 },
-  { id: "furnace4", cost: 1000, smeltingRate: 1 },
-  { id: "furnace5", cost: 2500, smeltingRate: 1 },
-  { id: "furnace6", cost: 5000, smeltingRate: 1 },
-  { id: "furnace7", cost: 8000, smeltingRate: 1 },
-  { id: "furnace8", cost: 10000, smeltingRate: 1 },
-] 
-
 const counterBronzeDisplay = document.getElementById("bronze-count");
 
 const ingotList = [
   { type: "bronze", count: resourceCounts.bronze, counter: counterBronzeDisplay, rawMaterials: {copper: 1, tin: 1} }
 ]
 
-let currentSmeltingRate = 0;
-function buyFurnace(id, cost, smeltingRate) {
-  const element = document.getElementById(id);
-  
-  if (element.style.opacity !== "1" && countCoins >= cost) {
-    element.style.opacity = "1";
-    countCoins -= cost;
-    currentSmeltingRate += smeltingRate;
-    playerFurnaces++;
+function updateFurnaceUI() {
+  document.getElementById("furnace-cost").textContent =
+    `Cost: ${getFurnaceCost()} coins`;
 
-    updateCoinsDisplay();
-    completeObjective("buyFurnace", playerFurnaces)
-    updateInfoMessage("You buy a furnace.");
-
-  } else if (countCoins < cost) {
-    updateInfoMessage("You don't have enough coins.");
-
-  } else {
-    updateInfoMessage("You've already bought that.");
-  }
+  document.getElementById("furnace-count").textContent =
+    `Furnaces: ${playerFurnaces}`;
 }
 
-window.addEventListener("DOMContentLoaded", (event) => {
-  furnaceList.forEach(({ id, cost, smeltingRate, ingotCounter }) => {
-    document.getElementById(id).addEventListener("click", () => buyFurnace(id, cost, smeltingRate, ingotCounter));
-  });
-})
+function buyFurnace() {
+    const cost = getFurnaceCost();
+
+    if (countCoins < cost) {
+      updateInfoMessage("You don't have enough coins.");
+      return;
+    }
+
+    countCoins -= cost;
+    playerFurnaces++;
+    recalcSmeltingRate();
+
+    updateCoinsDisplay();
+    completeObjective("buyFurnace", playerFurnaces);
+    savePlayerProgress();
+    updateFurnaceUI();
+    updateInfoMessage("You buy a furnace.");
+  }
 
 let smeltingIntervalId = 0;
 
@@ -548,7 +561,7 @@ function startSmelting() {
   const selectedIngotObj = ingotList.find(ingot => ingot.type === ingotType);
 
 
-  if (selectedIngotObj && currentSmeltingRate > 0) {
+  if (selectedIngotObj && playerSmeltingRate > 0) {
     smeltingIntervalId = setInterval(() => {
       let canSmelt = true;
   
@@ -601,14 +614,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
   });
 })
 
-let currentSmithingRate = 0;
-function buySmith(id, cost, smithingRate) {
+function buySmith(id, cost, playerSmithingRate) {
   const element = document.getElementById(id);
   
   if (element.style.opacity !== "1" && countCoins >= cost) {
     element.style.opacity = "1";
     countCoins -= cost;
-    currentSmithingRate += smithingRate;
+    playerSmithingRate += smithingRate;
 
     updateCoinsDisplay();
     updateInfoMessage("You hire a Blacksmith.");
@@ -644,7 +656,7 @@ function startSmithing() {
   console.log("Found product: " + selectedProductObj.type)
 
 
-  if (selectedProductObj && currentSmithingRate > 0) {
+  if (selectedProductObj && playerSmithingRate > 0) {
     smithingIntervalId = setInterval(() => {
       let canSmith = true;
   
@@ -711,7 +723,7 @@ document.addEventListener("mousemove", (event) => {
     return;
   }
 
-  const allPurchasableItems = [...pickaxes, ...furnaceList];
+  const allPurchasableItems = [...pickaxes];
 
   const hoveredElementData = allPurchasableItems.find(item => item.id === hoveredElement.id);
 
@@ -725,8 +737,8 @@ document.addEventListener("mousemove", (event) => {
       popupContent += `<br>Mult: <span class="orange-highlight">x${hoveredElementData.miningRate}</span>`;
     }
   
-    if (hoveredElementData.smeltingRate !== undefined)  {
-      popupContent += `<br>Mult: x${hoveredElementData.smeltingRate}`;
+    if (hoveredElementData.playerSmeltingRate !== undefined)  {
+      popupContent += `<br>Mult: x${hoveredElementData.playerSmeltingRate}`;
     }
 
       popup.innerHTML = popupContent;
