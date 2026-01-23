@@ -61,7 +61,7 @@ export const objective = [
     condition: (resources) => resources.bronze >= 1,
     unlock: () => {
       $("#anvils").css("display", "block");
-      $("#bronze-med-helm").css("display", "block");
+      $("#resource-bronze-med-helm").css("display", "flex");
     }
   },
   {
@@ -69,7 +69,7 @@ export const objective = [
     id: "smithHelmet",
     message: "Craft your first Bronze Medium Helmet",
     complete: false,
-    condition: (resources) => resources.bronzeMediumHelmet >= 1
+    condition: (resources) => resources.bronzeMedHelm >= 1
   },
   {
     objectiveNo: 9,

@@ -9,6 +9,7 @@ window.addEventListener("DOMContentLoaded", () => {
   $("#objective-message").text(getActiveObjectiveMessage());
   updateFurnaceUI();
   updateAnvilUI();
+  startSmithing();
 });
 
 const storedCoins = localStorage.getItem("countCoins");
@@ -85,7 +86,7 @@ countCoins          = playerState.coins ?? countCoins;
 playerFurnaces      = playerState.playerFurnaces ?? 0;
 playerAnvils        = playerState.playerAnvils ?? 0;
 playerSmeltingRate  = playerFurnaces * FURNACE_CONFIG.playerSmeltingRate;
-playerSmithingRate  = playerFurnaces * ANVIL_CONFIG.playerSmithingRate;
+playerSmithingRate  = playerAnvils * ANVIL_CONFIG.playerSmithingRate;
 
 function recalcSmeltingRate() {
   playerSmeltingRate = playerFurnaces * FURNACE_CONFIG.playerSmeltingRate;
@@ -640,9 +641,13 @@ const bronzeMedHelm = document.getElementById("bronze-med-helm-count");
 
 const productList = [
   {
-    type: "bronzeMedHelm", count: resourceCounts.bronzeMedHelm, counter: bronzeMedHelm, ingots: {bronze: 1}, price: 10, timeToSmith: 5000
+    type: "bronzeMedHelm",
+    counter: bronzeMedHelm,
+    rawMaterials: { bronze: 1 },
+    price: 10,
+    timeToSmith: 5000
   }
-]
+];
 
 function updateAnvilUI() {
   document.getElementById("anvil-cost").textContent =
@@ -669,10 +674,10 @@ function buyAnvil() {
   savePlayerProgress();
   updateAnvilUI();
   updateInfoMessage("You buy an anvil.");
+  startSmithing();
 }
 
 let smithingIntervalId = null;
-const baseSmithInterval = 1000;
 
 function getAnvilCost() {
   return Math.floor(
@@ -682,16 +687,17 @@ function getAnvilCost() {
 }
 
 function startSmithing() {  
-  if (smithingIntervalId) return;
+  stopSmithing();
 
   const productType = document.getElementById("product-selection").value;
   const selectedProduct = productList.find(i => i.type === productType);
 
-  if (!selectedProduct || playerSmithingRate <= 0) return;
+  if (!selectedProduct || playerAnvils <= 0) return;
 
-  setInterval(() => {
-  const smithAmount = getSmeltPerTick();
-  let completed = 0;
+  const interval = selectedProduct.timeToSmith;
+
+  smithingIntervalId = setInterval(() => {
+  const smithAmount = Math.max(1, playerSmithingRate);
 
   for (let i = 0; i < smithAmount; i++) {
     let canSmith = true;
@@ -710,18 +716,18 @@ function startSmithing() {
     }
 
     resourceCounts[selectedProduct.type]++;
-    completed++;
+    console.log("Helms:", resourceCounts.bronzeMedHelm);
   }
 
     completeObjective("smithHelmet", resourceCounts, countCoins);
     updateDisplay();
     savePlayerProgress();
-  }, baseSmithInterval);
+  }, interval);
 }
 
 function stopSmithing() {
-  clearInterval(smeltingIntervalId);
-  smeltingIntervalId = null;
+  clearInterval(smithingIntervalId);
+  smithingIntervalId = null;
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
