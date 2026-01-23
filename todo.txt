@@ -1,25 +1,23 @@
 BUGS:
 
 FEATURES:
+- Selected resource should be highlighted
 - Re-arrange columns into tabs in mobile
 - Refactor miners and furnaces as arrays that can be added to indefinitely instead of limited number
+- Add minimise and maximise buttons to objectives message
 - Put flame icon next to product in Resources that is being smelted/anviled
 - Add fluctuations in sell prices
 - Miners need pickaxes
     - Creates need to buy more pickaxes and possibly buy auto-buyers
 - Furnaces and other 'machinery' can be individually set to process specific raw material, e.g. one auto-miner on stone, another one copper
-- Make ores deplete and replenish over time
 - Display number next to resource count temporarily when it increases (e.g. "+5"), disappears with upward movement and fade
-- Update coinBounce function to trigger when money increases or decreases
-    - Coin icon and number do not scale up or flash green if nothing to sell
-- Hover over purchasable items to examine stats
+- Hover over resource items to see sell price
 - Power-up to greatly increase mining speed temporarily - smashing!
 - Light up corresponding resource text when something mined
 - Add animations via jQuery + Animate.css library
 - Add an achievements list, e.g. reach 10K coins
 - Make purchasable goodie bag containing random ores
 - Have select dropdown for each furnace and blackanvil. Use icons and clicking icon opens up menu of icons of products to select from.
-- Selected resource should be highlighted
 - Add merchants to auto-sell products
 - Materials required in addition to money to build furnaces etc.
 

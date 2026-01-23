@@ -70,13 +70,6 @@ export const objective = [
     message: "Craft your first Bronze Medium Helmet",
     complete: false,
     condition: (resources) => resources.bronzeMedHelm >= 1
-  },
-  {
-    objectiveNo: 9,
-    id: "coins250",
-    message: "Accumulate 250 coins",
-    complete: false,
-    condition: (resources, coins) => coins >= 250
   }
 ];
   
