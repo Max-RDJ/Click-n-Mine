@@ -7,7 +7,8 @@ import {
 window.addEventListener("DOMContentLoaded", () => {
   loadObjectivesProgress();
   $("#objective-message").text(getActiveObjectiveMessage());
-  updateFurnaceUI()
+  updateFurnaceUI();
+  updateAnvilUI();
 });
 
 const storedCoins = localStorage.getItem("countCoins");
@@ -82,6 +83,7 @@ autoMiningRate      = playerState.autoMiningRate ?? 0;
 playerSmithingRate  = playerState.playerSmithingRate ?? 1;
 countCoins          = playerState.coins ?? countCoins;
 playerFurnaces      = playerState.playerFurnaces ?? 0;
+playerAnvils        = playerState.playerAnvils ?? 0;
 playerSmeltingRate  = playerFurnaces * FURNACE_CONFIG.playerSmeltingRate;
 playerSmithingRate  = playerFurnaces * ANVIL_CONFIG.playerSmithingRate;
 
@@ -90,7 +92,7 @@ function recalcSmeltingRate() {
 }
 
 function recalcSmithingRate() {
-  playerSmithingRate = playerFurnaces * FURNACE_CONFIG.playerSmithingRate;
+  playerSmithingRate = playerAnvils * ANVIL_CONFIG.playerSmithingRate;
 }
 
 function loadPlayerState() {
@@ -119,6 +121,7 @@ function savePlayerProgress() {
   playerState.playerSmeltingRate = playerSmeltingRate;
   playerState.playerSmithingRate = playerSmithingRate;
   playerState.playerFurnaces = playerFurnaces;
+  playerState.playerAnvils = playerAnvils;
 
   localStorage.setItem("playerState", JSON.stringify(playerState));
 }
@@ -538,7 +541,7 @@ function updateFurnaceUI() {
     `Cost: ${getFurnaceCost()} coins`;
 
   document.getElementById("furnace-count").textContent =
-    `Furnaces: ${playerFurnaces}`;
+    `${playerFurnaces}`;
 }
 
 function buyFurnace() {
@@ -563,10 +566,6 @@ function buyFurnace() {
 
 const baseSmeltInterval = 3000;
 const minSmeltInterval = 300;
-
-function getSmeltAmount() {
-  return playerFurnaces;
-}
 
 function getSmeltInterval() {
   return Math.max(
@@ -650,7 +649,7 @@ function updateAnvilUI() {
     `Cost: ${getAnvilCost()} coins`;
 
   document.getElementById("anvil-count").textContent =
-    `Anvils: ${playerAnvils}`;
+    `${playerAnvils}`;
 }
 
 function buyAnvil() {
@@ -668,7 +667,7 @@ function buyAnvil() {
   updateCoinsDisplay();
   completeObjective("buyAnvil", playerAnvils);
   savePlayerProgress();
-  updateFurnaceUI();
+  updateAnvilUI();
   updateInfoMessage("You buy an anvil.");
 }
 
@@ -678,7 +677,7 @@ const baseSmithInterval = 1000;
 function getAnvilCost() {
   return Math.floor(
     ANVIL_CONFIG.baseCost *
-    Math.pow(ANVIL_CONFIG.costMultiplier, playerFurnaces)
+    Math.pow(ANVIL_CONFIG.costMultiplier, playerAnvils)
   );
 }
 
