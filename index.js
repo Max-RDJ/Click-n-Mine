@@ -7,6 +7,7 @@ import {
 window.addEventListener("DOMContentLoaded", () => {
   loadObjectivesProgress();
   $("#objective-message").text(getActiveObjectiveMessage());
+  updateFurnaceUI()
 });
 
 const storedCoins = localStorage.getItem("countCoins");
@@ -18,6 +19,7 @@ let autoMiningRate = 0;
 let playerSmeltingRate = 1;
 let playerSmithingRate = 1;
 let playerFurnaces = 0;
+let playerAnvils = 0;
 
 const defaultPlayerState = {
   coins: 0,
@@ -26,7 +28,7 @@ const defaultPlayerState = {
     copper: 0,
     tin: 0,
     bronze: 0,
-    bronzeMediumHelmet: 0
+    bronzeMedHelm: 0
   },
   playerMiningRate: 1,
   purchasedPickaxes: {},
@@ -34,7 +36,8 @@ const defaultPlayerState = {
   playerSmeltingRate: 1,
   playerSmithingRate: 1,
   objectivesProgress: 0,
-  playerFurnaces: 0
+  playerFurnaces: 0,
+  playerAnvils: 0
 }
 
 const defaultResourceCounts = {
@@ -42,7 +45,7 @@ const defaultResourceCounts = {
   copper: 0,
   tin: 0,
   bronze: 0,
-  bronzeMediumHelmet: 0
+  bronzeMedHelm: 0
 };
 
 let resourceCounts = (() => {
@@ -62,12 +65,16 @@ let resourceCounts = (() => {
 })();
 
 const FURNACE_CONFIG = {
-  baseCost: 50,
+  baseCost: 20,
   costMultiplier: 1.6,
   playerSmeltingRate: 1
 };
 
-
+const ANVIL_CONFIG = {
+  baseCost: 20,
+  costMultiplier: 1.6,
+  playerSmithingRate: 1
+};
 
 let playerState = loadPlayerState();
 playerMiningRate    = playerState.playerMiningRate ?? 1;
@@ -76,9 +83,14 @@ playerSmithingRate  = playerState.playerSmithingRate ?? 1;
 countCoins          = playerState.coins ?? countCoins;
 playerFurnaces      = playerState.playerFurnaces ?? 0;
 playerSmeltingRate  = playerFurnaces * FURNACE_CONFIG.playerSmeltingRate;
+playerSmithingRate  = playerFurnaces * ANVIL_CONFIG.playerSmithingRate;
 
 function recalcSmeltingRate() {
   playerSmeltingRate = playerFurnaces * FURNACE_CONFIG.playerSmeltingRate;
+}
+
+function recalcSmithingRate() {
+  playerSmithingRate = playerFurnaces * FURNACE_CONFIG.playerSmithingRate;
 }
 
 function loadPlayerState() {
@@ -149,8 +161,7 @@ function updateDisplay() {
   document.querySelector('#copper-count').innerHTML = resourceCounts.copper || 0;
   document.querySelector('#tin-count').innerHTML = resourceCounts.tin || 0;
   document.querySelector('#bronze-count').innerHTML = resourceCounts.bronze || 0;
-  document.querySelector('#bronze-count').innerHTML = resourceCounts.bronze || 0;
-  document.querySelector('#bronze-med-helm-count').innerHTML = resourceCounts.bronzeMediumHelmet || 0;
+  document.querySelector('#bronze-med-helm-count').innerHTML = resourceCounts.bronzeMedHelm || 0;
 }
 
 updateDisplay();
@@ -196,9 +207,11 @@ function nodeCooldown(type) {
 
   const img = document.querySelector(config.selector);
   img.src = EMPTY_NODE_IMG;
+  img.classList.add("cooldown");
 
   setTimeout(() => {
     img.src = config.fullImg;
+    img.classList.remove("cooldown");
     nodeCooldowns[type] = false;
   }, config.cooldown);
 }
@@ -277,9 +290,6 @@ const pickaxes = [
   { itemName: "Dragon pickaxe", id: "pickaxe-dragon", cost: 250000, miningRate: 50, type: "dragon" }
 ];
 
-
-
-
 function getHighestPickaxeLevel () {
   return Object.keys(playerState.purchasedPickaxes)
     .map(id => pickaxeLevel[id] || 0)
@@ -292,8 +302,6 @@ const nodeRequirements = {
   tierThree: 2,
   tierFour: 6
 };
-
-
 
 window.addEventListener("DOMContentLoaded", (event) => {
   pickaxes.forEach(({ id, cost, miningRate, type }) => {
@@ -442,7 +450,7 @@ function getResourceCount(resourceId) {
     case "resource-copper": return resourceCounts.copper;
     case "resource-tin": return resourceCounts.tin;
     case "resource-bronze": return resourceCounts.bronze;
-    case "resource-bronze-med-helm": return resourceCounts.bronzeMediumHelmet;
+    case "resource-bronze-med-helm": return resourceCounts.bronzeMedHelm;
     default: return 0;
   }
 }
@@ -491,8 +499,8 @@ $("#sell-confirm").on("click", () => {
       break;
     case "resource-bronze-med-helm":
       countCoins += amountToSell * 15;
-      resourceCounts.bronzeMediumHelmet -= amountToSell;
-      updateDisplay(bronzeMedHelmCount, resourceCounts.bronzeMediumHelmet);
+      resourceCounts.bronzeMedHelm -= amountToSell;
+      updateDisplay(bronzeMedHelmCount, resourceCounts.bronzeMedHelm);
       break;
   }
 
@@ -517,8 +525,12 @@ $(".sellable").on("click", function() {
 const counterBronzeDisplay = document.getElementById("bronze-count");
 
 const ingotList = [
-  { type: "bronze", count: resourceCounts.bronze, counter: counterBronzeDisplay, rawMaterials: {copper: 1, tin: 1} }
-]
+  {
+    type: "bronze",
+    counter: counterBronzeDisplay,
+    rawMaterials: { copper: 1, tin: 1 }
+  }
+];
 
 function updateFurnaceUI() {
   document.getElementById("furnace-cost").textContent =
@@ -548,135 +560,164 @@ function buyFurnace() {
     updateInfoMessage("You buy a furnace.");
   }
 
-let smeltingIntervalId = 0;
+const baseSmeltInterval = 3000;
+const minSmeltInterval = 300;
+
+function getSmeltAmount() {
+  return playerFurnaces;
+}
+
+function getSmeltInterval() {
+  return Math.max(
+    MIN_SMELT_INTERVAL,
+    BASE_SMELT_INTERVAL / Math.log2(playerFurnaces + 2)
+  );
+}
+
+function getSmeltPerTick() {
+  return Math.max(
+    1,
+    Math.floor(Math.pow(playerFurnaces, 0.6))
+  );
+}
+
+let smeltingIntervalId = null;
 
 function startSmelting() {
-  if (smeltingIntervalId) {
-    clearInterval(smeltingIntervalId);
-  }
+  stopSmelting();
 
   const ingotType = document.getElementById("ingot-selection").value;
-  const selectedIngotObj = ingotList.find(ingot => ingot.type === ingotType);
+  const selectedIngot = ingotList.find(i => i.type === ingotType);
 
+  if (!selectedIngot || playerFurnaces <= 0) return;
 
-  if (selectedIngotObj && playerSmeltingRate > 0) {
-    smeltingIntervalId = setInterval(() => {
-      let canSmelt = true;
-  
-      for (const material in selectedIngotObj.rawMaterials) {
-        if (resourceCounts[material] < selectedIngotObj.rawMaterials[material]) {
-          canSmelt = false;
+  const interval = getSmeltInterval();
+
+  smeltingIntervalId = setInterval(() => {
+    const smeltAmount = getSmeltPerTick();
+    let completed = 0;
+
+    for (let i = 0; i < smeltAmount; i++) {
+      // check resources
+      for (const material in selectedIngot.rawMaterials) {
+        if (resourceCounts[material] < selectedIngot.rawMaterials[material]) {
           break;
         }
       }
-  
-      if (canSmelt) {
-        for (const material in selectedIngotObj.rawMaterials) {
-          resourceCounts[material] -= selectedIngotObj.rawMaterials[material];
-        }
-        selectedIngotObj.count++;
-        resourceCounts[selectedIngotObj.type]++;
-        completeObjective("smeltIngot", resourceCounts, countCoins);
-        updateDisplay(selectedIngotObj.counter, selectedIngotObj.count);
+
+      // consume resources
+      for (const material in selectedIngot.rawMaterials) {
+        resourceCounts[material] -= selectedIngot.rawMaterials[material];
       }
-    }, intervalDuration);
+
+      resourceCounts[selectedIngot.type]++;
+      completed++;
+    }
+
+    if (completed > 0) {
+      completeObjective("smeltIngot", resourceCounts, countCoins);
+      updateDisplay();
+      savePlayerProgress();
+    }
+
+  }, interval);
+}
+
+
+function stopSmelting() {
+  if (smeltingIntervalId !== null) {
+    clearInterval(smeltingIntervalId);
+    smeltingIntervalId = null;
   }
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  document.getElementById("ingot-selection").addEventListener("change", () => startSmelting());
+  $("#ingot-selection").on("change", () => startSmelting());
 });
 // END OF SMELTING
 
 
-
 // SMITHING
-const bronzeMedHelmCount = document.getElementById("bronze-med-helm-count");
+const bronzeMedHelm = document.getElementById("bronze-med-helm-count");
 
 const productList = [
   {
-    type: "bronzeMediumHelmet", count: resourceCounts.bronzeMediumHelmet, counter: bronzeMedHelmCount, ingots: {bronze: 1}, price: 10, smithingRate: 1
+    type: "bronzeMedHelm", count: resourceCounts.bronzeMedHelm, counter: bronzeMedHelm, ingots: {bronze: 1}, price: 10, smithingRate: 1
   }
 ]
+function updateAnvilUI() {
+  document.getElementById("anvil-cost").textContent =
+    `Cost: ${getAnvilCost()} coins`;
 
-const blacksmiths = [
-  { id: "human-smith-1", cost: 30, smithingRate: 1 },
-  { id: "human-smith-2", cost: 50, smithingRate: 1 },
-  { id: "human-smith-3", cost: 100, smithingRate: 1 }
-]
+  document.getElementById("anvil-count").textContent =
+    `Anvils: ${playerAnvils}`;
+}
 
+function buyAnvil() {
+  const cost = getAnvilCost();
+
+  if (countCoins < cost) {
+    updateInfoMessage("You don't have enough coins.");
+    return;
+  }
+
+  countCoins -= cost;
+  playerAnvils++;
+  recalcSmithingRate();
+
+  updateCoinsDisplay();
+  completeObjective("buyAnvil", playerAnvils);
+  savePlayerProgress();
+  updateFurnaceUI();
+  updateInfoMessage("You buy an anvil.");
+}
+
+let smithingIntervalId = null;
+const baseSmithInterval = 1000;
+
+function getSmithAmount() {
+  return playerAnvils;
+}
+
+function startSmithing() {  
+  if (smithingIntervalId) return;
+
+  const productType = document.getElementById("product-selection").value;
+  const selectedProduct = productList.find(i => i.type === productType);
+
+  if (!selectedProduct || playerSmithingRate <= 0) return;
+
+  setInterval(() => {
+  const amount = getSmithAmount();
+
+  for (let i = 0; i < amount; i++) {
+    for (const material in selectedProduct.rawMaterials) {
+      if (resourceCounts[material] < selectedProduct.rawMaterials[material]) {
+        return;
+      }
+    }
+
+    for (const material in selectedProduct.rawMaterials) {
+      resourceCounts[material] -= selectedProduct.rawMaterials[material];
+    }
+
+    resourceCounts[selectedProduct.type]++;
+  }
+
+    completeObjective("smithHelmet", resourceCounts, countCoins);
+    updateDisplay();
+    savePlayerProgress();
+  }, baseSmeltInterval);
+}
+
+function stopSmithing() {
+  clearInterval(smeltingIntervalId);
+  smeltingIntervalId = null;
+}
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  blacksmiths.forEach(({ id, cost, smithingRate }) => {
-    document.getElementById(id).addEventListener("click", () => buySmith(id, cost, smithingRate));
-  });
-})
-
-function buySmith(id, cost, playerSmithingRate) {
-  const element = document.getElementById(id);
-  
-  if (element.style.opacity !== "1" && countCoins >= cost) {
-    element.style.opacity = "1";
-    countCoins -= cost;
-    playerSmithingRate += smithingRate;
-
-    updateCoinsDisplay();
-    updateInfoMessage("You hire a Blacksmith.");
-    completeObjective("buySmith");
-
-  } else if (countCoins < cost) {
-    updateInfoMessage("You don't have enough coins.");
-
-  } else {
-    updateInfoMessage("You've already bought that.");
-  }
-}
-
-
-
-const smithList = [
-  { id: "human-smith-1", cost: 50, smithingRate: 1 },
-  { id: "human-smith-2", cost: 200, smithingRate: 1 },
-  { id: "human-smith-3", cost: 500, smithingRate: 1 }
-]
-
-let smithingIntervalId = 0;
-
-function startSmithing() {
-  if (smithingIntervalId) {
-    clearInterval(smithingIntervalId);
-  }
-
-  const productType = document.getElementById("smithing-selection").value;
-  const selectedProductObj = productList.find(product => product.type === productType);
-
-  console.log("Selected product: " + productType)
-  console.log("Found product: " + selectedProductObj.type)
-
-
-  if (selectedProductObj && playerSmithingRate > 0) {
-    smithingIntervalId = setInterval(() => {
-      let canSmith = true;
-  
-      for (const material in selectedProductObj.ingots) {
-        if (resourceCounts[material] < selectedProductObj.ingots[material]) {
-          canSmith = false;
-          break;
-        }
-      }
-  
-      if (canSmith) {
-        for (const material in selectedProductObj.ingots) {
-          resourceCounts[material] -= selectedProductObj.ingots[material];
-        }
-        selectedProductObj.count++;
-        resourceCounts[selectedProductObj.type]++;
-        updateDisplay(selectedProductObj.counter, selectedProductObj.count);
-        completeObjective("smithHelmet", resourceCounts, countCoins);
-      }
-    }, intervalDuration);
-  }
-}
+  $("#product-selection").on("change", () => startSmithing());
+});
 
 let mouseX = 0;
 let mouseY = 0;
@@ -708,7 +749,6 @@ function updatePopupPosition() {
     requestAnimationFrame(updatePopupPosition);
   }
 }
-
 
 document.addEventListener("mousemove", (event) => {
   mouseX = event.clientX;
@@ -757,7 +797,7 @@ document.addEventListener("mouseout", () => {
 });
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  document.getElementById("smithing-selection").addEventListener("change", () => {
+  document.getElementById("product-selection").addEventListener("change", () => {
     startSmithing();
     console.log("Start smithing");
   });

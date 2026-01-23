@@ -123,29 +123,34 @@
   <fieldset id="furnaces"> 
     <legend>Furnaces</legend>
     <div id="furnace-shop">
-      <select id="ingot-selection">
-        <option value="" disabled selected>Select output</option>
-        <option value="bronze">Bronze</option>
-        <option value="iron">Iron</option>
-      </select>
+      <div class="ingot-controls">
+        <select id="ingot-selection">
+          <option value="" disabled selected>Select output</option>
+          <option value="bronze">Bronze</option>
+          <option value="iron">Iron</option>
+        </select>
+       <div id="#furnace-controls">II</div>
+      </div>
       <img id="furnace-image" src="images\Furnace.png"></img>
       <button id="furnace-buy" class="button-neutral">Buy furnace</button>
       <div id="furnace-cost">Cost: 50 coins</div>
       <div id="furnace-count">Furnaces:</div>
+      <div id="furnace-fuel">Fuel:</div>
     </div>
   </fieldset>
 
-  <fieldset id="blacksmiths">
+  <fieldset id="anvils">
     <legend>Anvils</legend>
-    <select id="smithing-selection">
+    <select id="product-selection">
       <option value="none">None</option>
       <option value="bronzeMediumHelmet">Bronze medium helmet</option>
       <option value="ironMediumHelmet">Iron medium helmet</option>
     </select>
-    <div id="blacksmith-shop">
-      <img class="purchasable-item blacksmiths" id="human-smith-1" src="https://oldschool.runescape.wiki/images/thumb/Anvil.png/200px-Anvil.png?a1e23"></img>
-    <img class="purchasable-item blacksmiths" id="human-smith-2" src="https://oldschool.runescape.wiki/images/thumb/Anvil.png/200px-Anvil.png?a1e23"></img>
-  <img class="purchasable-item blacksmiths" id="human-smith-3" src="https://oldschool.runescape.wiki/images/thumb/Anvil.png/200px-Anvil.png?a1e23"></img>
+    <div id="anvil-shop">
+      <img id="anvil-image" src="images\400px-Anvil.png"></img>
+      <button id="anvil-buy" class="button-neutral">Buy furnace</button>
+      <div id="anvil-cost">Cost: 50 coins</div>
+      <div id="anvil-count">Anvils:</div>
     </div>
   </fieldset>
 

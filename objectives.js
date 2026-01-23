@@ -46,12 +46,12 @@ export const objective = [
   {
     objectiveNo: 6,
     id: "buyFurnace",
-    message: "Click on the first furnace to buy it once you have enough coins",
+    message: "Click the 'Buy furnace' button to buy a furnace once you have enough coins",
     complete: false,
     condition: (playerFurnaces) => playerFurnaces >= 1,
     unlock: () => {
-          $("#furnaces").css("display", "block");
-      }
+      $("#blackanvils").css("display", "block");
+    }
   },
   {
     objectiveNo: 7,

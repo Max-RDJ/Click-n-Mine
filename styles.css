@@ -124,15 +124,17 @@ button:hover {
   height: 100px;
 }
   
-.node-image:active{
+.node-image:active {
   transform: scale(1.2);
 }
 
-.node-image:hover{
-  cursor: pointer;
+.node-image.cooldown:active {
+  transform: none;
 }
 
-
+.node-image:hover {
+  cursor: pointer;
+}
   
 fieldset{
   border-color: rgba(255, 255, 255, 0.3);
@@ -178,7 +180,7 @@ select {
   pointer-events: none;
 }
 
-#tools, #furnaces, #auto-miner-shop, #blacksmiths {
+#tools, #furnaces, #auto-miner-shop, #anvils {
   display: none;
 }
 
@@ -223,7 +225,12 @@ select {
   height: auto;
 }
 
-.auto-miners, .blacksmiths{
+.ingot-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.auto-miners, .anvils {
   height: 40px;
   opacity: 0.5;
   padding: 0 5px 0 5px;

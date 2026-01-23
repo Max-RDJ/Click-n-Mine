@@ -3,6 +3,8 @@ BUGS:
 FEATURES:
 - Re-arrange columns into tabs in mobile
 - Refactor miners and furnaces as arrays that can be added to indefinitely instead of limited number
+- Put flame icon next to product in Resources that is being smelted/anviled
+- Add fluctuations in sell prices
 - Miners need pickaxes
     - Creates need to buy more pickaxes and possibly buy auto-buyers
 - Furnaces and other 'machinery' can be individually set to process specific raw material, e.g. one auto-miner on stone, another one copper
@@ -16,7 +18,7 @@ FEATURES:
 - Add animations via jQuery + Animate.css library
 - Add an achievements list, e.g. reach 10K coins
 - Make purchasable goodie bag containing random ores
-- Have select dropdown for each furnace and blacksmith. Use icons and clicking icon opens up menu of icons of products to select from.
+- Have select dropdown for each furnace and blackanvil. Use icons and clicking icon opens up menu of icons of products to select from.
 - Selected resource should be highlighted
 - Add merchants to auto-sell products
 - Materials required in addition to money to build furnaces etc.
