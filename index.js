@@ -136,6 +136,7 @@ function getFurnaceCost() {
 }
 
 $("#furnace-buy").on("click", buyFurnace);
+$("#anvil-buy").on("click", buyAnvil);
 
 function updateCoinsDisplay() {
   $("#coins-count").text(countCoins);
@@ -569,8 +570,8 @@ function getSmeltAmount() {
 
 function getSmeltInterval() {
   return Math.max(
-    MIN_SMELT_INTERVAL,
-    BASE_SMELT_INTERVAL / Math.log2(playerFurnaces + 2)
+    minSmeltInterval,
+    baseSmeltInterval / Math.log2(playerFurnaces + 2)
   );
 }
 
@@ -595,34 +596,32 @@ function startSmelting() {
 
   smeltingIntervalId = setInterval(() => {
     const smeltAmount = getSmeltPerTick();
-    let completed = 0;
 
     for (let i = 0; i < smeltAmount; i++) {
-      // check resources
+      let canSmelt = true;
+
       for (const material in selectedIngot.rawMaterials) {
         if (resourceCounts[material] < selectedIngot.rawMaterials[material]) {
-          break;
+          canSmelt = false;
         }
       }
 
-      // consume resources
+      if (!canSmelt) break;
+
       for (const material in selectedIngot.rawMaterials) {
         resourceCounts[material] -= selectedIngot.rawMaterials[material];
       }
 
       resourceCounts[selectedIngot.type]++;
-      completed++;
     }
 
-    if (completed > 0) {
-      completeObjective("smeltIngot", resourceCounts, countCoins);
-      updateDisplay();
-      savePlayerProgress();
-    }
+    completeObjective("smeltIngot", resourceCounts, countCoins);
+    updateDisplay();
+    savePlayerProgress();
+    
 
   }, interval);
 }
-
 
 function stopSmelting() {
   if (smeltingIntervalId !== null) {
@@ -642,9 +641,10 @@ const bronzeMedHelm = document.getElementById("bronze-med-helm-count");
 
 const productList = [
   {
-    type: "bronzeMedHelm", count: resourceCounts.bronzeMedHelm, counter: bronzeMedHelm, ingots: {bronze: 1}, price: 10, smithingRate: 1
+    type: "bronzeMedHelm", count: resourceCounts.bronzeMedHelm, counter: bronzeMedHelm, ingots: {bronze: 1}, price: 10, timeToSmith: 5000
   }
 ]
+
 function updateAnvilUI() {
   document.getElementById("anvil-cost").textContent =
     `Cost: ${getAnvilCost()} coins`;
@@ -675,8 +675,11 @@ function buyAnvil() {
 let smithingIntervalId = null;
 const baseSmithInterval = 1000;
 
-function getSmithAmount() {
-  return playerAnvils;
+function getAnvilCost() {
+  return Math.floor(
+    ANVIL_CONFIG.baseCost *
+    Math.pow(ANVIL_CONFIG.costMultiplier, playerFurnaces)
+  );
 }
 
 function startSmithing() {  
@@ -688,26 +691,33 @@ function startSmithing() {
   if (!selectedProduct || playerSmithingRate <= 0) return;
 
   setInterval(() => {
-  const amount = getSmithAmount();
+  const smithAmount = getSmeltPerTick();
+  let completed = 0;
 
-  for (let i = 0; i < amount; i++) {
+  for (let i = 0; i < smithAmount; i++) {
+    let canSmith = true;
+
     for (const material in selectedProduct.rawMaterials) {
       if (resourceCounts[material] < selectedProduct.rawMaterials[material]) {
-        return;
+        canSmith = false;
+        break;
       }
     }
+
+    if (!canSmith) break;
 
     for (const material in selectedProduct.rawMaterials) {
       resourceCounts[material] -= selectedProduct.rawMaterials[material];
     }
 
     resourceCounts[selectedProduct.type]++;
+    completed++;
   }
 
     completeObjective("smithHelmet", resourceCounts, countCoins);
     updateDisplay();
     savePlayerProgress();
-  }, baseSmeltInterval);
+  }, baseSmithInterval);
 }
 
 function stopSmithing() {
@@ -754,36 +764,25 @@ document.addEventListener("mousemove", (event) => {
   mouseX = event.clientX;
   mouseY = event.clientY;
 
-  const hoveredElement = document.elementFromPoint(mouseX, mouseY);
+  const hovered = document
+    .elementFromPoint(mouseX, mouseY)
+    ?.closest(".purchasable-item");
 
-  if (!hoveredElement) {
+  if (!hovered) {
     popup.style.display = "none";
+    isMouseMoving = false;
     return;
   }
 
-  const allPurchasableItems = [...pickaxes];
+  const data = pickaxes.find(p => p.id === hovered.id);
+  if (!data) return;
 
-  const hoveredElementData = allPurchasableItems.find(item => item.id === hoveredElement.id);
-
-
-  if (hoveredElementData && hoveredElement.classList.contains("purchasable-item")) {
-    popup.style.display = "block";
-
-    let popupContent = `<span class="orange-highlight item-title">${hoveredElementData.itemName}</span><br>Price: <span class="orange-highlight">${hoveredElementData.cost}</span>`;
-
-    if (hoveredElementData.miningRate !== undefined)  {
-      popupContent += `<br>Mult: <span class="orange-highlight">x${hoveredElementData.miningRate}</span>`;
-    }
-  
-    if (hoveredElementData.playerSmeltingRate !== undefined)  {
-      popupContent += `<br>Mult: x${hoveredElementData.playerSmeltingRate}`;
-    }
-
-      popup.innerHTML = popupContent;
-    } else { 
-        popup.innerHTML = "???";    
-    }
-
+  popup.style.display = "block";
+  popup.innerHTML = `
+    <span class="orange-highlight item-title">${data.itemName}</span><br>
+    Price: <span class="orange-highlight">${data.cost}</span><br>
+    Mult: <span class="orange-highlight">x${data.miningRate}</span>
+  `;
 
   if (!isMouseMoving) {
     isMouseMoving = true;
@@ -794,13 +793,6 @@ document.addEventListener("mousemove", (event) => {
 document.addEventListener("mouseout", () => {
   isMouseMoving = false;
   popup.style.display = "none";
-});
-
-window.addEventListener("DOMContentLoaded", (event) => {
-  document.getElementById("product-selection").addEventListener("change", () => {
-    startSmithing();
-    console.log("Start smithing");
-  });
 });
 
 // Dev tools

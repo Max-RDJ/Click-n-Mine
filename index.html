@@ -37,20 +37,17 @@
           </div>
 
           <div class="resources sellable" id="resource-bronze ">
-            <img src="https://oldschool.runescape.wiki/images/thumb/Bronze_bar_detail.png/1280px-Bronze_bar_detail.png?603dc">
+            <img src="images\240px-Bronze_bar_detail.png">
             <span id="bronze-count" value="0">0</span>
           </div>
-        </div>
 
-      <fieldset id="resources-products">
-        <legend class="unselectable">Products</legend>
-        <div class="resources sellable" id="resource-bronze-med-helm">
-          <img src="https://oldschool.runescape.wiki/images/thumb/Bronze_med_helm_detail.png/130px-Bronze_med_helm_detail.png?c6333c">
-          <span id="bronze-med-helm-count" value="0">0</span>
+          <div class="resources sellable" id="resource-bronze-med-helm">
+            <img src="images\260px-Bronze_med_helm_detail.png">
+            <span id="bronze-med-helm-count" value="0">0</span>
+          </div>
         </div>
-      </fieldset>
       
-      <div class="sell-section">
+      <div class="sell-controls">
         <label for="sell-slider" id="sell-label">Sell 0 Stone</label>
         <input type="range" id="sell-slider" min="0" max="0" value="0">
         <button id="sell-confirm">Sell</button>
@@ -70,7 +67,7 @@
   <div class="column" id="column-middle">
     <h1 class="unselectable">Mineshaft</h1>
     
-    <div id="orselles">
+    <div id="nodes">
       <div class="ore-node node__tier-one node__stone unselectable" type="button">
         <img class="node-image" src="images/480px-Ring_of_stone_equipped.png">
       </div>
@@ -129,28 +126,32 @@
           <option value="bronze">Bronze</option>
           <option value="iron">Iron</option>
         </select>
-       <div id="#furnace-controls">II</div>
+       <div id="furnace-controls">II</div>
       </div>
-      <img id="furnace-image" src="images\Furnace.png"></img>
+      <div class="direction-row">
+        <img id="furnace-image" src="images\Furnace.png"></img>
+        <div id="furnace-count"></div>
+      </div>
       <button id="furnace-buy" class="button-neutral">Buy furnace</button>
       <div id="furnace-cost">Cost: 50 coins</div>
-      <div id="furnace-count">Furnaces:</div>
       <div id="furnace-fuel">Fuel:</div>
     </div>
   </fieldset>
 
   <fieldset id="anvils">
     <legend>Anvils</legend>
-    <select id="product-selection">
-      <option value="none">None</option>
-      <option value="bronzeMediumHelmet">Bronze medium helmet</option>
-      <option value="ironMediumHelmet">Iron medium helmet</option>
-    </select>
     <div id="anvil-shop">
-      <img id="anvil-image" src="images\400px-Anvil.png"></img>
+      <select id="product-selection">
+        <option value="none">None</option>
+        <option value="bronzeMediumHelmet">Bronze medium helmet</option>
+        <option value="ironMediumHelmet">Iron medium helmet</option>
+      </select>
+      <div  class="direction-row">
+        <img id="anvil-image" src="images\400px-Anvil.png"></img>
+        <div id="anvil-count"></div>
+      </div>
       <button id="anvil-buy" class="button-neutral">Buy furnace</button>
       <div id="anvil-cost">Cost: 50 coins</div>
-      <div id="anvil-count">Anvils:</div>
     </div>
   </fieldset>
 

@@ -18,6 +18,13 @@
   user-select: none;
 }
 
+.direction-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
 body {
   background-color: rgba(24, 26, 27, 1);
   color: #ebe2d5;
@@ -119,7 +126,6 @@ button:hover {
 }
 
 .ore-node {
-  display: block;
   width: 100px;
   height: 100px;
 }
@@ -163,13 +169,8 @@ select {
 }
 
 .purchasable-item:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: rgba(255, 255, 255, 0);
-  pointer-events: auto;
+    pointer-events: none;
+
 }
   
 .purchasable-item:hover {
@@ -206,7 +207,7 @@ select {
     margin-top: 17.5px;
   }
 
-#furnace-shop {
+#furnace-shop, #anvil-shop {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -230,14 +231,14 @@ select {
   gap: 8px;
 }
 
-.auto-miners, .anvils {
-  height: 40px;
-  opacity: 0.5;
-  padding: 0 5px 0 5px;
-  margin-top: 17.5px;
+#anvil-image {
+  display: flex;
+  justify-content: center;
+  width: 40px;
+  height: auto;
 }
   
-.sell-section {
+.sell-controls {
   display: flex;
   flex-direction: row;
   margin: 3em 0 1em 0;

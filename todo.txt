@@ -28,3 +28,4 @@ RANDOM IDEAS:
 - Office assistant 'Picky'/'Axy' to give objectives
 - Achievements expandable sidebar
 - Miners work faster when you buy kitchen for food
+- Progress bar for smelting and smithing (probably redundant after a few purchases)

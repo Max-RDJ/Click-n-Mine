@@ -20,7 +20,7 @@ export const objective = [
     condition: (resources, coins) => coins >= 10,
     complete: false,
     unlock: () => {
-        $("#tools").css("display", "block");
+      $("#tools").css("display", "block");
     }
   },
   {
@@ -50,7 +50,7 @@ export const objective = [
     complete: false,
     condition: (playerFurnaces) => playerFurnaces >= 1,
     unlock: () => {
-      $("#blackanvils").css("display", "block");
+      $("#resource-bronze").css("display", "block");
     }
   },
   {
@@ -58,7 +58,11 @@ export const objective = [
     id: "smeltIngot",
     message: "Smelt your first bronze ingot by selecting Bronze from the dropdown",
     complete: false,
-    condition: (resources) => resources.bronze >= 1
+    condition: (resources) => resources.bronze >= 1,
+    unlock: () => {
+      $("#anvils").css("display", "block");
+      $("#bronze-med-helm").css("display", "block");
+    }
   },
   {
     objectiveNo: 8,
