@@ -520,8 +520,8 @@ $("#sell-confirm").on("click", () => {
 });
 
 $(".sellable").on("click", function() {
-  $(".sellable").removeClass("selectedOre");
-  $(this).addClass("selectedOre");
+  $(".sellable").removeClass("selected-ore");
+  $(this).addClass("selected-ore");
 
   const resourceId = this.id;
   selectResource(resourceId);
