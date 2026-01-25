@@ -25,6 +25,24 @@
   gap: 16px;
 }
 
+.controls-icon:hover {
+  cursor: pointer;
+}
+
+.controls-icon svg {
+  transform: scale(0.33) !important;
+  transform-origin: center;
+}
+
+.controls-icon:hover svg {
+  stroke: orange;
+  transform: scale(1.15);
+}
+
+.hidden {
+  display: none;
+}
+
 body {
   background-color: rgba(24, 26, 27, 1);
   color: #ebe2d5;
@@ -89,7 +107,6 @@ h2 {
 
 .selected-ore {
   display: inline-flex;
-  border: solid orange 1px;
 }
 
 .item-title {

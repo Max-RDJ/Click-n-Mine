@@ -4,12 +4,22 @@ import {
   loadObjectivesProgress
 } from "./objectives.js";
 
+$(document).ready(() => {
+lucide.createIcons({
+  attrs: {
+    width: 12,
+    height: 12
+  }
+});
+});
+
 window.addEventListener("DOMContentLoaded", () => {
   loadObjectivesProgress();
   $("#objective-message").text(getActiveObjectiveMessage());
   updateFurnaceUI();
   updateAnvilUI();
   startSmithing();
+  startSmelting();
 });
 
 const storedCoins = localStorage.getItem("countCoins");
@@ -422,7 +432,6 @@ function startMining() {
         selectedOreObj.count++;
         resourceCounts[oreType]++;
 
-        // completeObjective("automine");
         updateDisplay(selectedOreObj.counter, selectedOreObj.count);
     }, intervalDuration); 
   }
@@ -627,11 +636,36 @@ function stopSmelting() {
   if (smeltingIntervalId !== null) {
     clearInterval(smeltingIntervalId);
     smeltingIntervalId = null;
+
+  document.getElementById("smelt-pause").classList.add("hidden");
+  document.getElementById("smelt-play").classList.remove("hidden");
   }
 }
 
-window.addEventListener("DOMContentLoaded", (event) => {
-  $("#ingot-selection").on("change", () => startSmelting());
+let isSmelting = false;
+
+const smeltPlay = document.getElementById("smelt-play");
+const smeltPause = document.getElementById("smelt-pause");
+
+smeltPlay.addEventListener("click", () => {
+  console.log("Play clicked")
+  if (isSmelting) return;
+
+  startSmelting();
+  isSmelting = true;
+
+  smeltPlay.classList.add("hidden");
+  smeltPause.classList.remove("hidden");
+});
+
+smeltPause.addEventListener("click", () => {
+  if (!isSmelting) return;
+
+  stopSmelting();
+  isSmelting = false;
+
+  smeltPause.classList.add("hidden");
+  smeltPlay.classList.remove("hidden");
 });
 // END OF SMELTING
 

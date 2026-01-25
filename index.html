@@ -126,7 +126,14 @@
           <option value="bronze">Bronze</option>
           <option value="iron">Iron</option>
         </select>
-       <div id="furnace-controls">II</div>
+       <div id="furnace-controls">
+          <button id="smelt-play">
+            <i data-lucide="play"class="controls-icon"></i>
+          </button>
+          <button id="smelt-pause" class="hidden">
+            <i data-lucide="pause" class="controls-icon"></i>
+          </button>
+        </div>
       </div>
       <div class="direction-row">
         <img id="furnace-image" src="images\Furnace.png"></img>
@@ -177,7 +184,7 @@
   <div id="stats-popup">Popup</div>
   </div>
 </div>
-
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script type="module" src="index.js" defer></script>
 </body>
 <footer>
