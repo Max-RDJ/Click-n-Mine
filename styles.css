@@ -260,22 +260,34 @@ select {
   
 .sell-controls {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   margin: 3em 0 1em 0;
   justify-content: center;
-  gap: 8px;
+  gap: 20px;
 }
 
 #info-message{
   font-size: 1.2em;
 }
 
-.button-neutral {
+.button-default {
   font-size: 1em;
   background-color: var(--primary);
   color: var(--button-neutral-text);
   padding: 5px;
   width: 120px;
+  border-radius: 10px;
+}
+
+.button-square {
+  height: 30px;
+  width: 30px;
+  font-size: 1em;
+  background-color: var(--primary);
+  color: var(--button-neutral-text);
+  padding: 5px;
   border-radius: 10px;
 }
 
