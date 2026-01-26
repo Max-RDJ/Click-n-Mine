@@ -120,9 +120,9 @@
   <fieldset id="furnaces"> 
     <legend>Furnaces</legend>
     <div id="furnace-shop">
-      <div class="ingot-controls">
+      <div class="furnace-actions">
         <select id="ingot-selection">
-          <option value="" disabled selected>Select output</option>
+          <option value="" disabled selected>None</option>
           <option value="bronze">Bronze</option>
           <option value="iron">Iron</option>
         </select>
@@ -148,11 +148,21 @@
   <fieldset id="anvils">
     <legend>Anvils</legend>
     <div id="anvil-shop">
-      <select id="product-selection">
-        <option value="none">None</option>
-        <option value="bronzeMedHelm">Bronze medium helmet</option>
-        <option value="ironMediumHelmet">Iron medium helmet</option>
-      </select>
+      <div class="anvil-actions">
+        <select id="product-selection">
+          <option value="none">None</option>
+          <option value="bronzeMedHelm">Bronze medium helmet</option>
+          <option value="ironMediumHelmet">Iron medium helmet</option>
+        </select>
+        <div id="anvil-controls">
+          <button id="smith-play">
+            <i data-lucide="play"class="controls-icon"></i>
+          </button>
+          <button id="smith-pause" class="hidden">
+            <i data-lucide="pause" class="controls-icon"></i>
+          </button>
+        </div>
+      </div>
       <div  class="direction-row">
         <img id="anvil-image" src="images\400px-Anvil.png"></img>
         <div id="anvil-count"></div>

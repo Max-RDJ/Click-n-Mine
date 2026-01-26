@@ -246,7 +246,7 @@ select {
   height: auto;
 }
 
-.ingot-controls {
+.furnace-actions, .anvil-actions {
   display: flex;
   gap: 8px;
 }

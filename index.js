@@ -594,12 +594,17 @@ function getSmeltPerTick() {
 let smeltingIntervalId = null;
 
 function startSmelting() {
-  stopSmelting();
+  if (isSmelting) return;
 
   const ingotType = document.getElementById("ingot-selection").value;
   const selectedIngot = ingotList.find(i => i.type === ingotType);
 
   if (!selectedIngot || playerFurnaces <= 0) return;
+
+  isSmelting = true;
+
+  smeltPlay.classList.add("hidden");
+  smeltPause.classList.remove("hidden");
 
   const interval = getSmeltInterval();
 
@@ -627,8 +632,6 @@ function startSmelting() {
     completeObjective("smeltIngot", resourceCounts, countCoins);
     updateDisplay();
     savePlayerProgress();
-    
-
   }, interval);
 }
 
@@ -642,20 +645,21 @@ function stopSmelting() {
   }
 }
 
+document.getElementById("ingot-selection").addEventListener("change", () => {
+  if (isSmelting) {
+    stopSmelting();
+    startSmelting();
+  }
+});
+
 let isSmelting = false;
 
 const smeltPlay = document.getElementById("smelt-play");
 const smeltPause = document.getElementById("smelt-pause");
 
 smeltPlay.addEventListener("click", () => {
-  console.log("Play clicked")
   if (isSmelting) return;
-
   startSmelting();
-  isSmelting = true;
-
-  smeltPlay.classList.add("hidden");
-  smeltPause.classList.remove("hidden");
 });
 
 smeltPause.addEventListener("click", () => {
@@ -708,10 +712,22 @@ function buyAnvil() {
   savePlayerProgress();
   updateAnvilUI();
   updateInfoMessage("You buy an anvil.");
-  startSmithing();
 }
 
 let smithingIntervalId = null;
+let isSmithing = false;
+
+const smithPlay = document.getElementById("smith-play");
+const smithPause = document.getElementById("smith-pause");
+
+smithPlay.addEventListener("click", () => {
+  if (isSmithing) return;
+  startSmithing();
+});
+
+smithPause.addEventListener("click", () => {
+  stopSmithing();
+});
 
 function getAnvilCost() {
   return Math.floor(
@@ -720,38 +736,38 @@ function getAnvilCost() {
   );
 }
 
-function startSmithing() {  
-  stopSmithing();
+function startSmithing() {
+  if (isSmithing) return;
 
   const productType = document.getElementById("product-selection").value;
-  const selectedProduct = productList.find(i => i.type === productType);
+  const selectedProduct = productList.find(p => p.type === productType);
 
   if (!selectedProduct || playerAnvils <= 0) return;
+
+  isSmithing = true;
+
+  document.getElementById("smith-play").classList.add("hidden");
+  document.getElementById("smith-pause").classList.remove("hidden");
 
   const interval = selectedProduct.timeToSmith;
 
   smithingIntervalId = setInterval(() => {
-  const smithAmount = Math.max(1, playerSmithingRate);
+    const smithAmount = Math.max(1, playerSmithingRate);
 
-  for (let i = 0; i < smithAmount; i++) {
-    let canSmith = true;
-
-    for (const material in selectedProduct.rawMaterials) {
-      if (resourceCounts[material] < selectedProduct.rawMaterials[material]) {
-        canSmith = false;
-        break;
+    for (let i = 0; i < smithAmount; i++) {
+      for (const material in selectedProduct.rawMaterials) {
+        if (resourceCounts[material] < selectedProduct.rawMaterials[material]) {
+          stopSmithing();
+          return;
+        }
       }
+
+      for (const material in selectedProduct.rawMaterials) {
+        resourceCounts[material] -= selectedProduct.rawMaterials[material];
+      }
+
+      resourceCounts[selectedProduct.type]++;
     }
-
-    if (!canSmith) break;
-
-    for (const material in selectedProduct.rawMaterials) {
-      resourceCounts[material] -= selectedProduct.rawMaterials[material];
-    }
-
-    resourceCounts[selectedProduct.type]++;
-    console.log("Helms:", resourceCounts.bronzeMedHelm);
-  }
 
     completeObjective("smithHelmet", resourceCounts, countCoins);
     updateDisplay();
@@ -760,11 +776,25 @@ function startSmithing() {
 }
 
 function stopSmithing() {
+  if (!isSmithing) return;
+
   clearInterval(smithingIntervalId);
   smithingIntervalId = null;
+  isSmithing = false;
+
+  document.getElementById("smith-pause").classList.add("hidden");
+  document.getElementById("smith-play").classList.remove("hidden");
 }
 
+document.getElementById("product-selection").addEventListener("change", () => {
+  if (isSmithing) {
+    stopSmithing();
+    startSmithing();
+  }
+});
+
 window.addEventListener("DOMContentLoaded", (event) => {
+  $("#ingot-selection").on("change", () => startSmelting());
   $("#product-selection").on("change", () => startSmithing());
 });
 
