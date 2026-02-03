@@ -2,9 +2,9 @@ export const objective = [
   {
     objectiveNo: 1,
     id: "stone5",
-    message: "Mine 5 stone",
+    message: "Click the stone node in the Mineshaft",
     complete: false,
-    condition: (resources) => resources.stone >= 5,
+    condition: (resources) => resources.stone >= 1,
   },
   {
     objectiveNo: 2,
