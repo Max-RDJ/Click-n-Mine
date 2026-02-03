@@ -60,22 +60,6 @@ const defaultResourceCounts = {
   bronzeMedHelm: 0
 };
 
-let resourceCounts = (() => {
-  const storedData = localStorage.getItem("resourceCounts");
-
-  if (!storedData || storedData === "undefined") {
-    return structuredClone(defaultResourceCounts);
-  }
-
-  try {
-    const parsedData = JSON.parse(storedData);
-    return { ...defaultResourceCounts, ...parsedData };
-  } catch (e) {
-    console.error("Error parsing resourceCounts:", e);
-    return structuredClone(defaultResourceCounts);
-  }
-})();
-
 const FURNACE_CONFIG = {
   baseCost: 20,
   costMultiplier: 1.6,
@@ -89,6 +73,7 @@ const ANVIL_CONFIG = {
 };
 
 let playerState = loadPlayerState();
+let resourceCounts = playerState.resources;
 playerMiningRate    = playerState.playerMiningRate ?? 1;
 autoMiningRate      = playerState.autoMiningRate ?? 0;
 playerSmithingRate  = playerState.playerSmithingRate ?? 1;
@@ -164,7 +149,6 @@ function updateResource(resource, amount) {
   if (resourceCounts.hasOwnProperty(resource)) {
     resourceCounts[resource] += amount;
     console.log(`${resource} updated to ${resourceCounts[resource]}`);
-    localStorage.setItem("resourceCounts", JSON.stringify(resourceCounts));
     updateDisplay();
   } else {
     console.error(`Resource '${resource}' does not exist in resourceCounts.`);
@@ -470,10 +454,9 @@ function getResourceCount(resourceId) {
 }
 
 function getResourceName(resourceId) {
-  return resourceId.split("-").slice(1).join(" "); // e.g. "resource-stone" → "stone"
+  return resourceId.split("-").slice(1).join(" ");
 }
 
-// Update label dynamically as slider moves
 document.getElementById("sell-slider").addEventListener("input", (e) => {
   const value = parseInt(e.target.value);
   const label = document.getElementById("sell-label");

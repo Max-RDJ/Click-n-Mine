@@ -1,6 +1,10 @@
-BUGS:
+**BUGS**:
+- Bronze bar should be display flex; appears as block
 
-FEATURES:
+**FEATURES**:
+- RETHINK PROGRESSION: earlier metals become redundant -- do they disappear or do we revolve the game around iron/steel only? A sort of steel factory game?
+- Another idea: could make whole game into half an idle/grinding game, half a rogue-like where you use the resources gained during the grind portion of the game. Time limit on grind portions? One grind over 24 hours then next rogue-like level becomes available?
+
 - Selected resource should be highlighted
 - Re-arrange columns into tabs in mobile
 - Refactor miners and furnaces as arrays that can be added to indefinitely instead of limited number
@@ -11,6 +15,7 @@ FEATURES:
 - Miners need pickaxes
     - Creates need to buy more pickaxes and possibly buy auto-buyers
 - Furnaces and other 'machinery' can be individually set to process specific raw material, e.g. one auto-miner on stone, another one copper
+- Mages as better form of furnaces -- runecrafting?
 - Display number next to resource count temporarily when it increases (e.g. "+5"), disappears with upward movement and fade
 - Hover over resource items to see sell price
 - Power-up to greatly increase mining speed temporarily - smashing!
