@@ -3,7 +3,7 @@
 
 **FEATURES**:
 - RETHINK PROGRESSION: earlier metals become redundant -- do they disappear or do we revolve the game around iron/steel only? A sort of steel factory game?
-- Another idea: could make whole game into half an idle/grinding game, half a rogue-like where you use the resources gained during the grind portion of the game. Time limit on grind portions? One grind over 24 hours then next rogue-like level becomes available?
+- Another idea: could make whole game into half an idle/grinding game, half a rogue-like where you use the resources gained during the grind portion of the game. Time limit on grind portions? One grind over 24 hours then next rogue-like level becomes available? Buy equipment for when you go into battle or smith your own
 
 - Selected resource should be highlighted
 - Re-arrange columns into tabs in mobile
@@ -26,9 +26,12 @@
 - Have select dropdown for each furnace and blackanvil. Use icons and clicking icon opens up menu of icons of products to select from.
 - Materials required in addition to money to build furnaces etc.
 
-RANDOM IDEAS:
+**RANDOM IDEAS**:
 - Make shop sections draggable and re-arrangable
 - Office assistant 'Picky'/'Axy' to give objectives
 - Achievements expandable sidebar
 - Miners work faster when you buy kitchen for food
 - Progress bar for smelting and smithing (probably redundant after a few purchases)
+
+**NAMES**:
+ClickMine
