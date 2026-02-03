@@ -132,10 +132,10 @@
         </select>
        <div id="furnace-controls">
           <button id="smelt-play" class="button-square">
-            <i data-lucide="play" class="controls-icon"></i>
+            <i data-lucide="play" class="icon__controls"></i>
           </button>
           <button id="smelt-pause" class="hidden button-square">
-            <i data-lucide="pause" class="controls-icon"></i>
+            <i data-lucide="pause" class="icon__controls"></i>
           </button>
         </div>
       </div>
@@ -160,10 +160,10 @@
         </select>
         <div id="anvil-controls">
           <button id="smith-play" class="button-square">
-            <i data-lucide="play"class="controls-icon"></i>
+            <i data-lucide="play"class="icon__controls"></i>
           </button>
           <button id="smith-pause" class="hidden button-square">
-            <i data-lucide="pause" class="controls-icon"></i>
+            <i data-lucide="pause" class="icon__controlsn"></i>
           </button>
         </div>
       </div>
@@ -194,12 +194,18 @@
     </fieldset>
   </div>
 
-  <div id="objective-message-container">
-    <span id="objective-message" class="unselectable"></span>
-    <span id="objective-message-dismiss" class="unselectable">
-      <i data-lucide="play" class="controls-icon"></i>
-    </span>
+  <div id="objective-message">
+    <div id="objective-message-text">
+      <span id="objective-message-content"></span>
+      <span id="objective-message-dismiss">
+        <i data-lucide="x" class="icon__dismiss"></i>
+      </span>
+    </div>
   </div>
+
+
+
+
 
   <div id="stats-popup">Popup</div>
   </div>

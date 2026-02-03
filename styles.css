@@ -25,18 +25,27 @@
   gap: 16px;
 }
 
-.controls-icon:hover {
+.icon__controls:hover {
   cursor: pointer;
 }
 
-.controls-icon svg {
+.icon__controls svg {
   transform: scale(0.33) !important;
   transform-origin: center;
 }
 
-.controls-icon:hover svg {
+.icon__controls:hover svg {
   stroke: orange;
   transform: scale(1.15);
+}
+
+.icon__dismiss {
+  opacity: 0.6;
+}
+
+.icon__dismiss:hover {
+  opacity: 1;
+  cursor: pointer;
 }
 
 .hidden {
@@ -53,7 +62,7 @@ body {
   display: grid;
 }
 
-#objective-message-container {
+#objective-message {
   display: flex;
   position: fixed;
   border: solid rgba(255, 255, 255, 0) 1px;
@@ -65,13 +74,21 @@ body {
   pointer-events: none;
 }
 
-#objective-message {
+#objective-message-text {
+  position: relative;
   padding: 10px;
   border-radius: 10px;
   margin-inline: 5em;
   font-size: 1.8em;
   background-color: #38352db6;
   width: calc(100% - 10em);
+}
+
+#objective-message-dismiss {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  pointer-events: auto;
 }
   
 h1 {

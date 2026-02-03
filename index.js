@@ -15,11 +15,15 @@ lucide.createIcons({
 
 window.addEventListener("DOMContentLoaded", () => {
   loadObjectivesProgress();
-  $("#objective-message").text(getActiveObjectiveMessage());
+  $("#objective-message-content").text(getActiveObjectiveMessage());
   updateFurnaceUI();
   updateAnvilUI();
   startSmithing();
   startSmelting();
+});
+
+$("#objective-message-dismiss").on("click", () => {
+  $("#objective-message").hide();
 });
 
 const storedCoins = localStorage.getItem("countCoins");
@@ -143,7 +147,7 @@ function updateCoinsDisplay() {
   savePlayerProgress();
 }
 updateCoinsDisplay();
-$("#objective-message").text(getActiveObjectiveMessage);
+$("#objective-message-content").text(getActiveObjectiveMessage());
 
 function updateResource(resource, amount) {
   if (resourceCounts.hasOwnProperty(resource)) {
