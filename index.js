@@ -15,7 +15,7 @@ lucide.createIcons({
 
 window.addEventListener("DOMContentLoaded", () => {
   loadObjectivesProgress();
-  $("#objective-message-content").text(getActiveObjectiveMessage());
+  $("#objective-message-content").html(getActiveObjectiveMessage());
   updateFurnaceUI();
   updateAnvilUI();
   startSmithing();
@@ -147,7 +147,7 @@ function updateCoinsDisplay() {
   savePlayerProgress();
 }
 updateCoinsDisplay();
-$("#objective-message-content").text(getActiveObjectiveMessage());
+$("#objective-message-content").html(getActiveObjectiveMessage());
 
 function updateResource(resource, amount) {
   if (resourceCounts.hasOwnProperty(resource)) {

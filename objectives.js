@@ -50,7 +50,7 @@ export const objective = [
     complete: false,
     condition: (playerFurnaces) => playerFurnaces >= 1,
     unlock: () => {
-      $("#resource-bronze").css("display", "block");
+      $("#resource-bronze").css("display", "flex");
     }
   },
   {
@@ -112,7 +112,7 @@ export function completeObjective(objectiveId, resources, coins = 0, hasPickaxe 
 
     saveObjectivesProgress();
 
-    $("#objective-message").text(getActiveObjectiveMessage());
+    $("#objective-message-content").text(getActiveObjectiveMessage());
   }
 }
 

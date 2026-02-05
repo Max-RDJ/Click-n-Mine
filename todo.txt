@@ -1,3 +1,6 @@
+**IMPORTANT**
+- Hide dev tools via cheat codes/hidden buttons
+
 **BUGS**:
 - Bronze bar should be display flex; appears as block
 
