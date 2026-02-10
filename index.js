@@ -142,7 +142,7 @@ $("#furnace-buy").on("click", buyFurnace);
 $("#anvil-buy").on("click", buyAnvil);
 
 function updateCoinsDisplay() {
-  $("#coins-count").text(countCoins);
+  $("#count__coins").text(countCoins);
   
   savePlayerProgress();
 }
@@ -160,11 +160,12 @@ function updateResource(resource, amount) {
 }
 
 function updateDisplay() {
-  document.querySelector('#stone-count').innerHTML = resourceCounts.stone || 0;
-  document.querySelector('#copper-count').innerHTML = resourceCounts.copper || 0;
-  document.querySelector('#tin-count').innerHTML = resourceCounts.tin || 0;
-  document.querySelector('#bronze-count').innerHTML = resourceCounts.bronze || 0;
-  document.querySelector('#bronze-med-helm-count').innerHTML = resourceCounts.bronzeMedHelm || 0;
+  document.querySelector('#count__stone').innerHTML = resourceCounts.stone || 0;
+  document.querySelector('#count__copper').innerHTML = resourceCounts.copper || 0;
+  document.querySelector('#count__tin').innerHTML = resourceCounts.tin || 0;
+  document.querySelector('#count__iron-ore').innerHTML = resourceCounts.bronze || 0;
+  document.querySelector('#count__iron-ore').innerHTML = resourceCounts.bronze || 0;
+  document.querySelector('#count__iron-sword').innerHTML = resourceCounts.bronzeMedHelm || 0;
 }
 
 updateDisplay();
@@ -219,9 +220,9 @@ function nodeCooldown(type) {
   }, config.cooldown);
 }
 
-const counterStoneDisplay = document.querySelector('#stone-count');
-const counterCopperDisplay = document.querySelector('#copper-count');
-const counterTinDisplay = document.querySelector('#tin-count');
+const counterStoneDisplay = document.querySelector('#count__stone');
+const counterCopperDisplay = document.querySelector('#count__copper');
+const counterTinDisplay = document.querySelector('#count__tin');
 
 const NODE_REQUIREMENTS = {
   stone: 0,
@@ -448,10 +449,9 @@ function selectResource(resourceId) {
 
 function getResourceCount(resourceId) {
   switch(resourceId) {
-    case "resource-stone": return resourceCounts.stone;
-    case "resource-copper": return resourceCounts.copper;
-    case "resource-tin": return resourceCounts.tin;
-    case "resource-bronze": return resourceCounts.bronze;
+    case "resource__stone": return resourceCounts.stone;
+    case "resource__iron-ore": return resourceCounts.bronze;
+    case "resource__iron-ingot": return resourceCounts.bronze;
     case "resource-bronze-med-helm": return resourceCounts.bronzeMedHelm;
     default: return 0;
   }
@@ -478,28 +478,18 @@ $("#sell-confirm").on("click", () => {
   if (amountToSell <= 0) return;
 
   switch(selectedResource) {
-    case "resource-stone":
+    case "resource__stone":
       countCoins += amountToSell;
       resourceCounts.stone -= amountToSell;
       updateDisplay(counterStoneDisplay, resourceCounts.stone);
       break;
-    case "resource-copper":
-      countCoins += amountToSell * 2;
-      resourceCounts.copper -= amountToSell;
-      updateDisplay(counterCopperDisplay, resourceCounts.copper);
-      break;
-    case "resource-tin":
-      countCoins += amountToSell * 2;
-      resourceCounts.tin -= amountToSell;
-      updateDisplay(counterTinDisplay, resourceCounts.tin);
-      break;
-    case "resource-bronze":
+    case "resource__iron-ore":
       countCoins += amountToSell * 5;
       resourceCounts.bronze -= amountToSell;
       updateDisplay(counterBronzeDisplay, resourceCounts.bronze);
       break;
-    case "resource-bronze-med-helm":
-      countCoins += amountToSell * 15;
+    case "resource__iron-bar":
+      countCoins += amountToSell * 8;
       resourceCounts.bronzeMedHelm -= amountToSell;
       updateDisplay(bronzeMedHelmCount, resourceCounts.bronzeMedHelm);
       break;
@@ -523,21 +513,21 @@ $(".sellable").on("click", function() {
   selectResource(resourceId);
 });
 
-const counterBronzeDisplay = document.getElementById("bronze-count");
+const counterIronOreDisplay = document.getElementById("count__iron-ore");
 
 const ingotList = [
   {
     type: "bronze",
-    counter: counterBronzeDisplay,
-    rawMaterials: { copper: 1, tin: 1 }
+    counter: counterIronOreDisplay,
+    rawMaterials: { iron: 1 }
   }
 ];
 
 function updateFurnaceUI() {
-  document.getElementById("furnace-cost").textContent =
+  document.getElementById("cost_furnace").textContent =
     `Cost: ${getFurnaceCost()} coins`;
 
-  document.getElementById("furnace-count").textContent =
+  document.getElementById("count__furnace").textContent =
     `${playerFurnaces}`;
 }
 
@@ -662,23 +652,23 @@ smeltPause.addEventListener("click", () => {
 
 
 // SMITHING
-const bronzeMedHelm = document.getElementById("bronze-med-helm-count");
+const ironSword = document.getElementById("count__iron-sword");
 
 const productList = [
   {
-    type: "bronzeMedHelm",
-    counter: bronzeMedHelm,
-    rawMaterials: { bronze: 1 },
-    price: 10,
+    type: "ironSword",
+    counter: ironSword,
+    rawMaterials: { iron: 2 },
+    price: 15,
     timeToSmith: 5000
   }
 ];
 
 function updateAnvilUI() {
-  document.getElementById("anvil-cost").textContent =
+  document.getElementById("cost__anvil").textContent =
     `Cost: ${getAnvilCost()} coins`;
 
-  document.getElementById("anvil-count").textContent =
+  document.getElementById("count__anvil").textContent =
     `${playerAnvils}`;
 }
 
