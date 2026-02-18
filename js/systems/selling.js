@@ -2,23 +2,61 @@ import { resourceCounts, countCoins } from "../core/state.js";
 import { updateDisplay, updateCoinsDisplay, updateInfoMessage } from "../ui/ui-update.js";
 import { completeObjective } from "./objectives.js";
 
+
+const RESOURCE_CONFIG = {
+  "resource__stone": {
+    key: "stone",
+    displayName: "stone",
+    sellPrice: 1
+  },
+  "resource__copper-ore": {
+    key: "copperOre",
+    displayName: "copper ore",
+    sellPrice: 2
+  },
+  "resource__tin-ore": {
+    key: "tinOre",
+    displayName: "tin ore",
+    sellPrice: 2
+  },
+  "resource__iron-ore": {
+    key: "ironOre",
+    displayName: "iron ore",
+    sellPrice: 4
+  },
+  "resource__bronze-ingot": {
+    key: "bronzeIngot",
+    displayName: "bronze ingot",
+    sellPrice: 5
+  },
+  "resource__iron-ingot": {
+    key: "ironIngot",
+    displayName: "iron ingot",
+    sellPrice: 6
+  },
+  "resource__bronze-med-helm": {
+    key: "bronzeMedHelm",
+    displayName: "bronze medium helmet",
+    sellPrice: 8
+  },
+  "resource__iron-sword": {
+    key: "ironSword",
+    displayName: "iron sword",
+    sellPrice: 10
+  },
+};
+
 let selectedResource = null;
 
 function getResourceCount(resourceId) {
-  switch (resourceId) {
-    case "resource__stone": return resourceCounts.value.stone;
-    case "resource__copper-ore": return resourceCounts.value.copperOre;
-    case "resource__tin-ore": return resourceCounts.value.tinOre;
-    case "resource__iron-ore": return resourceCounts.value.ironOre;
-    case "resource__bronze-ingot": return resourceCounts.value.bronzeIngot;
-    case "resource__iron-ingot": return resourceCounts.value.ironIngot;
-    case "resource__bronze-med-helm": return resourceCounts.value.bronzeMedHelm;
-    default: return 0;
-  }
+  const config = RESOURCE_CONFIG[resourceId];
+  if (!config) return 0;
+
+  return resourceCounts.value[config.key] ?? 0;
 }
 
 function getResourceName(resourceId) {
-  return resourceId.split("-").slice(1).join(" ");
+  return RESOURCE_CONFIG[resourceId]?.displayName ?? "Unknown";
 }
 
 function selectResource(resourceId) {
@@ -45,43 +83,15 @@ export function bindSellingUI() {
     const amountToSell = parseInt(slider.value);
     if (amountToSell <= 0) return;
 
-    switch (selectedResource) {
-      case "resource__stone":
-        countCoins.value += amountToSell;
-        resourceCounts.value.stone -= amountToSell;
-        updateDisplay();
-        break;
-      case "resource__copper-ore":
-        countCoins.value += amountToSell * 5;
-        resourceCounts.value.copperOre -= amountToSell;
-        updateDisplay();
-        break;
-      case "resource__tin-ore":
-        countCoins.value += amountToSell * 5;
-        resourceCounts.value.tinOre -= amountToSell;
-        updateDisplay();
-        break;
-      case "resource__iron-ore":
-        countCoins.value += amountToSell * 5;
-        resourceCounts.value.ironOre -= amountToSell;
-        updateDisplay();
-        break;
-      case "resource__bronze-ingot":
-        countCoins.value += amountToSell * 5;
-        resourceCounts.value.bronzeIngot -= amountToSell;
-        updateDisplay();
-        break;
-      case "resource__iron-ingot":
-        countCoins.value += amountToSell * 5;
-        resourceCounts.value.ironIngot -= amountToSell;
-        updateDisplay();
-        break;
-      case "resource__bronze-med-helm":
-        countCoins.value += amountToSell * 8;
-        resourceCounts.value.bronzeMedHelm -= amountToSell;
-        updateDisplay();
-        break;
-    }
+    const config = RESOURCE_CONFIG[selectedResource];
+    if (!config) return;
+
+    countCoins.value += amountToSell * config.sellPrice;
+    resourceCounts.value[config.key] -= amountToSell;
+
+    updateDisplay();
+    updateCoinsDisplay();
+
 
     updateCoinsDisplay();
     updateInfoMessage(`You sell ${amountToSell} ${getResourceName(selectedResource)}.`);
