@@ -46,7 +46,12 @@ export function buyFurnace() {
   recalcSmeltingRate();
 
   updateCoinsDisplay();
-  completeObjective("buyFurnace", playerFurnaces.value);
+  completeObjective(
+    "buyFurnace",
+    resourceCounts.value,
+    countCoins.value,
+    playerFurnaces
+  );
   updateFurnaceUI();
   updateInfoMessage("You buy a furnace.");
 }

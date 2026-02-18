@@ -48,9 +48,9 @@ export const objective = [
     id: "buyFurnace",
     message: "Click the 'Buy furnace' button to buy a furnace once you have enough coins",
     complete: false,
-    condition: (playerFurnaces) => playerFurnaces.value >= 1,
+    condition: (resources, coins, playerFurnaces) => playerFurnaces.value >= 1,
     unlock: () => {
-      $("#resource-bronze").css("display", "flex");
+      $("#resource__bronze-ingot").css("display", "flex");
     }
   },
   {
@@ -69,7 +69,10 @@ export const objective = [
     id: "smithHelmet",
     message: "Craft your first Bronze Medium Helmet",
     complete: false,
-    condition: (resources) => resources.bronzeMedHelm >= 1
+    condition: (resources) => resources.bronzeMedHelm >= 1,
+    unlock: () => {
+      $("#objective-message-dismiss").css("display", "block");
+    }
   }
 ];
   

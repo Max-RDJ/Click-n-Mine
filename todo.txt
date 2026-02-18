@@ -6,14 +6,13 @@
 
 **FEATURES**:
 - Overlay resources numbers on top right of image and then have multiple columns, as there will be many items; divide into ores, ingots, products (similarly to "Tools")?
-- Another idea: could make whole game into half an idle/grinding game, half a rogue-like (card-based?) where you use the resources gained during the grind portion of the game. Time limit on grind portions? One grind over 24 hours then next rogue-like level becomes available? Buy equipment for when you go into battle or smith your own
+- Another idea: could make whole game into half an idle/grinding game, half a rogue-like (card-based?) where you use the resources gained during the grind portion of the game. Time limit on grind portions? One grind over 24 hours then next rogue-like level becomes available? Buy equipment for when you go into battle or smith your own. Find loot to be used in idle portion of game
 - Selected resource should be highlighted
 - Re-arrange columns into tabs in mobile
 - Refactor miners and furnaces as arrays that can be added to indefinitely instead of limited number
 - Add minimise and maximise buttons to objectives message
 - Put flame icon next to product in Resources that is being smelted/anviled
-- Add fluctuations in sell prices
-- Add auto-sellers
+- Add auto-sellers (may not be needed actually)
 - Miners need pickaxes
     - Creates need to buy more pickaxes and possibly buy auto-buyers
 - Furnaces and other 'machinery' can be individually set to process specific raw material, e.g. one auto-miner on stone, another one copper
@@ -34,6 +33,7 @@
 - Achievements expandable sidebar
 - Miners work faster when you buy kitchen for food
 - Progress bar for smelting and smithing (probably redundant after a few purchases)
+- Add fluctuations in sell prices
 
 **NAMES**:
 ClickMine
