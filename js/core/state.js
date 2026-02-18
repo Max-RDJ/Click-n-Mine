@@ -26,7 +26,6 @@ export const playerMiningRate = { value: 1 };
 export const playerSmeltingRate = { value: 1 };
 export const playerSmithingRate = { value: 1 };
 export const autoMiningRate = { value: 0 };
-export const purchasedPickaxes = { value: null }
 export const playerFurnaces = { value: 0 };
 export const playerAnvils = { value: 0 };
 
@@ -38,7 +37,9 @@ export function applyLoadedState(state) {
   autoMiningRate.value = state.autoMiningRate ?? 0;
   playerFurnaces.value = state.playerFurnaces ?? 0;
   playerAnvils.value = state.playerAnvils ?? 0;
-  purchasedPickaxes.value = state.purchasedPickaxes || {};
+  if (!playerState.value.purchasedPickaxes) {
+    playerState.value.purchasedPickaxes = {};
+  }
 }
 
 export function createFreshState() {

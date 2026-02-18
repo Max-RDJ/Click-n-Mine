@@ -360,15 +360,19 @@ select {
   gap: 0.75rem;
 }
 
+#resource__copper-ore,
+#resource__tin-ore,
+#resources__ingots,
+#resources__armour,
+#resources__weapons {
+  display: none;
+}
+
 .resources img {
   height: 2rem;
 }
 
 #resource-bronze-med-helm {
-  display: none;
-}
-
-#resource__bronze-ingot, #resource__iron-ingot {
   display: none;
 }
   
@@ -396,12 +400,9 @@ img.purchasable-item {
 }
 
 
-
-
-
 @media (max-width: 800px) {
-    .column{
-      width: 100%;
-      min-height: 500px;
-    }
+  .column{
+    width: 100%;
+    min-height: 500px;
+  }
 }

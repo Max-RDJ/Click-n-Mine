@@ -28,20 +28,21 @@ import {
   playerSmeltingRate, 
   playerSmithingRate, 
   playerFurnaces, 
-  playerAnvils 
+  playerAnvils,
 } from "./state.js";
 
 export function savePlayerProgress() {
-  if (!playerState.value) return;
+  const p = playerState.value
+  if (!p) return;
 
-  playerState.value.coins = countCoins.value;
-  playerState.value.resources = resourceCounts.value;
-  playerState.value.playerMiningRate = playerMiningRate.value;
-  playerState.value.autoMiningRate = autoMiningRate.value;
-  playerState.value.playerSmeltingRate = playerSmeltingRate.value;
-  playerState.value.playerSmithingRate = playerSmithingRate.value;
-  playerState.value.playerFurnaces = playerFurnaces.value;
-  playerState.value.playerAnvils = playerAnvils.value;
+  p.coins = countCoins.value;
+  p.resources = resourceCounts.value;
+  p.playerMiningRate = playerMiningRate.value;
+  p.autoMiningRate = autoMiningRate.value;
+  p.playerSmeltingRate = playerSmeltingRate.value;
+  p.playerSmithingRate = playerSmithingRate.value;
+  p.playerFurnaces = playerFurnaces.value;
+  p.playerAnvils = playerAnvils.value;
 
-  localStorage.setItem("playerState", JSON.stringify(playerState.value));
+  localStorage.setItem("playerState", JSON.stringify(p));
 }

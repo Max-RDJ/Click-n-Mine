@@ -31,6 +31,8 @@ export const objective = [
     condition: (resources, coins, hasPickaxe) => hasPickaxe === true,
     unlock: () => {
       $(".node__tier-two").css("display", "block");
+      $("#resource__copper-ore").css("display", "inline-flex");
+      $("#resource__tin-ore").css("display", "inline-flex");
     }
   },
   {
@@ -50,7 +52,7 @@ export const objective = [
     complete: false,
     condition: (resources, coins, playerFurnaces) => playerFurnaces.value >= 1,
     unlock: () => {
-      $("#resource__bronze-ingot").css("display", "flex");
+      $("#resources__ingots").css("display", "flex");
     }
   },
   {

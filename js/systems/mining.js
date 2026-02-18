@@ -2,7 +2,7 @@ import {
   resourceCounts, 
   countCoins, 
   playerMiningRate,
-  purchasedPickaxes
+  playerState
 } from "../core/state.js";
 import { updateResource } from "../core/helpers.js";
 import { completeObjective } from "./objectives.js";
@@ -61,13 +61,13 @@ const pickaxeLevel = {
 };
 
 export function getHighestPickaxeLevel(playerState) {
-  const pickaxes = purchasedPickaxes.value || {}
+  const pickaxes = playerState.value?.purchasedPickaxes || {}
   return Object.keys(pickaxes)
     .map(id => pickaxeLevel[id] || 0)
     .reduce((max, val) => Math.max(max, val), 0);
 }
 
-export function canMine(nodeType, playerState) {
+export function canMine(nodeType) {
   const requiredLevel = NODE_REQUIREMENTS[nodeType] ?? 0;
   const playerLevel = getHighestPickaxeLevel(playerState);
   if (playerLevel < requiredLevel) {
@@ -87,7 +87,7 @@ export function bindNodeClicks(playerState) {
 
   $(".node__copper-ore").on("click", () => {
     if (nodeCooldowns.copperOre) return;
-    if (!canMine("copperOre", playerState)) return;
+    if (!canMine("copperOre")) return;
 
     updateResource("copperOre", 0.5 * playerMiningRate.value);
     completeObjective("copperAndTin", resourceCounts.value, countCoins.value);
@@ -97,7 +97,7 @@ export function bindNodeClicks(playerState) {
 
   $(".node__tin-ore").on("click", () => {
     if (nodeCooldowns.tinOre) return;
-    if (!canMine("tinOre", playerState)) return;
+    if (!canMine("tinOre")) return;
 
     updateResource("tinOre", 0.5 * playerMiningRate.value);
     completeObjective("copperAndTin", resourceCounts.value, countCoins.value);

@@ -20,7 +20,7 @@ export const pickaxeLevel = pickaxes.reduce((acc, p) => {
 }, {});
 
 export function getHighestPickaxeLevel() {
-  return Object.keys(playerState.purchasedPickaxes)
+  return Object.keys(playerState.value.purchasedPickaxes)
     .map(id => pickaxeLevel[id] || 0)
     .reduce((max, val) => Math.max(max, val), 0);
 }
@@ -56,7 +56,7 @@ export function bindPickaxeButtons() {
     if (!element) return;
 
     element.addEventListener("click", () => {
-      buyPickaxe(p.id, p.cost, p.level);
+      buyPickaxe(p.id, p.cost, p.miningRate, p.type);
       updateCoinsDisplay();
     });
   });
@@ -127,3 +127,14 @@ document.addEventListener("mouseout", () => {
   isMouseMoving = false;
   popup.style.display = "none";
 });
+
+export function restorePurchasedPickaxesUI() {
+  const purchased = playerState.value.purchasedPickaxes;
+
+  pickaxes.forEach(p => {
+    if (purchased[p.id]) {
+      const el = document.getElementById(p.id);
+      if (el) el.style.opacity = "1";
+    }
+  });
+}
