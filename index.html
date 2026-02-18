@@ -26,9 +26,24 @@
             <span id="count__stone">0</span>  
           </div>
 
+          <div class="resources sellable" id="resource__copper-ore">
+            <img src="images\260px-copper_ore_detail.png">
+            <span id="count__copper-ore" value="0">0</span>
+          </div>
+
+          <div class="resources sellable" id="resource__tin-ore">
+            <img src="images\260px-tin_ore_detail.png">
+            <span id="count__tin-ore" value="0">0</span>
+          </div>
+
           <div class="resources sellable" id="resource__iron-ore">
             <img src="images\260px-Iron_ore_detail.png">
-            <span id="iron-ore-count" value="0">0</span>
+            <span id="count__iron-ore" value="0">0</span>
+          </div>
+
+          <div class="resources sellable" id="resource__bronze-ingot">
+            <img src="images\240px-bronze_bar_detail.png">
+            <span id="count__bronze-ingot" value="0">0</span>
           </div>
 
           <div class="resources sellable" id="resource__iron-ingot">
@@ -36,9 +51,14 @@
             <span id="count__iron-ingot" value="0">0</span>
           </div>
 
-          <div class="resources sellable" id="resource-bronze-med-helm">
+          <div class="resources sellable" id="resource__bronze-med-helm">
             <img src="images\260px-Bronze_med_helm_detail.png">
-            <span id="bronze-med-helm-count" value="0">0</span>
+            <span id="count__bronze-med-helm" value="0">0</span>
+          </div>
+
+          <div class="resources sellable" id="resource__iron-sword">
+            <img src="images\200px-iron_sword_detail.png">
+            <span id="count__iron-sword" value="0">0</span>
           </div>
         </div>
       
@@ -70,11 +90,15 @@
       </div>
 
       <div id="nodes__tier-two" class="nodes">
-        <div class="ore-node node__tier-two node__copper unselectable" type="button">
-          <img class="node-image" src="images\440px-Iron_rocks.png">
+        <div class="ore-node node__tier-two node__copper-ore unselectable" type="button">
+          <img class="node-image" src="images\440px-copper_rocks.png">
         </div>
 
-        <div class="ore-node node__tier-two node__tin unselectable" type="button">
+        <div class="ore-node node__tier-two node__tin-ore unselectable" type="button">
+          <img class="node-image" src="images\440px-tin_rocks.png">
+        </div>
+
+        <div class="ore-node node__tier-two node__iron-ore unselectable" type="button">
           <img class="node-image" src="images\440px-Iron_rocks.png">
         </div>
       </div>
@@ -122,8 +146,8 @@
       <div class="furnace-actions">
         <select id="ingot-selection">
           <option value="" disabled selected>None</option>
-          <option value="bronze">Bronze</option>
-          <option value="iron">Iron</option>
+          <option value="bronzeIngot">Bronze</option>
+          <option value="ironIngot">Iron</option>
         </select>
        <div id="furnace-controls">
           <button id="smelt-play" class="button-square">
@@ -136,10 +160,10 @@
       </div>
       <div class="direction-row">
         <img id="furnace-image" src="images\Furnace.png"></img>
-        <div id="furnace-count"></div>
+        <div id="count__furnace"></div>
       </div>
       <button id="furnace-buy" class="button-default">Buy furnace</button>
-      <div id="furnace-cost">Cost: 50 coins</div>
+      <div id="cost__furnace">Cost: 50 coins</div>
       <div id="furnace-fuel">Fuel:</div>
     </div>
   </fieldset>
@@ -151,7 +175,7 @@
         <select id="product-selection">
           <option value="none">None</option>
           <option value="bronzeMedHelm">Bronze medium helmet</option>
-          <option value="ironMediumHelmet">Iron medium helmet</option>
+          <option value="ironSword">Iron sword</option>
         </select>
         <div id="anvil-controls">
           <button id="smith-play" class="button-square">
@@ -164,10 +188,10 @@
       </div>
       <div  class="direction-row">
         <img id="anvil-image" src="images\400px-Anvil.png"></img>
-        <div id="anvil-count"></div>
+        <div id="count__anvil"></div>
       </div>
       <button id="anvil-buy" class="button-default">Buy anvil</button>
-      <div id="anvil-cost">Cost: 50 coins</div>
+      <div id="cost__anvil">Cost: 50 coins</div>
     </div>
   </fieldset>
 
@@ -178,8 +202,10 @@
       <select id="mining-selection">
         <option value="none">None</option>
         <option value="stone">Stone</option>
-        <option value="copper">Copper</option>
-        <option value="tin">Tin</option>
+        <option value="copperOre">Copper</option>
+        <option value="tinOre">Tin</option>
+        <option value="ironOre">Iron</option>
+
       </select>
       <div id="auto-miners-shop">
         <img class="purchasable-item auto-miners" id="human-miner-1" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
@@ -206,7 +232,7 @@
   </div>
 </div>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-  <script type="module" src="index.js" defer></script>
+  <script type="module" src="js/main.js" defer></script>
 </body>
 <footer>
 </footer>

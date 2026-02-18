@@ -1,0 +1,48 @@
+export const defaultPlayerState = {
+  coins: 0,
+  resources: {
+    stone: 0,
+    copperOre: 0,
+    tinOre: 0,
+    ironOre: 0,
+    bronzeIngot: 0,
+    ironIngot: 0,
+    bronzeMedHelm: 0
+  },
+  playerMiningRate: 1,
+  purchasedPickaxes: {},
+  autoMiningRate: 0,
+  playerSmeltingRate: 1,
+  playerSmithingRate: 1,
+  objectivesProgress: 0,
+  playerFurnaces: 0,
+  playerAnvils: 0
+};
+
+export const playerState = { value: null };
+export const resourceCounts = { value: null };
+export const countCoins = { value: 0 };
+export const playerMiningRate = { value: 1 };
+export const playerSmeltingRate = { value: 1 };
+export const playerSmithingRate = { value: 1 };
+export const autoMiningRate = { value: 0 };
+export const purchasedPickaxes = { value: null }
+export const playerFurnaces = { value: 0 };
+export const playerAnvils = { value: 0 };
+
+export function applyLoadedState(state) {
+  playerState.value = state;
+  resourceCounts.value = state.resources;
+  countCoins.value = state.coins ?? 0;
+  playerMiningRate.value = state.playerMiningRate ?? 1;
+  autoMiningRate.value = state.autoMiningRate ?? 0;
+  playerFurnaces.value = state.playerFurnaces ?? 0;
+  playerAnvils.value = state.playerAnvils ?? 0;
+  purchasedPickaxes.value = state.purchasedPickaxes || {};
+}
+
+export function createFreshState() {
+  const clone = structuredClone(defaultPlayerState);
+  applyLoadedState(clone);
+  return clone;
+}

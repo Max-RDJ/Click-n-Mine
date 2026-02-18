@@ -38,7 +38,7 @@ export const objective = [
     id: "copperAndTin",
     message: "Mine 1 Copper and 1 Tin",
     complete: false,
-    condition: (resources) => resources.copper >= 1 && resources.tin >= 1,
+    condition: (resources) => resources.copperOre >= 1 && resources.tinOre >= 1,
     unlock: () => {
       $("#furnaces").css("display", "block");
     }
@@ -48,7 +48,7 @@ export const objective = [
     id: "buyFurnace",
     message: "Click the 'Buy furnace' button to buy a furnace once you have enough coins",
     complete: false,
-    condition: (playerFurnaces) => playerFurnaces >= 1,
+    condition: (playerFurnaces) => playerFurnaces.value >= 1,
     unlock: () => {
       $("#resource-bronze").css("display", "flex");
     }
@@ -58,7 +58,7 @@ export const objective = [
     id: "smeltIngot",
     message: "Smelt your first bronze ingot by selecting Bronze from the dropdown",
     complete: false,
-    condition: (resources) => resources.bronze >= 1,
+    condition: (resources) => resources.bronzeIngot >= 1,
     unlock: () => {
       $("#anvils").css("display", "block");
       $("#resource-bronze-med-helm").css("display", "flex");
