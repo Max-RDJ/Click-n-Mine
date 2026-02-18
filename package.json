@@ -3,13 +3,26 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "A Cookie Clicker-like game that I'm creating in order to test my skills.",
   "dependencies": {
     "lucide": "^0.563.0"
-  }
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Max-RDJ/Click-n-Mine.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Max-RDJ/Click-n-Mine/issues"
+  },
+  "homepage": "https://github.com/Max-RDJ/Click-n-Mine#readme"
 }
