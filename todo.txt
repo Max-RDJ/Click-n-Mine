@@ -2,7 +2,6 @@
 - Hide dev tools via cheat codes/hidden buttons
 
 **BUGS**:
-- Bronze bar should be display flex; appears as block
 
 **FEATURES**:
 - Overlay resources numbers on top right of image and then have multiple columns, as there will be many items; divide into ores, ingots, products (similarly to "Tools")?

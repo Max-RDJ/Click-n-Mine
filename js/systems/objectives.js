@@ -52,7 +52,7 @@ export const objective = [
     complete: false,
     condition: (resources, coins, playerFurnaces) => playerFurnaces.value >= 1,
     unlock: () => {
-      $("#resources__ingots").css("display", "flex");
+      $("#resources__ingots").css("display", "block");
     }
   },
   {

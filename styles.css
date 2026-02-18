@@ -129,7 +129,7 @@ h2 {
 
 .items-field {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
   padding: 1rem;
@@ -358,6 +358,31 @@ select {
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
+}
+
+.resources.sellable {
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.resources.sellable:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.05);
+}
+
+.resources.sellable.selected {
+  border-color: #ffb347;
+  background: linear-gradient(
+    180deg,
+    rgba(255,179,71,0.15),
+    rgba(255,179,71,0.05)
+  );
+  box-shadow:
+    0 0 10px rgba(255,179,71,0.35),
+    inset 0 0 6px rgba(255,179,71,0.25);
 }
 
 #resource__copper-ore,
