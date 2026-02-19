@@ -2,7 +2,7 @@ import { RESOURCES } from "../data/resources.js";
 import { updateResource } from "../core/helpers.js";
 import { playerState, countCoins } from "../core/state.js";
 import { updateCoinsDisplay } from "./ui-update.js";
-import { equipment, equipItem, unequipItem } from "../core/equipment.js";
+import { equipItem, unequipItem } from "../core/equipment.js";
 import { idToKey } from "../systems/selling.js";
 
 
@@ -16,16 +16,16 @@ export function bindContextMenu() {
 
     const resourceEl = e.target.closest(".resources");
     if (resourceEl) {
-      e.preventDefault();
-      key = idToKey(resourceEl.id);
+        e.preventDefault();
+        key = idToKey(resourceEl.id);
     }
 
     const slotEl = e.target.closest("#player-equipment img[data-slot]");
     if (slotEl) {
-      e.preventDefault();
-      slot = slotEl.dataset.slot;
-      key = equipment[slot] ?? null;
-      if (!key) return;
+        e.preventDefault();
+        slot = slotEl.dataset.slot;
+        key = playerState.value.equipment[slot] ?? null;
+        if (!key) return;
     }
 
     if (!key) return;

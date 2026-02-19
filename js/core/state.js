@@ -57,18 +57,7 @@ export function applyLoadedState(state) {
     playerState.value.purchasedPickaxes = {};
   }
   if (!playerState.value.equipment) {
-    playerState.value.equipment = {
-      utility: null,
-      weapon: null,
-      offhand: null,
-      head: null,
-      chest: null,
-      legs: null,
-      hands: null,
-      jewellery: null,
-      feet: null,
-      items: {}
-    };
+    playerState.value.equipment = structuredClone(defaultPlayerState.equipment);
   }
 }
 

@@ -1,19 +1,7 @@
 import { RESOURCES } from "../data/resources.js";
-import { resourceCounts } from "./state.js";
+import { resourceCounts, playerState } from "./state.js";
 import { updateDisplay } from "../ui/ui-update.js";
-
-export const equipment = {
-  utility: null,
-  weapon: null,
-  offhand: null,
-  head: null,
-  chest: null,
-  legs: null,
-  hands: null,
-  jewellery: null,
-  feet: null,
-  items: {}
-};
+import { savePlayerProgress } from "./save.js";
 
 export function equipItem(itemKey) {
   const data = RESOURCES[itemKey];
@@ -24,26 +12,37 @@ export function equipItem(itemKey) {
 
   if ((resourceCounts.value[itemKey] ?? 0) <= 0) return;
 
+  // Remove one from inventory
   resourceCounts.value[itemKey] -= 1;
-  updateDisplay();
 
-  const previousItem = equipment[slot];
+  // Get currently equipped item in that slot
+  const previousItem = playerState.value.equipment[slot];
   if (previousItem) {
+    // Return it to inventory
     resourceCounts.value[previousItem] = (resourceCounts.value[previousItem] ?? 0) + 1;
   }
 
-  equipment[slot] = itemKey;
+  // Equip the new item
+  playerState.value.equipment[slot] = itemKey;
+
   updateSlotUI(slot, itemKey);
+  updateDisplay();
+  savePlayerProgress();
 }
 
 export function unequipItem(slot) {
-  const previousItem = equipment[slot];
+  const previousItem = playerState.value.equipment[slot];
   if (!previousItem) return;
 
+  // Return item to inventory
   resourceCounts.value[previousItem] = (resourceCounts.value[previousItem] ?? 0) + 1;
 
-  equipment[slot] = null;
+  // Remove from slot
+  playerState.value.equipment[slot] = null;
+
   updateSlotUI(slot, null);
+  updateDisplay();
+  savePlayerProgress();
 }
 
 function updateSlotUI(slot, itemKey) {
