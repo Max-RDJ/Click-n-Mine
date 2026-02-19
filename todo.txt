@@ -20,6 +20,7 @@
 - Add animations via jQuery + Animate.css library
 - Materials required in addition to money to build furnaces etc.
 - Make shop sections draggable and re-arrangable
+- Allow user to right-click items to 'Sell', 'Sell X' and 'Sell all'
 
 **RANDOM IDEAS**:
 - Office assistant 'Picky'/'Axy' to give objectives

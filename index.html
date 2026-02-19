@@ -15,91 +15,112 @@
 
       <div class="column" id="column-left">
         <h1 class="unselectable">Resources</h1>
-        <div class="resource-index">
-          <div class="resources" id="resource-coins">
-            <img id="coins-image" src="images/240px-Coins_detail.png">
-            <span id="count__coins" value="0">0</span>
-          </div>
-
-        <fieldset id="resources__ores">
-          <legend class="unselectable">Ore</legend>
-          <div class="items-field">
-            <div class="resources sellable" id="resource__stone">
-              <img src="images/240px-Rune_essence_detail.png">
-              <span id="count__stone">0</span>  
+        <div id="column-left-content">
+          <div class="resource-index">
+            <div class="resources" id="resource-coins">
+              <img id="coins-image" src="images/240px-Coins_detail.png">
+              <span id="count__coins" value="0">0</span>
             </div>
 
-            <div class="resources sellable" id="resource__copper-ore">
-              <img src="images\260px-copper_ore_detail.png">
-              <span id="count__copper-ore" value="0">0</span>
-            </div>
+          <fieldset id="resources__ores">
+            <legend class="unselectable">Ore</legend>
+            <div class="items-field">
+              <div class="resources sellable" id="resource__stone">
+                <img src="images/240px-Rune_essence_detail.png">
+                <span id="count__stone">0</span>  
+              </div>
 
-            <div class="resources sellable" id="resource__tin-ore">
-              <img src="images\260px-tin_ore_detail.png">
-              <span id="count__tin-ore" value="0">0</span>
-            </div>
-          
-            <div class="resources sellable" id="resource__iron-ore">
-              <img src="images\260px-Iron_ore_detail.png">
-              <span id="count__iron-ore" value="0">0</span>
-            </div>
-          </div>
-        </fieldset>
+              <div class="resources sellable" id="resource__copper-ore">
+                <img src="images\260px-copper_ore_detail.png">
+                <span id="count__copper-ore" value="0">0</span>
+              </div>
 
-        <fieldset id="resources__ingots">
-          <legend class="unselectable">Ingots</legend>
-          <div class="items-field">
-            <div class="resources sellable" id="resource__bronze-ingot">
-              <img src="images\240px-bronze_bar_detail.png">
-              <span id="count__bronze-ingot" value="0">0</span>
+              <div class="resources sellable" id="resource__tin-ore">
+                <img src="images\260px-tin_ore_detail.png">
+                <span id="count__tin-ore" value="0">0</span>
+              </div>
+            
+              <div class="resources sellable" id="resource__iron-ore">
+                <img src="images\260px-Iron_ore_detail.png">
+                <span id="count__iron-ore" value="0">0</span>
+              </div>
             </div>
+          </fieldset>
 
-            <div class="resources sellable" id="resource__iron-ingot">
-              <img src="images\240px-Iron_bar_detail.png">
-              <span id="count__iron-ingot" value="0">0</span>
+          <fieldset id="resources__ingots">
+            <legend class="unselectable">Ingots</legend>
+            <div class="items-field">
+              <div class="resources sellable" id="resource__bronze-ingot">
+                <img src="images\240px-bronze_bar_detail.png">
+                <span id="count__bronze-ingot" value="0">0</span>
+              </div>
+
+              <div class="resources sellable" id="resource__iron-ingot">
+                <img src="images\240px-Iron_bar_detail.png">
+                <span id="count__iron-ingot" value="0">0</span>
+              </div>
             </div>
-          </div>
-        </fieldset>
+          </fieldset>
 
-        <fieldset id="resources__armour">
-          <legend class="unselectable">Armour</legend>
-          <div class="items-field">
+          <fieldset id="resources__armour">
+            <legend class="unselectable">Armour</legend>
+            <div class="items-field">
 
-            <div class="resources sellable" id="resource__bronze-med-helm">
-              <img src="images\260px-Bronze_med_helm_detail.png">
-              <span id="count__bronze-med-helm" value="0">0</span>
+              <div class="resources sellable" id="resource__bronze-med-helm">
+                <img src="images\260px-Bronze_med_helm_detail.png">
+                <span id="count__bronze-med-helm" value="0">0</span>
+              </div>
             </div>
-          </div>
-        </fieldset>
+          </fieldset>
 
-        <fieldset id="resources__weapons">
-          <legend class="unselectable">Armour</legend>
-          <div class="items-field">
-            <div class="resources sellable" id="resource__iron-sword">
-              <img src="images\200px-iron_sword_detail.png">
-              <span id="count__iron-sword" value="0">0</span>
+          <fieldset id="resources__weapons">
+            <legend class="unselectable">Armour</legend>
+            <div class="items-field">
+              <div class="resources sellable" id="resource__iron-sword">
+                <img src="images\200px-iron_sword_detail.png">
+                <span id="count__iron-sword" value="0">0</span>
+              </div>
             </div>
-          </div>
-        </fieldset>
-
-      </div>
+          </fieldset>
+        </div>
       
-      <div class="sell-controls">
-        <label for="sell-slider" id="sell-label">Sell 0 Stone</label>
-        <input type="range" id="sell-slider" min="0" max="0" value="0">
-        <button id="sell-confirm" class="button-default">Sell</button>
+        <div class="sell-controls">
+          <label for="sell-slider" id="sell-label">Sell 0 Stone</label>
+          <input type="range" id="sell-slider" min="0" max="0" value="0">
+          <button id="sell-confirm" class="button-default">Sell</button>
+        </div>
+      
+        <div id="messages">
+          <div class="info"><span id="info-message">Welcome</span></div>
+        </div>
+
+        <div id="player-equipement">
+          <div>
+            <img src="images/head_slot.png">
+          </div>
+          <div>
+            <img src="images/weapon_slot.png">
+            <img src="images/body_slot.png">
+            <img src="images/shield_slot.png">
+          </div>
+          <div>
+            <img src="images/legs_slot.png">
+          </div>
+          <div>
+            <img src="images/hands_slot.png">
+            <img src="images/feet_slot.png">
+            <img src="images/ring_slot.png">
+          </div>
+        </div>
+
+        <div id="dev-tools">
+          <h3>Dev tools</h3>
+          <button class="dev-button" id="reset-money">$0</button>
+          <button class="dev-button" id="mo-money">+$1000</button>
+          <button class="dev-button" id="reset-all">RESET ALL</button>
+        </div>
       </div>
-     
-      <div id="messages">
-        <div class="info"><span id="info-message">Welcome</span></div>
-      </div>
-      <div id="dev-tools">
-        <h3>Dev tools</h3>
-        <button class="dev-button" id="reset-money">$0</button>
-        <button class="dev-button" id="mo-money">+$1000</button>
-        <button class="dev-button" id="reset-all">RESET ALL</button>
-      </div>
-  </div>
+    </div>
       
   <div class="column" id="column-middle">
     <h1 class="unselectable">Mineshaft</h1>
@@ -119,10 +140,12 @@
         <div class="ore-node node__tier-two node__tin-ore unselectable" type="button">
           <img class="node-image" src="images\440px-tin_rocks.png">
         </div>
+      </div>
 
+      <div id="nodes__tier-three" class="nodes">
         <div class="ore-node node__tier-two node__iron-ore unselectable" type="button">
-          <img class="node-image" src="images\440px-Iron_rocks.png">
-        </div>
+            <img class="node-image" src="images\440px-Iron_rocks.png">
+          </div>
       </div>
     </div>
   </div>

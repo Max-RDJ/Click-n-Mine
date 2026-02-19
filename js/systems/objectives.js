@@ -30,7 +30,7 @@ export const objective = [
     complete: false,
     condition: (resources, coins, hasPickaxe) => hasPickaxe === true,
     unlock: () => {
-      $(".node__tier-two").css("display", "block");
+      $("#nodes__tier-two").css("display", "flex");
       $("#resource__copper-ore").css("display", "inline-flex");
       $("#resource__tin-ore").css("display", "inline-flex");
     }
@@ -63,7 +63,8 @@ export const objective = [
     condition: (resources) => resources.bronzeIngot >= 1,
     unlock: () => {
       $("#anvils").css("display", "block");
-      $("#resource-bronze-med-helm").css("display", "flex");
+      $("#resource__armour").css("display", "flex");
+      $("#resource__weapons").css("display", "flex");
     }
   },
   {
@@ -73,9 +74,31 @@ export const objective = [
     complete: false,
     condition: (resources) => resources.bronzeMedHelm >= 1,
     unlock: () => {
+      $("#nodes__tier-three").css("display", "flex");
+      $("#resource__iron-ore").css("display", "inline-flex");
       $("#objective-message-dismiss").css("display", "block");
     }
-  }
+  },
+  {
+    objectiveNo: 8,
+    id: "gearUp",
+    message: "Equip your newly crafted helmet by right-clicking on it and selecting the 'Equip' option",
+    complete: false,
+    condition: (resources) => resources.bronzeMedHelm >= 1,
+    unlock: () => {
+
+    }
+  },
+  {
+    objectiveNo: 8,
+    id: "completeRoundOne",
+    message: "Now get out there and fight",
+    complete: false,
+    condition: (resources) => resources.bronzeMedHelm >= 1,
+    unlock: () => {
+
+    }
+  },
 ];
   
 /**
