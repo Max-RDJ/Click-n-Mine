@@ -9,6 +9,18 @@ export const defaultPlayerState = {
     ironIngot: 0,
     bronzeMedHelm: 0
   },
+  equipment: {
+    utility: null,
+    weapon: null,
+    offhand: null,
+    head: null,
+    chest: null,
+    legs: null,
+    hands: null,
+    jewellery: null,
+    feet: null,
+    items: {}
+  },
   playerMiningRate: 1,
   purchasedPickaxes: {},
   autoMiningRate: 0,
@@ -39,6 +51,20 @@ export function applyLoadedState(state) {
   playerAnvils.value = state.playerAnvils ?? 0;
   if (!playerState.value.purchasedPickaxes) {
     playerState.value.purchasedPickaxes = {};
+  }
+  if (!playerState.value.equipment) {
+    playerState.value.equipment = {
+      utility: null,
+      weapon: null,
+      offhand: null,
+      head: null,
+      chest: null,
+      legs: null,
+      hands: null,
+      jewellery: null,
+      feet: null,
+      items: {}
+    };
   }
 }
 

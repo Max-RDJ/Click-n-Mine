@@ -63,8 +63,8 @@ export const objective = [
     condition: (resources) => resources.bronzeIngot >= 1,
     unlock: () => {
       $("#anvils").css("display", "block");
-      $("#resource__armour").css("display", "flex");
-      $("#resource__weapons").css("display", "flex");
+      $("#resources__armour").css("display", "block");
+      $("#resources__weapons").css("display", "block");
     }
   },
   {
@@ -75,7 +75,6 @@ export const objective = [
     condition: (resources) => resources.bronzeMedHelm >= 1,
     unlock: () => {
       $("#nodes__tier-three").css("display", "flex");
-      $("#resource__iron-ore").css("display", "inline-flex");
       $("#objective-message-dismiss").css("display", "block");
     }
   },
@@ -86,7 +85,7 @@ export const objective = [
     complete: false,
     condition: (resources) => resources.bronzeMedHelm >= 1,
     unlock: () => {
-
+      
     }
   },
   {
@@ -96,7 +95,7 @@ export const objective = [
     complete: false,
     condition: (resources) => resources.bronzeMedHelm >= 1,
     unlock: () => {
-
+      $("#resource__iron-ore").css("display", "inline-flex");
     }
   },
 ];

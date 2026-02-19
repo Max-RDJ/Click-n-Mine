@@ -1,62 +1,27 @@
 import { resourceCounts, countCoins } from "../core/state.js";
 import { updateDisplay, updateCoinsDisplay, updateInfoMessage } from "../ui/ui-update.js";
 import { completeObjective } from "./objectives.js";
+import { RESOURCES } from "../data/resources.js";
 
-
-const RESOURCE_CONFIG = {
-  "resource__stone": {
-    key: "stone",
-    displayName: "stone",
-    sellPrice: 1
-  },
-  "resource__copper-ore": {
-    key: "copperOre",
-    displayName: "copper ore",
-    sellPrice: 2
-  },
-  "resource__tin-ore": {
-    key: "tinOre",
-    displayName: "tin ore",
-    sellPrice: 2
-  },
-  "resource__iron-ore": {
-    key: "ironOre",
-    displayName: "iron ore",
-    sellPrice: 4
-  },
-  "resource__bronze-ingot": {
-    key: "bronzeIngot",
-    displayName: "bronze ingot",
-    sellPrice: 5
-  },
-  "resource__iron-ingot": {
-    key: "ironIngot",
-    displayName: "iron ingot",
-    sellPrice: 6
-  },
-  "resource__bronze-med-helm": {
-    key: "bronzeMedHelm",
-    displayName: "bronze medium helmet",
-    sellPrice: 8
-  },
-  "resource__iron-sword": {
-    key: "ironSword",
-    displayName: "iron sword",
-    sellPrice: 10
-  },
-};
 
 let selectedResource = null;
 
-function getResourceCount(resourceId) {
-  const config = RESOURCE_CONFIG[resourceId];
-  if (!config) return 0;
+function idToKey(resourceId) {
+  const raw = resourceId.replace("resource__", "");
 
-  return resourceCounts.value[config.key] ?? 0;
+  return raw.replace(/-([a-z])/g, (_, letter) =>
+    letter.toUpperCase()
+  );
+}
+
+function getResourceCount(resourceId) {
+  const key = idToKey(resourceId);
+  return resourceCounts.value[key] ?? 0;
 }
 
 function getResourceName(resourceId) {
-  return RESOURCE_CONFIG[resourceId]?.displayName ?? "Unknown";
+  const key = idToKey(resourceId);
+  return RESOURCES[key]?.displayName ?? "Unknown";
 }
 
 function selectResource(resourceId) {
@@ -83,11 +48,12 @@ export function bindSellingUI() {
     const amountToSell = parseInt(slider.value);
     if (amountToSell <= 0) return;
 
-    const config = RESOURCE_CONFIG[selectedResource];
+    const key = idToKey(selectedResource);
+    const config = RESOURCES[key];
     if (!config) return;
 
     countCoins.value += amountToSell * config.sellPrice;
-    resourceCounts.value[config.key] -= amountToSell;
+    resourceCounts.value[key] -= amountToSell;
 
     updateDisplay();
     updateCoinsDisplay();
@@ -111,3 +77,17 @@ export function bindSellingUI() {
     }
   });
 }
+
+export function sellOne(key) {
+  const config = RESOURCES[key];
+  if (!config) return;
+
+  if ((resourceCounts.value[key] ?? 0) <= 0) return;
+
+  resourceCounts.value[key] -= 1;
+  countCoins.value += config.sellPrice;
+
+  updateDisplay();
+  updateCoinsDisplay();
+}
+

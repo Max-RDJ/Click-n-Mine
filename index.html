@@ -25,12 +25,12 @@
           <fieldset id="resources__ores">
             <legend class="unselectable">Ore</legend>
             <div class="items-field">
-              <div class="resources sellable" id="resource__stone">
+              <div class="resources sellable" id="resource__stone" data-resource="stone">
                 <img src="images/240px-Rune_essence_detail.png">
                 <span id="count__stone">0</span>  
               </div>
 
-              <div class="resources sellable" id="resource__copper-ore">
+              <div class="resources sellable" id="resource__copper-ore" data-resource="copper-ore">
                 <img src="images\260px-copper_ore_detail.png">
                 <span id="count__copper-ore" value="0">0</span>
               </div>
@@ -40,7 +40,7 @@
                 <span id="count__tin-ore" value="0">0</span>
               </div>
             
-              <div class="resources sellable" id="resource__iron-ore">
+              <div class="resources sellable" id="resource__iron-ore" data-resource="iron-ore">
                 <img src="images\260px-Iron_ore_detail.png">
                 <span id="count__iron-ore" value="0">0</span>
               </div>
@@ -50,12 +50,12 @@
           <fieldset id="resources__ingots">
             <legend class="unselectable">Ingots</legend>
             <div class="items-field">
-              <div class="resources sellable" id="resource__bronze-ingot">
+              <div class="resources sellable" id="resource__bronze-ingot" data-resource="bronze-ingot">
                 <img src="images\240px-bronze_bar_detail.png">
                 <span id="count__bronze-ingot" value="0">0</span>
               </div>
 
-              <div class="resources sellable" id="resource__iron-ingot">
+              <div class="resources sellable" id="resource__iron-ingot" data-resource="iron-ingot">
                 <img src="images\240px-Iron_bar_detail.png">
                 <span id="count__iron-ingot" value="0">0</span>
               </div>
@@ -66,7 +66,7 @@
             <legend class="unselectable">Armour</legend>
             <div class="items-field">
 
-              <div class="resources sellable" id="resource__bronze-med-helm">
+              <div class="resources sellable" id="resource__bronze-med-helm" data-resource="bronze-med-helm">
                 <img src="images\260px-Bronze_med_helm_detail.png">
                 <span id="count__bronze-med-helm" value="0">0</span>
               </div>
@@ -76,7 +76,7 @@
           <fieldset id="resources__weapons">
             <legend class="unselectable">Armour</legend>
             <div class="items-field">
-              <div class="resources sellable" id="resource__iron-sword">
+              <div class="resources sellable" id="resource__iron-sword" data-resource="iron-sword">
                 <img src="images\200px-iron_sword_detail.png">
                 <span id="count__iron-sword" value="0">0</span>
               </div>
@@ -269,17 +269,18 @@
     </div>
   </div>
 
+    <div id="stats-popup"></div>
 
-
-
-
-  <div id="stats-popup">Popup</div>
+    <div id="context-menu" class="hidden">
+      <div id="context-equip">Equip</div>
+      <div id="context-sell">Sell</div>
+      <div id="context-sell-all">Sell all</div>
+    </div>
   </div>
 </div>
+
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script type="module" src="js/main.js" defer></script>
 </body>
-<footer>
-</footer>
 </html>
 

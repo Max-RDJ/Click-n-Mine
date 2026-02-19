@@ -20,14 +20,17 @@ import { bindNodeClicks } from "../systems/mining.js";
 import { bindSellingUI } from "../systems/selling.js";
 import { resetMoney, addMoney, resetAll } from "../systems/dev-tools.js";
 import { loadObjectivesProgress, getActiveObjectiveMessage } from "../systems/objectives.js";
+import { bindContextMenu } from "./context-menu.js";
+
 
 window.addEventListener("DOMContentLoaded", () => {
-  loadObjectivesProgress();
-  $("#objective-message-content").html(getActiveObjectiveMessage());
-  updateFurnaceUI();
-  updateAnvilUI();
-  startSmithing();
-  startSmelting();
+  loadObjectivesProgress()
+  $("#objective-message-content").html(getActiveObjectiveMessage())
+  updateFurnaceUI()
+  updateAnvilUI()
+  startSmithing()
+  startSmelting()
+  bindContextMenu()
 });
 
 export function bindUI() {

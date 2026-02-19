@@ -2,7 +2,7 @@ export const equipment = {
   utility: null, // e.g. pickaxe for random events containing nodes
   weapon: null,
   offhand: null,
-  helmet: null,
+  head: null,
   chest: null,
   legs: null,
   hands: null,
@@ -18,3 +18,5 @@ export function equipItem(slot, itemId) {
 export function unequipItem(slot) {
   equipment[slot] = null;
 }
+
+$('')
