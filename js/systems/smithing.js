@@ -29,7 +29,25 @@ export const productList = [
     rawMaterials: { bronzeIngot: 1 },
     price: 8,
     timeToSmith: 4000
-  }
+  },
+  {
+    type: "bronzePlatebody",
+    rawMaterials: { bronzeIngot: 5 },
+    price: 40,
+    timeToSmith: 10000
+  },
+  {
+    type: "bronzePlatelegs",
+    rawMaterials: { bronzeIngot: 3 },
+    price: 24,
+    timeToSmith: 8000
+  },
+  {
+    type: "bronzeSword",
+    rawMaterials: { bronzeIngot: 1 },
+    price: 8,
+    timeToSmith: 4000
+  },
 ];
 
 export function getAnvilCost() {

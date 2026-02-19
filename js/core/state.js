@@ -7,7 +7,11 @@ export const defaultPlayerState = {
     ironOre: 0,
     bronzeIngot: 0,
     ironIngot: 0,
-    bronzeHelm: 0
+    bronzeHelm: 0,
+    bronzePlatebody: 0,
+    bronzePlatelegs: 0,
+    bronzeSword: 0,
+    ironSword: 0
   },
   equipment: {
     utility: null,

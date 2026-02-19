@@ -84,8 +84,13 @@
           </fieldset>
 
           <fieldset id="resources__weapons">
-            <legend class="unselectable">Armour</legend>
+            <legend class="unselectable">Weapons</legend>
             <div class="items-field">
+              <div class="resources sellable" id="resource__bronze-sword" data-resource="bronzeSword">
+                <img src="images\200px-Bronze_sword_detail.png">
+                <span id="count__bronze-sword" value="0">0</span>
+              </div>
+
               <div class="resources sellable" id="resource__iron-sword" data-resource="iron-sword">
                 <img src="images\200px-iron_sword_detail.png">
                 <span id="count__iron-sword" value="0">0</span>
@@ -230,6 +235,9 @@
         <select id="product-selection">
           <option value="none">None</option>
           <option value="bronzeHelm">Bronze helmet</option>
+          <option value="bronzePlatebody">Bronze platebody</option>
+          <option value="bronzePlatelegs">Bronze platelegs</option>
+          <option value="bronzeSword">Bronze sword</option>
           <option value="ironSword">Iron sword</option>
         </select>
         <div id="anvil-controls">
@@ -237,7 +245,7 @@
             <i data-lucide="play"class="icon__controls"></i>
           </button>
           <button id="smith-pause" class="hidden button-square">
-            <i data-lucide="pause" class="icon__controlsn"></i>
+            <i data-lucide="pause" class="icon__controls"></i>
           </button>
         </div>
       </div>

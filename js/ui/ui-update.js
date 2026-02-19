@@ -15,6 +15,10 @@ export function updateDisplay() {
   setText('#count__bronze-ingot', r.bronzeIngot || 0);
   setText('#count__iron-ingot', r.ironIngot || 0);
   setText('#count__bronze-helm', r.bronzeHelm || 0);
+  setText('#count__bronze-platebody', r.bronzePlatebody || 0);
+  setText('#count__bronze-platelegs', r.bronzePlatelegs || 0);
+  setText('#count__bronze-sword', r.bronzeSword || 0);
+  setText('#count__iron-sword', r.ironSword || 0);
 }
 
 export function updateCoinsDisplay() {

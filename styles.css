@@ -155,7 +155,8 @@ h2 {
 
 #player-equipment > div > img {
   width: 32px;
-  height: auto;
+  height: 32px;
+  object-fit: contain;
 }
 
 #player-equipment > div > img:hover {
@@ -204,6 +205,12 @@ h2 {
   
 #column-right{
   border-right: 0;
+}
+
+div.resources img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
   
 div.resources > img:hover {
