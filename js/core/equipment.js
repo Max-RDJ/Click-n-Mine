@@ -1,4 +1,6 @@
 import { RESOURCES } from "../data/resources.js";
+import { resourceCounts } from "./state.js";
+import { updateDisplay } from "../ui/ui-update.js";
 
 export const equipment = {
   utility: null,
@@ -10,7 +12,7 @@ export const equipment = {
   hands: null,
   jewellery: null,
   feet: null,
-  items: {} // e.g. food
+  items: {}
 };
 
 export function equipItem(itemKey) {
@@ -20,7 +22,16 @@ export function equipItem(itemKey) {
   const slot = data.slot;
   if (!slot) return;
 
-  unequipItem(slot);
+  if ((resourceCounts.value[itemKey] ?? 0) <= 0) return;
+
+  resourceCounts.value[itemKey] -= 1;
+  updateDisplay();
+
+  const previousItem = equipment[slot];
+  if (previousItem) {
+    resourceCounts.value[previousItem] = (resourceCounts.value[previousItem] ?? 0) + 1;
+  }
+
   equipment[slot] = itemKey;
   updateSlotUI(slot, itemKey);
 }
@@ -29,20 +40,22 @@ export function unequipItem(slot) {
   const previousItem = equipment[slot];
   if (!previousItem) return;
 
+  resourceCounts.value[previousItem] = (resourceCounts.value[previousItem] ?? 0) + 1;
+
   equipment[slot] = null;
   updateSlotUI(slot, null);
 }
 
 function updateSlotUI(slot, itemKey) {
   const slotMap = {
-    head: "#player-equipment img:nth-child(1)",
-    weapon: "#player-equipment img:nth-child(2)",
-    chest: "#player-equipment img:nth-child(3)",
-    offhand: "#player-equipment img:nth-child(4)",
-    legs: "#player-equipment img:nth-child(5)",
-    hands: "#player-equipment img:nth-child(6)",
-    feet: "#player-equipment img:nth-child(7)",
-    jewellery: "#player-equipment img:nth-child(8)"
+    head: "#player-equipment img[data-slot='head']",
+    weapon: "#player-equipment img[data-slot='weapon']",
+    chest: "#player-equipment img[data-slot='chest']",
+    offhand: "#player-equipment img[data-slot='offhand']",
+    legs: "#player-equipment img[data-slot='legs']",
+    hands: "#player-equipment img[data-slot='hands']",
+    feet: "#player-equipment img[data-slot='feet']",
+    jewellery: "#player-equipment img[data-slot='jewellery']"
   };
 
   const imgEl = document.querySelector(slotMap[slot]);
