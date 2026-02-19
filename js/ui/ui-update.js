@@ -14,7 +14,7 @@ export function updateDisplay() {
   setText('#count__iron-ore', r.ironOre || 0);
   setText('#count__bronze-ingot', r.bronzeIngot || 0);
   setText('#count__iron-ingot', r.ironIngot || 0);
-  setText('#count__bronze-med-helm', r.bronzeMedHelm || 0);
+  setText('#count__bronze-helm', r.bronzeHelm || 0);
 }
 
 export function updateCoinsDisplay() {

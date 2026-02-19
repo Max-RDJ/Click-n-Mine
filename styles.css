@@ -433,6 +433,11 @@ select {
     inset 0 0 6px rgba(255,179,71,0.25);
 }
 
+.resources > img {
+  width: auto;
+  height: 32px;
+}
+
 #resource__copper-ore,
 #resource__tin-ore,
 #resource__iron-ore,
@@ -446,7 +451,7 @@ select {
   height: 2rem;
 }
 
-#resource-bronze-med-helm {
+#resource-bronze-helm {
   display: none;
 }
   

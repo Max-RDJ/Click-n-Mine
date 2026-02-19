@@ -25,7 +25,7 @@ export const productList = [
     timeToSmith: 5000
   },
   {
-    type: "bronzeMedHelm",
+    type: "bronzeHelm",
     rawMaterials: { bronzeIngot: 1 },
     price: 8,
     timeToSmith: 4000

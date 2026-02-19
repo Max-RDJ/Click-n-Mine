@@ -70,9 +70,9 @@ export const objective = [
   {
     objectiveNo: 8,
     id: "smithHelmet",
-    message: "Craft your first Bronze Medium Helmet",
+    message: "Craft your first Bronze Helmet",
     complete: false,
-    condition: (resources) => resources.bronzeMedHelm >= 1,
+    condition: (resources) => resources.bronzeHelm >= 1,
     unlock: () => {
       $("#nodes__tier-three").css("display", "flex");
       $("#objective-message-dismiss").css("display", "block");
@@ -83,9 +83,9 @@ export const objective = [
     id: "gearUp",
     message: "Equip your newly crafted helmet by right-clicking on it and selecting the 'Equip' option",
     complete: false,
-    condition: (resources) => resources.bronzeMedHelm >= 1,
+    condition: (resources) => resources.bronzeHelm >= 1,
     unlock: () => {
-      
+
     }
   },
   {
@@ -93,7 +93,7 @@ export const objective = [
     id: "completeRoundOne",
     message: "Now get out there and fight",
     complete: false,
-    condition: (resources) => resources.bronzeMedHelm >= 1,
+    condition: (resources) => resources.bronzeHelm >= 1,
     unlock: () => {
       $("#resource__iron-ore").css("display", "inline-flex");
     }

@@ -29,12 +29,12 @@ export const RESOURCES = {
     type: "material",
     sellPrice: 6
   },
-  bronzeMedHelm: {
-    displayName: "bronze medium helmet",
+  bronzeHelm: {
+    displayName: "bronze helmet",
     type: "equipment",
     slot: "head",
     sellPrice: 8,
-    img: "images/260px-Bronze_med_helm_detail.png"
+    img: "images/247px-Bronze_full_helm_detail.png"
   },
   ironSword: {
     displayName: "iron sword",
