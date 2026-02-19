@@ -25,8 +25,8 @@ export const defaultPlayerState = {
     hands: null,
     jewellery: null,
     feet: null,
-    items: {}
   },
+  inventory: {},
   playerMiningRate: 1,
   purchasedPickaxes: {},
   autoMiningRate: 0,

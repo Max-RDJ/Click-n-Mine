@@ -306,14 +306,41 @@
 
 <div id="rogue-like-game" class="hidden">
   <div id="rogue-ui">
+    <div id="roguelike-menu">
+      <button id="view-equipment">Equipment</button>
+      <button id="view-stats-btn">Backpack</button>
+    </div>
     <div id="arena">
       <div id="player-arena">
         <img src="images/240px-Man_(blue).png" id="player-sprite">
+        <div id="player-receives"></div>
       </div>
       <div id="enemy-arena">
         <img src="images\300px-Goblin.png" id="enemy-sprite">
+        <div id="enemy-receives"></div>
       </div>
     </div>
+
+    <div id="combat-hud">
+      <div id="stats-display">
+        <div id="energy-display"></div>
+        <div id="player-hp"></div>
+        <div id="enemy-hp"></div>
+      </div>
+      <div id="combat-menu">
+        <button id="attack-btn">Attack</button>
+        <button id="defend-btn">Defend</button>
+        <button id="use-item-btn">Use Item</button>
+        <button id="end-turn-btn">End Turn</button>
+      </div>
+      <div>
+        <div id="combat-log"></div>
+      </div>
+      
+        
+      </div>
+    </div>
+
     <div class="player-equipment">
       <div>
         <img src="images/head_slot.png" data-slot="head">

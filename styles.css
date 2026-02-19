@@ -483,6 +483,12 @@ img.purchasable-item {
   pointer-events: auto;
 }
 
+#enter-rogue-like {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
 
 
 #arena {
@@ -499,6 +505,39 @@ img.purchasable-item {
   width: 128px;
   height: 128px;
   object-fit: contain;
+}
+
+#player-arena, #enemy-arena {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#player-receives, #enemy-receives {
+  position: absolute;
+  font-size: 2em;
+  font-weight: bold;
+  color: red;
+  opacity: 0;
+  animation: damage-receive-animation 1s forwards;
+}
+
+@keyframes damage-receive-animation {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+#combat-hud {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 10px;
 }
 
 

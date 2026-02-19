@@ -34,6 +34,7 @@ export const RESOURCES = {
     type: "equipment",
     slot: "head",
     sellPrice: 8,
+    defense: 2,
     img: "images/247px-Bronze_full_helm_detail.png"
   },
   bronzePlatebody: {
@@ -41,6 +42,7 @@ export const RESOURCES = {
     type: "equipment",
     slot: "chest",
     sellPrice: 12,
+    defense: 5,
     img: "images/300px-Bronze_platebody_detail.png"
   },
   bronzePlatelegs: {
@@ -48,20 +50,15 @@ export const RESOURCES = {
     type: "equipment",
     slot: "legs",
     sellPrice: 10,
+    defense: 3,
     img: "images/180px-Bronze_platelegs_detail.png"
-  },
-  bronzeHelm: {
-    displayName: "bronze helmet",
-    type: "equipment",
-    slot: "head",
-    sellPrice: 8,
-    img: "images/247px-Bronze_full_helm_detail.png"
   },
   bronzeSword: {
     displayName: "bronze sword",
     type: "equipment",
     slot: "weapon",
     sellPrice: 10,
+    attack: 3,
     img: "images/200px-Bronze_sword_detail.png"
   },
   ironSword: {
@@ -69,6 +66,7 @@ export const RESOURCES = {
     type: "equipment",
     slot: "weapon",
     sellPrice: 10,
+    attack: 8,
     img: "images/200px-iron_sword_detail.png"
   }
 };

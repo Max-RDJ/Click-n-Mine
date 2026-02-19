@@ -1,5 +1,5 @@
 import { initIncrementalGame } from "./core/incremental.js";
-import { initRogueLike } from "./core/roguelike.js";
+import { initRogueLike } from "./roguelike/roguelike.js";
 
 import { loadPlayerState } from "./core/save.js";
 import { applyLoadedState, initializeEquipmentUI } from "./core/state.js";
