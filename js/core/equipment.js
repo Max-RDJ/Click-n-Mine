@@ -40,19 +40,18 @@ export function unequipItem(slot) {
   // Remove from slot
   playerState.value.equipment[slot] = null;
 
-  updateSlotUI(slot, null);
   updateDisplay();
   savePlayerProgress();
 }
 
 export function updateSlotUI(slot, itemKey) {
   const slotMap = {
-    head: "#player-equipment img[data-slot='head']",
-    weapon: "#player-equipment img[data-slot='weapon']",
-    chest: "#player-equipment img[data-slot='chest']",
-    offhand: "#player-equipment img[data-slot='offhand']",
-    legs: "#player-equipment img[data-slot='legs']",
-    hands: "#player-equipment img[data-slot='hands']",
+    head: ".player-equipment img[data-slot='head']",
+    weapon: ".player-equipment img[data-slot='weapon']",
+    chest: ".player-equipment img[data-slot='chest']",
+    offhand: ".player-equipment img[data-slot='offhand']",
+    legs: ".player-equipment img[data-slot='legs']",
+    hands: ".player-equipment img[data-slot='hands']",
     feet: "#player-equipment img[data-slot='feet']",
     jewellery: "#player-equipment img[data-slot='jewellery']"
   };

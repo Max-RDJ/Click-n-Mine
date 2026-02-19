@@ -153,13 +153,13 @@ h2 {
   cursor: pointer;
 }
 
-#player-equipment > div > img {
+.player-equipment > div > img {
   width: 32px;
   height: 32px;
   object-fit: contain;
 }
 
-#player-equipment > div > img:hover {
+.player-equipment > div > img:hover {
   cursor: pointer;
   transform: translateY(-2px);
   background: rgba(255,255,255,0.05);
@@ -484,11 +484,13 @@ img.purchasable-item {
 }
 
 
+
 #arena {
   flex: 1;
   display: flex;
   gap: 20px;
   justify-content: space-around;
+  align-items: center ;
   margin-bottom: 20px;
   padding: 20px;
 }
@@ -501,7 +503,7 @@ img.purchasable-item {
 
 
 @media (max-width: 800px) {
-  .column{
+  .column {
     width: 100%;
     min-height: 500px;
   }

@@ -20,7 +20,7 @@ export function bindContextMenu() {
         key = idToKey(resourceEl.id);
     }
 
-    const slotEl = e.target.closest("#player-equipment img[data-slot]");
+    const slotEl = e.target.closest(".player-equipment img[data-slot]");
     if (slotEl) {
         e.preventDefault();
         slot = slotEl.dataset.slot;
@@ -102,7 +102,7 @@ function unequipCurrent() {
 }
 
 export function bindUnequipSlots() {
-  const slotImages = document.querySelectorAll("#player-equipment img");
+  const slotImages = document.querySelectorAll(".player-equipment img");
 
   slotImages.forEach((img) => {
     img.addEventListener("contextmenu", (e) => {
