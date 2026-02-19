@@ -6,12 +6,9 @@ import { RESOURCES } from "../data/resources.js";
 
 let selectedResource = null;
 
-function idToKey(resourceId) {
-  const raw = resourceId.replace("resource__", "");
-
-  return raw.replace(/-([a-z])/g, (_, letter) =>
-    letter.toUpperCase()
-  );
+export function idToKey(id) {
+  const raw = id.replace("resource__", "");
+  return raw.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 }
 
 function getResourceCount(resourceId) {

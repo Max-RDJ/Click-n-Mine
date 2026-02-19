@@ -32,13 +32,15 @@ export const RESOURCES = {
   bronzeMedHelm: {
     displayName: "bronze medium helmet",
     type: "equipment",
-    slot: "helmet",
-    sellPrice: 8
+    slot: "head",
+    sellPrice: 8,
+    img: "images/260px-Bronze_med_helm_detail.png"
   },
   ironSword: {
     displayName: "iron sword",
     type: "equipment",
     slot: "weapon",
-    sellPrice: 10
+    sellPrice: 10,
+    img: "images/200px-iron_sword_detail.png"
   }
 };

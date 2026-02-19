@@ -4,6 +4,7 @@ import { updateResource } from "../core/helpers.js";
 import { playerState, countCoins } from "../core/state.js";
 import { updateCoinsDisplay } from "./ui-update.js";
 import { equipItem } from "../core/equipment.js";
+import { idToKey } from "../systems/selling.js";
 
 let currentResource = null;
 
@@ -14,10 +15,10 @@ export function bindContextMenu() {
 
     e.preventDefault();
 
-    const id = resourceEl.id.replace("resource__", "");
-    currentResource = id;
+    const key = idToKey(resourceEl.id);
+    currentResource = key;
 
-    openMenu(e.pageX, e.pageY, id);
+    openMenu(e.pageX, e.pageY, key);
     });
 
     document.addEventListener("click", () => {
@@ -26,9 +27,9 @@ export function bindContextMenu() {
 
     document.getElementById("context-sell").onclick = sellCurrent;
     document.getElementById("context-sell-all").onclick = sellAllCurrent;
-
     document.getElementById("context-equip").onclick = equipCurrent;
 }
+
 
 function openMenu(x, y, resourceKey) {
     const menu = document.getElementById("context-menu");
@@ -70,7 +71,6 @@ function sellAllCurrent() {
     updateCoinsDisplay();
     closeMenu();
 }
-
 
 function equipCurrent() {
     equipItem(currentResource);

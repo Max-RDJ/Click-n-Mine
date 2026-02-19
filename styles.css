@@ -152,6 +152,11 @@ h2 {
   cursor: pointer;
 }
 
+#player-equipment > div > img {
+  width: 32px;
+  height: auto;
+}
+
 .items-field {
   display: flex;
   gap: 0.75rem;
