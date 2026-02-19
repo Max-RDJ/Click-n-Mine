@@ -1,3 +1,5 @@
+import { updateSlotUI } from "./equipment.js";
+
 export const defaultPlayerState = {
   coins: 0,
   resources: {
@@ -47,7 +49,7 @@ export const playerAnvils = { value: 0 };
 
 export function applyLoadedState(state) {
   playerState.value = state;
-  resourceCounts.value = state.resources;
+  resourceCounts.value = { ...state.resources };
   countCoins.value = state.coins ?? 0;
   playerMiningRate.value = state.playerMiningRate ?? 1;
   autoMiningRate.value = state.autoMiningRate ?? 0;
@@ -59,10 +61,24 @@ export function applyLoadedState(state) {
   if (!playerState.value.equipment) {
     playerState.value.equipment = structuredClone(defaultPlayerState.equipment);
   }
+  for (const slot in playerState.value.equipment) {
+    const equippedItem = playerState.value.equipment[slot];
+    if (equippedItem) {
+      resourceCounts.value[equippedItem] = (resourceCounts.value[equippedItem] ?? 0) - 1;
+      if (resourceCounts.value[equippedItem] < 0) resourceCounts.value[equippedItem] = 0;
+    }
+  }
 }
 
 export function createFreshState() {
   const clone = structuredClone(defaultPlayerState);
   applyLoadedState(clone);
   return clone;
+}
+
+export function initializeEquipmentUI() {
+  for (const slot in playerState.value.equipment) {
+    const itemKey = playerState.value.equipment[slot];
+    updateSlotUI(slot, itemKey);
+  }
 }

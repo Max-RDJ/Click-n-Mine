@@ -45,7 +45,7 @@ export function unequipItem(slot) {
   savePlayerProgress();
 }
 
-function updateSlotUI(slot, itemKey) {
+export function updateSlotUI(slot, itemKey) {
   const slotMap = {
     head: "#player-equipment img[data-slot='head']",
     weapon: "#player-equipment img[data-slot='weapon']",
