@@ -6,6 +6,7 @@ import {
 } from "../core/state.js";
 import { completeObjective } from "./objectives.js";
 import { updateDisplay, updateInfoMessage, updateFurnaceUI, updateCoinsDisplay } from "../ui/ui-update.js"
+import { savePlayerProgress } from "../core/save.js";
 
 export const FURNACE_CONFIG = {
   baseCost: 20,
@@ -19,12 +20,12 @@ let isSmelting = false;
 const ingotList = [
   {
     type: "bronzeIngot",
-    counter: $("#countBronzeIngot"),
+    counter: $("#count__bronze-ingot"),
     rawMaterials: { copperOre: 1, tinOre: 1 }
   },
   {
     type: "ironIngot",
-    counter: $("#countIronIngot"),
+    counter: $("#count__iron-ingot"),
     rawMaterials: { ironOre: 1 }
   },
 ];
@@ -98,7 +99,8 @@ export function startSmelting() {
       for (const mat in selectedIngot.rawMaterials) {
         resourceCounts.value[mat] -= selectedIngot.rawMaterials[mat];
       }
-      resourceCounts.value[selectedIngot.type] = (resourceCounts.value[selectedIngot.type] || 0) + 1;
+      resourceCounts.value[selectedIngot.type] += 1;
+      savePlayerProgress();
     }
     completeObjective("smeltIngot", resourceCounts.value, countCoins.value);
     updateDisplay();

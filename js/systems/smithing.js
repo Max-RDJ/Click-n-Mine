@@ -6,6 +6,7 @@ import {
 } from "../core/state.js";
 import { completeObjective } from "./objectives.js";
 import { updateDisplay, updateInfoMessage, updateAnvilUI, updateCoinsDisplay } from "../ui/ui-update.js";
+import { savePlayerProgress } from "../core/save.js";
 
 export const ANVIL_CONFIG = {
   baseCost: 20,
@@ -88,7 +89,8 @@ export function startSmithing() {
         resourceCounts.value[mat] -= selectedProduct.rawMaterials[mat];
       }
 
-      resourceCounts.value[selectedProduct.type] = (resourceCounts.value[selectedProduct.type] || 0) + 1;
+      resourceCounts.value[selectedProduct.type] += 1;
+      savePlayerProgress();
     }
 
     completeObjective("smithHelmet", resourceCounts.value, countCoins.value);
