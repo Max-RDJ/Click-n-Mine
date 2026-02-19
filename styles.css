@@ -487,6 +487,7 @@ img.purchasable-item {
   position: absolute;
   bottom: 20px;
   right: 20px;
+  z-index: 1000;
 }
 
 
@@ -520,6 +521,12 @@ img.purchasable-item {
   color: red;
   opacity: 0;
   animation: damage-receive-animation 1s forwards;
+}
+
+#player-equipment-roguelike {
+  display: none;
+  position: absolute;
+  z-index: 1000;
 }
 
 @keyframes damage-receive-animation {

@@ -101,3 +101,7 @@ function enemyTurn() {
     log("Oh dear, you are dead.");
   }
 }
+
+$('#view-equipment').on("click", () => {
+    $('#player-equipment-roguelike').css("display", "block");
+})
