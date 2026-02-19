@@ -484,6 +484,22 @@ img.purchasable-item {
 }
 
 
+#arena {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+#player-sprite, #enemy-sprite {
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
+}
+
+
 @media (max-width: 800px) {
   .column{
     width: 100%;

@@ -10,291 +10,329 @@
 </head>
     
 <body>
-  <div id="page-container">
-    <div id="columns-container">
+  <div id="incremental-game">
+    <div id="resources-display" style="display:none"></div>
+    <button id="enter-rogue-like">Ascend to surface</button>
 
-      <div class="column" id="column-left">
-        <h1 class="unselectable">Resources</h1>
-        <div id="column-left-content">
-          <div class="resource-index">
-            <div class="resources" id="resource-coins">
-              <img id="coins-image" src="images/240px-Coins_detail.png">
-              <span id="count__coins" value="0">0</span>
+    <div id="page-container">
+      <div id="columns-container">
+
+        <div class="column" id="column-left">
+          <h1 class="unselectable">Resources</h1>
+          <div id="column-left-content">
+            <div class="resource-index">
+              <div class="resources" id="resource-coins">
+                <img id="coins-image" src="images/240px-Coins_detail.png">
+                <span id="count__coins" value="0">0</span>
+              </div>
+
+            <fieldset id="resources__ores">
+              <legend class="unselectable">Ore</legend>
+              <div class="items-field">
+                <div class="resources sellable" id="resource__stone" data-resource="stone">
+                  <img src="images/240px-Rune_essence_detail.png">
+                  <span id="count__stone">0</span>  
+                </div>
+
+                <div class="resources sellable" id="resource__copper-ore" data-resource="copper-ore">
+                  <img src="images\260px-copper_ore_detail.png">
+                  <span id="count__copper-ore" value="0">0</span>
+                </div>
+
+                <div class="resources sellable" id="resource__tin-ore">
+                  <img src="images\260px-tin_ore_detail.png">
+                  <span id="count__tin-ore" value="0">0</span>
+                </div>
+              
+                <div class="resources sellable" id="resource__iron-ore" data-resource="iron-ore">
+                  <img src="images\260px-Iron_ore_detail.png">
+                  <span id="count__iron-ore" value="0">0</span>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset id="resources__ingots">
+              <legend class="unselectable">Ingots</legend>
+              <div class="items-field">
+                <div class="resources sellable" id="resource__bronze-ingot" data-resource="bronzeIngot">
+                  <img src="images\240px-bronze_bar_detail.png">
+                  <span id="count__bronze-ingot" value="0">0</span>
+                </div>
+
+                <div class="resources sellable" id="resource__iron-ingot" data-resource="ironIngot">
+                  <img src="images\240px-Iron_bar_detail.png">
+                  <span id="count__iron-ingot" value="0">0</span>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset id="resources__armour">
+              <legend class="unselectable">Armour</legend>
+              <div class="items-field">
+
+                <div class="resources sellable" id="resource__bronze-helm" data-resource="bronze-helm">
+                  <img src="images\247px-Bronze_full_helm_detail.png">
+                  <span id="count__bronze-helm" value="0">0</span>
+                </div>
+
+                <div class="resources sellable" id="resource__bronze-platebody" data-resource="bronze-platebody">
+                  <img src="images\300px-Bronze_platebody_detail.png">
+                  <span id="count__bronze-platebody" value="0">0</span>
+                </div>
+
+                <div class="resources sellable" id="resource__bronze-platelegs" data-resource="bronze-platelegs">
+                  <img src="images\180px-Bronze_platelegs_detail.png">
+                  <span id="count__bronze-platelegs" value="0">0</span>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset id="resources__weapons">
+              <legend class="unselectable">Weapons</legend>
+              <div class="items-field">
+                <div class="resources sellable" id="resource__bronze-sword" data-resource="bronzeSword">
+                  <img src="images\200px-Bronze_sword_detail.png">
+                  <span id="count__bronze-sword" value="0">0</span>
+                </div>
+
+                <div class="resources sellable" id="resource__iron-sword" data-resource="iron-sword">
+                  <img src="images\200px-iron_sword_detail.png">
+                  <span id="count__iron-sword" value="0">0</span>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        
+          <div class="sell-controls">
+            <label for="sell-slider" id="sell-label">Sell 0 Stone</label>
+            <input type="range" id="sell-slider" min="0" max="0" value="0">
+            <button id="sell-confirm" class="button-default">Sell</button>
+          </div>
+        
+          <div id="messages">
+            <div class="info"><span id="info-message">Welcome</span></div>
+          </div>
+
+          <div id="player-equipment">
+            <div>
+              <img src="images/head_slot.png" data-slot="head">
             </div>
-
-          <fieldset id="resources__ores">
-            <legend class="unselectable">Ore</legend>
-            <div class="items-field">
-              <div class="resources sellable" id="resource__stone" data-resource="stone">
-                <img src="images/240px-Rune_essence_detail.png">
-                <span id="count__stone">0</span>  
-              </div>
-
-              <div class="resources sellable" id="resource__copper-ore" data-resource="copper-ore">
-                <img src="images\260px-copper_ore_detail.png">
-                <span id="count__copper-ore" value="0">0</span>
-              </div>
-
-              <div class="resources sellable" id="resource__tin-ore">
-                <img src="images\260px-tin_ore_detail.png">
-                <span id="count__tin-ore" value="0">0</span>
-              </div>
-            
-              <div class="resources sellable" id="resource__iron-ore" data-resource="iron-ore">
-                <img src="images\260px-Iron_ore_detail.png">
-                <span id="count__iron-ore" value="0">0</span>
-              </div>
+            <div>
+              <img src="images/weapon_slot.png" data-slot="weapon">
+              <img src="images/body_slot.png" data-slot="chest">
+              <img src="images/shield_slot.png" data-slot="offhand">
             </div>
-          </fieldset>
-
-          <fieldset id="resources__ingots">
-            <legend class="unselectable">Ingots</legend>
-            <div class="items-field">
-              <div class="resources sellable" id="resource__bronze-ingot" data-resource="bronzeIngot">
-                <img src="images\240px-bronze_bar_detail.png">
-                <span id="count__bronze-ingot" value="0">0</span>
-              </div>
-
-              <div class="resources sellable" id="resource__iron-ingot" data-resource="ironIngot">
-                <img src="images\240px-Iron_bar_detail.png">
-                <span id="count__iron-ingot" value="0">0</span>
-              </div>
+            <div>
+              <img src="images/legs_slot.png" data-slot="legs">
             </div>
-          </fieldset>
-
-          <fieldset id="resources__armour">
-            <legend class="unselectable">Armour</legend>
-            <div class="items-field">
-
-              <div class="resources sellable" id="resource__bronze-helm" data-resource="bronze-helm">
-                <img src="images\247px-Bronze_full_helm_detail.png">
-                <span id="count__bronze-helm" value="0">0</span>
-              </div>
-
-              <div class="resources sellable" id="resource__bronze-platebody" data-resource="bronze-platebody">
-                <img src="images\300px-Bronze_platebody_detail.png">
-                <span id="count__bronze-platebody" value="0">0</span>
-              </div>
-
-              <div class="resources sellable" id="resource__bronze-platelegs" data-resource="bronze-platelegs">
-                <img src="images\180px-Bronze_platelegs_detail.png">
-                <span id="count__bronze-platelegs" value="0">0</span>
-              </div>
+            <div>
+              <img src="images/hands_slot.png" data-slot="hands">
+              <img src="images/feet_slot.png" data-slot="feet">
+              <img src="images/ring_slot.png" data-slot="jewellery">
             </div>
-          </fieldset>
+          </div>
 
-          <fieldset id="resources__weapons">
-            <legend class="unselectable">Weapons</legend>
-            <div class="items-field">
-              <div class="resources sellable" id="resource__bronze-sword" data-resource="bronzeSword">
-                <img src="images\200px-Bronze_sword_detail.png">
-                <span id="count__bronze-sword" value="0">0</span>
-              </div>
-
-              <div class="resources sellable" id="resource__iron-sword" data-resource="iron-sword">
-                <img src="images\200px-iron_sword_detail.png">
-                <span id="count__iron-sword" value="0">0</span>
-              </div>
-            </div>
-          </fieldset>
+          <div id="dev-tools">
+            <h3>Dev tools</h3>
+            <button class="dev-button" id="reset-money">$0</button>
+            <button class="dev-button" id="mo-money">+$1000</button>
+            <button class="dev-button" id="reset-all">RESET ALL</button>
+          </div>
         </div>
+      </div>
+        
+    <div class="column" id="column-middle">
+      <h1 class="unselectable">Mineshaft</h1>
       
-        <div class="sell-controls">
-          <label for="sell-slider" id="sell-label">Sell 0 Stone</label>
-          <input type="range" id="sell-slider" min="0" max="0" value="0">
-          <button id="sell-confirm" class="button-default">Sell</button>
+      <div id="section__nodes">
+        <div id="nodes__tier-one" class="nodes">
+          <div class="ore-node node__tier-one node__stone unselectable" type="button">
+            <img class="node-image" src="images/480px-Ring_of_stone_equipped.png">
+          </div>
         </div>
+
+        <div id="nodes__tier-two" class="nodes">
+          <div class="ore-node node__tier-two node__copper-ore unselectable" type="button">
+            <img class="node-image" src="images\440px-copper_rocks.png">
+          </div>
+
+          <div class="ore-node node__tier-two node__tin-ore unselectable" type="button">
+            <img class="node-image" src="images\440px-tin_rocks.png">
+          </div>
+        </div>
+
+        <div id="nodes__tier-three" class="nodes">
+          <div class="ore-node node__tier-two node__iron-ore unselectable" type="button">
+              <img class="node-image" src="images\440px-Iron_rocks.png">
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="column" id="column-right">
+      <h1 class="unselectable">Shop</h1>
+
+      <fieldset id="tools">
+        <legend class="unselectable">Tools</legend>
+        <div id="tool-shop">
+          <div class="purchasable-item" id="pickaxe-bronze">
+            <img type="button" src=https://oldschool.runescape.wiki/images/Bronze_pickaxe.png?fe489>
+          </div>
+          <div class="purchasable-item" id="pickaxe-iron">
+            <img type="button" src=https://oldschool.runescape.wiki/images/Iron_pickaxe.png?9e4d4>
+          </div>
+        <div class="purchasable-item" id="pickaxe-steel">
+            <img type="button" src=https://oldschool.runescape.wiki/images/Steel_pickaxe.png?421a5>
+        </div>
+        <div class="purchasable-item" id="pickaxe-black">
+            <img type="button" src=https://oldschool.runescape.wiki/images/Black_pickaxe.png?0d4ed>
+        </div>
+        <div class="purchasable-item" id="pickaxe-gold">
+            <img type="button" src=https://oldschool.runescape.wiki/images/Gilded_pickaxe.png?583e2>
+        </div>
+        <div class="purchasable-item" id="pickaxe-mithril">
+          <img type="button" src=https://oldschool.runescape.wiki/images/Mithril_pickaxe.png?c2098>
+        </div>
+        <div class="purchasable-item" id="pickaxe-adamant">
+          <img type="button" src=https://oldschool.runescape.wiki/images/Adamant_pickaxe.png?e716d>
+        </div>
+        <div class="purchasable-item" id="pickaxe-runite">
+          <img type="button" src=https://oldschool.runescape.wiki/images/Rune_pickaxe.png?e8496>
+        </div>
+        <div class="purchasable-item" id="pickaxe-dragon">
+          <img type="button" src=https://oldschool.runescape.wiki/images/Dragon_pickaxe.png?c85b3>
+        </div>
+    </fieldset>
       
-        <div id="messages">
-          <div class="info"><span id="info-message">Welcome</span></div>
-        </div>
-
-        <div id="player-equipment">
-          <div>
-            <img src="images/head_slot.png" data-slot="head">
-          </div>
-          <div>
-            <img src="images/weapon_slot.png" data-slot="weapon">
-            <img src="images/body_slot.png" data-slot="chest">
-            <img src="images/shield_slot.png" data-slot="offhand">
-          </div>
-          <div>
-            <img src="images/legs_slot.png" data-slot="legs">
-          </div>
-          <div>
-            <img src="images/hands_slot.png" data-slot="hands">
-            <img src="images/feet_slot.png" data-slot="feet">
-            <img src="images/ring_slot.png" data-slot="jewellery">
+    <fieldset id="furnaces"> 
+      <legend>Furnaces</legend>
+      <div id="furnace-shop">
+        <div class="furnace-actions">
+          <select id="ingot-selection">
+            <option value="" disabled selected>None</option>
+            <option value="bronzeIngot">Bronze</option>
+            <option value="ironIngot">Iron</option>
+          </select>
+        <div id="furnace-controls">
+            <button id="smelt-play" class="button-square">
+              <i data-lucide="play" class="icon__controls"></i>
+            </button>
+            <button id="smelt-pause" class="hidden button-square">
+              <i data-lucide="pause" class="icon__controls"></i>
+            </button>
           </div>
         </div>
-
-        <div id="dev-tools">
-          <h3>Dev tools</h3>
-          <button class="dev-button" id="reset-money">$0</button>
-          <button class="dev-button" id="mo-money">+$1000</button>
-          <button class="dev-button" id="reset-all">RESET ALL</button>
+        <div class="direction-row">
+          <img id="furnace-image" src="images\Furnace.png"></img>
+          <div id="count__furnace"></div>
         </div>
-      </div>
-    </div>
-      
-  <div class="column" id="column-middle">
-    <h1 class="unselectable">Mineshaft</h1>
-    
-    <div id="section__nodes">
-      <div id="nodes__tier-one" class="nodes">
-        <div class="ore-node node__tier-one node__stone unselectable" type="button">
-          <img class="node-image" src="images/480px-Ring_of_stone_equipped.png">
-        </div>
-      </div>
-
-      <div id="nodes__tier-two" class="nodes">
-        <div class="ore-node node__tier-two node__copper-ore unselectable" type="button">
-          <img class="node-image" src="images\440px-copper_rocks.png">
-        </div>
-
-        <div class="ore-node node__tier-two node__tin-ore unselectable" type="button">
-          <img class="node-image" src="images\440px-tin_rocks.png">
-        </div>
-      </div>
-
-      <div id="nodes__tier-three" class="nodes">
-        <div class="ore-node node__tier-two node__iron-ore unselectable" type="button">
-            <img class="node-image" src="images\440px-Iron_rocks.png">
-          </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="column" id="column-right">
-    <h1 class="unselectable">Shop</h1>
-
-    <fieldset id="tools">
-      <legend class="unselectable">Tools</legend>
-      <div id="tool-shop">
-        <div class="purchasable-item" id="pickaxe-bronze">
-          <img type="button" src=https://oldschool.runescape.wiki/images/Bronze_pickaxe.png?fe489>
-        </div>
-        <div class="purchasable-item" id="pickaxe-iron">
-          <img type="button" src=https://oldschool.runescape.wiki/images/Iron_pickaxe.png?9e4d4>
-        </div>
-      <div class="purchasable-item" id="pickaxe-steel">
-          <img type="button" src=https://oldschool.runescape.wiki/images/Steel_pickaxe.png?421a5>
-      </div>
-      <div class="purchasable-item" id="pickaxe-black">
-          <img type="button" src=https://oldschool.runescape.wiki/images/Black_pickaxe.png?0d4ed>
-      </div>
-      <div class="purchasable-item" id="pickaxe-gold">
-          <img type="button" src=https://oldschool.runescape.wiki/images/Gilded_pickaxe.png?583e2>
-      </div>
-      <div class="purchasable-item" id="pickaxe-mithril">
-        <img type="button" src=https://oldschool.runescape.wiki/images/Mithril_pickaxe.png?c2098>
-      </div>
-      <div class="purchasable-item" id="pickaxe-adamant">
-        <img type="button" src=https://oldschool.runescape.wiki/images/Adamant_pickaxe.png?e716d>
-      </div>
-      <div class="purchasable-item" id="pickaxe-runite">
-        <img type="button" src=https://oldschool.runescape.wiki/images/Rune_pickaxe.png?e8496>
-      </div>
-      <div class="purchasable-item" id="pickaxe-dragon">
-        <img type="button" src=https://oldschool.runescape.wiki/images/Dragon_pickaxe.png?c85b3>
-      </div>
-  </fieldset>
-    
-  <fieldset id="furnaces"> 
-    <legend>Furnaces</legend>
-    <div id="furnace-shop">
-      <div class="furnace-actions">
-        <select id="ingot-selection">
-          <option value="" disabled selected>None</option>
-          <option value="bronzeIngot">Bronze</option>
-          <option value="ironIngot">Iron</option>
-        </select>
-       <div id="furnace-controls">
-          <button id="smelt-play" class="button-square">
-            <i data-lucide="play" class="icon__controls"></i>
-          </button>
-          <button id="smelt-pause" class="hidden button-square">
-            <i data-lucide="pause" class="icon__controls"></i>
-          </button>
-        </div>
-      </div>
-      <div class="direction-row">
-        <img id="furnace-image" src="images\Furnace.png"></img>
-        <div id="count__furnace"></div>
-      </div>
-      <button id="furnace-buy" class="button-default">Buy furnace</button>
-      <div id="cost__furnace">Cost: 50 coins</div>
-      <div id="furnace-fuel">Fuel:</div>
-    </div>
-  </fieldset>
-
-  <fieldset id="anvils">
-    <legend>Anvils</legend>
-    <div id="anvil-shop">
-      <div class="anvil-actions">
-        <select id="product-selection">
-          <option value="none">None</option>
-          <option value="bronzeHelm">Bronze helmet</option>
-          <option value="bronzePlatebody">Bronze platebody</option>
-          <option value="bronzePlatelegs">Bronze platelegs</option>
-          <option value="bronzeSword">Bronze sword</option>
-          <option value="ironSword">Iron sword</option>
-        </select>
-        <div id="anvil-controls">
-          <button id="smith-play" class="button-square">
-            <i data-lucide="play"class="icon__controls"></i>
-          </button>
-          <button id="smith-pause" class="hidden button-square">
-            <i data-lucide="pause" class="icon__controls"></i>
-          </button>
-        </div>
-      </div>
-      <div  class="direction-row">
-        <img id="anvil-image" src="images\400px-Anvil.png"></img>
-        <div id="count__anvil"></div>
-      </div>
-      <button id="anvil-buy" class="button-default">Buy anvil</button>
-      <div id="cost__anvil">Cost: 50 coins</div>
-    </div>
-  </fieldset>
-
-
-    <!-- Buy miners to mine resources automatically -->
-    <fieldset id="auto-miner-shop">
-      <legend>Miners</legend>
-      <select id="mining-selection">
-        <option value="none">None</option>
-        <option value="stone">Stone</option>
-        <option value="copperOre">Copper</option>
-        <option value="tinOre">Tin</option>
-        <option value="ironOre">Iron</option>
-
-      </select>
-      <div id="auto-miners-shop">
-        <img class="purchasable-item auto-miners" id="human-miner-1" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
-        <img class="purchasable-item auto-miners" id="human-miner-2" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
-        <img class="purchasable-item auto-miners" id="human-miner-3" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+        <button id="furnace-buy" class="button-default">Buy furnace</button>
+        <div id="cost__furnace">Cost: 50 coins</div>
+        <div id="furnace-fuel">Fuel:</div>
       </div>
     </fieldset>
-  </div>
 
-  <div id="objective-message">
-    <div id="objective-message-text">
-      <span id="objective-message-content"></span>
-      <span id="objective-message-dismiss">
-        <i data-lucide="x" class="icon__dismiss"></i>
-      </span>
+    <fieldset id="anvils">
+      <legend>Anvils</legend>
+      <div id="anvil-shop">
+        <div class="anvil-actions">
+          <select id="product-selection">
+            <option value="none">None</option>
+            <option value="bronzeHelm">Bronze helmet</option>
+            <option value="bronzePlatebody">Bronze platebody</option>
+            <option value="bronzePlatelegs">Bronze platelegs</option>
+            <option value="bronzeSword">Bronze sword</option>
+            <option value="ironSword">Iron sword</option>
+          </select>
+          <div id="anvil-controls">
+            <button id="smith-play" class="button-square">
+              <i data-lucide="play"class="icon__controls"></i>
+            </button>
+            <button id="smith-pause" class="hidden button-square">
+              <i data-lucide="pause" class="icon__controls"></i>
+            </button>
+          </div>
+        </div>
+        <div  class="direction-row">
+          <img id="anvil-image" src="images\400px-Anvil.png"></img>
+          <div id="count__anvil"></div>
+        </div>
+        <button id="anvil-buy" class="button-default">Buy anvil</button>
+        <div id="cost__anvil">Cost: 50 coins</div>
+      </div>
+    </fieldset>
+
+
+      <!-- Buy miners to mine resources automatically -->
+      <fieldset id="auto-miner-shop">
+        <legend>Miners</legend>
+        <select id="mining-selection">
+          <option value="none">None</option>
+          <option value="stone">Stone</option>
+          <option value="copperOre">Copper</option>
+          <option value="tinOre">Tin</option>
+          <option value="ironOre">Iron</option>
+
+        </select>
+        <div id="auto-miners-shop">
+          <img class="purchasable-item auto-miners" id="human-miner-1" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+          <img class="purchasable-item auto-miners" id="human-miner-2" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+          <img class="purchasable-item auto-miners" id="human-miner-3" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+        </div>
+      </fieldset>
+    </div>
+
+    <div id="objective-message">
+      <div id="objective-message-text">
+        <span id="objective-message-content"></span>
+        <span id="objective-message-dismiss">
+          <i data-lucide="x" class="icon__dismiss"></i>
+        </span>
+      </div>
+    </div>
+
+      <div id="stats-popup"></div>
+
+      <div id="context-menu" class="hidden">
+        <div id="context-equip">Equip</div>
+        <div id="context-unequip">Unequip</div>
+        <div id="context-sell">Sell</div>
+        <div id="context-sell-all">Sell all</div>
+      </div>
     </div>
   </div>
+</div>
 
-    <div id="stats-popup"></div>
 
-    <div id="context-menu" class="hidden">
-      <div id="context-equip">Equip</div>
-      <div id="context-unequip">Unequip</div>
-      <div id="context-sell">Sell</div>
-      <div id="context-sell-all">Sell all</div>
+<div id="rogue-like-game" class="hidden">
+  <div id="rogue-ui">
+    <div id="arena">
+      <div id="player-arena">
+        <img src="images/240px-Man_(blue).png" id="player-sprite">
+      </div>
+      <div id="enemy-arena">
+        <img src="images\300px-Goblin.png" id="enemy-sprite">
+      </div>
     </div>
+    <div id="player-equipment">
+      <div>
+        <img src="images/head_slot.png" data-slot="head">
+      </div>
+      <div>
+        <img src="images/weapon_slot.png" data-slot="weapon">
+        <img src="images/body_slot.png" data-slot="chest">
+        <img src="images/shield_slot.png" data-slot="offhand">
+      </div>
+      <div>
+        <img src="images/legs_slot.png" data-slot="legs">
+      </div>
+      <div>
+        <img src="images/hands_slot.png" data-slot="hands">
+        <img src="images/feet_slot.png" data-slot="feet">
+        <img src="images/ring_slot.png" data-slot="jewellery">
+      </div>
+    </div>
+    <button id="exit-rogue-like">Exit</button>
   </div>
 </div>
 
