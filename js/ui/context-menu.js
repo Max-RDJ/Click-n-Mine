@@ -4,6 +4,7 @@ import { playerState, countCoins } from "../core/state.js";
 import { updateCoinsDisplay } from "./ui-update.js";
 import { equipItem, unequipItem } from "../core/equipment.js";
 import { idToKey } from "../systems/selling.js";
+import { sellOne, sellAmount } from "../systems/selling.js";
 
 
 let currentResource = null;
@@ -36,16 +37,23 @@ export function bindContextMenu() {
     openMenu(e.pageX, e.pageY, key, !!slot);
   });
 
-  document.addEventListener("click", () => closeMenu());
+document.addEventListener("click", (e) => {
+  const menu = document.getElementById("context-menu-sell");
 
+  if (!menu.contains(e.target)) {
+    closeMenu();
+  }
+});
   document.getElementById("context-sell").onclick = sellCurrent;
+  document.getElementById("context-sell-x").onclick = showSellX;
+  document.getElementById("sell-x-confirm").onclick = confirmSellX;
   document.getElementById("context-sell-all").onclick = sellAllCurrent;
   document.getElementById("context-equip").onclick = equipCurrent;
   document.getElementById("context-unequip").onclick = unequipCurrent;
 };
 
 function openMenu(x, y, resourceKey, isEquipped = false) {
-  const menu = document.getElementById("context-menu");
+  const menu = document.getElementById("context-menu-sell");
   const data = RESOURCES[resourceKey];
   if (!data) return;
 
@@ -61,30 +69,49 @@ function openMenu(x, y, resourceKey, isEquipped = false) {
 }
 
 function closeMenu() {
-    document.getElementById("context-menu").classList.add("hidden");
+  document.getElementById("context-menu-sell").classList.add("hidden");
 }
 
 function sellCurrent() {
-    const data = RESOURCES[currentResource];
-    if (!data) return;
+  const data = RESOURCES[currentResource];
+  if (!data) return;
 
-    updateResource(currentResource, -1);
-    countCoins.value += data.sellPrice;
-    updateCoinsDisplay();
-    closeMenu();
+  sellOne(currentResource);
+  closeMenu();
+}
+
+function showSellX() {
+  const container = document.getElementById("sell-x-container");
+  const input = document.getElementById("sell-x-input");
+
+  container.classList.remove("hidden");
+
+  const max = playerState.value.resources[currentResource] ?? 0;
+  input.max = max;
+  input.value = "";
+  input.focus();
+}
+
+function confirmSellX() {
+  const input = document.getElementById("sell-x-input");
+  const amount = parseInt(input.value);
+
+  const max = playerState.value.resources[currentResource] ?? 0;
+
+  if (!amount || amount <= 0 || amount > max) return;
+
+  sellAmount(currentResource, amount);
+
+  document.getElementById("sell-x-container").classList.add("hidden");
+  closeMenu();
 }
 
 function sellAllCurrent() {
-    const data = RESOURCES[currentResource];
-    if (!data) return;
+  const count = playerState.value.resources[currentResource] ?? 0;
+  if (count <= 0) return;
 
-    const count = playerState.value.resources[currentResource] ?? 0;
-    if (count <= 0) return;
-
-    updateResource(currentResource, -count);
-    countCoins.value = (countCoins.value ?? 0) + count * data.sellPrice;
-    updateCoinsDisplay();
-    closeMenu();
+  sellAmount(currentResource, count);
+  closeMenu();
 }
 
 function equipCurrent() {

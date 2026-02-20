@@ -17,7 +17,6 @@ import {
 import { startAutoMining, bindMinerButtons } from "../systems/auto-mining.js";
 import { bindPickaxeButtons } from "../systems/pickaxes.js";
 import { bindNodeClicks } from "../systems/mining.js";
-import { bindSellingUI } from "../systems/selling.js";
 import { resetMoney, addMoney, resetAll } from "../systems/dev-tools.js";
 import { loadObjectivesProgress, getActiveObjectiveMessage } from "../systems/objectives.js";
 import { bindContextMenu } from "./context-menu.js";
@@ -57,7 +56,6 @@ export function bindUI() {
     $("#objective-message").hide();
   });
 
-  bindSellingUI();
   bindSmithingUI();
   bindNodeClicks();
   bindPickaxeButtons();

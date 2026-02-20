@@ -106,10 +106,6 @@ h1 {
   cursor: default;
 }
   
-h2 {
-  margin-bottom: 20px;
-}
-
 #stats-popup {
   display: none;
   position: fixed;
@@ -125,7 +121,7 @@ h2 {
   color: orange;
 }
 
-#context-menu {
+.context-menu {
   position: absolute;
   background: #2c2c2c;
   border: 1px solid orange;
@@ -135,18 +131,18 @@ h2 {
   width: 120px;
 }
 
-#context-menu div {
+.context-menu div {
   padding: 6px 10px;
   cursor: pointer;
 }
 
-#context-menu div:hover {
+.context-menu div:hover {
   color: rgba(255,165,0);
   background-color: rgba(255,165,0,0.2);
 }
 
-#context-menu.hidden { display: none; }
-#context-menu button {
+.context-menu.hidden { display: none; }
+.context-menu button {
   display: block;
   width: 100%;
   margin: 2px 0;
@@ -492,6 +488,7 @@ img.purchasable-item {
 
 
 
+
 #arena {
   flex: 1;
   display: flex;
@@ -510,8 +507,33 @@ img.purchasable-item {
 
 #player-arena, #enemy-arena {
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
+}
+
+.damage-number {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  transform: translateX(-50%);
+  font-size: 2em;
+  font-weight: bold;
+  pointer-events: none;
+  animation: float-damage 0.8s ease-out forwards;
+}
+
+.damage-number.crit {
+  color: gold;
+  font-size: 2.5em;
+}
+
+.damage-number.heal {
+  color: lime;
+}
+
+.damage-number.block {
+  color: cyan;
 }
 
 #player-receives, #enemy-receives {
@@ -528,17 +550,32 @@ img.purchasable-item {
 }
 
 .damage-pop {
-  animation: damage-receive-animation 1s forwards;
+  animation: float-damage 1s forwards;
 }
 
-@keyframes damage-receive-animation {
+#death-screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 40px;
+  z-index: 10000;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+
+@keyframes float-damage {
   0% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, 0);
   }
   100% {
     opacity: 0;
-    transform: translateY(-50px);
+    transform: translate(-50%, -60px);
   }
 }
 

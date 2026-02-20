@@ -28,12 +28,25 @@ export function applyDefense(player, damage) {
   return damage;
 }
 
-function showDamage(targetId, amount) {
-  const el = document.getElementById(targetId);
+function showDamage(arenaId, amount, type = "damage") {
+  const arena = document.getElementById(arenaId);
 
-  el.textContent = `-${amount}`;
-  
-  el.classList.remove("damage-pop");
-  void el.offsetWidth;
-  el.classList.add("damage-pop");
+  const el = document.createElement("div");
+  el.classList.add("damage-number");
+
+  el.classList.add("damage-number");
+
+  const randomX = (Math.random() - 0.5) * 40;
+  el.style.left = `calc(50% + ${randomX}px)`;
+
+  el.textContent = 
+    type === "heal"
+      ? `+${amount}`
+      : `-${amount}`;
+
+  arena.appendChild(el);
+
+  setTimeout(() => {
+    el.remove();
+  }, 800);
 }

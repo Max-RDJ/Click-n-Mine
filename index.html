@@ -103,12 +103,6 @@
             </fieldset>
           </div>
         
-          <div class="sell-controls">
-            <label for="sell-slider" id="sell-label">Sell 0 Stone</label>
-            <input type="range" id="sell-slider" min="0" max="0" value="0">
-            <button id="sell-confirm" class="button-default">Sell</button>
-          </div>
-        
           <div id="messages">
             <div class="info"><span id="info-message">Welcome</span></div>
           </div>
@@ -293,14 +287,22 @@
 
       <div id="stats-popup"></div>
 
-      <div id="context-menu" class="hidden">
+      <div id="context-menu-sell" class="context-menu hidden">
         <div id="context-equip">Equip</div>
         <div id="context-unequip">Unequip</div>
         <div id="context-sell">Sell</div>
+        <div id="context-sell-x">Sell x</div>
         <div id="context-sell-all">Sell all</div>
+
+        <div id="sell-x-container" class="hidden">
+          <input type="number" id="sell-x-input" min="1" />
+          <button id="sell-x-confirm">Confirm</button>
+        </div>
       </div>
     </div>
   </div>
+
+
 </div>
 
 
@@ -354,6 +356,12 @@
       <div>
         <div id="combat-log"></div>
       </div>
+    </div>
+
+    <div id="death-screen">
+      <h2>Oh dear, you are dead!</h2>
+      <p>Well, that's all she wrote for you. But you can take another pop at it...</p>
+      <button id="restart-btn" class="button-neutral">Restart</button>
     </div>
 
     <button id="exit-rogue-like">Exit</button>

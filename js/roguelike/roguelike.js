@@ -1,6 +1,7 @@
 import { calculatePlayerStats } from "./stats.js";
 import { generateEnemy } from "./enemies.js";
 import { playerAttack, enemyAttack, playerDefend, applyDefense } from "./combat.js";
+import { resetAll } from "../systems/dev-tools.js";
 
 
 let player;
@@ -99,9 +100,16 @@ function enemyTurn() {
 
   if (player.hp <= 0) {
     log("Oh dear, you are dead.");
+    $("#death-screen").css("display", "flex");
   }
 }
 
 $('#view-equipment').on("click", () => {
+  if ($('#player-equipment-roguelike').css("display") === "block") {
+    $('#player-equipment-roguelike').css("display", "none");
+    return;
+  }
     $('#player-equipment-roguelike').css("display", "block");
 })
+
+  $("#restart-btn").on("click", resetAll);
