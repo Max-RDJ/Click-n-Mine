@@ -12,7 +12,6 @@
 <body>
   <div id="incremental-game">
     <div id="resources-display" style="display:none"></div>
-    <button id="enter-rogue-like" class="button-default">Ascend to surface</button>
 
     <div id="page-container">
       <div id="columns-container">
@@ -21,10 +20,6 @@
           <h1 class="unselectable">Resources</h1>
           <div class="column-content">
             <div class="resource-index">
-              <div class="resources" id="resource-coins">
-                <img id="coins-image" src="images/240px-Coins_detail.png">
-                <span id="count__coins" value="0">0</span>
-              </div>
 
             <fieldset id="resources__ores">
               <legend class="unselectable">Ore</legend>
@@ -97,10 +92,6 @@
                 </div>
               </div>
             </fieldset>
-          </div>
-        
-          <div id="messages">
-            <div class="info"><span id="info-message">Welcome</span></div>
           </div>
 
           <div id="dev-tools">
@@ -276,9 +267,20 @@
     </div>
   </div>
 
-  <div class="button-tray">
-    <img src="images/Inventory.png" id="drawer-tab" class="drawer-tab">
-    <img src="images/Logout.png" id="ascend-tab" class="drawer-tab">
+  <div class="control-tray">
+    <div class="resources" id="resource-coins">
+      <img id="coins-image" src="images/240px-Coins_detail.png">
+      <span id="count__coins" class="unselectable" value="0">0</span>
+    </div>
+
+    <div id="messages">
+      <div class="info"><span id="info-message">Welcome</span></div>
+    </div>
+    
+    <div class="control-tray-tabs">
+      <img src="images/Inventory.png" id="drawer-tab" class="drawer-tab">
+      <img src="images/Logout.png" id="ascend-tab" class="drawer-tab">
+    </div>
   </div>
 
   <aside id="bottom-drawer">

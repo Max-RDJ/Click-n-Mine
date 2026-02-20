@@ -194,6 +194,12 @@ h1 {
   align-items: center;
 }
 
+.column-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
 #column-right{
   border-right: 0;
 }
@@ -397,11 +403,30 @@ select {
   margin-right: 15px;
 }
 
+#resource-coins {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: linear-gradient(to bottom, #2a2f3a, #1e1e1e);
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+#coins-image {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  cursor: default;
+}
+
 .resource-index,
 .shop-index {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.5rem;
 }
 
 .resources {
@@ -457,8 +482,6 @@ select {
 }
 
 .info {
-  height: 50px;
-  padding: 10px;
   width: 100%;
 }
 
@@ -498,18 +521,23 @@ img.purchasable-item {
   transform: translateY(0%);
 }
 
-.button-tray {
+.control-tray {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: auto;
-  padding: 0px 1rem;
+  height: 50px;
+  padding: 0 1rem;
   display: flex;
-  justify-content: right;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
   z-index: 10000;
+}
+
+.control-tray-tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 .drawer-content {
@@ -519,15 +547,17 @@ img.purchasable-item {
 }
 
 .drawer-tab {
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
   object-fit: contain;
   cursor: pointer;
   transition: transform 0.2s ease;
-  background: #343f51;
   color: #ebe2d5;
   border-radius: 10px 10px 0 0;
   padding: 5px;
+  background: linear-gradient(to bottom, #2a2f3a, #1e1e1e);
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .drawer-tab:hover {
