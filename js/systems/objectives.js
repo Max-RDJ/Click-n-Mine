@@ -1,39 +1,10 @@
 export const objective = [
   {
-    objectiveNo: 1,
-    id: "stone5",
-    message: "Click the stone node in the Mineshaft",
-    complete: false,
-    condition: (resources) => resources.stone >= 1,
-  },
-  {
-    objectiveNo: 2,
-    id: "stone10",
-    message: "Mine 10 stone",
-    complete: false,
-    condition: (resources) => resources.stone >= 10,
-  },
-  {
     objectiveNo: 3,
-    id: "sell10",
-    message: "Use the slider under Resources to select 10 Stone and then click 'Sell'",
-    condition: (resources, coins) => coins >= 10,
-    complete: false,
-    unlock: () => {
-      $("#tools").css("display", "block");
-    }
-  },
-  {
-    objectiveNo: 4,
     id: "buyPickaxe",
-    message: "Buy your first pickaxe",
-    complete: false,
+    message: "Click on the Bronze Pickaxe in the shop to purchase your first pickaxe",
     condition: (resources, coins, hasPickaxe) => hasPickaxe === true,
-    unlock: () => {
-      $("#nodes__tier-two").css("display", "flex");
-      $("#resource__copper-ore").css("display", "inline-flex");
-      $("#resource__tin-ore").css("display", "inline-flex");
-    }
+    complete: false,
   },
   {
     objectiveNo: 5,
@@ -44,6 +15,13 @@ export const objective = [
     unlock: () => {
       $("#furnaces").css("display", "block");
     }
+  },
+  {
+    objectiveNo: 5,
+    id: "sellOre",
+    message: "Get yourself some coins by selling your ore. Right-click on the ore under Resources and select 'Sell'",
+    complete: false,
+    condition: (resources, coins) => coins > 0,
   },
   {
     objectiveNo: 6,
@@ -74,7 +52,6 @@ export const objective = [
     complete: false,
     condition: (resources) => resources.bronzeHelm >= 1,
     unlock: () => {
-      $("#nodes__tier-three").css("display", "flex");
       $("#objective-message-dismiss").css("display", "block");
     }
   },

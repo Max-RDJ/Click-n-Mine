@@ -290,7 +290,7 @@ select {
   pointer-events: none;
 }
 
-#tools, #furnaces, #auto-miner-shop, #anvils {
+#furnaces, #auto-miner-shop, #anvils {
   display: none;
 }
 
@@ -441,8 +441,6 @@ select {
   height: 32px;
 }
 
-#resource__copper-ore,
-#resource__tin-ore,
 #resource__iron-ore,
 #resources__ingots,
 #resources__armour,
@@ -480,8 +478,8 @@ img.purchasable-item {
 }
 
 #enter-rogue-like {
-  position: absolute;
-  bottom: 20px;
+  position: fixed;
+  top: 20px;
   right: 20px;
   z-index: 1000;
 }
