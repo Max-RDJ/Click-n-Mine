@@ -519,14 +519,16 @@ img.purchasable-item {
   font-size: 2em;
   font-weight: bold;
   color: red;
-  opacity: 0;
-  animation: damage-receive-animation 1s forwards;
 }
 
 #player-equipment-roguelike {
   display: none;
   position: absolute;
   z-index: 1000;
+}
+
+.damage-pop {
+  animation: damage-receive-animation 1s forwards;
 }
 
 @keyframes damage-receive-animation {

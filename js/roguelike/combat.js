@@ -6,6 +6,7 @@ export function calculateDamage(attacker, defender) {
 export function playerAttack(player, enemy) {
   const damage = calculateDamage(player, enemy);
   enemy.hp -= damage;
+  showDamage("enemy-receives", damage);
   return damage;
 }
 
@@ -25,4 +26,14 @@ export function applyDefense(player, damage) {
     player.defending = false;
   }
   return damage;
+}
+
+function showDamage(targetId, amount) {
+  const el = document.getElementById(targetId);
+
+  el.textContent = `-${amount}`;
+  
+  el.classList.remove("damage-pop");
+  void el.offsetWidth;
+  el.classList.add("damage-pop");
 }
