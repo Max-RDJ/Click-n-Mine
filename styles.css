@@ -604,12 +604,9 @@ img.purchasable-item {
 }
 
 @keyframes objectiveFlash {
-  0%   { background-color: inherit; }
-  50%  { background-color: #c05656; }
-  100% { background-color: inherit; }
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 orange); }
+  50%      { transform: scale(1.2); filter: drop-shadow(0 0 10px orange); }
 }
-
-
 
 
 #arena {
