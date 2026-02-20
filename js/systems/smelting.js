@@ -54,7 +54,6 @@ export function buyFurnace() {
     playerFurnaces
   );
   updateFurnaceUI();
-  updateInfoMessage("You buy a furnace.");
 }
 
 export function recalcSmeltingRate() {

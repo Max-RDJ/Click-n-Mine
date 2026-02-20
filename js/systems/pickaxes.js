@@ -40,7 +40,6 @@ export function buyPickaxe(id, cost, miningRate, type) {
 
     countCoins.value -= cost;
     updateCoinsDisplay();
-    updateInfoMessage(`You buy a ${type} pickaxe.`);
 
     completeObjective("buyPickaxe", resourceCounts.value, countCoins.value, true);
   } else if (element.style.opacity === "1") {

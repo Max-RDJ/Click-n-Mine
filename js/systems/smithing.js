@@ -69,7 +69,6 @@ export function buyAnvil() {
   updateCoinsDisplay();
   completeObjective("buyAnvil", playerAnvils.value);
   updateAnvilUI();
-  updateInfoMessage("You buy an anvil.");
 }
 
 export function recalcSmithingRate() {

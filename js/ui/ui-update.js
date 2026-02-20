@@ -4,6 +4,7 @@ import { countCoins, resourceCounts } from "../core/state.js";
 import { savePlayerProgress } from "../core/save.js";
 import { playerFurnaces, playerAnvils } from "../core/state.js";
 import { setText } from "../core/helpers.js";
+import { showTemporaryMessage } from "../systems/messages.js";
 
 
 export function updateDisplay() {
@@ -27,7 +28,7 @@ export function updateCoinsDisplay() {
 }
 
 export function updateInfoMessage(message) {
-  $("#info-message").text(message);
+  showTemporaryMessage(message);
   savePlayerProgress();
 }
 

@@ -78,20 +78,12 @@ export function canMine(nodeType) {
 }
 
 export function bindNodeClicks(playerState) {
-  $(".node__stone").on("click", () => {
-    updateResource("stone", 1 * playerMiningRate.value);
-    completeObjective("stone5", resourceCounts.value, countCoins.value);
-    completeObjective("stone10", resourceCounts.value, countCoins.value);
-    updateInfoMessage("You mine some stone.");
-  });
-
   $(".node__copper-ore").on("click", () => {
     if (nodeCooldowns.copperOre) return;
     if (!canMine("copperOre")) return;
 
     updateResource("copperOre", 0.5 * playerMiningRate.value);
     completeObjective("copperAndTin", resourceCounts.value, countCoins.value);
-    updateInfoMessage("You mine some copper.");
     nodeCooldown("copperOre");
   });
 
@@ -101,7 +93,6 @@ export function bindNodeClicks(playerState) {
 
     updateResource("tinOre", 0.5 * playerMiningRate.value);
     completeObjective("copperAndTin", resourceCounts.value, countCoins.value);
-    updateInfoMessage("You mine some tin.");
     nodeCooldown("tinOre");
   });
 
@@ -110,7 +101,6 @@ export function bindNodeClicks(playerState) {
     if (!canMine("ironOre", playerState)) return;
 
     updateResource("ironOre", 0.25 * playerMiningRate.value);
-    updateInfoMessage("You mine some iron.");
     nodeCooldown("ironOre");
   });
 }

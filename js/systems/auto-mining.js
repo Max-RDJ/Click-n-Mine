@@ -16,7 +16,6 @@ export function buyAutoMiner(id, cost, minerRate) {
     countCoins.value -= cost;
     autoMiningRate.value += minerRate;
     updateCoinsDisplay();
-    updateInfoMessage("You buy a miner.");
     startAutoMining();
   } else if (countCoins.value < cost) {
     updateInfoMessage("You don't have enough coins.");

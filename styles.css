@@ -356,10 +356,6 @@ select {
   gap: 20px;
 }
 
-#info-message{
-  font-size: 1.2em;
-}
-
 .button-default {
   font-size: 1em;
   background-color: var(--primary);
@@ -380,8 +376,8 @@ select {
 }
 
 .dev-button {
-  margin-top: 40px;
-  font-size: 1.5em;
+  margin-top: 10px;
+  font-size: 1em;
   background-color: rgba(255, 255, 255, 0.2);
   font-family: tahoma;
   color: #ebe2d5;
@@ -408,7 +404,7 @@ select {
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 2rem;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 12px;
   background: linear-gradient(to bottom, #2a2f3a, #1e1e1e);
   box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
@@ -503,7 +499,7 @@ img.purchasable-item {
   z-index: 1000;
 }
 
-#bottom-drawer {
+.bottom-drawer {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -517,7 +513,7 @@ img.purchasable-item {
   z-index: 9999;
 }
 
-#bottom-drawer.open {
+.bottom-drawer.open {
   transform: translateY(0%);
 }
 
@@ -554,7 +550,7 @@ img.purchasable-item {
   transition: transform 0.2s ease;
   color: #ebe2d5;
   border-radius: 10px 10px 0 0;
-  padding: 5px;
+  padding: 8px;
   background: linear-gradient(to bottom, #2a2f3a, #1e1e1e);
   box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
   border: 1px solid rgba(255,255,255,0.1);
@@ -562,6 +558,55 @@ img.purchasable-item {
 
 .drawer-tab:hover {
   transform: scale(1.15);
+}
+
+#game-message {
+  position: fixed;
+  bottom: 70px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+#game-message-text.objective {
+  color: #ffd700;
+  font-weight: bold;
+  animation: fadeSlide 0.4s ease;
+}
+
+#game-message-text.alert {
+  color: #ff5a5a;
+  animation: pulse 0.3s ease;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.completed-objectives > p {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: line-through;
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+
+#objectives-tab.alert-active {
+  box-shadow: 0 0 8px rgba(192, 86, 86, 0.8);
+}
+
+#objectives-tab.flash {
+  animation: objectiveFlash 0.5s ease-in-out 3;
+}
+
+@keyframes objectiveFlash {
+  0%   { background-color: inherit; }
+  50%  { background-color: #c05656; }
+  100% { background-color: inherit; }
 }
 
 

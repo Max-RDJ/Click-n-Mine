@@ -18,7 +18,7 @@ import { startAutoMining, bindMinerButtons } from "../systems/auto-mining.js";
 import { bindPickaxeButtons } from "../systems/pickaxes.js";
 import { bindNodeClicks } from "../systems/mining.js";
 import { resetMoney, addMoney, resetAll } from "../systems/dev-tools.js";
-import { loadObjectivesProgress, getActiveObjectiveMessage } from "../systems/objectives.js";
+import { loadObjectivesProgress, getActiveObjectiveMessage, clearObjectivesAlert } from "../systems/objectives.js";
 import { bindContextMenu } from "./context-menu.js";
 
 
@@ -75,11 +75,21 @@ export function bindUI() {
   $("#objective-message-content").html(getActiveObjectiveMessage());
 }
 
-export function bindBottomDrawer() {
-  const drawer = document.getElementById("bottom-drawer");
+export function bindEquipmentDrawer() {
+  const drawer = document.getElementById("equipment-drawer");
   const tab = document.getElementById("drawer-tab");
 
   tab.addEventListener("click", () => {
     drawer.classList.toggle("open");
+  });
+}
+
+export function bindObjectivesDrawer() {
+  const drawer = document.getElementById("objectives-drawer");
+  const tab = document.getElementById("objectives-tab");
+
+  tab.addEventListener("click", () => {
+    drawer.classList.toggle("open");
+    clearObjectivesAlert();
   });
 }

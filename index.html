@@ -241,15 +241,6 @@
         </div>
     </div>
 
-    <div id="objective-message">
-      <div id="objective-message-text">
-        <span id="objective-message-content"></span>
-        <span id="objective-message-dismiss">
-          <i data-lucide="x" class="icon__dismiss"></i>
-        </span>
-      </div>
-    </div>
-
       <div id="stats-popup"></div>
 
       <div id="context-menu-sell" class="context-menu hidden">
@@ -273,17 +264,18 @@
       <span id="count__coins" class="unselectable" value="0">0</span>
     </div>
 
-    <div id="messages">
-      <div class="info"><span id="info-message">Welcome</span></div>
+    <div id="game-message">
+      <span id="game-message-text"></span>
     </div>
     
     <div class="control-tray-tabs">
       <img src="images/Inventory.png" id="drawer-tab" class="drawer-tab">
+      <img src="images/260px-Quests.png" id="objectives-tab" class="drawer-tab">
       <img src="images/Logout.png" id="ascend-tab" class="drawer-tab">
     </div>
   </div>
 
-  <aside id="bottom-drawer">
+  <aside id="equipment-drawer" class="bottom-drawer">
     <div class="drawer-content">
       <div class="player-equipment">
         <div>
@@ -302,6 +294,15 @@
           <img src="images/feet_slot.png" data-slot="feet">
           <img src="images/ring_slot.png" data-slot="jewellery">
         </div>
+      </div>
+    </div>
+  </aside>
+
+  <aside id="objectives-drawer" class="bottom-drawer">
+    <div class="drawer-content">
+      <div class="completed-objectives"></div>
+      <div id="objective-message-text">
+        <span id="objective-message-content"></span>
       </div>
     </div>
   </aside>

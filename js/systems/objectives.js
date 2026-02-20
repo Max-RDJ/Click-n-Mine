@@ -1,4 +1,6 @@
 import { resourceCounts, playerState } from "../core/state.js";
+import { setObjectiveMessage, showObjectiveNotification } from "./messages.js";
+
 
 export const objective = [
   {
@@ -99,8 +101,8 @@ export function loadObjectivesProgress() {
   });
 
   objectivesProgress = stored.length;
+  renderCompletedObjectives();
 }
-
 
 export function completeObjective(objectiveId, resources, coins = 0, hasPickaxe = false) {
   const obj = objective.find(obj => obj.id === objectiveId);
@@ -111,13 +113,58 @@ export function completeObjective(objectiveId, resources, coins = 0, hasPickaxe 
   if (isComplete && !obj.complete) {
     obj.complete = true;
     objectivesProgress++;
-
     if (obj.unlock) obj.unlock();
 
+    renderCompletedObjectives();    
     saveObjectivesProgress();
-
-    $("#objective-message-content").text(getActiveObjectiveMessage());
+    flashObjectivesIcon();
+    setObjectiveMessage(getActiveObjectiveMessage());
+    updateObjectiveDrawer();
+    showObjectiveNotification();
   }
+}
+
+export function updateObjectiveDrawer() {
+  const el = document.getElementById("objective-message-content");
+  if (!el) return;
+  el.textContent = getActiveObjectiveMessage();
+}
+
+function flashObjectivesIcon() {
+  const icon = document.getElementById("objectives-tab");
+  if (!icon) return;
+
+  icon.classList.remove("flash");
+  void icon.offsetWidth;
+
+  icon.classList.add("flash");
+
+  setTimeout(() => {
+    icon.classList.remove("flash");
+    icon.classList.add("alert-active");
+  }, 1500);
+}
+
+export function clearObjectivesAlert() {
+  const icon = document.getElementById("objectives-tab");
+  if (!icon) return;
+
+  icon.classList.remove("alert-active", "flash");
+}
+
+export function renderCompletedObjectives() {
+  const container = document.querySelector(".completed-objectives");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const completed = objective.filter(o => o.complete);
+
+  completed.forEach(obj => {
+    const p = document.createElement("p");
+    p.textContent = obj.message;
+    container.appendChild(p);
+  });
 }
 
 function saveObjectivesProgress() {

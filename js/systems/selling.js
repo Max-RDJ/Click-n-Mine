@@ -24,7 +24,6 @@ export function sellAmount(key, amount) {
 
   updateDisplay();
   updateCoinsDisplay();
-  updateInfoMessage(`You sold ${amount} ${config.displayName}.`);
 
   completeObjective("sellOre", resourceCounts.value, countCoins.value);
 }
