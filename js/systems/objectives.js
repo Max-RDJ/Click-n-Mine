@@ -62,7 +62,7 @@ export const objective = [
     complete: false,
     condition: (resources) => playerState.value.equipment.head === "bronzeHelm",
     unlock: () => {
-      $("#enter-rogue-like").css("display", "block");
+      $("#ascend-tab").css("display", "block");
     }
   },
   {

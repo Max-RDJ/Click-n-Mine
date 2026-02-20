@@ -2,6 +2,8 @@ import { calculatePlayerStats } from "./stats.js";
 import { generateEnemy } from "./enemies.js";
 import { playerAttack, enemyAttack, playerDefend, applyDefense } from "./combat.js";
 import { resetAll } from "../systems/dev-tools.js";
+import { playerState } from "../core/state.js";
+import { renderEquipment } from "../ui/render-equipment.js";
 
 
 let player;
@@ -70,7 +72,8 @@ export function initRogueLike() {
     hp: stats.maxHp,
     attack: stats.attack,
     defense: stats.defense,
-    defending: false
+    defending: false,
+    equipment: { ...playerState.value.equipment }
   };
 
   enemy = generateEnemy("goblin", 1);
@@ -105,11 +108,16 @@ function enemyTurn() {
 }
 
 $('#view-equipment').on("click", () => {
-  if ($('#player-equipment-roguelike').css("display") === "block") {
-    $('#player-equipment-roguelike').css("display", "none");
+  const panel = $('#player-equipment-roguelike');
+  
+  if (panel.css("display") === "block") {
+    panel.css("display", "none");
     return;
   }
-    $('#player-equipment-roguelike').css("display", "block");
-})
+  
+  renderEquipment("#player-equipment-roguelike");
 
-  $("#restart-btn").on("click", resetAll);
+  panel.css("display", "block");
+});
+
+$("#restart-btn").on("click", resetAll);

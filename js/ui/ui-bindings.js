@@ -74,3 +74,12 @@ export function bindUI() {
   loadObjectivesProgress();
   $("#objective-message-content").html(getActiveObjectiveMessage());
 }
+
+export function bindBottomDrawer() {
+  const drawer = document.getElementById("bottom-drawer");
+  const tab = document.getElementById("drawer-tab");
+
+  tab.addEventListener("click", () => {
+    drawer.classList.toggle("open");
+  });
+}

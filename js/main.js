@@ -4,7 +4,7 @@ import { initRogueLike } from "./roguelike/roguelike.js";
 import { loadPlayerState } from "./core/save.js";
 import { applyLoadedState, initializeEquipmentUI } from "./core/state.js";
 import { restorePurchasedPickaxesUI } from "./systems/pickaxes.js";
-import { bindUI } from "./ui/ui-bindings.js";
+import { bindBottomDrawer, bindUI } from "./ui/ui-bindings.js";
 import { updateDisplay } from "./ui/ui-update.js";
 
 $(document).ready(() => {
@@ -15,12 +15,13 @@ $(document).ready(() => {
   restorePurchasedPickaxesUI();
   initializeEquipmentUI();
   initIncrementalGame();
+  bindBottomDrawer();
 
   lucide.createIcons({ attrs: { width: 12, height: 12 } });
 
   let rogueInitialized = false;
 
-  $("#enter-rogue-like").on("click", () => {
+  $("#ascend-tab").on("click", () => {
     $("#incremental-game").addClass("hidden");
     $("#rogue-like-game").removeClass("hidden");
 

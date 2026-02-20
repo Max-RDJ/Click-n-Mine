@@ -12,14 +12,14 @@
 <body>
   <div id="incremental-game">
     <div id="resources-display" style="display:none"></div>
-    <button id="enter-rogue-like">Ascend to surface</button>
+    <button id="enter-rogue-like" class="button-default">Ascend to surface</button>
 
     <div id="page-container">
       <div id="columns-container">
 
         <div class="column" id="column-left">
           <h1 class="unselectable">Resources</h1>
-          <div id="column-left-content">
+          <div class="column-content">
             <div class="resource-index">
               <div class="resources" id="resource-coins">
                 <img id="coins-image" src="images/240px-Coins_detail.png">
@@ -103,25 +103,6 @@
             <div class="info"><span id="info-message">Welcome</span></div>
           </div>
 
-          <div class="player-equipment">
-            <div>
-              <img src="images/head_slot.png" data-slot="head">
-            </div>
-            <div>
-              <img src="images/weapon_slot.png" data-slot="weapon">
-              <img src="images/body_slot.png" data-slot="chest">
-              <img src="images/shield_slot.png" data-slot="offhand">
-            </div>
-            <div>
-              <img src="images/legs_slot.png" data-slot="legs">
-            </div>
-            <div>
-              <img src="images/hands_slot.png" data-slot="hands">
-              <img src="images/feet_slot.png" data-slot="feet">
-              <img src="images/ring_slot.png" data-slot="jewellery">
-            </div>
-          </div>
-
           <div id="dev-tools">
             <h3>Dev tools</h3>
             <button class="dev-button" id="reset-money">$0</button>
@@ -156,115 +137,117 @@
 
     <div class="column" id="column-right">
       <h1 class="unselectable">Shop</h1>
+        <div class="shop-index">
 
-      <fieldset id="tools">
-        <legend class="unselectable">Tools</legend>
-        <div id="tool-shop">
-          <div class="purchasable-item" id="pickaxe-bronze">
-            <img type="button" src=https://oldschool.runescape.wiki/images/Bronze_pickaxe.png?fe489>
+          <fieldset id="tools">
+            <legend class="unselectable">Tools</legend>
+            <div id="tool-shop" class="items-field">
+              <div class="purchasable-item" id="pickaxe-bronze">
+                <img type="button" src=https://oldschool.runescape.wiki/images/Bronze_pickaxe.png?fe489>
+              </div>
+              <div class="purchasable-item" id="pickaxe-iron">
+                <img type="button" src=https://oldschool.runescape.wiki/images/Iron_pickaxe.png?9e4d4>
+              </div>
+            <div class="purchasable-item" id="pickaxe-steel">
+                <img type="button" src=https://oldschool.runescape.wiki/images/Steel_pickaxe.png?421a5>
+            </div>
+            <div class="purchasable-item" id="pickaxe-black">
+                <img type="button" src=https://oldschool.runescape.wiki/images/Black_pickaxe.png?0d4ed>
+            </div>
+            <div class="purchasable-item" id="pickaxe-gold">
+                <img type="button" src=https://oldschool.runescape.wiki/images/Gilded_pickaxe.png?583e2>
+            </div>
+            <div class="purchasable-item" id="pickaxe-mithril">
+              <img type="button" src=https://oldschool.runescape.wiki/images/Mithril_pickaxe.png?c2098>
+            </div>
+            <div class="purchasable-item" id="pickaxe-adamant">
+              <img type="button" src=https://oldschool.runescape.wiki/images/Adamant_pickaxe.png?e716d>
+            </div>
+            <div class="purchasable-item" id="pickaxe-runite">
+              <img type="button" src=https://oldschool.runescape.wiki/images/Rune_pickaxe.png?e8496>
+            </div>
+            <div class="purchasable-item" id="pickaxe-dragon">
+              <img type="button" src=https://oldschool.runescape.wiki/images/Dragon_pickaxe.png?c85b3>
+            </div>
+        </fieldset>
+          
+        <fieldset id="furnaces"> 
+          <legend>Furnaces</legend>
+          <div id="furnace-shop">
+            <div class="furnace-actions">
+              <select id="ingot-selection">
+                <option value="" disabled selected>None</option>
+                <option value="bronzeIngot">Bronze</option>
+                <option value="ironIngot">Iron</option>
+              </select>
+            <div id="furnace-controls">
+                <button id="smelt-play" class="button-square">
+                  <i data-lucide="play" class="icon__controls"></i>
+                </button>
+                <button id="smelt-pause" class="hidden button-square">
+                  <i data-lucide="pause" class="icon__controls"></i>
+                </button>
+              </div>
+            </div>
+            <div class="direction-row">
+              <img id="furnace-image" src="images\Furnace.png"></img>
+              <div id="count__furnace"></div>
+            </div>
+            <button id="furnace-buy" class="button-default">Buy furnace</button>
+            <div id="cost__furnace">Cost: 50 coins</div>
+            <div id="furnace-fuel">Fuel:</div>
           </div>
-          <div class="purchasable-item" id="pickaxe-iron">
-            <img type="button" src=https://oldschool.runescape.wiki/images/Iron_pickaxe.png?9e4d4>
+        </fieldset>
+
+        <fieldset id="anvils">
+          <legend>Anvils</legend>
+          <div id="anvil-shop">
+            <div class="anvil-actions">
+              <select id="product-selection">
+                <option value="none">None</option>
+                <option value="bronzeHelm">Bronze helmet</option>
+                <option value="bronzePlatebody">Bronze platebody</option>
+                <option value="bronzePlatelegs">Bronze platelegs</option>
+                <option value="bronzeSword">Bronze sword</option>
+                <option value="ironSword">Iron sword</option>
+              </select>
+              <div id="anvil-controls">
+                <button id="smith-play" class="button-square">
+                  <i data-lucide="play"class="icon__controls"></i>
+                </button>
+                <button id="smith-pause" class="hidden button-square">
+                  <i data-lucide="pause" class="icon__controls"></i>
+                </button>
+              </div>
+            </div>
+            <div  class="direction-row">
+              <img id="anvil-image" src="images\400px-Anvil.png"></img>
+              <div id="count__anvil"></div>
+            </div>
+            <button id="anvil-buy" class="button-default">Buy anvil</button>
+            <div id="cost__anvil">Cost: 50 coins</div>
           </div>
-        <div class="purchasable-item" id="pickaxe-steel">
-            <img type="button" src=https://oldschool.runescape.wiki/images/Steel_pickaxe.png?421a5>
-        </div>
-        <div class="purchasable-item" id="pickaxe-black">
-            <img type="button" src=https://oldschool.runescape.wiki/images/Black_pickaxe.png?0d4ed>
-        </div>
-        <div class="purchasable-item" id="pickaxe-gold">
-            <img type="button" src=https://oldschool.runescape.wiki/images/Gilded_pickaxe.png?583e2>
-        </div>
-        <div class="purchasable-item" id="pickaxe-mithril">
-          <img type="button" src=https://oldschool.runescape.wiki/images/Mithril_pickaxe.png?c2098>
-        </div>
-        <div class="purchasable-item" id="pickaxe-adamant">
-          <img type="button" src=https://oldschool.runescape.wiki/images/Adamant_pickaxe.png?e716d>
-        </div>
-        <div class="purchasable-item" id="pickaxe-runite">
-          <img type="button" src=https://oldschool.runescape.wiki/images/Rune_pickaxe.png?e8496>
-        </div>
-        <div class="purchasable-item" id="pickaxe-dragon">
-          <img type="button" src=https://oldschool.runescape.wiki/images/Dragon_pickaxe.png?c85b3>
-        </div>
-    </fieldset>
-      
-    <fieldset id="furnaces"> 
-      <legend>Furnaces</legend>
-      <div id="furnace-shop">
-        <div class="furnace-actions">
-          <select id="ingot-selection">
-            <option value="" disabled selected>None</option>
-            <option value="bronzeIngot">Bronze</option>
-            <option value="ironIngot">Iron</option>
-          </select>
-        <div id="furnace-controls">
-            <button id="smelt-play" class="button-square">
-              <i data-lucide="play" class="icon__controls"></i>
-            </button>
-            <button id="smelt-pause" class="hidden button-square">
-              <i data-lucide="pause" class="icon__controls"></i>
-            </button>
-          </div>
-        </div>
-        <div class="direction-row">
-          <img id="furnace-image" src="images\Furnace.png"></img>
-          <div id="count__furnace"></div>
-        </div>
-        <button id="furnace-buy" class="button-default">Buy furnace</button>
-        <div id="cost__furnace">Cost: 50 coins</div>
-        <div id="furnace-fuel">Fuel:</div>
-      </div>
-    </fieldset>
-
-    <fieldset id="anvils">
-      <legend>Anvils</legend>
-      <div id="anvil-shop">
-        <div class="anvil-actions">
-          <select id="product-selection">
-            <option value="none">None</option>
-            <option value="bronzeHelm">Bronze helmet</option>
-            <option value="bronzePlatebody">Bronze platebody</option>
-            <option value="bronzePlatelegs">Bronze platelegs</option>
-            <option value="bronzeSword">Bronze sword</option>
-            <option value="ironSword">Iron sword</option>
-          </select>
-          <div id="anvil-controls">
-            <button id="smith-play" class="button-square">
-              <i data-lucide="play"class="icon__controls"></i>
-            </button>
-            <button id="smith-pause" class="hidden button-square">
-              <i data-lucide="pause" class="icon__controls"></i>
-            </button>
-          </div>
-        </div>
-        <div  class="direction-row">
-          <img id="anvil-image" src="images\400px-Anvil.png"></img>
-          <div id="count__anvil"></div>
-        </div>
-        <button id="anvil-buy" class="button-default">Buy anvil</button>
-        <div id="cost__anvil">Cost: 50 coins</div>
-      </div>
-    </fieldset>
+        </fieldset>
 
 
-      <!-- Buy miners to mine resources automatically -->
-      <fieldset id="auto-miner-shop">
-        <legend>Miners</legend>
-        <select id="mining-selection">
-          <option value="none">None</option>
-          <option value="stone">Stone</option>
-          <option value="copperOre">Copper</option>
-          <option value="tinOre">Tin</option>
-          <option value="ironOre">Iron</option>
+          <!-- Buy miners to mine resources automatically -->
+          <fieldset id="auto-miner-shop">
+            <legend>Miners</legend>
+            <select id="mining-selection">
+              <option value="none">None</option>
+              <option value="stone">Stone</option>
+              <option value="copperOre">Copper</option>
+              <option value="tinOre">Tin</option>
+              <option value="ironOre">Iron</option>
 
-        </select>
-        <div id="auto-miners-shop">
-          <img class="purchasable-item auto-miners" id="human-miner-1" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
-          <img class="purchasable-item auto-miners" id="human-miner-2" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
-          <img class="purchasable-item auto-miners" id="human-miner-3" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+            </select>
+            <div id="auto-miners-shop">
+              <img class="purchasable-item auto-miners" id="human-miner-1" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+              <img class="purchasable-item auto-miners" id="human-miner-2" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+              <img class="purchasable-item auto-miners" id="human-miner-3" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+            </div>
+          </fieldset>
         </div>
-      </fieldset>
     </div>
 
     <div id="objective-message">
@@ -293,6 +276,33 @@
     </div>
   </div>
 
+  <div class="button-tray">
+    <img src="images/Inventory.png" id="drawer-tab" class="drawer-tab">
+    <img src="images/Logout.png" id="ascend-tab" class="drawer-tab">
+  </div>
+
+  <aside id="bottom-drawer">
+    <div class="drawer-content">
+      <div class="player-equipment">
+        <div>
+          <img src="images/head_slot.png" data-slot="head">
+        </div>
+        <div>
+          <img src="images/weapon_slot.png" data-slot="weapon">
+          <img src="images/body_slot.png" data-slot="chest">
+          <img src="images/shield_slot.png" data-slot="offhand">
+        </div>
+        <div>
+          <img src="images/legs_slot.png" data-slot="legs">
+        </div>
+        <div>
+          <img src="images/hands_slot.png" data-slot="hands">
+          <img src="images/feet_slot.png" data-slot="feet">
+          <img src="images/ring_slot.png" data-slot="jewellery">
+        </div>
+      </div>
+    </div>
+  </aside>
 
 </div>
 
@@ -352,10 +362,10 @@
     <div id="death-screen">
       <h2>Oh dear, you are dead!</h2>
       <p>Well, that's all she wrote for you. But you can take another pop at it...</p>
-      <button id="restart-btn" class="button-neutral">Restart</button>
+      <button id="restart-btn" class="button-default">Restart</button>
     </div>
 
-    <button id="exit-rogue-like">Exit</button>
+    <button id="exit-rogue-like" class="button-default">Exit</button>
   </div>
 </div>
 
