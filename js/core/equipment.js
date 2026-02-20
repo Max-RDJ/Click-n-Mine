@@ -2,6 +2,7 @@ import { RESOURCES } from "../data/resources.js";
 import { resourceCounts, playerState } from "./state.js";
 import { updateDisplay } from "../ui/ui-update.js";
 import { savePlayerProgress } from "./save.js";
+import { completeObjective } from "../systems/objectives.js";
 
 export function equipItem(itemKey) {
   const data = RESOURCES[itemKey];
@@ -12,32 +13,27 @@ export function equipItem(itemKey) {
 
   if ((resourceCounts.value[itemKey] ?? 0) <= 0) return;
 
-  // Remove one from inventory
   resourceCounts.value[itemKey] -= 1;
 
-  // Get currently equipped item in that slot
   const previousItem = playerState.value.equipment[slot];
   if (previousItem) {
-    // Return it to inventory
     resourceCounts.value[previousItem] = (resourceCounts.value[previousItem] ?? 0) + 1;
   }
 
-  // Equip the new item
   playerState.value.equipment[slot] = itemKey;
 
   updateSlotUI(slot, itemKey);
   updateDisplay();
   savePlayerProgress();
+  completeObjective("gearUp", resourceCounts.value, playerState.value.coins);
 }
 
 export function unequipItem(slot) {
   const previousItem = playerState.value.equipment[slot];
   if (!previousItem) return;
 
-  // Return item to inventory
   resourceCounts.value[previousItem] = (resourceCounts.value[previousItem] ?? 0) + 1;
 
-  // Remove from slot
   playerState.value.equipment[slot] = null;
 
   updateDisplay();

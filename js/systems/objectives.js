@@ -1,13 +1,15 @@
+import { resourceCounts, playerState } from "../core/state.js";
+
 export const objective = [
   {
-    objectiveNo: 3,
+    objectiveNo: 1,
     id: "buyPickaxe",
     message: "Click on the Bronze Pickaxe in the shop to purchase your first pickaxe",
     condition: (resources, coins, hasPickaxe) => hasPickaxe === true,
     complete: false,
   },
   {
-    objectiveNo: 5,
+    objectiveNo: 2,
     id: "copperAndTin",
     message: "Mine 1 Copper and 1 Tin",
     complete: false,
@@ -17,14 +19,14 @@ export const objective = [
     }
   },
   {
-    objectiveNo: 5,
+    objectiveNo: 3,
     id: "sellOre",
     message: "Get yourself some coins by selling your ore. Right-click on the ore under Resources and select 'Sell'",
     complete: false,
     condition: (resources, coins) => coins > 0,
   },
   {
-    objectiveNo: 6,
+    objectiveNo: 4,
     id: "buyFurnace",
     message: "Click the 'Buy furnace' button to buy a furnace once you have enough coins",
     complete: false,
@@ -34,9 +36,9 @@ export const objective = [
     }
   },
   {
-    objectiveNo: 7,
+    objectiveNo: 5,
     id: "smeltIngot",
-    message: "Smelt your first bronze ingot by selecting Bronze from the dropdown",
+    message: "Smelt your first bronze ingot by selecting Bronze from the dropdown — make sure you have some copper and tin!",
     complete: false,
     condition: (resources) => resources.bronzeIngot >= 1,
     unlock: () => {
@@ -46,23 +48,21 @@ export const objective = [
     }
   },
   {
-    objectiveNo: 8,
+    objectiveNo: 6,
     id: "smithHelmet",
-    message: "Craft your first Bronze Helmet",
+    message: "Buy an anvil and craft your first Bronze Helmet",
     complete: false,
     condition: (resources) => resources.bronzeHelm >= 1,
-    unlock: () => {
-      $("#objective-message-dismiss").css("display", "block");
-    }
+    
   },
   {
-    objectiveNo: 8,
+    objectiveNo: 7,
     id: "gearUp",
     message: "Equip your newly crafted helmet by right-clicking on it and selecting the 'Equip' option",
     complete: false,
-    condition: (resources) => resources.bronzeHelm >= 1,
+    condition: (resources) => playerState.value.equipment.head === "bronzeHelm",
     unlock: () => {
-
+      $("#enter-rogue-like").css("display", "block");
     }
   },
   {
