@@ -88,6 +88,7 @@ export function addItem(itemId, quantity = 1) {
   if (emptyIndex !== -1) {
     inventoryState[emptyIndex] = { id: itemId, quantity };
     saveInventory();
+    renderInventory();
   } else {
     console.log("Inventory full");
   }
