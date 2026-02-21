@@ -501,7 +501,6 @@ img.purchasable-item {
   transform: translateY(100%);
   transition: transform 0.35s ease;
   z-index: 9999;
-  overflow-y: scroll;
 }
 
 .bottom-drawer.open {
@@ -528,8 +527,19 @@ img.purchasable-item {
 }
 
 .drawer-content {
-  padding: 20px 20px 80px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  padding: 2rem 4rem 60px 4rem;
   height: 100%;
+}
+
+#drawer-content-objectives {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: left;
 }
 
 .drawer-tab {
@@ -548,6 +558,32 @@ img.purchasable-item {
 
 .drawer-tab:hover {
   transform: scale(1.15);
+}
+
+.player-items {
+  display: grid;
+  grid-template-columns: repeat(4, 64px);
+  grid-auto-rows: 64px;
+  gap: 12px;
+  justify-content: center;
+}
+
+.item-slot {
+  width: 64px;
+  height: 64px;
+  background: #2a2f3a;
+  border: 2px solid rgba(255,255,255,0.25);
+  border-radius: 8px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-slot:hover {
+  border-color: orange;
+  box-shadow: 0 0 6px rgba(255,165,0,0.5);
+  cursor: pointer;
 }
 
 #game-message {
