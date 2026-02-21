@@ -84,7 +84,7 @@ export function addItem(itemId, quantity = 1) {
   }
 
   const emptyIndex = inventoryState.findIndex(s => s === null);
-
+ 
   if (emptyIndex !== -1) {
     inventoryState[emptyIndex] = { id: itemId, quantity };
     saveInventory();

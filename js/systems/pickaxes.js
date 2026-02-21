@@ -113,7 +113,7 @@ document.addEventListener("mousemove", (event) => {
   popup.innerHTML = `
     <span class="orange-highlight item-title">${data.itemName}</span><br>
     Price: <span class="orange-highlight">${data.cost}</span><br>
-    Speed: <span class="orange-highlight">x${data.miningRate}</span>
+    Yield: <span class="orange-highlight">x${data.miningRate}</span>
   `;
 
   if (!isMouseMoving) {

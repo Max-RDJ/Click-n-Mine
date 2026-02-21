@@ -36,6 +36,7 @@ export function unequipItem(slot) {
 
   playerState.value.equipment[slot] = null;
 
+  updateSlotUI(slot, null);
   updateDisplay();
   savePlayerProgress();
 }
@@ -56,7 +57,7 @@ export function updateSlotUI(slot, itemKey) {
   if (!imgEl) return;
 
   if (itemKey) {
-    imgEl.src = RESOURCES[itemKey].img || "images/default_slot.png";
+    imgEl.src = RESOURCES[itemKey].image
   } else {
     const defaultImages = {
       head: "images/head_slot.png",
