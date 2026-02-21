@@ -49,12 +49,14 @@ export const playerAnvils = { value: 0 };
 
 export function applyLoadedState(state) {
   playerState.value = state;
-  resourceCounts.value = { ...state.resources };
+  resourceCounts.value = playerState.value.resources;
+
   countCoins.value = state.coins ?? 0;
   playerMiningRate.value = state.playerMiningRate ?? 1;
   autoMiningRate.value = state.autoMiningRate ?? 0;
   playerFurnaces.value = state.playerFurnaces ?? 0;
   playerAnvils.value = state.playerAnvils ?? 0;
+  
   if (!playerState.value.purchasedPickaxes) {
     playerState.value.purchasedPickaxes = {};
   }

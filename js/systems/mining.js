@@ -2,11 +2,12 @@ import {
   resourceCounts, 
   countCoins, 
   playerMiningRate,
-  playerState
+  playerState,
 } from "../core/state.js";
 import { updateResource } from "../core/helpers.js";
 import { completeObjective } from "./objectives.js";
 import { updateInfoMessage } from "../ui/ui-update.js";
+import { savePlayerProgress } from "../core/save.js";
 
 
 const nodeCooldowns = {
@@ -85,6 +86,7 @@ export function bindNodeClicks(playerState) {
     updateResource("copperOre", 0.5 * playerMiningRate.value);
     completeObjective("copperAndTin", resourceCounts.value, countCoins.value);
     nodeCooldown("copperOre");
+    savePlayerProgress();
   });
 
   $(".node__tin-ore").on("click", () => {
@@ -94,6 +96,7 @@ export function bindNodeClicks(playerState) {
     updateResource("tinOre", 0.5 * playerMiningRate.value);
     completeObjective("copperAndTin", resourceCounts.value, countCoins.value);
     nodeCooldown("tinOre");
+    savePlayerProgress();
   });
 
   $(".node__iron-ore").on("click", () => {
@@ -102,5 +105,6 @@ export function bindNodeClicks(playerState) {
 
     updateResource("ironOre", 0.25 * playerMiningRate.value);
     nodeCooldown("ironOre");
+    savePlayerProgress();
   });
 }

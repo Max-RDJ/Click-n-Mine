@@ -569,8 +569,10 @@ img.purchasable-item {
 }
 
 .item-slot {
-  width: 64px;
-  height: 64px;
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  padding: 0.3rem;
   background: #2a2f3a;
   border: 2px solid rgba(255,255,255,0.25);
   border-radius: 8px;
@@ -578,12 +580,29 @@ img.purchasable-item {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.item-slot img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
 }
 
 .item-slot:hover {
   border-color: orange;
   box-shadow: 0 0 6px rgba(255,165,0,0.5);
   cursor: pointer;
+}
+
+.stack-count {
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 4px black;
 }
 
 #game-message {
@@ -593,6 +612,7 @@ img.purchasable-item {
   text-align: center;
   font-weight: bold;
   pointer-events: none;
+  z-index: 9998;
 }
 
 #game-message-text.objective {

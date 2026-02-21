@@ -20,7 +20,7 @@ import { bindNodeClicks } from "../systems/mining.js";
 import { resetMoney, addMoney, resetAll } from "../systems/dev-tools.js";
 import { loadObjectivesProgress, getActiveObjectiveMessage, clearObjectivesAlert } from "../systems/objectives.js";
 import { bindContextMenu } from "./context-menu.js";
-import { generateInventorySlots } from "../core/inventory.js";
+import { generateInventorySlots, initInventory, renderInventory, addItem } from "../core/inventory.js";
 
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -31,7 +31,9 @@ window.addEventListener("DOMContentLoaded", () => {
   startSmithing()
   startSmelting()
   bindContextMenu()
+  initInventory()
   generateInventorySlots()
+  renderInventory()
 });
 
 export function bindUI() {

@@ -1,33 +1,33 @@
 export const RESOURCES = {
-  stone: {
-    displayName: "stone",
-    type: "material",
-    sellPrice: 1
-  },
   copperOre: {
     displayName: "copper ore",
     type: "material",
-    sellPrice: 2
+    sellPrice: 2,
+    image: "images/260px-Copper_ore_detail.png"
   },
   tinOre: {
     displayName: "tin ore",
     type: "material",
-    sellPrice: 2
+    sellPrice: 2,
+    image: "images/260px-Tin_ore_detail.png"
   },
   ironOre: {
     displayName: "iron ore",
     type: "material",
-    sellPrice: 4
+    sellPrice: 4,
+    image: "images/260px-Iron_ore_detail.png"
   },
   bronzeIngot: {
     displayName: "bronze ingot",
     type: "material",
-    sellPrice: 5
+    sellPrice: 5,
+    image: "images/240px-Bronze_bar_detail.png"
   },
   ironIngot: {
     displayName: "iron ingot",
     type: "material",
-    sellPrice: 6
+    sellPrice: 6,
+    image: "images/240px-Iron_bar_detail.png"
   },
   bronzeHelm: {
     displayName: "bronze helmet",
@@ -35,7 +35,7 @@ export const RESOURCES = {
     slot: "head",
     sellPrice: 8,
     defense: 2,
-    img: "images/247px-Bronze_full_helm_detail.png"
+    image: "images/247px-Bronze_full_helm_detail.png"
   },
   bronzePlatebody: {
     displayName: "bronze platebody",
@@ -43,7 +43,7 @@ export const RESOURCES = {
     slot: "chest",
     sellPrice: 12,
     defense: 5,
-    img: "images/300px-Bronze_platebody_detail.png"
+    image: "images/300px-Bronze_platebody_detail.png"
   },
   bronzePlatelegs: {
     displayName: "bronze platelegs",
@@ -51,7 +51,7 @@ export const RESOURCES = {
     slot: "legs",
     sellPrice: 10,
     defense: 3,
-    img: "images/180px-Bronze_platelegs_detail.png"
+    image: "images/180px-Bronze_platelegs_detail.png"
   },
   bronzeSword: {
     displayName: "bronze sword",
@@ -59,7 +59,7 @@ export const RESOURCES = {
     slot: "weapon",
     sellPrice: 10,
     attack: 3,
-    img: "images/200px-Bronze_sword_detail.png"
+    image: "images/200px-Bronze_sword_detail.png"
   },
   ironSword: {
     displayName: "iron sword",
@@ -67,6 +67,6 @@ export const RESOURCES = {
     slot: "weapon",
     sellPrice: 10,
     attack: 8,
-    img: "images/200px-iron_sword_detail.png"
+    image: "images/200px-iron_sword_detail.png"
   }
 };

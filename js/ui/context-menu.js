@@ -1,10 +1,11 @@
 import { RESOURCES } from "../data/resources.js";
 import { updateResource } from "../core/helpers.js";
 import { playerState, countCoins } from "../core/state.js";
-import { updateCoinsDisplay } from "./ui-update.js";
+import { updateCoinsDisplay, updateDisplay } from "./ui-update.js";
 import { equipItem, unequipItem } from "../core/equipment.js";
 import { idToKey } from "../systems/selling.js";
 import { sellOne, sellAmount } from "../systems/selling.js";
+import { takeItemFromResources } from "../core/inventory.js";
 
 
 let currentResource = null;
@@ -62,6 +63,12 @@ function openMenu(x, y, resourceKey, isEquipped = false) {
 
   document.getElementById("context-unequip").style.display =
     isEquipped ? "block" : "none";
+
+  document.getElementById("context-add").onclick = () => {
+    if (!currentResource) return;
+    takeItemFromResources(currentResource, 1);
+    closeMenu();
+  };
 
   menu.style.left = x + "px";
   menu.style.top = y + "px";
