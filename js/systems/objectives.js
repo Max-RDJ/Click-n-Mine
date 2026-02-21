@@ -134,6 +134,10 @@ function flashObjectivesIcon() {
   const icon = document.getElementById("objectives-tab");
   if (!icon) return;
 
+  if ($('#objectives-drawer').hasClass("open")) {
+    return
+  }
+
   icon.classList.remove("flash");
   void icon.offsetWidth;
 
@@ -162,7 +166,7 @@ export function renderCompletedObjectives() {
 
   completed.forEach(obj => {
     const p = document.createElement("p");
-    p.textContent = obj.message;
+    p.innerHTML = `☑\u2003${obj.message}`;
     container.appendChild(p);
   });
 }

@@ -24,7 +24,7 @@ import { bindContextMenu } from "./context-menu.js";
 
 window.addEventListener("DOMContentLoaded", () => {
   loadObjectivesProgress()
-  $("#objective-message-content").html(getActiveObjectiveMessage())
+  $("#objective-message-content").html(getActiveObjectiveMessage());
   updateFurnaceUI()
   updateAnvilUI()
   startSmithing()
@@ -80,7 +80,11 @@ export function bindEquipmentDrawer() {
   const tab = document.getElementById("drawer-tab");
 
   tab.addEventListener("click", () => {
-    drawer.classList.toggle("open");
+    const isOpen = drawer.classList.contains("open");
+    closeAllBottomDrawers();
+    if (!isOpen) {
+      drawer.classList.add("open");
+    }
   });
 }
 
@@ -89,7 +93,19 @@ export function bindObjectivesDrawer() {
   const tab = document.getElementById("objectives-tab");
 
   tab.addEventListener("click", () => {
-    drawer.classList.toggle("open");
-    clearObjectivesAlert();
+    const isOpen = drawer.classList.contains("open");
+
+    closeAllBottomDrawers();
+
+    if (!isOpen) {
+      drawer.classList.add("open");
+      clearObjectivesAlert();
+    }
+  });
+}
+
+function closeAllBottomDrawers() {
+  document.querySelectorAll(".bottom-drawer").forEach(d => {
+    d.classList.remove("open");
   });
 }
