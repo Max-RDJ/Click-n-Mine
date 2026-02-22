@@ -8,6 +8,7 @@ import { updateResource } from "../core/helpers.js";
 import { completeObjective } from "./objectives.js";
 import { updateInfoMessage } from "../ui/ui-update.js";
 import { savePlayerProgress } from "../core/save.js";
+import { playSound } from "../core/audio.js";
 
 
 const nodeCooldowns = {
@@ -50,15 +51,15 @@ const NODE_REQUIREMENTS = {
 };
 
 const pickaxeLevel = {
-  "pickaxebronze": 1,
-  "pickaxe-iron": 2,
-  "pickaxe-steel": 3,
-  "pickaxe-black": 4,
-  "pickaxe-gold": 5,
-  "pickaxe-mithril": 6,
-  "pickaxe-adamant": 7,
-  "pickaxe-runite": 8,
-  "pickaxe-dragon": 9
+  "pickaxeBronze": 1,
+  "pickaxeIron": 2,
+  "pickaxeSteel": 3,
+  "pickaxeBlack": 4,
+  "pickaxeGold": 5,
+  "pickaxeMithril": 6,
+  "pickaxeAdamant": 7,
+  "pickaxeRunite": 8,
+  "pickaxeDragon": 9
 };
 
 export function getHighestPickaxeLevel(playerState) {
@@ -84,6 +85,7 @@ export function bindNodeClicks(playerState) {
     if (!canMine("copperOre")) return;
 
     updateResource("copperOre", 0.5 * playerMiningRate.value);
+    playSound("mining");
     completeObjective("copperAndTin", resourceCounts.value, countCoins.value);
     nodeCooldown("copperOre");
     savePlayerProgress();
@@ -94,6 +96,7 @@ export function bindNodeClicks(playerState) {
     if (!canMine("tinOre")) return;
 
     updateResource("tinOre", 0.5 * playerMiningRate.value);
+    playSound("mining");
     completeObjective("copperAndTin", resourceCounts.value, countCoins.value);
     nodeCooldown("tinOre");
     savePlayerProgress();
@@ -104,6 +107,7 @@ export function bindNodeClicks(playerState) {
     if (!canMine("ironOre", playerState)) return;
 
     updateResource("ironOre", 0.25 * playerMiningRate.value);
+    playSound("mining");
     nodeCooldown("ironOre");
     savePlayerProgress();
   });

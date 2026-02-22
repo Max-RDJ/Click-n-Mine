@@ -3,15 +3,15 @@ import { updateCoinsDisplay, updateInfoMessage } from "../ui/ui-update.js";
 import { completeObjective } from "./objectives.js";
 
 export const pickaxes = [
-  { itemName: "Bronze pickaxe", id: "pickaxebronze", cost: 10, miningRate: 2, level: 1, type: "bronze" },
-  { itemName: "Iron pickaxe", id: "pickaxe-iron", cost: 150, miningRate: 4, level: 2, type: "iron" },
-  { itemName: "Steel pickaxe", id: "pickaxe-steel", cost: 500, miningRate: 8, level: 3, type: "steel" },
-  { itemName: "Black pickaxe", id: "pickaxe-black", cost: 1000, miningRate: 10, level: 4, type: "black" },
-  { itemName: "Gold pickaxe", id: "pickaxe-gold", cost: 3000, miningRate: 15, level: 5, type: "gold" },
-  { itemName: "Mithril pickaxe", id: "pickaxe-mithril", cost: 4000, miningRate: 18, level: 6, type: "mithril" },
-  { itemName: "Adamant pickaxe", id: "pickaxe-adamant", cost: 10000, miningRate: 20, level: 7, type: "adamant" },
-  { itemName: "Runite pickaxe", id: "pickaxe-runite", cost: 50000, miningRate: 30, level: 8, type: "rune" },
-  { itemName: "Dragon pickaxe", id: "pickaxe-dragon", cost: 250000, miningRate: 50, level: 9, type: "dragon" }
+  { itemName: "Bronze pickaxe", id: "pickaxeBronze", cost: 10, miningRate: 2, level: 1, type: "bronze" },
+  { itemName: "Iron pickaxe", id: "pickaxeIron", cost: 150, miningRate: 4, level: 2, type: "iron" },
+  { itemName: "Steel pickaxe", id: "pickaxeSteel", cost: 500, miningRate: 8, level: 3, type: "steel" },
+  { itemName: "Black pickaxe", id: "pickaxeBlack", cost: 1000, miningRate: 10, level: 4, type: "black" },
+  { itemName: "Gold pickaxe", id: "pickaxeGold", cost: 3000, miningRate: 15, level: 5, type: "gold" },
+  { itemName: "Mithril pickaxe", id: "pickaxeMithril", cost: 4000, miningRate: 18, level: 6, type: "mithril" },
+  { itemName: "Adamant pickaxe", id: "pickaxeAdamant", cost: 10000, miningRate: 20, level: 7, type: "adamant" },
+  { itemName: "Runite pickaxe", id:"pickaxeRunite", cost :50000 ,miningRate :30 ,level :8 ,type :"rune"},
+  { itemName: "Dragon pickaxe", id: "pickaxeDragon", cost: 250000, miningRate: 50, level: 9, type: "dragon" }
 ];
 
 export const pickaxeLevel = pickaxes.reduce((acc, p) => {

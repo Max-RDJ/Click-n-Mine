@@ -6,6 +6,7 @@ import { applyLoadedState, initializeEquipmentUI } from "./core/state.js";
 import { restorePurchasedPickaxesUI } from "./systems/pickaxes.js";
 import {  bindEquipmentDrawer, bindObjectivesDrawer, bindUI } from "./ui/ui-bindings.js";
 import { updateDisplay } from "./ui/ui-update.js";
+import { initAudio } from "./core/audio.js";
 
 
 $(document).ready(() => {
@@ -16,6 +17,7 @@ $(document).ready(() => {
   restorePurchasedPickaxesUI();
   initializeEquipmentUI();
   initIncrementalGame();
+  initAudio();
   bindEquipmentDrawer();
   bindObjectivesDrawer();
 
@@ -39,6 +41,7 @@ $(document).ready(() => {
     $("#incremental-game").removeClass("hidden");
   });
 });
+
 
 
 // CONSIDER RANDOMLY SPAWNING NODES:
