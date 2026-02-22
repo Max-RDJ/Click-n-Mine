@@ -5,10 +5,7 @@
 
 **FEATURES**:
 - Overlay resources numbers on top right of image and then have multiple columns, as there will be many items; divide into ores, ingots, products (similarly to "Tools")?
-- Selected resource should be highlighted
 - Re-arrange columns into tabs in mobile
-- Refactor miners and furnaces as arrays that can be added to indefinitely instead of limited number
-- Add minimise and maximise buttons to objectives message
 - Put flame icon next to product in Resources that is being smelted/anviled
 - Miners need pickaxes
     - Creates need to buy more pickaxes and possibly buy auto-buyers
@@ -17,15 +14,14 @@
 - Hover over resource items to see sell price
 - Power-up to greatly increase mining speed temporarily - smashing!
 - Light up corresponding resource text when something mined
-- Add animations via jQuery + Animate.css library
 - Materials required in addition to money to build furnaces etc.
 - Make shop sections draggable and re-arrangable
 - Allow user to right-click items to 'Sell', 'Sell X' and 'Sell all'
-- Make equipment and inventory a drawer
+- Get rid of objectives drawer? Just click objectives tab to show game message again
 
 **RANDOM IDEAS**:
 - Office assistant 'Picky'/'Axy' to give objectives
-- Achievements expandable sidebar
+- Achievements (not objectives) expandable sidebar
 - Miners work faster when you buy kitchen for food
 - Progress bar for smelting and smithing (probably redundant after a few purchases)
 

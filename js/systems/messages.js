@@ -1,3 +1,5 @@
+import { playSound } from "../core/audio.js";
+
 let currentObjectiveMessage = "";
 let revertTimeout = null;
 
@@ -15,7 +17,7 @@ export function showTemporaryMessage(text, duration = 2000) {
   }, duration);
 }
 
-export function showObjectiveNotification(duration = 3000) {
+export function showObjectiveNotification(duration = 10000) {
   if (!currentObjectiveMessage) return;
 
   showMessage(currentObjectiveMessage, "objective");
@@ -37,6 +39,10 @@ function showMessage(text, type) {
   el.classList.add(type);
 
   container.classList.add("show");
+
+  if (type === "alert") {
+    playSound("alert");
+  }
 }
 
 function clearMessage() {

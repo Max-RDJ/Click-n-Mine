@@ -11,7 +11,6 @@ import { updateDisplay } from "../ui/ui-update.js";
 export function updateResource(resource, amount) {
   if (resourceCounts.value.hasOwnProperty(resource)) {
     resourceCounts.value[resource] += amount;
-    console.log(`${resource} updated to ${resourceCounts.value[resource]}`);
     updateDisplay();
   } else {
     console.error(`Resource '${resource}' does not exist in resourceCounts.`);

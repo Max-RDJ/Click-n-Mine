@@ -1,4 +1,4 @@
-import { resourceCounts, playerState } from "../core/state.js";
+import { playerState } from "../core/state.js";
 import { setObjectiveMessage, showObjectiveNotification } from "./messages.js";
 
 
