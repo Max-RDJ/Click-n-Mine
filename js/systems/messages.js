@@ -17,7 +17,7 @@ export function showTemporaryMessage(text, duration = 2000) {
   }, duration);
 }
 
-export function showObjectiveNotification(duration = 10000) {
+export function showObjectiveNotification(duration = 8000) {
   if (!currentObjectiveMessage) return;
 
   showMessage(currentObjectiveMessage, "objective");
