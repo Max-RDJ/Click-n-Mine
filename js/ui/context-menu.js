@@ -1,33 +1,43 @@
 import { RESOURCES } from "../data/resources.js";
-import { updateResource } from "../core/helpers.js";
-import { playerState, countCoins } from "../core/state.js";
-import { updateCoinsDisplay, updateDisplay } from "./ui-update.js";
+import { playerState } from "../core/state.js";
 import { equipItem, unequipItem } from "../core/equipment.js";
-import { idToKey } from "../systems/selling.js";
 import { sellOne, sellAmount } from "../systems/selling.js";
-import { takeItemFromResources } from "../core/inventory.js";
+import { takeItemFromResources, inventoryState, removeItem } from "../core/inventory.js";
 
 
 let currentResource = null;
 let currentSlot = null;
+let currentInventoryIndex = null;
 
 export function bindContextMenu() {
-  document.addEventListener("contextmenu", (e) => {
+  document.addEventListener("contextmenu", (e) => {    
     let key = null;
     let slot = null;
+    let inInventory = false;
 
     const resourceEl = e.target.closest(".resources");
     if (resourceEl) {
-        e.preventDefault();
-        key = idToKey(resourceEl.id);
-    }
+    e.preventDefault();
+    key = resourceEl.dataset.resource;    }
 
     const slotEl = e.target.closest(".player-equipment img[data-slot]");
     if (slotEl) {
-        e.preventDefault();
-        slot = slotEl.dataset.slot;
-        key = playerState.value.equipment[slot] ?? null;
-        if (!key) return;
+      e.preventDefault();
+      slot = slotEl.dataset.slot;
+      key = playerState.value.equipment[slot] ?? null;
+      if (!key) return;
+    }
+
+    const inventoryEl = e.target.closest(".item-slot");
+    if (inventoryEl) {
+      e.preventDefault();
+      const index = inventoryEl.dataset.index;
+      const invSlot = inventoryState[index];
+      if (!invSlot) return;
+
+      key = invSlot.id;
+      currentInventoryIndex = index;
+      inInventory = true;
     }
 
     if (!key) return;
@@ -35,40 +45,92 @@ export function bindContextMenu() {
     currentResource = key;
     currentSlot = slot ?? null;
 
-    openMenu(e.pageX, e.pageY, key, !!slot);
+    openMenu(e.pageX, e.pageY, key, !!slot, inInventory);
   });
 
-document.addEventListener("click", (e) => {
-  const menu = document.getElementById("context-menu-sell");
+  document.addEventListener("click", (e) => {
+    const menu = document.getElementById("context-menu-sell");
 
-  if (!menu.contains(e.target)) {
-    closeMenu();
-  }
-});
+    if (!menu.contains(e.target)) {
+      closeMenu();
+    }
+  });
   document.getElementById("context-sell").onclick = sellCurrent;
   document.getElementById("context-sell-x").onclick = showSellX;
   document.getElementById("sell-x-confirm").onclick = confirmSellX;
   document.getElementById("context-sell-all").onclick = sellAllCurrent;
   document.getElementById("context-equip").onclick = equipCurrent;
   document.getElementById("context-unequip").onclick = unequipCurrent;
-};
-
-function openMenu(x, y, resourceKey, isEquipped = false) {
-  const menu = document.getElementById("context-menu-sell");
-  const data = RESOURCES[resourceKey];
-  if (!data) return;
-
-  document.getElementById("context-equip").style.display =
-    !isEquipped && data.type === "equipment" ? "block" : "none";
-
-  document.getElementById("context-unequip").style.display =
-    isEquipped ? "block" : "none";
-
   document.getElementById("context-add").onclick = () => {
     if (!currentResource) return;
     takeItemFromResources(currentResource, 1);
     closeMenu();
   };
+  document.getElementById("context-return").onclick = () => {
+    if (currentInventoryIndex !== null) {
+      removeItem(currentInventoryIndex);
+      currentInventoryIndex = null;
+      closeMenu();
+    }
+  };
+};
+
+function openMenu(x, y, resourceKey, isEquipped = false, inInventory = false) {
+  const menu = document.getElementById("context-menu-sell");
+  const data = RESOURCES[resourceKey];
+  if (!data) return;
+
+  const sellBtn = document.getElementById("context-sell");
+  const sellXBtn = document.getElementById("context-sell-x");
+  const sellAllBtn = document.getElementById("context-sell-all");
+  const equipBtn = document.getElementById("context-equip");
+  const unequipBtn = document.getElementById("context-unequip");
+  const addBtn = document.getElementById("context-add");
+  const returnBtn = document.getElementById("context-return");
+
+  sellBtn.style.display = "none";
+  sellXBtn.style.display = "none";
+  sellAllBtn.style.display = "none";
+  equipBtn.style.display = "none";
+  unequipBtn.style.display = "none";
+  addBtn.style.display = "none";
+  returnBtn.style.display = "none";
+
+  if (inInventory) {
+    returnBtn.style.display = "block";
+
+    if (data.sellPrice) {
+      sellBtn.style.display = "block";
+      sellXBtn.style.display = "block";
+      sellAllBtn.style.display = "block";
+    }
+
+    menu.style.left = x + "px";
+    menu.style.top = y + "px";
+    menu.classList.remove("hidden");
+    return;
+  }
+
+  if (data.type === "material") {
+    sellBtn.style.display = "block";
+    sellXBtn.style.display = "block";
+    sellAllBtn.style.display = "block";
+    addBtn.style.display = "block";
+  }
+
+  if (data.type === "equipment") {
+    if (isEquipped) {
+      unequipBtn.style.display = "block";
+    } else {
+      equipBtn.style.display = "block";
+    }
+
+    if (data.sellPrice) {
+      sellBtn.style.display = "block";
+      sellXBtn.style.display = "block";
+      sellAllBtn.style.display = "block";
+    }
+  }
 
   menu.style.left = x + "px";
   menu.style.top = y + "px";

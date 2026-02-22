@@ -116,6 +116,16 @@ export function removeItem(slotIndex, quantity = 1) {
   const slot = inventoryState[slotIndex];
   if (!slot) return;
 
+  const itemId = slot.id;
+
+  resourceCounts.value[itemId] =
+    (resourceCounts.value[itemId] ?? 0) + quantity;
+
+  if (playerState.value) {
+    playerState.value.resources[itemId] =
+      resourceCounts.value[itemId];
+  }
+
   slot.quantity -= quantity;
 
   if (slot.quantity <= 0) {
@@ -123,4 +133,7 @@ export function removeItem(slotIndex, quantity = 1) {
   }
 
   saveInventory();
+  renderInventory();
+  updateDisplay();
+  savePlayerProgress();
 }

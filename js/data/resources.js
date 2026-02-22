@@ -29,6 +29,12 @@ export const RESOURCES = {
     sellPrice: 6,
     image: "images/240px-Iron_bar_detail.png"
   },
+  pickaxeBronze: {
+    name: "Bronze pickaxe",
+    image: "images/260px-Bronze_pickaxe_detail.png",
+    type: "equipment",
+    slot: "utility",
+  },
   bronzeHelm: {
     displayName: "bronze helmet",
     type: "equipment",

@@ -43,6 +43,7 @@ export function unequipItem(slot) {
 
 export function updateSlotUI(slot, itemKey) {
   const slotMap = {
+    utility: ".player-equipment img[data-slot='utility']",
     head: ".player-equipment img[data-slot='head']",
     weapon: ".player-equipment img[data-slot='weapon']",
     chest: ".player-equipment img[data-slot='chest']",
@@ -60,6 +61,7 @@ export function updateSlotUI(slot, itemKey) {
     imgEl.src = RESOURCES[itemKey].image
   } else {
     const defaultImages = {
+      utility: "images/ammo_slot.png",
       head: "images/head_slot.png",
       weapon: "images/weapon_slot.png",
       chest: "images/body_slot.png",

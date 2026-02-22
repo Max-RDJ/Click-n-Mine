@@ -50,7 +50,7 @@ const NODE_REQUIREMENTS = {
 };
 
 const pickaxeLevel = {
-  "pickaxe-bronze": 1,
+  "pickaxebronze": 1,
   "pickaxe-iron": 2,
   "pickaxe-steel": 3,
   "pickaxe-black": 4,

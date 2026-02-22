@@ -113,3 +113,15 @@ function closeAllBottomDrawers() {
     d.classList.remove("open");
   });
 }
+
+document.addEventListener("click", (e) => {
+  const activeDrawer = document.querySelector(".bottom-drawer.open");
+  if (!activeDrawer) return;
+
+  const clickedInsideDrawer = activeDrawer.contains(e.target);
+  const clickedTab = e.target.closest("#drawer-tab, #objectives-tab");
+
+  if (!clickedInsideDrawer && !clickedTab && !e.target.closest(".context-menu")) {
+    closeAllBottomDrawers();
+  }
+});

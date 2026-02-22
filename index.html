@@ -25,17 +25,17 @@
               <legend class="unselectable">Ore</legend>
               <div class="items-field">
 
-                <div class="resources sellable" id="resource__copper-ore" data-resource="copper-ore">
+                <div class="resources sellable" id="resource__copperOre" data-resource="copperOre">
                   <img src="images\260px-copper_ore_detail.png">
                   <span id="count__copper-ore" value="0">0</span>
                 </div>
 
-                <div class="resources sellable" id="resource__tin-ore">
+                <div class="resources sellable" id="resource__tin-ore" data-resource="tinOre">
                   <img src="images\260px-tin_ore_detail.png">
                   <span id="count__tin-ore" value="0">0</span>
                 </div>
               
-                <div class="resources sellable" id="resource__iron-ore" data-resource="iron-ore">
+                <div class="resources sellable" id="resource__iron-ore" data-resource="ironOre">
                   <img src="images\260px-Iron_ore_detail.png">
                   <span id="count__iron-ore" value="0">0</span>
                 </div>
@@ -61,17 +61,17 @@
               <legend class="unselectable">Armour</legend>
               <div class="items-field">
 
-                <div class="resources sellable" id="resource__bronze-helm" data-resource="bronze-helm">
+                <div class="resources sellable" id="resource__bronze-helm" data-resource="bronzeHelm">
                   <img src="images\247px-Bronze_full_helm_detail.png">
                   <span id="count__bronze-helm" value="0">0</span>
                 </div>
 
-                <div class="resources sellable" id="resource__bronze-platebody" data-resource="bronze-platebody">
+                <div class="resources sellable" id="resource__bronze-platebody" data-resource="bronzePlatebody">
                   <img src="images\300px-Bronze_platebody_detail.png">
                   <span id="count__bronze-platebody" value="0">0</span>
                 </div>
 
-                <div class="resources sellable" id="resource__bronze-platelegs" data-resource="bronze-platelegs">
+                <div class="resources sellable" id="resource__bronze-platelegs" data-resource="bronzePlatelegs">
                   <img src="images\180px-Bronze_platelegs_detail.png">
                   <span id="count__bronze-platelegs" value="0">0</span>
                 </div>
@@ -81,12 +81,12 @@
             <fieldset id="resources__weapons">
               <legend class="unselectable">Weapons</legend>
               <div class="items-field">
-                <div class="resources sellable" id="resource__bronze-sword" data-resource="bronzeSword">
+                <div class="resources sellable" id="resource__bronzeSword" data-resource="bronzeSword">
                   <img src="images\200px-Bronze_sword_detail.png">
                   <span id="count__bronze-sword" value="0">0</span>
                 </div>
 
-                <div class="resources sellable" id="resource__iron-sword" data-resource="iron-sword">
+                <div class="resources sellable" id="resource__iron-sword" data-resource="ironSword">
                   <img src="images\200px-iron_sword_detail.png">
                   <span id="count__iron-sword" value="0">0</span>
                 </div>
@@ -133,31 +133,31 @@
           <fieldset id="tools">
             <legend class="unselectable">Tools</legend>
             <div id="tool-shop" class="items-field">
-              <div class="purchasable-item" id="pickaxe-bronze">
+              <div class="purchasable-item resources pickaxes" id="pickaxebronze">
                 <img type="button" src=https://oldschool.runescape.wiki/images/Bronze_pickaxe.png?fe489>
               </div>
-              <div class="purchasable-item" id="pickaxe-iron">
+              <div class="purchasable-item resources pickaxes" id="pickaxeIron">
                 <img type="button" src=https://oldschool.runescape.wiki/images/Iron_pickaxe.png?9e4d4>
               </div>
-            <div class="purchasable-item" id="pickaxe-steel">
+            <div class="purchasable-item resources pickaxes" id="pickaxeSteel">
                 <img type="button" src=https://oldschool.runescape.wiki/images/Steel_pickaxe.png?421a5>
             </div>
-            <div class="purchasable-item" id="pickaxe-black">
+            <div class="purchasable-item resources pickaxes" id="pickaxeBlack">
                 <img type="button" src=https://oldschool.runescape.wiki/images/Black_pickaxe.png?0d4ed>
             </div>
-            <div class="purchasable-item" id="pickaxe-gold">
+            <div class="purchasable-item resources pickaxes" id="pickaxeGold">
                 <img type="button" src=https://oldschool.runescape.wiki/images/Gilded_pickaxe.png?583e2>
             </div>
-            <div class="purchasable-item" id="pickaxe-mithril">
+            <div class="purchasable-item resources pickaxes" id="pickaxeMithril">
               <img type="button" src=https://oldschool.runescape.wiki/images/Mithril_pickaxe.png?c2098>
             </div>
-            <div class="purchasable-item" id="pickaxe-adamant">
+            <div class="purchasable-item resources pickaxes" id="pickaxeAdamant">
               <img type="button" src=https://oldschool.runescape.wiki/images/Adamant_pickaxe.png?e716d>
             </div>
-            <div class="purchasable-item" id="pickaxe-runite">
+            <div class="purchasable-item resources pickaxes" id="pickaxeRunite">
               <img type="button" src=https://oldschool.runescape.wiki/images/Rune_pickaxe.png?e8496>
             </div>
-            <div class="purchasable-item" id="pickaxe-dragon">
+            <div class="purchasable-item resources pickaxes" id="pickaxeDragon">
               <img type="button" src=https://oldschool.runescape.wiki/images/Dragon_pickaxe.png?c85b3>
             </div>
         </fieldset>
@@ -226,7 +226,6 @@
             <legend>Miners</legend>
             <select id="mining-selection">
               <option value="none">None</option>
-              <option value="stone">Stone</option>
               <option value="copperOre">Copper</option>
               <option value="tinOre">Tin</option>
               <option value="ironOre">Iron</option>
@@ -250,6 +249,7 @@
         <div id="context-sell-x">Sell x</div>
         <div id="context-sell-all">Sell all</div>
         <div id="context-add">Add to inventory</div>
+        <div id="context-return">Return to resources</div>
 
         <div id="sell-x-container" class="hidden">
           <input type="number" id="sell-x-input" min="1" />
@@ -281,6 +281,7 @@
       <div class="player-equipment">
         <div>
           <img src="images/head_slot.png" data-slot="head">
+          <img src="images/ammo_slot.png" data-slot="utility">
         </div>
         <div>
           <img src="images/weapon_slot.png" data-slot="weapon">
@@ -321,6 +322,7 @@
       <div id="player-equipment-roguelike" class="player-equipment">
       <div>
         <img src="images/head_slot.png" data-slot="head">
+        <img src="images/ammo_slot.png" data-slot="utility">
       </div>
       <div>
         <img src="images/weapon_slot.png" data-slot="weapon">

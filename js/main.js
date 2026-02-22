@@ -7,6 +7,7 @@ import { restorePurchasedPickaxesUI } from "./systems/pickaxes.js";
 import {  bindEquipmentDrawer, bindObjectivesDrawer, bindUI } from "./ui/ui-bindings.js";
 import { updateDisplay } from "./ui/ui-update.js";
 
+
 $(document).ready(() => {
   const state = loadPlayerState();
   applyLoadedState(state);

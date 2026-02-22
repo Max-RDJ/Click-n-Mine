@@ -3,7 +3,7 @@ import { updateCoinsDisplay, updateInfoMessage } from "../ui/ui-update.js";
 import { completeObjective } from "./objectives.js";
 
 export const pickaxes = [
-  { itemName: "Bronze pickaxe", id: "pickaxe-bronze", cost: 10, miningRate: 2, level: 1, type: "bronze" },
+  { itemName: "Bronze pickaxe", id: "pickaxebronze", cost: 10, miningRate: 2, level: 1, type: "bronze" },
   { itemName: "Iron pickaxe", id: "pickaxe-iron", cost: 150, miningRate: 4, level: 2, type: "iron" },
   { itemName: "Steel pickaxe", id: "pickaxe-steel", cost: 500, miningRate: 8, level: 3, type: "steel" },
   { itemName: "Black pickaxe", id: "pickaxe-black", cost: 1000, miningRate: 10, level: 4, type: "black" },
