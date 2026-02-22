@@ -29,17 +29,22 @@ export function showObjectiveNotification(duration = 3000) {
 
 function showMessage(text, type) {
   const el = document.getElementById("game-message-text");
-  if (!el) return;
+  const container = document.getElementById("game-message");
+  if (!el || !container) return;
 
   el.textContent = text;
   el.classList.remove("objective", "alert");
   el.classList.add(type);
+
+  container.classList.add("show");
 }
 
 function clearMessage() {
   const el = document.getElementById("game-message-text");
-  if (!el) return;
+  const container = document.getElementById("game-message");
+  if (!el || !container) return;
 
-  el.textContent = "";
   el.classList.remove("objective", "alert");
+
+  container.classList.remove("show");
 }

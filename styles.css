@@ -3,6 +3,7 @@
   --primary: #343f51;
   --text-primary: #ebe2d5;
   --text-weak: #aeaeae;
+  --text-background: #403d3a;
   --button-default-text: #ebe2d5;
 }
   
@@ -606,15 +607,28 @@ img.purchasable-item {
 #game-message {
   position: fixed;
   bottom: 70px;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  max-width: 100%;
   text-align: center;
+  font-size: 1.5em;
   font-weight: bold;
   pointer-events: none;
   z-index: 9998;
+  background-color: var(--text-background);
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#game-message.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 #game-message-text.objective {
-  color: #ffd700;
+  color: var(--text-primary);
   font-weight: bold;
   animation: fadeSlide 0.4s ease;
 }
