@@ -7,6 +7,7 @@ import { restorePurchasedPickaxesUI } from "./systems/pickaxes.js";
 import {  bindEquipmentDrawer, bindObjectivesDrawer, bindUI } from "./ui/ui-bindings.js";
 import { updateDisplay } from "./ui/ui-update.js";
 import { initAudio } from "./core/audio.js";
+import { initMap } from "./roguelike/map.js";
 
 
 $(document).ready(() => {
@@ -25,16 +26,15 @@ $(document).ready(() => {
 
   let rogueInitialized = false;
 
-  $("#ascend-tab").on("click", () => {
+  $("#ascend-confirm-btn").on("click", () => {
     $("#incremental-game").addClass("hidden");
     $("#rogue-like-game").removeClass("hidden");
 
     if (!rogueInitialized) {
-      initRogueLike();
+      initMap();
       rogueInitialized = true;
     }
   });
-
 
   $("#exit-rogue-like").on("click", () => {
     $("#rogue-like-game").addClass("hidden");

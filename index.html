@@ -274,6 +274,11 @@
       <img src="images/260px-Quests.png" id="objectives-tab" class="drawer-tab">
       <img src="images/Logout.png" id="ascend-tab" class="drawer-tab">
     </div>
+
+    <div id="ascend-confirmation" class="hidden">
+      <p>Are you ready?</p>
+      <button id="ascend-confirm-btn" class="button-default">Yes!</button>
+      <button id="ascend-cancel-btn" class="button-default">Not yet</button>
   </div>
 
   <aside id="equipment-drawer" class="bottom-drawer">
@@ -311,11 +316,16 @@
       <div class="completed-objectives"></div>
     </div>
   </aside>
-
+  </div>
 </div>
 
 
 <div id="rogue-like-game" class="hidden">
+
+  <div id="node-map">
+    <div id="node-container" class="hidden"></div>
+  </div>
+
   <div id="rogue-ui">
     <div id="roguelike-menu">
       <button id="view-equipment">Equipment</button>
@@ -344,10 +354,24 @@
       <div id="player-arena">
         <img src="images/240px-Man_(blue).png" id="player-sprite">
         <div id="player-receives"></div>
+        <div class="hp-container">
+        <div class="hp-label">Player</div>
+        <div class="hp-bar">
+          <div id="player-hp-bar" class="hp-fill"></div>
+        </div>
+        <div id="player-hp-text"></div>
+      </div> 
       </div>
       <div id="enemy-arena">
         <img src="images\300px-Goblin.png" id="enemy-sprite">
         <div id="enemy-receives"></div>
+        <div class="hp-container">
+        <div class="hp-label">Enemy</div>
+        <div class="hp-bar">
+          <div id="enemy-hp-bar" class="hp-fill enemy"></div>
+        </div>
+        <div id="enemy-hp-text"></div>
+      </div>
       </div>
     </div>
 
@@ -368,6 +392,12 @@
       </div>
     </div>
 
+    <div id="victory-screen" class="hidden">
+      <h2>Enemy vanquished</h2>
+      <div id="rewards-list"></div>
+      <button id="dismiss-rewards-btn" class="button-default">Continue</button>
+    </div>
+
     <div id="death-screen">
       <h2>Oh dear, you are dead!</h2>
       <p>Well, that's all she wrote for you. But you can take another pop at it...</p>
@@ -375,7 +405,6 @@
     </div>
 
     <button id="exit-rogue-like" class="button-default">Exit</button>
-  </div>
 </div>
 
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>

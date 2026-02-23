@@ -10,6 +10,24 @@ let player;
 let enemy;
 let energy;
 const maxEnergy = 3;
+let combatOver = false;
+
+function moveToNode(id) {
+  currentFloor.currentNode = id;
+  const node = currentFloor.nodes.find(n => n.id === id);
+
+  if (node.type === "combat" || node.type === "elite") {
+    $("#node-map").hide();
+    $("#roguelike-container").show();
+    return;
+  }
+
+  if (node.type === "treasure") {
+    alert("You found treasure!");
+  }
+
+  renderMap();
+}
 
 function bindRogueUI() {
   $("#attack-btn").off().on("click", () => {
@@ -22,10 +40,7 @@ function bindRogueUI() {
 
     $('#enemy-receives').text(`-${damage}`).fadeIn(0).fadeOut(800);
 
-    if (enemy.hp <= 0) {
-      log("Enemy defeated!");
-      return;
-    }
+    checkCombatEnd();
 
     updateUI();
   });
@@ -57,26 +72,36 @@ function bindRogueUI() {
 
 function updateUI() {
   $("#energy-display").text(`Energy: ${energy}`);
-  $("#player-hp").text(`Player HP: ${player.hp}`);
-  $("#enemy-hp").text(`Enemy HP: ${enemy.hp}`);
+
+  const playerPercent = (player.hp / player.maxHp) * 100;
+  const enemyPercent = (enemy.hp / enemy.maxHp) * 100;
+
+  $("#player-hp-bar").css("width", `${playerPercent}%`);
+  $("#enemy-hp-bar").css("width", `${enemyPercent}%`);
+
+  $("#player-hp-text").text(`${player.hp} / ${player.maxHp}`);
+  $("#enemy-hp-text").text(`${enemy.hp} / ${enemy.maxHp}`);
 }
 
 function log(message) {
   $("#combat-log").append(`<div>${message}</div>`);
 }
 
-export function initRogueLike() {
+export function initRogueLike() {  
   const stats = calculatePlayerStats();
 
   player = {
+    maxHp: stats.maxHp,
     hp: stats.maxHp,
     attack: stats.attack,
     defense: stats.defense,
     defending: false,
-    equipment: { ...playerState.value.equipment }
+    equipment: { ...playerState.value.equipment },
+    items: { ...playerState.value.items },
   };
 
   enemy = generateEnemy("goblin", 1);
+  enemy.maxHp = enemy.hp;
 
   startPlayerTurn();
   bindRogueUI();
@@ -89,11 +114,15 @@ function startPlayerTurn() {
 }
 
 function endPlayerTurn() {
+  if (combatOver) return;
   enemyTurn();
+  if (combatOver) return;
   startPlayerTurn();
 }
 
 function enemyTurn() {
+  checkCombatEnd();
+
   let damage = enemyAttack(enemy, player);
   damage = applyDefense(player, damage);
 
@@ -107,6 +136,36 @@ function enemyTurn() {
   }
 }
 
+function checkCombatEnd() {
+  if (enemy.hp <= 0) {
+    combatOver = true;
+    log("Enemy defeated!");
+    disableCombatButtons();
+    setTimeout(() => {
+      $("#roguelike-container").hide();
+      initMap();
+      $("#node-map").show();
+    }, 1000);
+    return true;
+  }
+
+  if (player.hp <= 0) {
+    combatOver = true;
+    log("Oh dear, you are dead.");
+    $("#death-screen").css("display", "flex");
+    return true;
+  }
+
+  return false;
+}
+
+function disableCombatButtons() {
+  $("#attack-btn").prop("disabled", true);
+  $("#defend-btn").prop("disabled", true);
+  $("#use-item-btn").prop("disabled", true);
+  $("#end-turn-btn").prop("disabled", true);
+}
+
 $('#view-equipment').on("click", () => {
   const panel = $('#player-equipment-roguelike');
   
@@ -116,6 +175,19 @@ $('#view-equipment').on("click", () => {
   }
   
   renderEquipment("#player-equipment-roguelike");
+
+  panel.css("display", "block");
+});
+
+$('#view-inventory').on("click", () => {
+  const panel = $('#player-inventory-roguelike');
+  
+  if (panel.css("display") === "block") {
+    panel.css("display", "none");
+    return;
+  }
+  
+  renderEquipment("#player-inventory-roguelike");
 
   panel.css("display", "block");
 });

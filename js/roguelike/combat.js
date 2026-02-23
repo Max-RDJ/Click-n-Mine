@@ -6,6 +6,7 @@ export function calculateDamage(attacker, defender) {
 export function playerAttack(player, enemy) {
   const damage = calculateDamage(player, enemy);
   enemy.hp -= damage;
+  enemy.hp = Math.max(0, enemy.hp);
   showDamage("enemy-receives", damage);
   return damage;
 }
@@ -13,6 +14,7 @@ export function playerAttack(player, enemy) {
 export function enemyAttack(enemy, player) {
   const damage = calculateDamage(enemy, player);
   player.hp -= damage;
+  player.hp = Math.max(0, player.hp);
   return damage;
 }
 
