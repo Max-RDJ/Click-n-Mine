@@ -28,23 +28,24 @@ export function getRunState() {
 
 function updateUI() {
   $("#node-map").hide();
-  $("#rogue-ui").addClass("hidden");
+  $("#victory-screen").hide();
 
   switch (runState.state) {
     case "map":
       $("#node-map").show();
+      $("#combat-ui").hide();
       break;
 
     case "combat":
-      $("#rogue-ui").removeClass("hidden");
+      $("#combat-ui").show();
       break;
 
     case "reward":
-      alert("Reward screen coming soon");
+      $("#victory-screen").show();
       break;
 
     case "gameover":
-      alert("You died.");
+      $('#death-screen').show();
       break;
   }
 }

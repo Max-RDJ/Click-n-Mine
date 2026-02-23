@@ -324,6 +324,7 @@
 
   <div id="node-map">
     <div id="node-container"></div>
+    <svg id="node-connections" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></svg>
   </div>
 
   <div id="combat-ui" class="hidden">
@@ -395,7 +396,7 @@
     <div id="victory-screen" class="hidden">
       <h2>Enemy vanquished</h2>
       <div id="rewards-list"></div>
-      <button id="dismiss-rewards-btn" class="button-default">Continue</button>
+      <button id="victory-dismiss-btn" class="button-default">Continue</button>
     </div>
 
     <div id="death-screen">

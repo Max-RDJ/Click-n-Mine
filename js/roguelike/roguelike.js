@@ -71,7 +71,7 @@ function log(message) {
   $("#combat-log").append(`<div>${message}</div>`);
 }
 
-export function initRogueLike() {  
+export function initRogueLike(enemyType) {  
   const stats = calculatePlayerStats();
 
   player = {
@@ -84,7 +84,7 @@ export function initRogueLike() {
     items: { ...playerState.value.items },
   };
 
-  enemy = generateEnemy("goblin", 1);
+  enemy = generateEnemy(enemyType, 1);
   enemy.maxHp = enemy.hp;
 
   startPlayerTurn();
@@ -126,7 +126,7 @@ function checkCombatEnd() {
     log("Enemy defeated!");
     disableCombatButtons();
     setTimeout(() => {
-      setState("map")
+      setState("reward");
     }, 1000);
     return true;
   }
@@ -140,6 +140,11 @@ function checkCombatEnd() {
 
   return false;
 }
+
+$("#victory-dismiss-btn").on("click", () => {
+  $("#victory-screen").addClass("hidden");
+  setState("map");
+});
 
 function disableCombatButtons() {
   $("#attack-btn").prop("disabled", true);
