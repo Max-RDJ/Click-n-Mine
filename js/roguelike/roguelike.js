@@ -5,6 +5,7 @@ import { resetAll } from "../systems/dev-tools.js";
 import { playerState } from "../core/state.js";
 import { renderEquipment } from "../ui/render-equipment.js";
 import { setState } from "./run-manager.js";
+import { renderMap } from "./map.js";
 
 
 let player;
@@ -14,6 +15,8 @@ const maxEnergy = 3;
 let combatOver = false;
 
 function bindRogueUI() {
+  enableCombatButtons();
+
   $("#attack-btn").off().on("click", () => {
     if (energy < 1) return;
 
@@ -144,6 +147,7 @@ function checkCombatEnd() {
 $("#victory-dismiss-btn").on("click", () => {
   $("#victory-screen").addClass("hidden");
   setState("map");
+  renderMap();
 });
 
 function disableCombatButtons() {
@@ -151,6 +155,13 @@ function disableCombatButtons() {
   $("#defend-btn").prop("disabled", true);
   $("#use-item-btn").prop("disabled", true);
   $("#end-turn-btn").prop("disabled", true);
+}
+
+function enableCombatButtons() {
+  $("#attack-btn").prop("disabled", false);
+  $("#defend-btn").prop("disabled", false);
+  $("#use-item-btn").prop("disabled", false);
+  $("#end-turn-btn").prop("disabled", false);
 }
 
 $('#view-equipment').on("click", () => {

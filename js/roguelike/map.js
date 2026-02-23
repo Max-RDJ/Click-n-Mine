@@ -3,7 +3,7 @@ import { setState } from "./run-manager.js";
 import { pickRandomEnemy } from "./enemies.js";
 
 let currentFloor = null;
-let nodeElements = {}; // store DOM refs globally for redraw
+let nodeElements = {};
 
 export function initMap() {
   currentFloor = generateFloor();
@@ -11,8 +11,17 @@ export function initMap() {
 }
 
 function isNodeAvailable(node) {
-  if (node.tier === 1) return true;
-  return currentFloor.nodes.some(n => n.completed && n.next.includes(node.id));
+    if (node.tier === 0) return true;
+
+    const currentNode = currentFloor.currentNode
+    ? currentFloor.nodes.find(n => n.id === currentFloor.currentNode)
+    : null;
+
+    if (currentNode && currentNode.next.includes(node.id)) {
+    return true;
+    }
+
+    return currentFloor.nodes.some(n => n.completed && n.next.includes(node.id));
 }
 
 export function generateFloor(tiersCount = 5, tierWidth = 5) {
@@ -199,23 +208,23 @@ function bindNodeClicks() {
 }
 
 function moveToNode(id) {
-  const node = currentFloor.nodes.find(n => n.id === id);
-  if (!isNodeAvailable(node)) return;
+    const node = currentFloor.nodes.find(n => n.id === id);
+    if (!isNodeAvailable(node)) return;
 
-  node.completed = true;
-  currentFloor.currentNode = id;
+    node.completed = true;
+    currentFloor.currentNode = id;
+    node.completed = true; 
+    if (node.type === "combat" || node.type === "boss") {
+        const enemyType = pickRandomEnemy(node.enemyPoolLevel || 1);
+        setState("combat");
+        $("#combat-ui").show();
+        initRogueLike(enemyType);
+        return;
+    }
 
-  if (node.type === "combat" || node.type === "boss") {
-    const enemyType = pickRandomEnemy(node.enemyPoolLevel || 1);
-    $("#combat-ui").show();
-    setState("combat");
-    initRogueLike(enemyType);
-    return;
-  }
+    renderMap();
 
-  if (node.type === "treasure") {
-    alert("You found treasure!");
-  }
-
-  renderMap();
+    if (node.type === "treasure") {
+        alert("You found treasure!");
+    }
 }
