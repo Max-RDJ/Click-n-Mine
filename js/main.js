@@ -1,13 +1,11 @@
 import { initIncrementalGame } from "./core/incremental.js";
-import { initRogueLike } from "./roguelike/roguelike.js";
-
+import { startRun } from "./roguelike/run-manager.js";
 import { loadPlayerState } from "./core/save.js";
 import { applyLoadedState, initializeEquipmentUI } from "./core/state.js";
 import { restorePurchasedPickaxesUI } from "./systems/pickaxes.js";
 import {  bindEquipmentDrawer, bindObjectivesDrawer, bindUI } from "./ui/ui-bindings.js";
 import { updateDisplay } from "./ui/ui-update.js";
 import { initAudio } from "./core/audio.js";
-import { initMap } from "./roguelike/map.js";
 
 
 $(document).ready(() => {
@@ -30,10 +28,7 @@ $(document).ready(() => {
     $("#incremental-game").addClass("hidden");
     $("#rogue-like-game").removeClass("hidden");
 
-    if (!rogueInitialized) {
-      initMap();
-      rogueInitialized = true;
-    }
+    startRun();
   });
 
   $("#exit-rogue-like").on("click", () => {

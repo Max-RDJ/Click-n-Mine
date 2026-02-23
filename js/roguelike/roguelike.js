@@ -4,6 +4,7 @@ import { playerAttack, enemyAttack, playerDefend, applyDefense } from "./combat.
 import { resetAll } from "../systems/dev-tools.js";
 import { playerState } from "../core/state.js";
 import { renderEquipment } from "../ui/render-equipment.js";
+import { setState } from "./run-manager.js";
 
 
 let player;
@@ -11,23 +12,6 @@ let enemy;
 let energy;
 const maxEnergy = 3;
 let combatOver = false;
-
-function moveToNode(id) {
-  currentFloor.currentNode = id;
-  const node = currentFloor.nodes.find(n => n.id === id);
-
-  if (node.type === "combat" || node.type === "elite") {
-    $("#node-map").hide();
-    $("#roguelike-container").show();
-    return;
-  }
-
-  if (node.type === "treasure") {
-    alert("You found treasure!");
-  }
-
-  renderMap();
-}
 
 function bindRogueUI() {
   $("#attack-btn").off().on("click", () => {
@@ -142,9 +126,7 @@ function checkCombatEnd() {
     log("Enemy defeated!");
     disableCombatButtons();
     setTimeout(() => {
-      $("#roguelike-container").hide();
-      initMap();
-      $("#node-map").show();
+      setState("map")
     }, 1000);
     return true;
   }
