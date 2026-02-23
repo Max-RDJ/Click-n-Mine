@@ -14,48 +14,37 @@ let energy;
 const maxEnergy = 3;
 let combatOver = false;
 
-function bindRogueUI() {
-  enableCombatButtons();
-
-  $("#attack-btn").off().on("click", () => {
+$(document).ready(() => {
+  $("#attack-btn").on("click", () => {
     if (energy < 1) return;
-
     const damage = playerAttack(player, enemy);
     energy -= 1;
-
     log(`You hit for ${damage}`);
-
     $('#enemy-receives').text(`-${damage}`).fadeIn(0).fadeOut(800);
-
     checkCombatEnd();
-
     updateUI();
   });
 
-  $("#defend-btn").off().on("click", () => {
+  $("#defend-btn").on("click", () => {
     if (energy < 1) return;
-
     playerDefend(player);
     energy -= 1;
-
     log("You brace for impact.");
     updateUI();
   });
 
-  $("#use-item-btn").off().on("click", () => {
+  $("#use-item-btn").on("click", () => {
     if (energy < 2) return;
-
     player.hp += 5;
     energy -= 2;
-
     log("You healed 5 HP.");
     updateUI();
   });
 
-  $("#end-turn-btn").off().on("click", () => {
+  $("#end-turn-btn").on("click", () => {
     endPlayerTurn();
   });
-}
+});
 
 function updateUI() {
   $("#energy-display").text(`Energy: ${energy}`);
@@ -90,8 +79,9 @@ export function initRogueLike(enemyType) {
   enemy = generateEnemy(enemyType, 1);
   enemy.maxHp = enemy.hp;
 
+  combatOver = false;
+  enableCombatButtons();
   startPlayerTurn();
-  bindRogueUI();
 }
 
 function startPlayerTurn() {

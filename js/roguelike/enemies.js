@@ -17,12 +17,19 @@ export const ENEMIES = {
     baseAttack: 6,
     baseDefense: 3
   },
+  boss: {
+    name: "Boss",
+    baseHp: 18,
+    baseAttack: 6,
+    baseDefense: 3
+  },
 };
 
 const ENEMY_POOLS = {
   1: ["goblin"],
   2: ["maneba"],
-  3: ["zoanthrope"]
+  3: ["zoanthrope"],
+  4: ["boss"]
 };
 
 export function pickRandomEnemy(poolLevel = 1) {
