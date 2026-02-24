@@ -544,6 +544,7 @@ img.purchasable-item {
   justify-content: space-between;
   align-items: center;
   z-index: 9998;
+  background: linear-gradient(to bottom, #2a2f3a, #1e1e1e);
 }
 
 .control-tray-tabs {
