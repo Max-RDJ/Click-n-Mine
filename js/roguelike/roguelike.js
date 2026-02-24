@@ -78,6 +78,7 @@ export function initRogueLike(enemyType) {
 
   enemy = generateEnemy(enemyType, 1);
   enemy.maxHp = enemy.hp;
+  $("#enemy-sprite").attr("src", enemy.sprite);
 
   combatOver = false;
   enableCombatButtons();

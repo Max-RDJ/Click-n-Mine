@@ -11,42 +11,49 @@ export function initMap() {
 }
 
 function isNodeAvailable(node) {
-    if (node.tier === 0) return true;
+  if (node.tier === 0) return true;
 
-    const currentNode = currentFloor.currentNode
+  const currentNode = currentFloor.currentNode
     ? currentFloor.nodes.find(n => n.id === currentFloor.currentNode)
     : null;
 
-    if (currentNode && currentNode.next.includes(node.id)) {
+  if (currentNode && currentNode.next.includes(node.id)) {
     return true;
-    }
+  }
 
-    return currentFloor.nodes.some(n => n.completed && n.next.includes(node.id));
+  return currentFloor.nodes.some(
+    n => n.completed && n.next.includes(node.id)
+  );
 }
 
-export function generateFloor(tiersCount = 5, tierWidth = 5) {
+export function generateFloor(tiersCount = 5) {
   const nodes = [];
   let idCounter = 1;
 
-  nodes.push({ id: idCounter, type: "start", next: [], tier: 0, completed: true });
+  // Start node
+  nodes.push({
+    id: idCounter,
+    type: "start",
+    tier: 0,
+    next: [],
+    completed: true
+  });
 
+  // Generate tiers
   for (let tier = 1; tier <= tiersCount; tier++) {
-  const nodesThisTier = Math.floor(Math.random() * 3) + 3; 
+    const nodesThisTier = Math.floor(Math.random() * 3) + 3; // 3–5 nodes
 
-  for (let i = 0; i < nodesThisTier; i++) {
+    for (let i = 0; i < nodesThisTier; i++) {
       idCounter++;
-      const roll = Math.random();
-      const type = roll < 0.6 ? "combat" : "treasure";
 
       nodes.push({
         id: idCounter,
-        type,
-        next: [],
+        type: Math.random() < 0.6 ? "combat" : "treasure",
         tier,
+        next: [],
         completed: false,
         enemyPoolLevel: Math.min(tier, 4),
-
-        offsetX: (Math.random() - 0.5) * 30
+        offsetX: (Math.random() - 0.5) * 40
       });
     }
   }
@@ -57,8 +64,8 @@ export function generateFloor(tiersCount = 5, tierWidth = 5) {
     id: idCounter,
     type: "boss",
     tier: tiersCount + 1,
-    completed: false,
     next: [],
+    completed: false,
     enemyPoolLevel: 4
   });
 
@@ -66,44 +73,49 @@ export function generateFloor(tiersCount = 5, tierWidth = 5) {
     const currentTierNodes = nodes.filter(n => n.tier === tier);
     const nextTierNodes = nodes.filter(n => n.tier === tier + 1);
 
+    if (!nextTierNodes.length) continue;
+
     const currentCount = currentTierNodes.length;
     const nextCount = nextTierNodes.length;
 
     currentTierNodes.forEach((node, i) => {
-      if (nextCount === 0) return;
+      const startIndex = Math.floor(i * nextCount / currentCount);
+      const endIndex = Math.floor((i + 1) * nextCount / currentCount);
 
-      const ratio = i / (currentCount - 1 || 1);
-      const targetIndex = Math.round(ratio * (nextCount - 1));
-
-      node.next.push(nextTierNodes[targetIndex].id);
-
-      if (Math.random() < 0.4) {
-        const neighbor = targetIndex + (Math.random() < 0.5 ? -1 : 1);
-        if (neighbor >= 0 && neighbor < nextCount) {
-          node.next.push(nextTierNodes[neighbor].id);
+      for (let j = startIndex; j <= endIndex; j++) {
+        if (j >= 0 && j < nextCount) {
+          const childId = nextTierNodes[j].id;
+          if (!node.next.includes(childId)) {
+            node.next.push(childId);
+          }
         }
       }
     });
   }
 
-
-    nodes.forEach(node => {
-    if (node.tier <= 1) return;
+  // Guarantee every node (tier > 0) has at least one incoming connection
+  nodes.forEach(node => {
+    if (node.tier === 0) return;
 
     const hasIncoming = nodes.some(n =>
-        n.next.includes(node.id)
+      n.next.includes(node.id)
     );
 
     if (!hasIncoming) {
-        const previousTierNodes = nodes.filter(n => n.tier === node.tier - 1);
-        if (previousTierNodes.length > 0) {
-        const randomParent = previousTierNodes[
-            Math.floor(Math.random() * previousTierNodes.length)
-        ];
-        randomParent.next.push(node.id);
+      const previousTier = nodes.filter(
+        n => n.tier === node.tier - 1
+      );
+
+      if (previousTier.length) {
+        const randomParent =
+          previousTier[Math.floor(Math.random() * previousTier.length)];
+
+        if (!randomParent.next.includes(node.id)) {
+          randomParent.next.push(node.id);
         }
+      }
     }
-    });
+  });
 
   return { currentNode: null, nodes };
 }
@@ -120,58 +132,66 @@ export function renderMap() {
 
   currentFloor.nodes.forEach(node => {
     if (node.type === "start") return;
+
     if (!tiers[node.tier]) tiers[node.tier] = [];
     tiers[node.tier].push(node);
   });
 
-  Object.keys(tiers).sort((a,b)=>a-b).forEach(tierNum => {
-    const row = $("<div>")
-      .addClass("node-row")
-      .css({
-        display: "flex",
-        justifyContent: "space-around",
-        margin: "40px 0"
-      });
+  Object.keys(tiers)
+    .sort((a, b) => a - b)
+    .forEach(tierNum => {
+      const row = $("<div>")
+        .addClass("node-row")
+        .css({
+          display: "flex",
+          justifyContent: "space-around",
+          margin: "40px 0",
+          position: "relative"
+        });
 
-    tiers[tierNum].forEach(node => {
-      const el = $("<div>")
-        .addClass("node")
-        .text(node.type.toUpperCase())
-        .attr("data-id", node.id);
-
-            el.css("transform", `translateX(${node.offsetX || 0}px)`);
-
+      tiers[tierNum].forEach(node => {
+        const el = $("<div>")
+          .addClass("node")
+          .text(node.type.toUpperCase())
+          .attr("data-id", node.id)
+          .css("transform", `translateX(${node.offsetX || 0}px)`);
 
         if (node.completed) el.addClass("completed");
         if (!isNodeAvailable(node)) el.addClass("locked");
 
         row.append(el);
         nodeElements[node.id] = el;
-    });
+      });
 
-    container.append(row);
-  });
+      container.append(row);
+    });
 
   bindNodeClicks();
 
-  requestAnimationFrame(() => {
-    drawConnections();
-  });
+  requestAnimationFrame(drawConnections);
 }
 
 function drawConnections() {
   const svg = $("#node-connections");
   svg.empty();
 
-    const containerRect = svg[0].getBoundingClientRect();
+  const containerRect = svg[0].getBoundingClientRect();
 
   svg.attr("width", containerRect.width);
   svg.attr("height", containerRect.height);
 
+  const drawn = new Set();
+
   currentFloor.nodes.forEach(node => {
     node.next.forEach(nextId => {
+
+      const key = `${node.id}-${nextId}`;
+      if (drawn.has(key)) return;
+      drawn.add(key);
+
       const startEl = nodeElements[node.id];
       const endEl = nodeElements[nextId];
+
       if (!startEl || !endEl) return;
 
       const startRect = startEl[0].getBoundingClientRect();
@@ -182,7 +202,10 @@ function drawConnections() {
       const x2 = endRect.left + endRect.width / 2 - containerRect.left;
       const y2 = endRect.top + endRect.height / 2 - containerRect.top;
 
-      const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+      const line = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "line"
+      );
 
       line.setAttribute("x1", x1);
       line.setAttribute("y1", y1);
@@ -208,23 +231,23 @@ function bindNodeClicks() {
 }
 
 function moveToNode(id) {
-    const node = currentFloor.nodes.find(n => n.id === id);
-    if (!isNodeAvailable(node)) return;
+  const node = currentFloor.nodes.find(n => n.id === id);
+  if (!isNodeAvailable(node)) return;
 
-    node.completed = true;
-    currentFloor.currentNode = id;
-    node.completed = true; 
-    if (node.type === "combat" || node.type === "boss") {
-        const enemyType = pickRandomEnemy(node.enemyPoolLevel || 1);
-        setState("combat");
-        $("#combat-ui").show();
-        initRogueLike(enemyType);
-        return;
-    }
+  node.completed = true;
+  currentFloor.currentNode = id;
 
-    renderMap();
+  if (node.type === "combat" || node.type === "boss") {
+    const enemyType = pickRandomEnemy(node.enemyPoolLevel || 1);
+    setState("combat");
+    $("#combat-ui").show();
+    initRogueLike(enemyType);
+    return;
+  }
 
-    if (node.type === "treasure") {
-        alert("You found treasure!");
-    }
+  renderMap();
+
+  if (node.type === "treasure") {
+    alert("You found treasure!");
+  }
 }
