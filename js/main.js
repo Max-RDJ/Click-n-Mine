@@ -6,6 +6,7 @@ import { restorePurchasedPickaxesUI } from "./systems/pickaxes.js";
 import {  bindEquipmentDrawer, bindObjectivesDrawer, bindUI } from "./ui/ui-bindings.js";
 import { updateDisplay } from "./ui/ui-update.js";
 import { initAudio } from "./core/audio.js";
+import { bindCombatDrawers } from "./roguelike/combat.js";
 
 
 $(document).ready(() => {
@@ -27,13 +28,9 @@ $(document).ready(() => {
   $("#ascend-confirm-btn").on("click", () => {
     $("#incremental-game").addClass("hidden");
     $("#rogue-like-game").removeClass("hidden");
+    bindCombatDrawers();
 
     startRun();
-  });
-
-  $("#exit-rogue-like").on("click", () => {
-    $("#rogue-like-game").addClass("hidden");
-    $("#incremental-game").removeClass("hidden");
   });
 });
 

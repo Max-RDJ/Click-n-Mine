@@ -514,6 +514,10 @@ img.purchasable-item {
   transform: translateY(0%);
 }
 
+.bottom-drawer.hidden {
+  display: none;
+}
+
 .control-tray {
   position: fixed;
   bottom: 0;
@@ -773,6 +777,14 @@ img.purchasable-item {
   height: 100%;
   pointer-events: none;
   z-index: 1;
+}
+
+#rogue-like-game {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 #arena {

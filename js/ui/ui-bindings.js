@@ -80,8 +80,8 @@ export function bindUI() {
 }
 
 export function bindEquipmentDrawer() {
-  const drawer = document.getElementById("equipment-drawer");
-  const tab = document.getElementById("drawer-tab");
+  const drawer = document.getElementById("inventory-drawer");
+  const tab = document.getElementById("inventory-tab");
 
   tab.addEventListener("click", () => {
     const isOpen = drawer.classList.contains("open");
@@ -119,7 +119,7 @@ document.addEventListener("click", (e) => {
   if (!activeDrawer) return;
 
   const clickedInsideDrawer = activeDrawer.contains(e.target);
-  const clickedTab = e.target.closest("#drawer-tab, #objectives-tab");
+  const clickedTab = e.target.closest("#inventory-tab, #objectives-tab");
 
   if (!clickedInsideDrawer && !clickedTab && !e.target.closest(".context-menu")) {
     closeAllBottomDrawers();
