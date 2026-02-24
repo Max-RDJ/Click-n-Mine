@@ -1,10 +1,11 @@
-:root{
+:root {
   --accent-transparent: solid rgba(255, 255, 255, 0.3) 1px;
   --primary: #343f51;
   --text-primary: #ebe2d5;
   --text-weak: #aeaeae;
   --text-background: #403d3a;
   --button-default-text: #ebe2d5;
+  --tray-height: 50px;
 }
   
 * {
@@ -513,16 +514,19 @@ img.purchasable-item {
   width: 100%;
   height: auto;
   max-height: 40vh;
+  overflow: hidden;
   background: #1e1e1e;
   border-top: 2px solid rgba(255,255,255,0.2);
   box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
   transform: translateY(100%);
-  transition: transform 0.35s ease;
+  opacity: 0.98;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),     box-shadow 0.4s ease;
   z-index: 9997;
 }
 
 .bottom-drawer.open {
-  transform: translateY(0%);
+  transform: translateY(calc(-1 * var(--tray-height)));
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
 }
 
 .bottom-drawer.hidden {
@@ -534,7 +538,7 @@ img.purchasable-item {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 50px;
+  height: var(--tray-height);
   padding: 0 1rem;
   display: flex;
   justify-content: space-between;
@@ -553,8 +557,8 @@ img.purchasable-item {
   justify-content: center;
   align-items: center;
   gap: 4rem;
-  padding: 2rem 4rem 60px 4rem;
-  height: 100%;
+  padding: 2rem 4rem 50px 4rem;
+  overflow-y: auto;
 }
 
 #drawer-content-objectives {
@@ -580,6 +584,36 @@ img.purchasable-item {
 
 .drawer-tab:hover {
   transform: scale(1.15);
+}
+
+#magic-list {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.spell-btn {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: all 0.15s ease;
+  padding: 0.5em;
+}
+
+.spell-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.1);
+  cursor: pointer;
+}
+
+.spell-btn:active {
+  transform: translateY(2px);
+  background: rgb(255, 255, 255);
+  cursor: pointer;
 }
 
 .player-items {

@@ -135,7 +135,7 @@ document.addEventListener("click", (e) => {
   if (!activeDrawer) return;
 
   const clickedInsideDrawer = activeDrawer.contains(e.target);
-  const clickedTab = e.target.closest("#magic-tab", "#inventory-tab, #objectives-tab");
+  const clickedTab = e.target.closest(".drawer-tab");
 
   if (!clickedInsideDrawer && !clickedTab && !e.target.closest(".context-menu")) {
     closeAllBottomDrawers();
