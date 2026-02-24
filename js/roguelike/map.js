@@ -5,6 +5,11 @@ import { pickRandomEnemy } from "./enemies.js";
 let currentFloor = null;
 let nodeElements = {};
 
+const NODE_IMAGES = {
+  combat: "images/enemy_icon.png",
+  treasure: "images/treasure_icon.png",
+}
+
 export function initMap() {
   currentFloor = generateFloor();
   renderMap();
@@ -39,9 +44,8 @@ export function generateFloor(tiersCount = 5) {
     completed: true
   });
 
-  // Generate tiers
   for (let tier = 1; tier <= tiersCount; tier++) {
-    const nodesThisTier = Math.floor(Math.random() * 3) + 3; // 3–5 nodes
+    const nodesThisTier = Math.floor(Math.random() * 3) + 3;
 
     for (let i = 0; i < nodesThisTier; i++) {
       idCounter++;
@@ -58,7 +62,6 @@ export function generateFloor(tiersCount = 5) {
     }
   }
 
-  // Boss node
   idCounter++;
   nodes.push({
     id: idCounter,
@@ -93,7 +96,6 @@ export function generateFloor(tiersCount = 5) {
     });
   }
 
-  // Guarantee every node (tier > 0) has at least one incoming connection
   nodes.forEach(node => {
     if (node.tier === 0) return;
 
@@ -152,9 +154,15 @@ export function renderMap() {
       tiers[tierNum].forEach(node => {
         const el = $("<div>")
           .addClass("node")
-          .text(node.type.toUpperCase())
           .attr("data-id", node.id)
           .css("transform", `translateX(${node.offsetX || 0}px)`);
+
+          const img = $("<img>")
+          .addClass("node-icon")
+          .attr("src", NODE_IMAGES[node.type])
+          .attr("alt", node.type);
+
+          el.append(img);
 
         if (node.completed) el.addClass("completed");
         if (!isNodeAvailable(node)) el.addClass("locked");

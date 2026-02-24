@@ -722,7 +722,6 @@ img.purchasable-item {
   width: 80px;
   height: 60px;
   border-radius: 8px;
-  background: #2c2c2c;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -731,14 +730,35 @@ img.purchasable-item {
   z-index: 999;
 }
 
-.node:hover {
-  transform: scale(1.05);
-  background: #3a3a3a;
+.node-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  pointer-events: none;
 }
 
 .node.locked {
-  opacity: 0.3;
   pointer-events: none;
+}
+
+@keyframes nodePulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.node:not(.locked) .node-icon {
+  animation: nodePulse 1.8s ease-in-out infinite;
+  transition: transform 0.15s ease;
+}
+
+.node:not(.locked):hover .node-icon {
+  animation: none;
+  transform: scale(1.2);
+}
+
+.node:not(.locked):hover {
+  transform: translateY(-4px);
 }
 
 .node.completed {
