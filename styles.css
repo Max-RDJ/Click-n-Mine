@@ -12,6 +12,17 @@
   box-sizing: border-box;
   margin: 0;
 }
+
+#game-root {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#incremental-game,
+#rogue-like-game {
+  width: 100%;
+}
   
 *.unselectable {
   -moz-user-select: -moz-none;
@@ -780,7 +791,6 @@ img.purchasable-item {
 }
 
 #rogue-like-game {
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

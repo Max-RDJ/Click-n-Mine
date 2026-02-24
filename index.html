@@ -10,6 +10,7 @@
 </head>
     
 <body>
+  <div id="game-root">
   <div id="incremental-game">
     <div id="resources-display" style="display:none"></div>
 
@@ -81,12 +82,12 @@
             <fieldset id="resources__weapons">
               <legend class="unselectable">Weapons</legend>
               <div class="items-field">
-                <div class="resources sellable" id="resource__bronzeSword" data-resource="bronzeSword">
+                <div class="resources sellable" id="resource__bronze-sword" data-resource="bronzeSword">
                   <img src="images\200px-Bronze_sword_detail.png">
                   <span id="count__bronze-sword" value="0">0</span>
                 </div>
 
-                <div class="resources sellable" id="resource__iron-sword" data-resource="ironSword">
+                <div class="resources sellable" id="resource__iron-sword" data-resource="iron-sword">
                   <img src="images\200px-iron_sword_detail.png">
                   <span id="count__iron-sword" value="0">0</span>
                 </div>
@@ -327,7 +328,6 @@
       <div class="completed-objectives"></div>
     </div>
   </aside>
-  </div>
 </div>
 
 
@@ -450,6 +450,7 @@
       <p>Well, that's all she wrote for you. But you can take another pop at it...</p>
       <button id="restart-btn" class="button-default">Restart</button>
     </div>
+  </div>
 </div>
 
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>

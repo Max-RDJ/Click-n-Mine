@@ -15,10 +15,12 @@ export function bindContextMenu() {
     let slot = null;
     let inInventory = false;
 
-    const resourceEl = e.target.closest(".resources");
+    const resourceEl = e.target.closest("[data-resource]");
     if (resourceEl) {
     e.preventDefault();
-    key = resourceEl.dataset.resource;    }
+    key = resourceEl.dataset.resource;
+    if (!key) return;
+  }
 
     const slotEl = e.target.closest(".player-equipment img[data-slot]");
     if (slotEl) {
