@@ -1,54 +1,20 @@
 import { calculatePlayerStats } from "./stats.js";
 import { generateEnemy } from "./enemies.js";
-import { playerAttack, enemyAttack, playerDefend, applyDefense } from "./combat.js";
 import { resetAll } from "../systems/dev-tools.js";
 import { playerState } from "../core/state.js";
 import { renderEquipment } from "../ui/render-equipment.js";
 import { setState } from "./run-manager.js";
 import { renderMap } from "./map.js";
+import { performAttack } from "./combat.js";
 
 
 let player;
 let enemy;
-let energy;
-const maxEnergy = 3;
+let playerInterval;
+let enemyInterval;
 let combatOver = false;
 
-$(document).ready(() => {
-  $("#attack-btn").on("click", () => {
-    if (energy < 1) return;
-    const damage = playerAttack(player, enemy);
-    energy -= 1;
-    log(`You hit for ${damage}`);
-    $('#enemy-receives').text(`-${damage}`).fadeIn(0).fadeOut(800);
-    checkCombatEnd();
-    updateUI();
-  });
-
-  $("#defend-btn").on("click", () => {
-    if (energy < 1) return;
-    playerDefend(player);
-    energy -= 1;
-    log("You brace for impact.");
-    updateUI();
-  });
-
-  $("#use-item-btn").on("click", () => {
-    if (energy < 2) return;
-    player.hp += 5;
-    energy -= 2;
-    log("You healed 5 HP.");
-    updateUI();
-  });
-
-  $("#end-turn-btn").on("click", () => {
-    endPlayerTurn();
-  });
-});
-
 function updateUI() {
-  $("#energy-display").text(`Energy: ${energy}`);
-
   const playerPercent = (player.hp / player.maxHp) * 100;
   const enemyPercent = (enemy.hp / enemy.maxHp) * 100;
 
@@ -59,8 +25,49 @@ function updateUI() {
   $("#enemy-hp-text").text(`${enemy.hp} / ${enemy.maxHp}`);
 }
 
-function log(message) {
-  $("#combat-log").append(`<div>${message}</div>`);
+export function startCombat() {
+  if (combatOver) return;
+
+  playerInterval = setInterval(() => {
+    if (combatOver) return;
+
+    performAttack(player, enemy, "enemy-receives");
+    checkCombatEnd();
+    updateUI();
+  }, player.attackSpeed);
+
+  enemyInterval = setInterval(() => {
+    if (combatOver) return;
+
+    performAttack(enemy, player, "player-receives");
+    checkCombatEnd();
+    updateUI();
+  }, enemy.attackSpeed);
+}
+
+function stopCombat() {
+  clearInterval(playerInterval);
+  clearInterval(enemyInterval);
+}
+
+function checkCombatEnd() {
+  if (enemy.hp <= 0) {
+    combatOver = true;
+    stopCombat();
+    setTimeout(() => {
+      setState("reward");
+    }, 1000);
+    return true;
+  }
+
+  if (player.hp <= 0) {
+    combatOver = true;
+    stopCombat();
+    $("#death-screen").css("display", "flex");
+    return true;
+  }
+
+  return false;
 }
 
 export function initRogueLike(enemyType) {  
@@ -71,7 +78,8 @@ export function initRogueLike(enemyType) {
     hp: stats.maxHp,
     attack: stats.attack,
     defense: stats.defense,
-    defending: false,
+    accuracy: 0.85,
+    attackSpeed: 1200,
     equipment: { ...playerState.value.equipment },
     items: { ...playerState.value.items },
   };
@@ -81,79 +89,19 @@ export function initRogueLike(enemyType) {
   $("#enemy-sprite").attr("src", enemy.sprite);
 
   combatOver = false;
-  enableCombatButtons();
-  startPlayerTurn();
-}
-
-function startPlayerTurn() {
-  energy = maxEnergy;
-  player.defending = false;
   updateUI();
 }
 
-function endPlayerTurn() {
-  if (combatOver) return;
-  enemyTurn();
-  if (combatOver) return;
-  startPlayerTurn();
-}
-
-function enemyTurn() {
-  checkCombatEnd();
-
-  let damage = enemyAttack(enemy, player);
-  damage = applyDefense(player, damage);
-
-  log(`Enemy hits you for ${damage}`);
-
-  $('#player-receives').text(`-${damage}`).fadeIn(0).fadeOut(800);
-
-  if (player.hp <= 0) {
-    log("Oh dear, you are dead.");
-    $("#death-screen").css("display", "flex");
-  }
-}
-
-function checkCombatEnd() {
-  if (enemy.hp <= 0) {
-    combatOver = true;
-    log("Enemy defeated!");
-    disableCombatButtons();
-    setTimeout(() => {
-      setState("reward");
-    }, 1000);
-    return true;
-  }
-
-  if (player.hp <= 0) {
-    combatOver = true;
-    log("Oh dear, you are dead.");
-    $("#death-screen").css("display", "flex");
-    return true;
-  }
-
-  return false;
-}
+$("#start-fight-btn").on("click", () => {
+  $(this).hide();
+  startCombat();
+})
 
 $("#victory-dismiss-btn").on("click", () => {
   $("#victory-screen").addClass("hidden");
   setState("map");
   renderMap();
 });
-
-function disableCombatButtons() {
-  $("#attack-btn").prop("disabled", true);
-  $("#defend-btn").prop("disabled", true);
-  $("#use-item-btn").prop("disabled", true);
-  $("#end-turn-btn").prop("disabled", true);
-}
-
-function enableCombatButtons() {
-  $("#attack-btn").prop("disabled", false);
-  $("#defend-btn").prop("disabled", false);
-  $("#use-item-btn").prop("disabled", false);
-  $("#end-turn-btn").prop("disabled", false);
-}
 
 $('#view-equipment').on("click", () => {
   const panel = $('#player-equipment-roguelike');

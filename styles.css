@@ -839,6 +839,11 @@ img.purchasable-item {
   animation: float-damage 0.8s ease-out forwards;
 }
 
+.damage-number.miss {
+  color: gray;
+  font-style: italic;
+}
+
 .damage-number.crit {
   color: gold;
   font-size: 2.5em;

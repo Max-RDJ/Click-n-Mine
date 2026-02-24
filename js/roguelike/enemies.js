@@ -56,6 +56,8 @@ export function generateEnemy(type, depth = 1) {
     sprite: template.sprite,
     hp: template.baseHp + depth * 2,
     attack: template.baseAttack + depth,
-    defense: template.baseDefense + Math.floor(depth / 2)
+    defense: template.baseDefense + Math.floor(depth / 2),
+    accuracy: 0.75 + depth * 0.02,
+    attackSpeed: 1600 - depth * 50
   };
 }

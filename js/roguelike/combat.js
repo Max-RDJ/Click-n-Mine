@@ -1,6 +1,22 @@
-export function calculateDamage(attacker, defender) {
-  const raw = attacker.attack - defender.defense;
-  return Math.max(1, raw);
+export function performAttack(attacker, defender, arenaId) {
+  const hitChance = attacker.accuracy - defender.defense * 0.02;
+  const roll = Math.random();
+
+  if (roll > hitChance) {
+    showDamage(arenaId, 0, "miss");
+    return 0;
+  }
+
+  const min = Math.floor(attacker.attack * 0.5);
+  const max = attacker.attack;
+
+  const damage = Math.floor(Math.random() * (max - min + 1)) + min;
+
+  defender.hp -= damage;
+  defender.hp = Math.max(0, defender.hp);
+
+  showDamage(arenaId, damage);
+  return damage;
 }
 
 export function playerAttack(player, enemy) {
@@ -36,19 +52,19 @@ function showDamage(arenaId, amount, type = "damage") {
   const el = document.createElement("div");
   el.classList.add("damage-number");
 
-  el.classList.add("damage-number");
-
   const randomX = (Math.random() - 0.5) * 40;
   el.style.left = `calc(50% + ${randomX}px)`;
 
-  el.textContent = 
-    type === "heal"
-      ? `+${amount}`
-      : `-${amount}`;
+  if (type === "heal") {
+    el.textContent = `+${amount}`;
+  } else if (amount === 0) {
+    el.textContent = "MISS";
+    el.classList.add("miss");
+  } else {
+    el.textContent = `-${amount}`;
+  }
 
   arena.appendChild(el);
 
-  setTimeout(() => {
-    el.remove();
-  }, 800);
+  setTimeout(() => el.remove(), 800);
 }
