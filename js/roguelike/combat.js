@@ -69,12 +69,6 @@ function showDamage(arenaId, amount, type = "damage") {
   setTimeout(() => el.remove(), 800);
 }
 
-const combatDrawers = {
-  magic: "#combat-magic-drawer",
-  inventory: "#combat-inventory-drawer",
-  objectives: "#combat-objectives-drawer"
-};
-
 export function bindCombatDrawers() {
   const drawers = {
     inventory: {

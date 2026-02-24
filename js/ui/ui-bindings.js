@@ -79,6 +79,22 @@ export function bindUI() {
   $("#objective-message-content").html(getActiveObjectiveMessage());
 }
 
+export function bindMagicDrawer() {
+  const drawer = document.getElementById("magic-drawer");
+  const tab = document.getElementById("magic-tab");
+
+  tab.addEventListener("click", () => {
+    const isOpen = drawer.classList.contains("open");
+
+    closeAllBottomDrawers();
+
+    if (!isOpen) {
+      drawer.classList.add("open");
+      clearObjectivesAlert();
+    }
+  });
+}
+
 export function bindEquipmentDrawer() {
   const drawer = document.getElementById("inventory-drawer");
   const tab = document.getElementById("inventory-tab");
@@ -119,7 +135,7 @@ document.addEventListener("click", (e) => {
   if (!activeDrawer) return;
 
   const clickedInsideDrawer = activeDrawer.contains(e.target);
-  const clickedTab = e.target.closest("#inventory-tab, #objectives-tab");
+  const clickedTab = e.target.closest("#magic-tab", "#inventory-tab, #objectives-tab");
 
   if (!clickedInsideDrawer && !clickedTab && !e.target.closest(".context-menu")) {
     closeAllBottomDrawers();

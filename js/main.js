@@ -3,7 +3,7 @@ import { startRun } from "./roguelike/run-manager.js";
 import { loadPlayerState } from "./core/save.js";
 import { applyLoadedState, initializeEquipmentUI } from "./core/state.js";
 import { restorePurchasedPickaxesUI } from "./systems/pickaxes.js";
-import {  bindEquipmentDrawer, bindObjectivesDrawer, bindUI } from "./ui/ui-bindings.js";
+import {  bindEquipmentDrawer, bindMagicDrawer, bindObjectivesDrawer, bindUI } from "./ui/ui-bindings.js";
 import { updateDisplay } from "./ui/ui-update.js";
 import { initAudio } from "./core/audio.js";
 import { bindCombatDrawers } from "./roguelike/combat.js";
@@ -18,6 +18,7 @@ $(document).ready(() => {
   initializeEquipmentUI();
   initIncrementalGame();
   initAudio();
+  bindMagicDrawer();
   bindEquipmentDrawer();
   bindObjectivesDrawer();
 

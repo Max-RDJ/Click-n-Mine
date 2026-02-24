@@ -16,6 +16,7 @@ export async function initAudio() {
 
   await loadSound("alert", "../audio/alert.mp3");
   await loadSound("mining", "../audio/mining.wav");
+  await loadSound("equip_metal", "../audio/Equip_metal.ogg");
 
   console.log("Audio initialized");
 }

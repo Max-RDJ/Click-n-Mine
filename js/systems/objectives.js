@@ -70,7 +70,7 @@ export const objective = [
   {
     objectiveNo: 8,
     id: "completeRoundOne",
-    message: "Now get out there and fight",
+    message: "Gear up and once you're ready, click the Ascend tab in the bottom-right",
     complete: false,
     condition: (resources) => resources.bronzeHelm >= 1,
     unlock: () => {

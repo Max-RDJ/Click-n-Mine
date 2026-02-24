@@ -3,6 +3,7 @@ import { resourceCounts, playerState } from "./state.js";
 import { updateDisplay } from "../ui/ui-update.js";
 import { savePlayerProgress } from "./save.js";
 import { completeObjective } from "../systems/objectives.js";
+import { playSound } from "./audio.js";
 
 export function equipItem(itemKey) {
   const data = RESOURCES[itemKey];
@@ -22,6 +23,7 @@ export function equipItem(itemKey) {
 
   playerState.value.equipment[slot] = itemKey;
 
+  playSound("equip_metal");
   updateSlotUI(slot, itemKey);
   updateDisplay();
   savePlayerProgress();
