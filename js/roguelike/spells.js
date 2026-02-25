@@ -15,7 +15,7 @@ export const SPELLS = {
     "enfeebling_chant": {
         name: "Enfeebling Chant",
         description: "Reduce enemy damage by 25% for 2 turns.",
-        mode: "combat",
+        mode: "incremental",
         icon: "images/enfeebling_chant.png",
         level: 1,
         materials: { water_essence: 2, air_essence: 1 },

@@ -1,7 +1,7 @@
 import { initIncrementalGame } from "./core/incremental.js";
 import { startRun } from "./roguelike/run-manager.js";
 import { loadPlayerState } from "./core/save.js";
-import { applyLoadedState, initializeEquipmentUI } from "./core/state.js";
+import { applyLoadedState, createFreshState, initializeEquipmentUI } from "./core/state.js";
 import { restoreUnlockedPickaxesUI } from "./systems/pickaxes.js";
 import {  bindEquipmentDrawer, bindMagicDrawer, bindUI } from "./ui/ui-bindings.js";
 import { updateDisplay } from "./ui/ui-update.js";
@@ -10,13 +10,16 @@ import { setGameMode } from "./core/game-mode.js";
 import { renderSpells } from "./ui/render-spells.js";
 import { showObjectiveNotification, setObjectiveMessage } from "./systems/messages.js";
 import { getActiveObjectiveMessage } from "./systems/objectives.js";
+import { playerState } from "./core/state.js";
 
 
 $(document).ready(() => {
   const state = loadPlayerState();
+  createFreshState();
   setGameMode("incremental");
   renderSpells("incremental");
   applyLoadedState(state);
+
   bindUI();
   updateDisplay();
   restoreUnlockedPickaxesUI();

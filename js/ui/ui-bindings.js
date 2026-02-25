@@ -108,13 +108,13 @@ export function bindEquipmentDrawer() {
 }
 
 function closeAllBottomDrawers() {
-  document.querySelectorAll(".bottom-drawer").forEach(d => {
+  document.querySelectorAll(".drawer-right").forEach(d => {
     d.classList.remove("open");
   });
 }
 
 document.addEventListener("click", (e) => {
-  const activeDrawer = document.querySelector(".bottom-drawer.open");
+  const activeDrawer = document.querySelector(".drawer-right.open");
   if (!activeDrawer) return;
 
   const clickedInsideDrawer = activeDrawer.contains(e.target);

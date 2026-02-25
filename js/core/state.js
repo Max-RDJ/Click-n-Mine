@@ -1,7 +1,7 @@
 import { updateSlotUI } from "./equipment.js";
 
 export const defaultPlayerState = {
-  coins: 10,
+  coins: 0,
   resources: {
     stone: 0,
     copperOre: 0,
@@ -36,7 +36,8 @@ export const defaultPlayerState = {
   playerSmithingRate: 1,
   objectivesProgress: 0,
   playerFurnaces: 0,
-  playerAnvils: 0
+  playerAnvils: 0,
+  unlockedSpells: { "restorative_orison": true, "walk_with_me": true, "enfeebling_chant": true },
 };
 
 export const playerState = { value: null };
@@ -62,15 +63,21 @@ export function applyLoadedState(state) {
   if (!playerState.value.unlockedPickaxes) {
     playerState.value.unlockedPickaxes = {};
   }
+
   if (!playerState.value.equipment) {
     playerState.value.equipment = structuredClone(defaultPlayerState.equipment);
   }
+
   for (const slot in playerState.value.equipment) {
     const equippedItem = playerState.value.equipment[slot];
     if (equippedItem) {
       resourceCounts.value[equippedItem] = (resourceCounts.value[equippedItem] ?? 0) - 1;
       if (resourceCounts.value[equippedItem] < 0) resourceCounts.value[equippedItem] = 0;
     }
+  }
+
+  if (!playerState.value.unlockedSpells) {
+    playerState.value.unlockedSpells = {};
   }
 }
 

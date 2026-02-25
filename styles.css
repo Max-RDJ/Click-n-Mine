@@ -502,29 +502,29 @@ img.purchasable-item {
   display: flex;
 }
 
-.bottom-drawer {
+.drawer-right {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  max-height: 40vh;
-  overflow: hidden;
-  background: #1e1e1e;
-  border-top: 2px solid rgba(255,255,255,0.2);
+  top: 0;
+  right: 0;
+  width: auto;
+  max-width: 50%;
+  height: 100%;
+  overflow-y: auto;
+  background: #1e1e1ebe;
+  border-left: 2px solid rgba(255,255,255,0.2);
   box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
-  transform: translateY(100%);
+  transform: translateX(100%);
   opacity: 0.98;
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),     box-shadow 0.4s ease;
   z-index: 9997;
 }
 
-.bottom-drawer.open {
-  transform: translateY(calc(-1 * var(--tray-height)));
+.drawer-right.open {
+  transform: translateX(0);
   box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
 }
 
-.bottom-drawer.hidden {
+.drawer-right.hidden {
   display: none;
 }
 
@@ -550,10 +550,11 @@ img.purchasable-item {
 
 .drawer-content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 4rem;
-  padding: 2rem 4rem 50px 4rem;
+  padding: 4rem;
   overflow-y: auto;
 }
 
@@ -618,6 +619,7 @@ img.purchasable-item {
   grid-auto-rows: 64px;
   gap: 12px;
   justify-content: center;
+  overflow-y: auto;
 }
 
 .item-slot {
