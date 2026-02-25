@@ -15,12 +15,18 @@ export function bindContextMenu() {
     let slot = null;
     let inInventory = false;
 
+    const pickaxeEl = e.target.closest(".pickaxes");
+      if (pickaxeEl) {
+        e.preventDefault();
+        key = pickaxeEl.id;
+      }
+
     const resourceEl = e.target.closest("[data-resource]");
-    if (resourceEl) {
-    e.preventDefault();
-    key = resourceEl.dataset.resource;
-    if (!key) return;
-  }
+      if (resourceEl) {
+      e.preventDefault();
+      key = resourceEl.dataset.resource;
+      if (!key) return;
+    }
 
     const slotEl = e.target.closest(".player-equipment img[data-slot]");
     if (slotEl) {
@@ -48,13 +54,6 @@ export function bindContextMenu() {
       currentSlot = slot ?? null;
 
       openMenu(e.pageX, e.pageY, key, !!slot, inInventory);
-    
-
-    const pickaxeEl = e.target.closest(".pickaxes");
-      if (pickaxeEl) {
-        e.preventDefault();
-        key = pickaxeEl.id;
-      }
   });
 
   document.addEventListener("click", (e) => {
