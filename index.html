@@ -259,78 +259,6 @@
       </div>
     </div>
   </div>
-
-  <div class="control-tray">
-    <div class="resources" id="resource-coins">
-      <img id="coins-image" src="images/240px-Coins_detail.png">
-      <span id="count__coins" class="unselectable" value="0">0</span>
-    </div>
-
-    <div id="game-message">
-      <span id="game-message-text"></span>
-    </div>
-    
-    <div class="control-tray-tabs">
-      <img src="images/Magic.png" id="magic-tab" class="drawer-tab">
-      <img src="images/Inventory.png" id="inventory-tab" class="drawer-tab">
-      <img src="images/Quests.png" id="objectives-tab" class="drawer-tab">
-      <img src="images/Logout.png" id="ascend-tab" class="drawer-tab">
-    </div>
-
-    <div id="ascend-confirmation" class="hidden">
-      <p>Are you ready?</p>
-      <button id="ascend-confirm-btn" class="button-default">Yes!</button>
-      <button id="ascend-cancel-btn" class="button-default">Not yet</button>
-    </div>
-  </div>
-
-  <aside id="magic-drawer" class="bottom-drawer">
-    <div class="drawer-content">
-      <div id="magic-list">
-        <img
-        class="spell-btn" data-spell="restorative-orison" src="images/restorative_orison.png">
-        <img class="spell-btn" data-spell="enfeebling-chant" src="images/enfeebling_chant.png">
-        <img class="spell-btn" data-spell="walk-with-me" src="images/walk_with_me.png">
-
-      </div>
-    </div>
-  </aside>
-
-  <aside id="inventory-drawer" class="bottom-drawer">
-    <div class="drawer-content">
-      <div class="player-equipment">
-        <div>
-          <img src="images/head_slot.png" data-slot="head">
-          <img src="images/ammo_slot.png" data-slot="utility">
-        </div>
-        <div>
-          <img src="images/weapon_slot.png" data-slot="weapon">
-          <img src="images/body_slot.png" data-slot="chest">
-          <img src="images/shield_slot.png" data-slot="offhand">
-        </div>
-        <div>
-          <img src="images/legs_slot.png" data-slot="legs">
-        </div>
-        <div>
-          <img src="images/hands_slot.png" data-slot="hands">
-          <img src="images/feet_slot.png" data-slot="feet">
-          <img src="images/ring_slot.png" data-slot="jewellery">
-        </div>
-      </div>
-
-      <div class="player-items"></div>
-    </div>
-  </aside>
-
-  <aside id="objectives-drawer" class="bottom-drawer">
-    <div class="drawer-content" id="drawer-content-objectives">
-      <div id="objective-message-text" class="objective-line">
-          <span class="checkbox">☐</span>
-          <span id="objective-message-content"></span>
-      </div>
-      <div class="completed-objectives"></div>
-    </div>
-  </aside>
 </div>
 
 
@@ -381,64 +309,6 @@
         <div id="combat-log"></div>
       </div>
     </div>
-
-    <div class="control-tray">
-      <div class="resources" id="resource-coins">
-        <img id="coins-image" src="images/240px-Coins_detail.png">
-        <span id="count__coins" class="unselectable" value="0">0</span>
-      </div>
-      
-      <div class="control-tray-tabs">
-        <img src="images/Magic.png" id="combat-magic-tab" class="drawer-tab">
-        <img src="images/Inventory.png" id="combat-inventory-tab" class="drawer-tab">
-        <img src="images/Quests.png" id="combat-objectives-tab" class="drawer-tab">
-      </div>
-    </div>
-
-    <aside id="combat-magic-drawer" class="bottom-drawer">
-      <div class="drawer-content">
-        <div id="magic-list">
-          <button class="spell-btn" data-spell="fireball">Fireball</button>
-          <button class="spell-btn" data-spell="heal">Heal</button>
-        </div>
-      </div>
-    </aside>
-
-    <aside id="combat-inventory-drawer" class="bottom-drawer">
-      <div class="drawer-content">
-        <div class="player-equipment">
-          <div>
-            <img src="images/head_slot.png" data-slot="head">
-            <img src="images/ammo_slot.png" data-slot="utility">
-          </div>
-          <div>
-            <img src="images/weapon_slot.png" data-slot="weapon">
-            <img src="images/body_slot.png" data-slot="chest">
-            <img src="images/shield_slot.png" data-slot="offhand">
-          </div>
-          <div>
-            <img src="images/legs_slot.png" data-slot="legs">
-          </div>
-          <div>
-            <img src="images/hands_slot.png" data-slot="hands">
-            <img src="images/feet_slot.png" data-slot="feet">
-            <img src="images/ring_slot.png" data-slot="jewellery">
-          </div>
-        </div>
-
-        <div class="player-items"></div>
-      </div>
-    </aside>
-
-    <aside id="combat-objectives-drawer" class="bottom-drawer">
-      <div class="drawer-content" id="drawer-content-objectives">
-        <div id="objective-message-text" class="objective-line">
-            <span class="checkbox">☐</span>
-            <span id="objective-message-content"></span>
-        </div>
-        <div class="completed-objectives"></div>
-      </div>
-    </aside>
   </div>
 
 
@@ -455,6 +325,78 @@
     </div>
   </div>
 </div>
+
+<aside id="magic-drawer" class="bottom-drawer">
+    <div class="drawer-content">
+      <div id="magic-list">
+        <img
+        class="spell-btn" data-spell="restorative-orison" src="images/restorative_orison.png">
+        <img class="spell-btn" data-spell="enfeebling-chant" src="images/enfeebling_chant.png">
+        <img class="spell-btn" data-spell="walk-with-me" src="images/walk_with_me.png">
+
+      </div>
+    </div>
+  </aside>
+
+  <aside id="inventory-drawer" class="bottom-drawer">
+    <div class="drawer-content">
+      <div class="player-equipment">
+        <div>
+          <img src="images/head_slot.png" data-slot="head">
+          <img src="images/ammo_slot.png" data-slot="utility">
+        </div>
+        <div>
+          <img src="images/weapon_slot.png" data-slot="weapon">
+          <img src="images/body_slot.png" data-slot="chest">
+          <img src="images/shield_slot.png" data-slot="offhand">
+        </div>
+        <div>
+          <img src="images/legs_slot.png" data-slot="legs">
+        </div>
+        <div>
+          <img src="images/hands_slot.png" data-slot="hands">
+          <img src="images/feet_slot.png" data-slot="feet">
+          <img src="images/ring_slot.png" data-slot="jewellery">
+        </div>
+      </div>
+
+      <div class="player-items"></div>
+    </div>
+  </aside>
+
+  <aside id="objectives-drawer" class="bottom-drawer">
+    <div class="drawer-content" id="drawer-content-objectives">
+      <div id="objective-message-text" class="objective-line">
+          <span class="checkbox">☐</span>
+          <span id="objective-message-content"></span>
+      </div>
+      <div class="completed-objectives"></div>
+    </div>
+  </aside>
+
+<div class="control-tray">
+    <div class="resources" id="resource-coins">
+      <img id="coins-image" src="images/240px-Coins_detail.png">
+      <span id="count__coins" class="unselectable" value="0">0</span>
+    </div>
+
+    <div id="game-message">
+      <span id="game-message-text"></span>
+    </div>
+    
+    <div class="control-tray-tabs">
+      <img src="images/Magic.png" id="magic-tab" class="drawer-tab">
+      <img src="images/Inventory.png" id="inventory-tab" class="drawer-tab">
+      <img src="images/Quests.png" id="objectives-tab" class="drawer-tab">
+      <img src="images/Logout.png" id="ascend-tab" class="drawer-tab">
+    </div>
+
+    <div id="ascend-confirmation" class="hidden">
+      <p>Are you ready?</p>
+      <button id="ascend-confirm-btn" class="button-default">Yes!</button>
+      <button id="ascend-cancel-btn" class="button-default">Not yet</button>
+    </div>
+  </div>
 
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script type="module" src="js/main.js" defer></script>

@@ -6,11 +6,14 @@ import { restorePurchasedPickaxesUI } from "./systems/pickaxes.js";
 import {  bindEquipmentDrawer, bindMagicDrawer, bindObjectivesDrawer, bindUI } from "./ui/ui-bindings.js";
 import { updateDisplay } from "./ui/ui-update.js";
 import { initAudio } from "./core/audio.js";
-import { bindCombatDrawers } from "./roguelike/combat.js";
+import { setGameMode } from "./core/game-mode.js";
+import { renderSpells } from "./ui/render-spells.js";
 
 
 $(document).ready(() => {
   const state = loadPlayerState();
+  setGameMode("incremental");
+  renderSpells("incremental");
   applyLoadedState(state);
   bindUI();
   updateDisplay();
@@ -24,17 +27,38 @@ $(document).ready(() => {
 
   lucide.createIcons({ attrs: { width: 12, height: 12 } });
 
-  let rogueInitialized = false;
-
   $("#ascend-confirm-btn").on("click", () => {
     $("#incremental-game").addClass("hidden");
     $("#rogue-like-game").removeClass("hidden");
-    bindCombatDrawers();
+    $("#ascend-confirmation").removeClass("show");
+
+    setGameMode("combat");
+    renderSpells("combat");
 
     startRun();
   });
 });
 
+
+$("#ascend-tab").on("click", () => {
+  $("#ascend-confirmation").toggleClass("show");
+})
+
+$("#ascend-cancel-btn").on("click", () => {
+  $("#ascend-confirmation").removeClass("show");
+})
+
+document.addEventListener("click", (e) => {
+  const ascendConfirmation = document.getElementById("ascend-confirmation");
+  const ascendTab = document.getElementById("ascend-tab");
+
+  const clickedInsideConfirmation = ascendConfirmation.contains(e.target);
+  const clickedAscendTab = ascendTab.contains(e.target);
+
+  if (!clickedInsideConfirmation && !clickedAscendTab) {
+    $("#ascend-confirmation").removeClass("show");
+  }
+});
 
 
 // CONSIDER RANDOMLY SPAWNING NODES:

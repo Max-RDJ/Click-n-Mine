@@ -35,11 +35,3 @@ export function initIncrementalGame() {
   }
   resourcesDisplay.appendChild(equipmentDiv);
 }
-
-$("#ascend-tab").on("click", () => {
-  $("#ascend-confirmation").toggleClass("show");
-})
-
-$("#ascend-cancel-btn").on("click", () => {
-  $("#ascend-confirmation").removeClass("show");
-})

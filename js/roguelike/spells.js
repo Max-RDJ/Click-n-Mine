@@ -3,6 +3,7 @@ export const SPELLS = {
         name: "Restorative Orison",
         description: "Heal for 20% of your max HP.",
         icon: "images/restorative_orison.png",
+        mode: "combat",
         level: 1,
         materials: { "water_essence": 2 },
         cast: (player) => {
@@ -14,12 +15,25 @@ export const SPELLS = {
     "enfeebling_chant": {
         name: "Enfeebling Chant",
         description: "Reduce enemy damage by 25% for 2 turns.",
+        mode: "combat",
         icon: "images/enfeebling_chant.png",
         level: 1,
         materials: { water_essence: 2, air_essence: 1 },
         cast: (enemy) => {
             enemy.damageMultiplier = 0.75;
             enemy.enfeebleTurns = 2;
+        }
+    },
+    "walk_with_me": {
+        name: "Walk with Me",
+        description: "A powerful black-fire attack.",
+        mode: "combat",
+        icon: "images/walk_with_me.png",
+        level: 2,
+        materials: { fire_essence: 5 },
+        cast: (player) => {
+            player.damageMultiplier = 3;
+            player.walkWithMeTurns = 1;
         }
     }
 }
