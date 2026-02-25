@@ -29,9 +29,15 @@ export const RESOURCES = {
     sellPrice: 6,
     image: "images/240px-Iron_bar_detail.png"
   },
-  pickaxeBronze: {
+  bronzePickaxe: {
     name: "Bronze pickaxe",
-    image: "images/260px-Bronze_pickaxe_detail.png",
+    image: "images/bronze_pickaxe.png",
+    type: "equipment",
+    slot: "utility",
+  },
+  ironPickaxe: {
+    name: "Iron pickaxe",
+    image: "images/iron_pickaxe.png",
     type: "equipment",
     slot: "utility",
   },

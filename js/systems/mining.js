@@ -51,15 +51,15 @@ const NODE_REQUIREMENTS = {
 };
 
 const pickaxeLevel = {
-  "pickaxeBronze": 1,
-  "pickaxeIron": 2,
-  "pickaxeSteel": 3,
-  "pickaxeBlack": 4,
-  "pickaxeGold": 5,
-  "pickaxeMithril": 6,
-  "pickaxeAdamant": 7,
-  "pickaxeRunite": 8,
-  "pickaxeDragon": 9
+  "bronzePickaxe": 1,
+  "ironPickaxe": 2,
+  "steelPickaxe": 3,
+  "blackPickaxe": 4,
+  "goldPickaxe": 5,
+  "mithrilPickaxe": 6,
+  "adamantPickaxe": 7,
+  "runitePickaxe": 8,
+  "dragonPickaxe": 9
 };
 
 export function getHighestPickaxeLevel(playerState) {

@@ -20,6 +20,7 @@ import { resetMoney, addMoney, resetAll } from "../systems/dev-tools.js";
 import { loadObjectivesProgress, getActiveObjectiveMessage, clearObjectivesAlert } from "../systems/objectives.js";
 import { bindContextMenu } from "./context-menu.js";
 import { generateInventorySlots, initInventory, renderInventory, addItem } from "../core/inventory.js";
+import { showObjectiveNotification } from "../systems/messages.js";
 
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -102,22 +103,6 @@ export function bindEquipmentDrawer() {
     closeAllBottomDrawers();
     if (!isOpen) {
       drawer.classList.add("open");
-    }
-  });
-}
-
-export function bindObjectivesDrawer() {
-  const drawer = document.getElementById("objectives-drawer");
-  const tab = document.getElementById("objectives-tab");
-
-  tab.addEventListener("click", () => {
-    const isOpen = drawer.classList.contains("open");
-
-    closeAllBottomDrawers();
-
-    if (!isOpen) {
-      drawer.classList.add("open");
-      clearObjectivesAlert();
     }
   });
 }

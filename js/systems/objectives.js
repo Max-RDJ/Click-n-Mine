@@ -129,10 +129,6 @@ function flashObjectivesIcon() {
   const icon = document.getElementById("objectives-tab");
   if (!icon) return;
 
-  if ($('#objectives-drawer').hasClass("open")) {
-    return
-  }
-
   icon.classList.remove("flash");
   void icon.offsetWidth;
 

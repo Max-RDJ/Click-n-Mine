@@ -3,11 +3,13 @@ import { startRun } from "./roguelike/run-manager.js";
 import { loadPlayerState } from "./core/save.js";
 import { applyLoadedState, initializeEquipmentUI } from "./core/state.js";
 import { restoreUnlockedPickaxesUI } from "./systems/pickaxes.js";
-import {  bindEquipmentDrawer, bindMagicDrawer, bindObjectivesDrawer, bindUI } from "./ui/ui-bindings.js";
+import {  bindEquipmentDrawer, bindMagicDrawer, bindUI } from "./ui/ui-bindings.js";
 import { updateDisplay } from "./ui/ui-update.js";
 import { initAudio } from "./core/audio.js";
 import { setGameMode } from "./core/game-mode.js";
 import { renderSpells } from "./ui/render-spells.js";
+import { showObjectiveNotification, setObjectiveMessage } from "./systems/messages.js";
+import { getActiveObjectiveMessage } from "./systems/objectives.js";
 
 
 $(document).ready(() => {
@@ -23,7 +25,6 @@ $(document).ready(() => {
   initAudio();
   bindMagicDrawer();
   bindEquipmentDrawer();
-  bindObjectivesDrawer();
 
   lucide.createIcons({ attrs: { width: 12, height: 12 } });
 
@@ -46,6 +47,12 @@ $(document).ready(() => {
   $("#ascend-cancel-btn").on("click", () => {
     $("#ascend-confirmation").removeClass("show");
   })
+
+  $("#objectives-tab").on("click", () => {
+    const activeMessage = getActiveObjectiveMessage();
+    setObjectiveMessage(activeMessage);
+    showObjectiveNotification(8000);
+  });
 });
 
 

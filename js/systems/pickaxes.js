@@ -2,15 +2,15 @@ import { countCoins, playerState, resourceCounts, playerMiningRate } from "../co
 
 
 export const pickaxes = [
-  { itemName: "Bronze pickaxe", id: "pickaxeBronze", miningRate: 2, level: 1, type: "bronze" },
-  { itemName: "Iron pickaxe", id: "pickaxeIron", miningRate: 4, level: 2, type: "iron" },
-  { itemName: "Steel pickaxe", id: "pickaxeSteel", miningRate: 8, level: 3, type: "steel" },
-  { itemName: "Black pickaxe", id: "pickaxeBlack", miningRate: 10, level: 4, type: "black" },
-  { itemName: "Gold pickaxe", id: "pickaxeGold", miningRate: 15, level: 5, type: "gold" },
-  { itemName: "Mithril pickaxe", id: "pickaxeMithril", miningRate: 18, level: 6, type: "mithril" },
-  { itemName: "Adamant pickaxe", id: "pickaxeAdamant", miningRate: 20, level: 7, type: "adamant" },
-  { itemName: "Runite pickaxe", id:"pickaxeRunite", miningRate :30 ,level :8 ,type :"rune"},
-  { itemName: "Dragon pickaxe", id: "pickaxeDragon", miningRate: 50, level: 9, type: "dragon" }
+  { itemName: "Bronze pickaxe", id: "bronzePickaxe", miningRate: 2, level: 1, type: "bronze" },
+  { itemName: "Iron pickaxe", id: "ironPickaxe", miningRate: 4, level: 2, type: "iron" },
+  { itemName: "Steel pickaxe", id: "steelPickaxe", miningRate: 8, level: 3, type: "steel" },
+  { itemName: "Black pickaxe", id: "blackPickaxe", miningRate: 10, level: 4, type: "black" },
+  { itemName: "Gold pickaxe", id: "goldPickaxe", miningRate: 15, level: 5, type: "gold" },
+  { itemName: "Mithril pickaxe", id: "mithrilPickaxe", miningRate: 18, level: 6, type: "mithril" },
+  { itemName: "Adamant pickaxe", id: "adamantPickaxe", miningRate: 20, level: 7, type: "adamant" },
+  { itemName: "Runite pickaxe", id:"runitePickaxe", miningRate :30 ,level :8 ,type :"rune"},
+  { itemName: "Dragon pickaxe", id: "dragonPickaxe", miningRate: 50, level: 9, type: "dragon" }
 ];
 
 export const pickaxeLevel = pickaxes.reduce((acc, p) => {
@@ -61,7 +61,7 @@ export function restoreUnlockedPickaxesUI() {
     const el = document.getElementById(p.id);
     if (!el) return;
 
-    el.style.opacity = unlocked[p.id] ? "1" : "0.3";
+    el.style.opacity = unlocked[p.id] ? "1" : "0.4";
   });
 }
 
