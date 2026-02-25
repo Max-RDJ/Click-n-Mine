@@ -136,7 +136,6 @@ function flashObjectivesIcon() {
 
   setTimeout(() => {
     icon.classList.remove("flash");
-    icon.classList.add("alert-active");
   }, 1500);
 }
 
@@ -144,7 +143,7 @@ export function clearObjectivesAlert() {
   const icon = document.getElementById("objectives-tab");
   if (!icon) return;
 
-  icon.classList.remove("alert-active", "flash");
+  icon.classList.remove("flash");
 }
 
 export function renderCompletedObjectives() {
