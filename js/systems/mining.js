@@ -63,7 +63,7 @@ const pickaxeLevel = {
 };
 
 export function getHighestPickaxeLevel(playerState) {
-  const pickaxes = playerState.value?.purchasedPickaxes || {}
+  const pickaxes = playerState.value?.unlockedPickaxes || {}
   return Object.keys(pickaxes)
     .map(id => pickaxeLevel[id] || 0)
     .reduce((max, val) => Math.max(max, val), 0);
@@ -84,7 +84,7 @@ export function bindNodeClicks(playerState) {
     if (nodeCooldowns.copperOre) return;
     if (!canMine("copperOre")) return;
 
-    updateResource("copperOre", 0.5 * playerMiningRate.value);
+    updateResource("copperOre", 1 * playerMiningRate.value);
     playSound("mining");
     completeObjective("copperAndTin", resourceCounts.value, countCoins.value);
     nodeCooldown("copperOre");
@@ -95,7 +95,7 @@ export function bindNodeClicks(playerState) {
     if (nodeCooldowns.tinOre) return;
     if (!canMine("tinOre")) return;
 
-    updateResource("tinOre", 0.5 * playerMiningRate.value);
+    updateResource("tinOre", 1 * playerMiningRate.value);
     playSound("mining");
     completeObjective("copperAndTin", resourceCounts.value, countCoins.value);
     nodeCooldown("tinOre");

@@ -28,7 +28,7 @@ export const defaultPlayerState = {
   },
   inventory: {},
   playerMiningRate: 1,
-  purchasedPickaxes: {},
+  unlockedPickaxes: { pickaxeBronze: true },
   autoMiningRate: 0,
   playerSmeltingRate: 1,
   playerSmithingRate: 1,
@@ -57,8 +57,8 @@ export function applyLoadedState(state) {
   playerFurnaces.value = state.playerFurnaces ?? 0;
   playerAnvils.value = state.playerAnvils ?? 0;
   
-  if (!playerState.value.purchasedPickaxes) {
-    playerState.value.purchasedPickaxes = {};
+  if (!playerState.value.unlockedPickaxes) {
+    playerState.value.unlockedPickaxes = {};
   }
   if (!playerState.value.equipment) {
     playerState.value.equipment = structuredClone(defaultPlayerState.equipment);

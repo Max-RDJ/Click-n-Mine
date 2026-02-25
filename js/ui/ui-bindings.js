@@ -15,7 +15,6 @@ import {
   stopSmelting 
 } from "../systems/smelting.js";
 import { startAutoMining, bindMinerButtons } from "../systems/auto-mining.js";
-import { bindPickaxeButtons } from "../systems/pickaxes.js";
 import { bindNodeClicks } from "../systems/mining.js";
 import { resetMoney, addMoney, resetAll } from "../systems/dev-tools.js";
 import { loadObjectivesProgress, getActiveObjectiveMessage, clearObjectivesAlert } from "../systems/objectives.js";
@@ -62,7 +61,6 @@ export function bindUI() {
 
   bindSmithingUI();
   bindNodeClicks();
-  bindPickaxeButtons();
   bindMinerButtons();
 
   // DEV TOOLS

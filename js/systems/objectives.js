@@ -1,17 +1,11 @@
 import { playerState } from "../core/state.js";
 import { setObjectiveMessage, showObjectiveNotification } from "./messages.js";
+import { playSound } from "../core/audio.js";
 
 
 export const objective = [
   {
     objectiveNo: 1,
-    id: "buyPickaxe",
-    message: "Click on the Bronze Pickaxe in the shop to purchase your first pickaxe",
-    condition: (resources, coins, hasPickaxe) => hasPickaxe === true,
-    complete: false,
-  },
-  {
-    objectiveNo: 2,
     id: "copperAndTin",
     message: "Mine 1 Copper and 1 Tin",
     complete: false,
@@ -21,14 +15,14 @@ export const objective = [
     }
   },
   {
-    objectiveNo: 3,
+    objectiveNo: 2,
     id: "sellOre",
     message: "Get yourself some coins by selling your ore. Right-click on the ore under Resources and select 'Sell'",
     complete: false,
     condition: (resources, coins) => coins > 0,
   },
   {
-    objectiveNo: 4,
+    objectiveNo: 3,
     id: "buyFurnace",
     message: "Click the 'Buy furnace' button to buy a furnace once you have enough coins",
     complete: false,
@@ -38,7 +32,7 @@ export const objective = [
     }
   },
   {
-    objectiveNo: 5,
+    objectiveNo: 4,
     id: "smeltIngot",
     message: "Smelt your first bronze ingot by selecting Bronze from the dropdown — make sure you have some copper and tin!",
     complete: false,
@@ -50,7 +44,7 @@ export const objective = [
     }
   },
   {
-    objectiveNo: 6,
+    objectiveNo: 5,
     id: "smithHelmet",
     message: "Buy an anvil and craft your first Bronze Helmet",
     complete: false,
@@ -58,7 +52,7 @@ export const objective = [
     
   },
   {
-    objectiveNo: 7,
+    objectiveNo: 6,
     id: "gearUp",
     message: "Equip your newly crafted helmet by right-clicking on it and selecting the 'Equip' option",
     complete: false,
@@ -68,7 +62,7 @@ export const objective = [
     }
   },
   {
-    objectiveNo: 8,
+    objectiveNo: 7,
     id: "completeRoundOne",
     message: "Gear up and once you're ready, click the Ascend tab in the bottom-right",
     complete: false,
@@ -121,6 +115,7 @@ export function completeObjective(objectiveId, resources, coins = 0, hasPickaxe 
     setObjectiveMessage(getActiveObjectiveMessage());
     updateObjectiveDrawer();
     showObjectiveNotification();
+    playSound("objective_update")
   }
 }
 

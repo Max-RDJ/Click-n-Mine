@@ -1,7 +1,6 @@
 import { playerState, resourceCounts, countCoins } from "./state.js";
 import { updateDisplay } from "../ui/ui-update.js";
-import { equipItem, unequipItem } from "./equipment.js";
-import { savePlayerProgress } from "./save.js";
+
 
 export function initIncrementalGame() {
   const resourcesDisplay = document.getElementById("resources-display");
