@@ -30,6 +30,7 @@ $(document).ready(() => {
   $("#ascend-confirm-btn").on("click", () => {
     $("#incremental-game").addClass("hidden");
     $("#rogue-like-game").removeClass("hidden");
+
     $("#ascend-confirmation").removeClass("show");
 
     setGameMode("combat");
@@ -37,16 +38,16 @@ $(document).ready(() => {
 
     startRun();
   });
+
+  $("#ascend-tab").on("click", () => {
+    $("#ascend-confirmation").toggleClass("show");
+  })
+
+  $("#ascend-cancel-btn").on("click", () => {
+    $("#ascend-confirmation").removeClass("show");
+  })
 });
 
-
-$("#ascend-tab").on("click", () => {
-  $("#ascend-confirmation").toggleClass("show");
-})
-
-$("#ascend-cancel-btn").on("click", () => {
-  $("#ascend-confirmation").removeClass("show");
-})
 
 document.addEventListener("click", (e) => {
   const ascendConfirmation = document.getElementById("ascend-confirmation");
