@@ -31,23 +31,30 @@ export function bindContextMenu() {
     }
 
     const inventoryEl = e.target.closest(".item-slot");
-    if (inventoryEl) {
-      e.preventDefault();
-      const index = inventoryEl.dataset.index;
-      const invSlot = inventoryState[index];
-      if (!invSlot) return;
+      if (inventoryEl) {
+        e.preventDefault();
+        const index = inventoryEl.dataset.index;
+        const invSlot = inventoryState[index];
+        if (!invSlot) return;
 
-      key = invSlot.id;
-      currentInventoryIndex = index;
-      inInventory = true;
-    }
+        key = invSlot.id;
+        currentInventoryIndex = index;
+        inInventory = true;
+      }
 
-    if (!key) return;
+      if (!key) return;
 
-    currentResource = key;
-    currentSlot = slot ?? null;
+      currentResource = key;
+      currentSlot = slot ?? null;
 
-    openMenu(e.pageX, e.pageY, key, !!slot, inInventory);
+      openMenu(e.pageX, e.pageY, key, !!slot, inInventory);
+    
+
+    const pickaxeEl = e.target.closest(".pickaxes");
+      if (pickaxeEl) {
+        e.preventDefault();
+        key = pickaxeEl.id;
+      }
   });
 
   document.addEventListener("click", (e) => {

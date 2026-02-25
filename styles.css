@@ -221,10 +221,11 @@ button:hover {
   cursor: pointer;
 }
 
-.nodes {
+.rock-nodes {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  gap: 2rem;
 }
 
 .node-image {
@@ -235,11 +236,6 @@ button:hover {
 #nodes__tier-two,
 #nodes__tier-three {
   display: none;
-}
-
-.ore-node {
-  width: 100px;
-  height: 100px;
 }
   
 .node-image:active {
@@ -307,15 +303,19 @@ select {
   height: 100%;
   position: relative;
 }
- .pickaxes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    height: auto;
-    opacity: 0.5;
-    padding: 0 5px 0 5px;
-    margin-top: 17.5px;
-  }
+
+#pickaxes-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pickaxes {
+  height: 2.5rem;
+  width: 2.5rem;
+  object-fit: contain;
+}
 
 #furnace-shop, #anvil-shop {
   display: flex;

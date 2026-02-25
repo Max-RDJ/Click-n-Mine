@@ -107,9 +107,9 @@
     <div class="column" id="column-middle">
       <h1 class="unselectable">Mineshaft</h1>
       
-      <div id="section__nodes">
+      <div id="section__rock-nodes">
 
-        <div id="nodes__tier-one" class="nodes">
+        <div id="nodes__tier-one" class="rock-nodes">
           <div class="ore-node node__tier-two node__copper-ore unselectable" type="button">
             <img class="node-image" src="images\440px-copper_rocks.png">
           </div>
@@ -119,7 +119,7 @@
           </div>
         </div>
 
-        <div id="nodes__tier-three" class="nodes">
+        <div id="nodes__tier-three" class="rock-nodes">
           <div class="ore-node node__tier-two node__iron-ore unselectable" type="button">
               <img class="node-image" src="images\440px-Iron_rocks.png">
             </div>
@@ -134,33 +134,43 @@
           <fieldset id="tools">
             <legend class="unselectable">Tools</legend>
             <div id="tool-shop" class="items-field">
-              <div class="purchasable-item resources pickaxes" id="pickaxeBronze" data-slot="utility">
-                <img type="button" src=https://oldschool.runescape.wiki/images/Bronze_pickaxe.png?fe489>
+              <div id="pickaxes-container">
+                <img class="pickaxes" id="pickaxeBronze" data-slot="utility" 
+                    src="../images/bronze_pickaxe.png" 
+                    alt="Bronze pickaxe" type="button">
+
+                <img class="pickaxes" id="pickaxeIron" data-slot="utility" 
+                    src="../images/iron_pickaxe.png" 
+                    alt="Iron pickaxe" type="button">
+
+                <img class="pickaxes" id="pickaxeSteel" data-slot="utility" 
+                    src="https://oldschool.runescape.wiki/images/Steel_pickaxe.png?421a5" 
+                    alt="Steel pickaxe" type="button">
+
+                <img class="pickaxes" id="pickaxeBlack" data-slot="utility" 
+                    src="https://oldschool.runescape.wiki/images/Black_pickaxe.png?0d4ed" 
+                    alt="Black pickaxe" type="button">
+
+                <img class="pickaxes" id="pickaxeGold" data-slot="utility" 
+                    src="https://oldschool.runescape.wiki/images/Gilded_pickaxe.png?583e2" 
+                    alt="Gold pickaxe" type="button">
+
+                <img class="pickaxes" id="pickaxeMithril" data-slot="utility" 
+                    src="https://oldschool.runescape.wiki/images/Mithril_pickaxe.png?c2098" 
+                    alt="Mithril pickaxe" type="button">
+
+                <img class="pickaxes" id="pickaxeAdamant" data-slot="utility" 
+                    src="https://oldschool.runescape.wiki/images/Adamant_pickaxe.png?e716d" 
+                    alt="Adamant pickaxe" type="button">
+
+                <img class="pickaxes" id="pickaxeRunite" data-slot="utility" 
+                    src="https://oldschool.runescape.wiki/images/Rune_pickaxe.png?e8496" 
+                    alt="Runite pickaxe" type="button">
+
+                <img class="pickaxes" id="pickaxeDragon" data-slot="utility" 
+                    src="https://oldschool.runescape.wiki/images/Dragon_pickaxe.png?c85b3" 
+                    alt="Dragon pickaxe" type="button">
               </div>
-              <div class="purchasable-item resources pickaxes" id="pickaxeIron" data-slot="utility">
-                <img type="button" src=https://oldschool.runescape.wiki/images/Iron_pickaxe.png?9e4d4>
-              </div>
-            <div class="purchasable-item resources pickaxes" id="pickaxeSteel" data-slot="utility">
-                <img type="button" src=https://oldschool.runescape.wiki/images/Steel_pickaxe.png?421a5>
-            </div>
-            <div class="purchasable-item resources pickaxes" id="pickaxeBlack" data-slot="utility">
-                <img type="button" src=https://oldschool.runescape.wiki/images/Black_pickaxe.png?0d4ed>
-            </div>
-            <div class="purchasable-item resources pickaxes" id="pickaxeGold" data-slot="utility">
-                <img type="button" src=https://oldschool.runescape.wiki/images/Gilded_pickaxe.png?583e2>
-            </div>
-            <div class="purchasable-item resources pickaxes" id="pickaxeMithril" data-slot="utility">
-              <img type="button" src=https://oldschool.runescape.wiki/images/Mithril_pickaxe.png?c2098>
-            </div>
-            <div class="purchasable-item resources pickaxes" id="pickaxeAdamant" data-slot="utility">
-              <img type="button" src=https://oldschool.runescape.wiki/images/Adamant_pickaxe.png?e716d>
-            </div>
-            <div class="purchasable-item resources pickaxes" id="pickaxeRunite" data-slot="utility">
-              <img type="button" src=https://oldschool.runescape.wiki/images/Rune_pickaxe.png?e8496>
-            </div>
-            <div class="purchasable-item resources pickaxes" id="pickaxeDragon" data-slot="utility">
-              <img type="button" src=https://oldschool.runescape.wiki/images/Dragon_pickaxe.png?c85b3>
-            </div>
         </fieldset>
           
         <fieldset id="furnaces"> 
