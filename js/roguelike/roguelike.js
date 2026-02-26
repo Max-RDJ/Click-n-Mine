@@ -6,6 +6,7 @@ import { renderEquipment } from "../ui/render-equipment.js";
 import { setState } from "./run-manager.js";
 import { renderMap } from "./map.js";
 import { performAttack } from "./combat.js";
+import { exitMining } from "./mines.js";
 
 
 let player;
@@ -101,6 +102,10 @@ $("#victory-dismiss-btn").on("click", () => {
   $("#victory-screen").addClass("hidden");
   setState("map");
   renderMap();
+});
+
+$("#mines-exit-btn").on("click", () => {
+  exitMining();
 });
 
 $('#view-equipment').on("click", () => {

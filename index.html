@@ -341,10 +341,31 @@
         <button id="start-fight-btn">Start Fight</button>
         <button id="use-item-btn">Use Item</button>
       </div>
-      <div>
-        <div id="combat-log"></div>
+    </div>
+  </div>
+
+  <div id="treasure-ui" class="hidden">
+    <div id="mines">
+      <div id="player-arena">
+        <img src="images/240px-Man_(blue).png" id="player-sprite">
+      </div> 
+      <div id="treasure-arena">
+        <img src="images/treasure_icon.png" id="treasure-chest">
+      </div>
+      <button id="treasure-dismiss-btn" class="button-default">Continue</button>
+    </div>
+  </div>
+
+  <div id="mines-ui" class="hidden">
+    <div id="mines">
+      <div id="player-arena">
+        <img src="images/240px-Man_(blue).png" id="player-sprite">
+      </div> 
+      <div id="treasure-arena">
+        <img src="images/mines_icon.png" id="treasure-mines">
       </div>
     </div>
+    <button id="mines-exit-btn" class="button-default">Continue</button>
   </div>
 
 
@@ -362,14 +383,9 @@
   </div>
 </div>
 
-<aside id="magic-drawer" class="drawer drawer-bottom">
+  <aside id="magic-drawer" class="drawer drawer-bottom">
     <div class="drawer-content">
       <div id="magic-list">
-        <!-- <img
-        class="spell-btn" data-spell="restorative_orison" src="images/restorative_orison.png">
-        <img class="spell-btn" data-spell="enfeebling_chant" src="images/enfeebling_chant.png">
-        <img class="spell-btn" data-spell="walk_with_me" src="images/walk_with_me.png"> -->
-
       </div>
     </div>
   </aside>
@@ -400,7 +416,7 @@
     </div>
   </aside>
 
-<div class="control-tray">
+  <div class="control-tray">
     <div class="resources" id="resource-coins">
       <img id="coins-image" src="images/240px-Coins_detail.png">
       <span id="count__coins" class="unselectable" value="0">0</span>

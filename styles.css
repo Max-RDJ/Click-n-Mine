@@ -853,6 +853,11 @@ img.purchasable-item {
   align-items: center;
 }
 
+#mines {
+  display: flex;
+  align-items: center;
+}
+
 .hp-container {
   margin: 10px 0;
   width: 250px;

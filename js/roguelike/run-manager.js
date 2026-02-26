@@ -40,6 +40,14 @@ function updateUI() {
       $("#combat-ui").show();
       break;
 
+    case "treasure":
+      $("#treasure-ui").show();
+      break;
+
+    case "mines":
+      $("#mines-ui").show();
+      break;
+
     case "reward":
       $("#victory-screen").show();
       break;

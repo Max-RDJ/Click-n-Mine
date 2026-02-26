@@ -1,6 +1,7 @@
 import { initRogueLike } from "./roguelike.js";
 import { setState } from "./run-manager.js";
 import { pickRandomEnemy } from "./enemies.js";
+import { initMining } from "./mines.js";
 
 let currentFloor = null;
 let nodeElements = {};
@@ -8,6 +9,7 @@ let nodeElements = {};
 const NODE_IMAGES = {
   combat: "images/enemy_icon.png",
   treasure: "images/treasure_icon.png",
+  mines: "images/mines_icon.png",
 }
 
 export function initMap() {
@@ -31,11 +33,18 @@ function isNodeAvailable(node) {
   );
 }
 
+function getRandomNodeType() {
+  const roll = Math.random();
+
+  if (roll < 0.55) return "combat";     // 55%
+  if (roll < 0.80) return "treasure";   // 25%
+  return "mines";                       // 20%
+}
+
 export function generateFloor(tiersCount = 5) {
   const nodes = [];
   let idCounter = 1;
 
-  // Start node
   nodes.push({
     id: idCounter,
     type: "start",
@@ -52,7 +61,7 @@ export function generateFloor(tiersCount = 5) {
 
       nodes.push({
         id: idCounter,
-        type: Math.random() < 0.6 ? "combat" : "treasure",
+        type: getRandomNodeType(),
         tier,
         next: [],
         completed: false,
@@ -250,6 +259,12 @@ function moveToNode(id) {
     setState("combat");
     $("#combat-ui").show();
     initRogueLike(enemyType);
+    return;
+  }
+
+  if (node.type === "mines") {
+    setState("mines");
+    initMining(node.tier);
     return;
   }
 
