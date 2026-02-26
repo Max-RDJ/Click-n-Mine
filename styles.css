@@ -502,6 +502,21 @@ img.purchasable-item {
   display: flex;
 }
 
+.drawer-bottom {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  max-height: 40vh;
+  overflow: hidden;
+  background: #1e1e1e;
+  border-top: 2px solid rgba(255,255,255,0.2);
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),     box-shadow 0.4s ease;
+  z-index: 9997;
+}
+
 .drawer-right {
   position: fixed;
   top: 0;
@@ -509,12 +524,10 @@ img.purchasable-item {
   width: auto;
   max-width: 50%;
   height: 100%;
-  overflow-y: auto;
   background: #1e1e1ebe;
   border-left: 2px solid rgba(255,255,255,0.2);
   box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
   transform: translateX(100%);
-  opacity: 0.98;
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),     box-shadow 0.4s ease;
   z-index: 9997;
 }
@@ -975,5 +988,16 @@ img.purchasable-item {
   .column {
     width: 100%;
     min-height: 500px;
+  }
+
+  
+}
+@media (max-width: 860px ) {
+  .player-items {
+    grid-template-columns: repeat(3, 64px);
+    grid-auto-rows: 64px;
+    gap: 12px;
+    justify-content: center;
+    overflow-y: auto;
   }
 }
