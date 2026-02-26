@@ -4,7 +4,7 @@ import { loadPlayerState } from "./core/save.js";
 import { applyLoadedState, createFreshState, initializeEquipmentUI } from "./core/state.js";
 import { restoreUnlockedPickaxesUI } from "./systems/pickaxes.js";
 import {  bindEquipmentDrawer, bindMagicDrawer, bindUI } from "./ui/ui-bindings.js";
-import { updateDisplay } from "./ui/ui-update.js";
+import { initializeResourceImages, updateDisplay } from "./ui/ui-update.js";
 import { initAudio } from "./core/audio.js";
 import { setGameMode } from "./core/game-mode.js";
 import { renderSpells } from "./ui/render-spells.js";
@@ -22,6 +22,7 @@ $(document).ready(() => {
 
   bindUI();
   updateDisplay();
+  initializeResourceImages();
   restoreUnlockedPickaxesUI();
   initializeEquipmentUI();
   initIncrementalGame();

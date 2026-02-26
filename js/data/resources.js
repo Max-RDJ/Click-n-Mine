@@ -80,5 +80,29 @@ export const RESOURCES = {
     sellPrice: 10,
     attack: 8,
     image: "images/200px-iron_sword_detail.png"
-  }
+  },
+  airEssence: {
+    displayName: "air essence",
+    type: "consumable",
+    sellPrice: 20,
+    image: "images/air_essence.png"
+  },
+  earthEssence: {
+    displayName: "earth essence",
+    type: "consumable",
+    sellPrice: 20,
+    image: "images/earth_essence.png"
+  },
+  fireEssence: {
+    displayName: "fire essence",
+    type: "consumable",
+    sellPrice: 20,
+    image: "images/fire_essence.png"
+  },
+  waterEssence: {
+    displayName: "water essence",
+    type: "consumable",
+    sellPrice: 20,
+    image: "images/water_essence.png"
+  },
 };

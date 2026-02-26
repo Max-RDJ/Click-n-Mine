@@ -5,6 +5,7 @@ import { savePlayerProgress } from "../core/save.js";
 import { playerFurnaces, playerAnvils } from "../core/state.js";
 import { setText } from "../core/helpers.js";
 import { showTemporaryMessage } from "../systems/messages.js";
+import { RESOURCES } from "../data/resources.js";
 
 
 export function updateDisplay() {
@@ -20,6 +21,21 @@ export function updateDisplay() {
   setText('#count__bronze-platelegs', r.bronzePlatelegs || 0);
   setText('#count__bronze-sword', r.bronzeSword || 0);
   setText('#count__iron-sword', r.ironSword || 0);
+}
+
+export function initializeResourceImages() {
+  document.querySelectorAll(".resources").forEach(el => {
+    const key = el.dataset.resource;
+    if (!key) return;
+
+    const resourceData = RESOURCES[key];
+    if (!resourceData) return;
+
+    const img = el.querySelector("img");
+    if (img) {
+      img.src = resourceData.image;
+    }
+  });
 }
 
 export function updateCoinsDisplay() {
