@@ -84,9 +84,7 @@ export function bindMagicDrawer() {
 
   tab.addEventListener("click", () => {
     const isOpen = drawer.classList.contains("open");
-
-    closeAllBottomDrawers();
-
+    closeAllDrawers();
     if (!isOpen) {
       drawer.classList.add("open");
       clearObjectivesAlert();
@@ -100,27 +98,38 @@ export function bindEquipmentDrawer() {
 
   tab.addEventListener("click", () => {
     const isOpen = drawer.classList.contains("open");
-    closeAllBottomDrawers();
+    closeAllDrawers();
     if (!isOpen) {
       drawer.classList.add("open");
     }
   });
 }
 
-function closeAllBottomDrawers() {
+function closeAllDrawers () {
+  closeAllBottomDrawers();
+  closeAllRightDrawers();
+}
+
+function closeAllRightDrawers() {
   document.querySelectorAll(".drawer-right").forEach(d => {
     d.classList.remove("open");
   });
 }
 
+function closeAllBottomDrawers() {
+  document.querySelectorAll(".drawer-bottom").forEach(d => {
+    d.classList.remove("open");
+  });
+}
+
 document.addEventListener("click", (e) => {
-  const activeDrawer = document.querySelector(".drawer-right.open");
+  const activeDrawer = document.querySelector(".drawer.open");
   if (!activeDrawer) return;
 
   const clickedInsideDrawer = activeDrawer.contains(e.target);
   const clickedTab = e.target.closest(".drawer-tab");
 
   if (!clickedInsideDrawer && !clickedTab && !e.target.closest(".context-menu")) {
-    closeAllBottomDrawers();
+    closeAllDrawers();
   }
 });

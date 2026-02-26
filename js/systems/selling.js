@@ -2,6 +2,7 @@ import { resourceCounts, countCoins } from "../core/state.js";
 import { updateDisplay, updateCoinsDisplay, updateInfoMessage } from "../ui/ui-update.js";
 import { completeObjective } from "./objectives.js";
 import { RESOURCES } from "../data/resources.js";
+import { playSound } from "../core/audio.js";
 
 export function idToKey(id) {
   const raw = id.replace("resource__", "");
@@ -24,6 +25,7 @@ export function sellAmount(key, amount) {
 
   updateDisplay();
   updateCoinsDisplay();
+  playSound("coins")
 
   completeObjective("sellOre", resourceCounts.value, countCoins.value);
 }
