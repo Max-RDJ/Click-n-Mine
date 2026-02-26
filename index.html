@@ -36,14 +36,14 @@
                   <span id="count__tin-ore" value="0">0</span>
                 </div>
               
-                <div class="resources sellable" id="resource__iron-ore" data-resource="ironOre">
+                <div class="resources sellable hidden" id="resource__iron-ore" data-resource="ironOre">
                   <img>
                   <span id="count__iron-ore" value="0">0</span>
                 </div>
               </div>
             </fieldset>
 
-            <fieldset id="resources__ingots">
+            <fieldset id="resources__ingots" class="hidden">
               <legend class="unselectable">Ingots</legend>
               <div class="items-field">
                 <div class="resources sellable" id="resource__bronze-ingot" data-resource="bronzeIngot">
@@ -58,7 +58,7 @@
               </div>
             </fieldset>
 
-            <fieldset id="resources__armour">
+            <fieldset id="resources__armour" class="hidden">
               <legend class="unselectable">Armour</legend>
               <div class="items-field">
 
@@ -79,7 +79,7 @@
               </div>
             </fieldset>
 
-            <fieldset id="resources__weapons">
+            <fieldset id="resources__weapons" class="hidden">
               <legend class="unselectable">Weapons</legend>
               <div class="items-field">
                 <div class="resources sellable" id="resource__bronze-sword" data-resource="bronzeSword">
@@ -94,7 +94,7 @@
               </div>
             </fieldset>
 
-            <fieldset id="resources__essence">
+            <fieldset id="resources__essence" class="hidden">
               <legend class="unselectable">Essence</legend>
               <div class="items-field">
 
@@ -259,7 +259,7 @@
 
 
           <!-- Buy miners to mine resources automatically -->
-          <fieldset id="auto-miner-shop">
+          <fieldset id="auto-miner-shop" class="hidden">
             <legend>Miners</legend>
             <select id="mining-selection">
               <option value="none">None</option>

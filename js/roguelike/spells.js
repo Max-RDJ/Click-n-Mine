@@ -5,7 +5,7 @@ export const SPELLS = {
         icon: "images/restorative_orison.png",
         mode: "combat",
         level: 1,
-        materials: { "water_essence": 2 },
+        consumables: { "water_essence": 2 },
         cast: (player) => {
             const healAmount = Math.floor(player.maxHp * 0.2);
             player.hp = Math.min(player.maxHp, player.hp + healAmount);
@@ -18,7 +18,7 @@ export const SPELLS = {
         mode: "combat",
         icon: "images/enfeebling_chant.png",
         level: 1,
-        materials: { water_essence: 2, air_essence: 1 },
+        consumables: { water_essence: 2, air_essence: 1 },
         cast: (enemy) => {
             enemy.damageMultiplier = 0.75;
             enemy.enfeebleTurns = 2;
@@ -30,7 +30,7 @@ export const SPELLS = {
         mode: "combat",
         icon: "images/walk_with_me.png",
         level: 2,
-        materials: { fire_essence: 5 },
+        consumables: { fire_essence: 5 },
         cast: (player) => {
             player.damageMultiplier = 3;
             player.walkWithMeTurns = 1;

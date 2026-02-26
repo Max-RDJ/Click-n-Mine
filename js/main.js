@@ -10,7 +10,6 @@ import { setGameMode } from "./core/game-mode.js";
 import { renderSpells } from "./ui/render-spells.js";
 import { showObjectiveNotification, setObjectiveMessage } from "./systems/messages.js";
 import { getActiveObjectiveMessage } from "./systems/objectives.js";
-import { playerState } from "./core/state.js";
 
 
 $(document).ready(() => {
@@ -83,7 +82,7 @@ function spawnRandomNodes(count = 3) {
   // Pick 'count' random nodes
   const shuffled = [...nodes].sort(() => 0.5 - Math.random());
   shuffled.slice(0, count).forEach(node => {
-    const types = ["stone", "copperOre", "tinOre", "ironOre"];
+    const types = ["copperOre", "tinOre", "ironOre"];
     const type = types[Math.floor(Math.random() * types.length)];
     node.dataset.type = type;
     node.querySelector("img").src = `images/${type}.png`;

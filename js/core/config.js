@@ -29,7 +29,6 @@ export const NODE_CONFIG = {
 };
 
 export const NODE_REQUIREMENTS = {
-  stone: 0,
   copperOre: 1,
   tinOre: 1,
   ironOre: 2,

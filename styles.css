@@ -66,7 +66,7 @@
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 body {
@@ -291,10 +291,6 @@ select {
   pointer-events: none;
 }
 
-#furnaces, #auto-miner-shop, #anvils {
-  display: none;
-}
-
 #tool-shop {
   display: flex;
   flex-wrap: wrap;
@@ -452,13 +448,6 @@ select {
 .resources > img {
   width: auto;
   height: 32px;
-}
-
-#resource__iron-ore,
-#resources__ingots,
-#resources__armour,
-#resources__weapons {
-  display: none;
 }
 
 .resources img {

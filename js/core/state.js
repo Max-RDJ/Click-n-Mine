@@ -3,7 +3,6 @@ import { updateSlotUI } from "./equipment.js";
 export const defaultPlayerState = {
   coins: 0,
   resources: {
-    stone: 0,
     copperOre: 0,
     tinOre: 0,
     ironOre: 0,
@@ -15,7 +14,11 @@ export const defaultPlayerState = {
     bronzePlatebody: 0,
     bronzePlatelegs: 0,
     bronzeSword: 0,
-    ironSword: 0
+    ironSword: 0,
+    airEssence: 0,
+    earthEssence: 0,
+    fireEssence: 0,
+    waterEssence: 0
   },
   equipment: {
     utility: null,

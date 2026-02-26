@@ -9,6 +9,7 @@ import { completeObjective } from "./objectives.js";
 import { updateInfoMessage } from "../ui/ui-update.js";
 import { savePlayerProgress } from "../core/save.js";
 import { playSound } from "../core/audio.js";
+import { NODE_REQUIREMENTS } from "../core/config.js";
 
 
 const nodeCooldowns = {
@@ -42,13 +43,6 @@ export function nodeCooldown(type) {
     nodeCooldowns[type] = false;
   }, config.cooldown);
 }
-
-const NODE_REQUIREMENTS = {
-  stone: 0,
-  copperOre: 1,
-  tinOre: 1,
-  ironOre: 2
-};
 
 const pickaxeLevel = {
   "bronzePickaxe": 1,

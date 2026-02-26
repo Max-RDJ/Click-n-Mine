@@ -28,7 +28,7 @@ export const objective = [
     complete: false,
     condition: (resources, coins, playerFurnaces) => playerFurnaces.value >= 1,
     unlock: () => {
-      $("#resources__ingots").css("display", "block");
+      $("#resources__ingots").removeClass("hidden")
     }
   },
   {
@@ -38,9 +38,9 @@ export const objective = [
     complete: false,
     condition: (resources) => resources.bronzeIngot >= 1,
     unlock: () => {
-      $("#anvils").css("display", "block");
-      $("#resources__armour").css("display", "block");
-      $("#resources__weapons").css("display", "block");
+      $("#anvils").removeClass("hidden")
+      $("#resources__armour").removeClass("hidden")
+      $("#resources__weapons").removeClass("hidden")
     }
   },
   {
@@ -58,17 +58,17 @@ export const objective = [
     complete: false,
     condition: (resources) => playerState.value.equipment.head === "bronzeHelm",
     unlock: () => {
-      $("#ascend-tab").css("display", "block");
+      $("#ascend-tab").removeClass("hidden")
     }
   },
   {
     objectiveNo: 7,
     id: "completeRoundOne",
-    message: "Gear up and once you're ready, click the Ascend tab in the bottom-right",
+    message: "Gear up, and once you're ready, click the Ascend tab in the bottom-right",
     complete: false,
     condition: (resources) => resources.bronzeHelm >= 1,
     unlock: () => {
-      $("#resource__iron-ore").css("display", "inline-flex");
+      $("#resource__iron-ore").removeClass("hidden")
     }
   },
 ];

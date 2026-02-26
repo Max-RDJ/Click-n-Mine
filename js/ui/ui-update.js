@@ -10,7 +10,6 @@ import { RESOURCES } from "../data/resources.js";
 
 export function updateDisplay() {
   const r = resourceCounts.value || {};
-  setText('#count__stone', r.stone || 0);
   setText('#count__copper-ore', r.copperOre || 0);
   setText('#count__tin-ore', r.tinOre || 0);
   setText('#count__iron-ore', r.ironOre || 0);
@@ -21,6 +20,10 @@ export function updateDisplay() {
   setText('#count__bronze-platelegs', r.bronzePlatelegs || 0);
   setText('#count__bronze-sword', r.bronzeSword || 0);
   setText('#count__iron-sword', r.ironSword || 0);
+  setText('#count__air-essence', r.airEssence || 0);
+  setText('#count__earth-essence', r.earthEssence || 0);
+  setText('#count__fire-essence', r.fireEssence || 0);
+  setText('#count__water-essence', r.waterEssence || 0);
 }
 
 export function initializeResourceImages() {

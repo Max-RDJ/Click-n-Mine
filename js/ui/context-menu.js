@@ -23,10 +23,10 @@ export function bindContextMenu() {
 
     const resourceEl = e.target.closest("[data-resource]");
       if (resourceEl) {
-      e.preventDefault();
-      key = resourceEl.dataset.resource;
-      if (!key) return;
-    }
+        e.preventDefault();
+        key = resourceEl.dataset.resource;
+        if (!key) return;
+      }
 
     const slotEl = e.target.closest(".player-equipment img[data-slot]");
     if (slotEl) {
@@ -120,6 +120,13 @@ function openMenu(x, y, resourceKey, isEquipped = false, inInventory = false) {
   }
 
   if (data.type === "material") {
+    sellBtn.style.display = "block";
+    sellXBtn.style.display = "block";
+    sellAllBtn.style.display = "block";
+    addBtn.style.display = "block";
+  }
+
+  if (data.type === "consumable") {
     sellBtn.style.display = "block";
     sellXBtn.style.display = "block";
     sellAllBtn.style.display = "block";
