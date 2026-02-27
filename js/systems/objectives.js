@@ -64,7 +64,7 @@ export const objective = [
   {
     objectiveNo: 7,
     id: "completeRoundOne",
-    message: "Gear up, and once you're ready, click the Ascend tab in the bottom-right",
+    message: "Enemies are on their way. Gear up, and once you're ready, click the Ascend tab in the bottom-right",
     complete: false,
     condition: (resources) => resources.bronzeHelm >= 1,
     unlock: () => {

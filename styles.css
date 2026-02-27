@@ -19,12 +19,14 @@
 #game-root {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
 }
 
 #incremental-game,
 #rogue-like-game {
+  position: absolute;
+  inset: 0;
   width: 100%;
+  min-height: 100vh;
 }
   
 *.unselectable {
@@ -828,12 +830,26 @@ img.purchasable-item {
   justify-content: center;
   align-items: center;
   position: relative;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(0,0,0,0) 40%,
+      rgba(0, 0, 0, 0.858) 75%,
+      rgba(0,0,0,0.9) 100%
+    ),
+    url("images/caves_background.png");
+
+  background-size: auto, contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: black;
 }
 
 #arena {
   flex: 1;
   display: flex;
-  gap: 20px;
+  gap: 3rem;
   justify-content: space-around;
   align-items: center ;
   margin-bottom: 20px;
@@ -856,6 +872,17 @@ img.purchasable-item {
 #mines {
   display: flex;
   align-items: center;
+  gap: 4rem;
+}
+
+#treasure-rocks {
+  height: 256px;
+  width: auto;
+  object-fit: contain;
+}
+
+#treasure-rocks:hover {
+  cursor: pointer;
 }
 
 .hp-container {
