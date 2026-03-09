@@ -33,7 +33,7 @@ $(document).ready(() => {
 
   $("#ascend-confirm-btn").on("click", () => {
     $("#incremental-game").addClass("hidden");
-    $("#rogue-like-game").removeClass("hidden");
+    $("#rogue-like-game").removeClass("hidden").addClass("active");
 
     $("#ascend-confirmation").removeClass("show");
 

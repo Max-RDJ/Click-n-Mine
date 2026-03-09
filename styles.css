@@ -826,7 +826,6 @@ img.purchasable-item {
 }
 
 #rogue-like-game {
-  display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -844,6 +843,10 @@ img.purchasable-item {
   background-position: center;
   background-repeat: no-repeat;
   background-color: black;
+}
+
+#rogue-like-game.active {
+  display: flex;
 }
 
 #arena {
