@@ -7,7 +7,7 @@ export const objective = [
   {
     objectiveNo: 1,
     id: "copperAndTin",
-    message: "Mine 1 Copper and 1 Tin",
+    message: "Mine 1 Copper and 1 Tin by clicking the rocks in the Mineshaft",
     complete: false,
     condition: (resources) => resources.copperOre >= 1 && resources.tinOre >= 1,
     unlock: () => {

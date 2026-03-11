@@ -498,6 +498,43 @@ img.purchasable-item {
   display: flex;
 }
 
+#objectives-tutorial.show {
+  position: absolute;
+  bottom: calc(var(--tray-height) + 12px);
+  right: 1rem;
+  width: 260px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  text-align: left;
+  background: rgba(30,30,30,0.95);
+  border: 1px solid orange;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+#objectives-tutorial::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  right: 1rem;
+
+  width: 0;
+  height: 0;
+
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid orange;
+}
+
+#objectives-tutorial > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .drawer-bottom {
   position: fixed;
   bottom: 0;

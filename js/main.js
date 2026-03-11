@@ -29,6 +29,10 @@ $(document).ready(() => {
   bindMagicDrawer();
   bindEquipmentDrawer();
 
+  const activeMessage = getActiveObjectiveMessage();
+  setObjectiveMessage(activeMessage);
+  showObjectiveNotification(8000);
+
   lucide.createIcons({ attrs: { width: 12, height: 12 } });
 
   $("#ascend-confirm-btn").on("click", () => {
@@ -56,6 +60,11 @@ $(document).ready(() => {
     setObjectiveMessage(activeMessage);
     showObjectiveNotification(8000);
   });
+
+  $("#dismiss-objectives-tutorial").on("click", () => {
+    $("#objectives-tutorial").removeClass("show");
+    $("#objectives-tutorial").addClass("hidden");
+  })
 });
 
 
