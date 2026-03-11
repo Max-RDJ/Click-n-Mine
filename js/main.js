@@ -65,10 +65,14 @@ $(document).ready(() => {
     $("#objectives-tutorial").removeClass("show");
     $("#objectives-tutorial").addClass("hidden");
   })
+
+  $("#show-dev-tools").on("click", () => {
+    $("#dev-tools").toggleClass("hidden");
+  })
 });
 
 
-document.addEventListener("click", (e) => {
+/* document.addEventListener("click", (e) => {
   const ascendConfirmation = document.getElementById("ascend-confirmation");
   const ascendTab = document.getElementById("ascend-tab");
 
@@ -78,7 +82,7 @@ document.addEventListener("click", (e) => {
   if (!clickedInsideConfirmation && !clickedAscendTab) {
     $("#ascend-confirmation").removeClass("show");
   }
-});
+}); */
 
 
 // CONSIDER RANDOMLY SPAWNING NODES:

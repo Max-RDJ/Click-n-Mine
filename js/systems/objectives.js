@@ -51,26 +51,6 @@ export const objective = [
     condition: (resources) => resources.bronzeHelm >= 1,
     
   },
-  {
-    objectiveNo: 6,
-    id: "gearUp",
-    message: "Equip your newly crafted helmet by right-clicking on it and selecting the 'Equip' option",
-    complete: false,
-    condition: (resources) => playerState.value.equipment.head === "bronzeHelm",
-    unlock: () => {
-      $("#ascend-tab").removeClass("hidden")
-    }
-  },
-  {
-    objectiveNo: 7,
-    id: "completeRoundOne",
-    message: "Enemies are on their way. Gear up, and once you're ready, click the Ascend tab in the bottom-right",
-    complete: false,
-    condition: (resources) => resources.bronzeHelm >= 1,
-    unlock: () => {
-      $("#resource__iron-ore").removeClass("hidden")
-    }
-  },
 ];
   
 /**
