@@ -369,6 +369,16 @@ select {
   border-radius: 10px;
 }
 
+.button-small {
+  font-size: 0.8em;
+  background-color: var(--primary);
+  color: var(--button-default-text);
+  padding: 5px;
+  min-width: 80px;
+  max-width: 100px;
+  border-radius: 10px;
+}
+
 .button-square {
   height: 30px;
   width: 30px;
