@@ -1,7 +1,7 @@
 import { initIncrementalGame } from "./core/incremental.js";
 import { startRun } from "./roguelike/run-manager.js";
-import { loadPlayerState } from "./core/save.js";
-import { applyLoadedState, createFreshState, initializeEquipmentUI } from "./core/state.js";
+import { loadPlayerState, savePlayerProgress } from "./core/save.js";
+import { applyLoadedState, createFreshState, defaultPlayerState, playerState, initializeEquipmentUI } from "./core/state.js";
 import { restoreUnlockedPickaxesUI } from "./systems/pickaxes.js";
 import {  bindCombatDrawer, bindMagicDrawer, bindUI } from "./ui/ui-bindings.js";
 import { initializeResourceImages, updateDisplay } from "./ui/ui-update.js";
@@ -54,9 +54,16 @@ $(document).ready(() => {
     showObjectiveNotification(8000);
   });
 
+  if (!playerState.value.objectivesHintDismissed) {
+    $("#objectives-tutorial")
+      .removeClass("hidden")
+      .addClass("show");
+  }
+
   $("#dismiss-objectives-tutorial").on("click", () => {
-    $("#objectives-tutorial").removeClass("show");
-    $("#objectives-tutorial").addClass("hidden");
+    $("#objectives-tutorial").removeClass("show").addClass("hidden");
+    playerState.value.objectivesHintDismissed = true;
+    savePlayerProgress();
   })
 
   $("#show-dev-tools").on("click", () => {

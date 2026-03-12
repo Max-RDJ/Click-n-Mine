@@ -28,7 +28,7 @@ import {
   playerSmeltingRate, 
   playerSmithingRate, 
   playerFurnaces, 
-  playerAnvils,
+  playerAnvils
 } from "./state.js";
 
 export function savePlayerProgress() {
@@ -43,6 +43,7 @@ export function savePlayerProgress() {
   p.playerSmithingRate = playerSmithingRate.value;
   p.playerFurnaces = playerFurnaces.value;
   p.playerAnvils = playerAnvils.value;
+  p.objectivesHintDismissed = playerState.value.objectivesHintDismissed;
 
   localStorage.setItem("playerState", JSON.stringify(p));
 }

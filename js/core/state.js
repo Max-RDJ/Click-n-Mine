@@ -1,6 +1,7 @@
 import { updateSlotUI } from "./equipment.js";
 
 export const defaultPlayerState = {
+  objectivesHintDismissed: false,
   coins: 0,
   resources: {
     copperOre: 0,
