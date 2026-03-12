@@ -385,6 +385,18 @@
   </div>
 </div>
 
+  <aside id="combat-drawer" class="drawer drawer-bottom">
+    <div class="drawer-content">
+      <div id="combat-content">
+        <div id="combat-log">
+        </div>
+        <div id="combat-controls">
+          <button id="combat-start">Start</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
   <aside id="magic-drawer" class="drawer drawer-bottom">
     <div class="drawer-content">
       <div id="magic-list">
@@ -392,7 +404,7 @@
     </div>
   </aside>
 
-  <aside id="inventory-drawer" class="drawer drawer-right">
+<!--   <aside id="inventory-drawer" class="drawer drawer-right">
     <div class="drawer-content">
       <div class="player-equipment">
         <div>
@@ -416,7 +428,7 @@
 
       <div class="player-items"></div>
     </div>
-  </aside>
+  </aside> -->
 
   <div class="control-tray">
     <div class="resources" id="resource-coins">
@@ -426,21 +438,29 @@
 
     <div id="game-message">
       <span id="game-message-text"></span>
+      <button id="game-message-close">×</button>
+      <div id="game-message-timer"></div>
     </div>
     
     <div class="control-tray-tabs">
+      <img
+        src="images/combat_icon.png" 
+        id="combat-tab"
+        class="drawer-tab"
+        data-modes="incremental,combat"
+      >
       <img
         src="images/Magic.png" 
         id="magic-tab"
         class="drawer-tab"
         data-modes="incremental,combat"
       >
-      <img
+      <!-- <img
         src="images/Inventory.png"
         id="inventory-tab"
         class="drawer-tab"
         data-modes="incremental,combat"
-      >
+      > -->
       <img
         src="images/Quests.png"
         id="objectives-tab"
@@ -462,11 +482,11 @@
       </div>
     </div>
 
-    <div id="ascend-confirmation" class="hidden">
+   <!--  <div id="ascend-confirmation" class="hidden">
       <p>Are you ready?</p>
       <button id="ascend-confirm-btn" class="button-default">Yes!</button>
       <button id="ascend-cancel-btn" class="button-default">Not yet</button>
-    </div>
+    </div> -->
   </div>
 
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>

@@ -75,7 +75,6 @@ export function loadObjectivesProgress() {
   });
 
   objectivesProgress = stored.length;
-  renderCompletedObjectives();
 }
 
 export function completeObjective(objectiveId, resources, coins = 0, hasPickaxe = false) {
@@ -89,7 +88,6 @@ export function completeObjective(objectiveId, resources, coins = 0, hasPickaxe 
     objectivesProgress++;
     if (obj.unlock) obj.unlock();
 
-    renderCompletedObjectives();    
     saveObjectivesProgress();
     flashObjectivesIcon();
     setObjectiveMessage(getActiveObjectiveMessage());
@@ -124,21 +122,6 @@ export function clearObjectivesAlert() {
   if (!icon) return;
 
   icon.classList.remove("flash");
-}
-
-export function renderCompletedObjectives() {
-  const container = document.querySelector(".completed-objectives");
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  const completed = objective.filter(o => o.complete);
-
-  completed.forEach(obj => {
-    const p = document.createElement("p");
-    p.innerHTML = `☑\u2003${obj.message}`;
-    container.appendChild(p);
-  });
 }
 
 function saveObjectivesProgress() {

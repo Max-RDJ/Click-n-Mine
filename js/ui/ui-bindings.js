@@ -92,7 +92,21 @@ export function bindMagicDrawer() {
   });
 }
 
-export function bindEquipmentDrawer() {
+export function bindCombatDrawer() {
+  const drawer = document.getElementById("combat-drawer");
+  const tab = document.getElementById("combat-tab");
+
+  tab.addEventListener("click", () => {
+    const isOpen = drawer.classList.contains("open");
+    closeAllDrawers();
+    if (!isOpen) {
+      drawer.classList.add("open");
+      clearObjectivesAlert();
+    }
+  });
+}
+
+/* export function bindEquipmentDrawer() {
   const drawer = document.getElementById("inventory-drawer");
   const tab = document.getElementById("inventory-tab");
 
@@ -103,7 +117,7 @@ export function bindEquipmentDrawer() {
       drawer.classList.add("open");
     }
   });
-}
+} */
 
 function closeAllDrawers () {
   closeAllBottomDrawers();

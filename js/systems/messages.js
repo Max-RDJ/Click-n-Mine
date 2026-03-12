@@ -29,23 +29,31 @@ export function showObjectiveNotification(duration = 8000) {
   }, duration);
 }
 
-function showMessage(text, type) {
+function showMessage(text, type, duration = 8000) {
   const el = document.getElementById("game-message-text");
   const container = document.getElementById("game-message");
-  if (!el || !container) return;
+  const timer = document.getElementById("game-message-timer");
+
+  if (!el || !container || !timer) return;
 
   el.textContent = text;
+
   el.classList.remove("objective", "alert");
   el.classList.add(type);
 
   container.classList.add("show");
+
+  timer.classList.remove("timer-running");
+  timer.style.animationDuration = duration + "ms";
+  void timer.offsetWidth;
+  timer.classList.add("timer-running");
 
   if (type === "alert") {
     playSound("alert");
   }
 }
 
-function clearMessage() {
+export function clearMessage() {
   const el = document.getElementById("game-message-text");
   const container = document.getElementById("game-message");
   if (!el || !container) return;

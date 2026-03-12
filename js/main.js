@@ -3,13 +3,14 @@ import { startRun } from "./roguelike/run-manager.js";
 import { loadPlayerState } from "./core/save.js";
 import { applyLoadedState, createFreshState, initializeEquipmentUI } from "./core/state.js";
 import { restoreUnlockedPickaxesUI } from "./systems/pickaxes.js";
-import {  bindEquipmentDrawer, bindMagicDrawer, bindUI } from "./ui/ui-bindings.js";
+import {  bindCombatDrawer, bindMagicDrawer, bindUI } from "./ui/ui-bindings.js";
 import { initializeResourceImages, updateDisplay } from "./ui/ui-update.js";
 import { initAudio } from "./core/audio.js";
 import { setGameMode } from "./core/game-mode.js";
 import { renderSpells } from "./ui/render-spells.js";
-import { showObjectiveNotification, setObjectiveMessage } from "./systems/messages.js";
+import { showObjectiveNotification, setObjectiveMessage, clearMessage } from "./systems/messages.js";
 import { getActiveObjectiveMessage } from "./systems/objectives.js";
+import { combatInProgress, generateCombat } from "./systems/combat-log.js";
 
 
 $(document).ready(() => {
@@ -26,8 +27,8 @@ $(document).ready(() => {
   initializeEquipmentUI();
   initIncrementalGame();
   initAudio();
+  bindCombatDrawer();
   bindMagicDrawer();
-  bindEquipmentDrawer();
 
   const activeMessage = getActiveObjectiveMessage();
   setObjectiveMessage(activeMessage);
@@ -35,17 +36,9 @@ $(document).ready(() => {
 
   lucide.createIcons({ attrs: { width: 12, height: 12 } });
 
-  $("#ascend-confirm-btn").on("click", () => {
-    $("#incremental-game").addClass("hidden");
-    $("#rogue-like-game").removeClass("hidden").addClass("active");
-
-    $("#ascend-confirmation").removeClass("show");
-
-    setGameMode("combat");
-    renderSpells("combat");
-
-    startRun();
-  });
+  $("#combat-start").on("click", () => {
+    generateCombat();
+  })
 
   $("#ascend-tab").on("click", () => {
     $("#ascend-confirmation").toggleClass("show");
@@ -69,6 +62,10 @@ $(document).ready(() => {
   $("#show-dev-tools").on("click", () => {
     $("#dev-tools").toggleClass("hidden");
   })
+
+  $("#game-message-close").on("click", () => {
+    clearMessage();  
+  });
 });
 
 
