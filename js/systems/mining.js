@@ -74,7 +74,7 @@ export function canMine(nodeType) {
 }
 
 export function bindNodeClicks(playerState) {
-  $(".node__copper-ore").on("click", () => {
+  $(".node__copper-ore img").on("click", () => {
     if (nodeCooldowns.copperOre) return;
     if (!canMine("copperOre")) return;
 
@@ -85,7 +85,7 @@ export function bindNodeClicks(playerState) {
     savePlayerProgress();
   });
 
-  $(".node__tin-ore").on("click", () => {
+  $(".node__tin-ore img").on("click", () => {
     if (nodeCooldowns.tinOre) return;
     if (!canMine("tinOre")) return;
 
@@ -96,7 +96,7 @@ export function bindNodeClicks(playerState) {
     savePlayerProgress();
   });
 
-  $(".node__iron-ore").on("click", () => {
+  $(".node__iron-ore img").on("click", () => {
     if (nodeCooldowns.ironOre) return;
     if (!canMine("ironOre", playerState)) return;
 

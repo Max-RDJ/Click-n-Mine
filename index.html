@@ -138,18 +138,33 @@
       <div id="section__rock-nodes">
 
         <div id="nodes__tier-one" class="rock-nodes">
-          <div class="ore-node node__tier-two node__copper-ore unselectable" type="button">
+          <div class="ore-node node__tier-two node__copper-ore unselectable" type="button" data-ore="copperOre">
             <img class="node-image" src="images\440px-copper_rocks.png">
+            <div class="miner-controls">
+              <button class="assign-minus">-</button>
+              <span class="assigned-count">0</span>
+              <button class="assign-plus">+</button>
+            </div>
           </div>
 
-          <div class="ore-node node__tier-one node__tin-ore unselectable" type="button">
-            <img class="node-image" src="images\440px-tin_rocks.png">
+          <div class="ore-node node__tier-one node__tin-ore unselectable" type="button" data-ore="tinOre">
+            <img class="node-image" src="images\440px-tin_rocks.png"/>
+            <div class="miner-controls">
+              <button class="assign-minus">-</button>
+                <span class="assigned-count">0</span>
+                <button class="assign-plus">+</button>
+              </div>
           </div>
         </div>
 
         <div id="nodes__tier-three" class="rock-nodes">
-          <div class="ore-node node__tier-two node__iron-ore unselectable" type="button">
-              <img class="node-image" src="images\440px-Iron_rocks.png">
+          <div class="ore-node node__tier-two node__iron-ore unselectable" type="button" data-ore="ironOre">
+              <img class="node-image" src="images\440px-Iron_rocks.png"/>
+              <div class="miner-controls">
+                <button class="assign-minus">-</button>
+                <span class="assigned-count">0</span>
+                <button class="assign-plus">+</button>
+              </div>
             </div>
         </div>
       </div>
@@ -264,19 +279,13 @@
             <legend>Miners</legend>
               <div id="miner-shop">
                 <div class="miner-actions">
-                  <select id="mining-selection">
-                    <option value="none">None</option>
-                    <option value="copperOre">Copper</option>
-                    <option value="tinOre">Tin</option>
-                    <option value="ironOre">Iron</option>
-                  </select>
-            </div>
-            <div class="direction-row">
-              <img class="purchasable-item auto-miners" id="human-miner" src="images/Miner.png"/>
-              <div id="count__miner"></div>
-            </div>
-            <button id="miner-buy" class="button-default">Hire miner</button>
-            <div id="cost__miner"></div>
+                </div>
+              <div class="direction-row">
+                <img class="purchasable-item auto-miners" id="human-miner" src="images/Miner.png"/>
+                <div id="count__miner"></div>
+              </div>
+              <button id="miner-buy" class="button-default">Hire miner</button>
+              <div id="cost__miner"></div>
           </div>
           </fieldset>
         </div>

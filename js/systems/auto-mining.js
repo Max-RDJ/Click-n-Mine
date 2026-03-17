@@ -1,7 +1,8 @@
-import { countCoins, autoMiningRate, resourceCounts } from "../core/state.js";
+import { countCoins, minerAssignments, resourceCounts } from "../core/state.js";
 import { updateDisplay, updateCoinsDisplay, updateInfoMessage, updateMinerUI } from "../ui/ui-update.js";
 import { playerMiners } from "../core/state.js";
 import { completeObjective } from "./objectives.js";
+import { savePlayerProgress } from "../core/save.js";
 
 const MINER_CONFIG = {
   baseCost: 30,
@@ -37,11 +38,7 @@ export function buyMiner() {
 let miningIntervalId = null;
 let isMining = false;
 
-export function recalcSmeltingRate() {
-  playerSmeltingRate.value = playerFurnaces.value * FURNACE_CONFIG.playerSmeltingRate;
-}
-
-const baseMiningInterval = 3000;
+const baseMiningInterval = 15000;
 const minMiningInterval = 300;
 
 function getMiningInterval() {
@@ -52,27 +49,49 @@ function getMiningPerTick() {
   return Math.max(1, Math.floor(Math.pow(playerMiners.value, 0.6)));
 }
 
+export function getAvailableMiners() {
+  const totalAssigned = Object.values(minerAssignments.value)
+    .reduce((sum, v) => sum + v, 0);
+
+  return playerMiners.value - totalAssigned;
+}
+
+export function assignMiner(oreType) {
+  if (getAvailableMiners() <= 0) return;
+
+  minerAssignments.value[oreType]++;
+  updateMinerUI();
+}
+
+export function unassignMiner(oreType) {
+  if (minerAssignments.value[oreType] <= 0) return;
+
+  minerAssignments.value[oreType]--;
+  updateMinerUI();
+}
+
 export function startMining() {
   if (isMining) return;
-
-  const oreType = document.getElementById("mining-selection").value;
-  if (!oreType || oreType === "none" || playerMiners.value <= 0) return;
 
   isMining = true;
 
   const interval = getMiningInterval();
 
   miningIntervalId = setInterval(() => {
-    const mineAmount = getMiningPerTick();
 
-    resourceCounts.value[oreType] += mineAmount;
+    Object.entries(minerAssignments.value).forEach(([oreType, count]) => {
+      if (count <= 0) return;
+
+      const amount = count;
+
+      resourceCounts.value[oreType] += amount;
+    });
 
     savePlayerProgress();
     updateDisplay();
 
   }, interval);
 }
-
 export function stopMining() {
   if (miningIntervalId !== null) {
     clearInterval(miningIntervalId);
@@ -84,10 +103,15 @@ export function stopMining() {
 export function initMiningUI() {
   document.getElementById("miner-buy").addEventListener("click", buyMiner);
 
-  document.getElementById("mining-selection").addEventListener("change", () => {
-    if (isMining) {
-      stopMining();
-      startMining();
-    }
+  document.querySelectorAll(".ore-node").forEach(node => {
+    const oreType = node.dataset.ore;
+
+    node.querySelector(".assign-plus").addEventListener("click", () => {
+      assignMiner(oreType);
+    });
+
+    node.querySelector(".assign-minus").addEventListener("click", () => {
+      unassignMiner(oreType);
+    });
   });
 }

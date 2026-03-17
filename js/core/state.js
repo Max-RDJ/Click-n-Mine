@@ -56,6 +56,7 @@ export const playerFurnaces = { value: 0 };
 export const playerAnvils = { value: 0 };
 export const playerMiners = { value: 0 };
 
+
 export function applyLoadedState(state) {
   playerState.value = state;
   resourceCounts.value = playerState.value.resources;
@@ -100,3 +101,11 @@ export function initializeEquipmentUI() {
     updateSlotUI(slot, itemKey);
   }
 }
+
+export const minerAssignments = {
+  value: {
+    copperOre: 0,
+    tinOre: 0,
+    ironOre: 0
+  }
+};
