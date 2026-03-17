@@ -2,7 +2,8 @@ import { getFurnaceCost } from "../systems/smelting.js";
 import { getAnvilCost } from "../systems/smithing.js";
 import { countCoins, resourceCounts } from "../core/state.js";
 import { savePlayerProgress } from "../core/save.js";
-import { playerFurnaces, playerAnvils } from "../core/state.js";
+import { playerFurnaces, playerAnvils, playerMiners } from "../core/state.js";
+import { getMinerCost } from "../systems/auto-mining.js";
 import { setText } from "../core/helpers.js";
 import { showTemporaryMessage } from "../systems/messages.js";
 import { RESOURCES } from "../data/resources.js";
@@ -65,4 +66,12 @@ export function updateAnvilUI() {
 
   document.getElementById("count__anvil").textContent =
     `${playerAnvils.value}`;
+}
+
+export function updateMinerUI() {
+  document.getElementById("cost__miner").textContent =
+    `Cost: ${getMinerCost()} coins`;
+
+  document.getElementById("count__miner").textContent =
+    `${playerMiners.value}`;
 }

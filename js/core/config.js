@@ -10,6 +10,12 @@ export const ANVIL_CONFIG = {
   playerSmithingRate: 1
 };
 
+export const MINER_CONFIG = {
+  baseCost: 30,
+  costMultiplier: 1.6,
+  minerMiningRate: 1
+};
+
 export const NODE_CONFIG = {
   copperOre: {
     selector: ".node__copper-ore img",

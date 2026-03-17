@@ -41,6 +41,7 @@ export const defaultPlayerState = {
   objectivesProgress: 0,
   playerFurnaces: 0,
   playerAnvils: 0,
+  playerMiners: 0,
   unlockedSpells: { "restorative_orison": true, "walk_with_me": true, "enfeebling_chant": true },
 };
 
@@ -53,6 +54,7 @@ export const playerSmithingRate = { value: 1 };
 export const autoMiningRate = { value: 0 };
 export const playerFurnaces = { value: 0 };
 export const playerAnvils = { value: 0 };
+export const playerMiners = { value: 0 };
 
 export function applyLoadedState(state) {
   playerState.value = state;
@@ -63,6 +65,7 @@ export function applyLoadedState(state) {
   autoMiningRate.value = state.autoMiningRate ?? 0;
   playerFurnaces.value = state.playerFurnaces ?? 0;
   playerAnvils.value = state.playerAnvils ?? 0;
+  playerMiners.value = state.playerMiners ?? 0;
   
   if (!playerState.value.unlockedPickaxes) {
     playerState.value.unlockedPickaxes = {};

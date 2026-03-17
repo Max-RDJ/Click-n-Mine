@@ -224,7 +224,7 @@
               <div id="count__furnace"></div>
             </div>
             <button id="furnace-buy" class="button-default">Buy furnace</button>
-            <div id="cost__furnace">Cost: 50 coins</div>
+            <div id="cost__furnace"></div>
             <div id="furnace-fuel">Fuel:</div>
           </div>
         </fieldset>
@@ -251,30 +251,33 @@
               </div>
             </div>
             <div  class="direction-row">
-              <img id="anvil-image" src="images\400px-Anvil.png"></img>
+              <img id="anvil-image" src="images\400px-Anvil.png"/>
               <div id="count__anvil"></div>
             </div>
             <button id="anvil-buy" class="button-default">Buy anvil</button>
-            <div id="cost__anvil">Cost: 50 coins</div>
+            <div id="cost__anvil"></div>
           </div>
         </fieldset>
 
-
           <!-- Buy miners to mine resources automatically -->
-          <fieldset id="auto-miner-shop" class="hidden">
+          <fieldset id="miners" class="hidden">
             <legend>Miners</legend>
-            <select id="mining-selection">
-              <option value="none">None</option>
-              <option value="copperOre">Copper</option>
-              <option value="tinOre">Tin</option>
-              <option value="ironOre">Iron</option>
-
-            </select>
-            <div id="auto-miners-shop">
-              <img class="purchasable-item auto-miners" id="human-miner-1" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
-              <img class="purchasable-item auto-miners" id="human-miner-2" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
-              <img class="purchasable-item auto-miners" id="human-miner-3" src="https://oldschool.runescape.wiki/images/thumb/Prospector_Percy.png/340px-Prospector_Percy.png?cfdfe"></img>
+              <div id="miner-shop">
+                <div class="miner-actions">
+                  <select id="mining-selection">
+                    <option value="none">None</option>
+                    <option value="copperOre">Copper</option>
+                    <option value="tinOre">Tin</option>
+                    <option value="ironOre">Iron</option>
+                  </select>
             </div>
+            <div class="direction-row">
+              <img class="purchasable-item auto-miners" id="human-miner" src="images/Miner.png"/>
+              <div id="count__miner"></div>
+            </div>
+            <button id="miner-buy" class="button-default">Hire miner</button>
+            <div id="cost__miner"></div>
+          </div>
           </fieldset>
         </div>
     </div>

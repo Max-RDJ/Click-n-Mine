@@ -49,7 +49,16 @@ export const objective = [
     message: "Buy an anvil and craft your first Bronze Helmet",
     complete: false,
     condition: (resources) => resources.bronzeHelm >= 1,
-    
+    unlock: () => {
+      $("#miners").removeClass("hidden")
+    }
+  },
+  {
+    objectiveNo: 6,
+    id: "buyMiner",
+    message: "Buy a miner",
+    complete: false,
+    condition: (resources) => resources.bronzeHelm >= 1,
   },
 ];
   

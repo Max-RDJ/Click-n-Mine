@@ -1,7 +1,8 @@
 import { 
   updateFurnaceUI, 
   updateAnvilUI, 
-  updateCoinsDisplay 
+  updateCoinsDisplay, 
+  updateMinerUI
 } from "./ui-update.js";
 import { 
   bindSmithingUI, 
@@ -9,18 +10,20 @@ import {
   startSmithing, 
   stopSmithing 
 } from "../systems/smithing.js";
+import {
+    buyMiner
+} from "../systems/auto-mining.js";
 import { 
   buyFurnace, 
   startSmelting, 
   stopSmelting 
 } from "../systems/smelting.js";
-import { startAutoMining, bindMinerButtons } from "../systems/auto-mining.js";
+import { startMining } from "../systems/auto-mining.js";
 import { bindNodeClicks } from "../systems/mining.js";
 import { resetMoney, addMoney, resetAll } from "../systems/dev-tools.js";
 import { loadObjectivesProgress, getActiveObjectiveMessage, clearObjectivesAlert } from "../systems/objectives.js";
 import { bindContextMenu } from "./context-menu.js";
-import { generateInventorySlots, initInventory, renderInventory, addItem } from "../core/inventory.js";
-import { showObjectiveNotification } from "../systems/messages.js";
+import { generateInventorySlots, initInventory, renderInventory } from "../core/inventory.js";
 
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -28,6 +31,7 @@ window.addEventListener("DOMContentLoaded", () => {
   $("#objective-message-content").html(getActiveObjectiveMessage());
   updateFurnaceUI()
   updateAnvilUI()
+  updateMinerUI()
   startSmithing()
   startSmelting()
   bindContextMenu()
@@ -39,8 +43,10 @@ window.addEventListener("DOMContentLoaded", () => {
 export function bindUI() {
   $("#furnace-buy").on("click", buyFurnace);
   $("#anvil-buy").on("click", buyAnvil);
+  $("#miner-buy").on("click", buyMiner);
 
-  $("#mining-selection").on("change", startAutoMining);
+
+  $("#mining-selection").on("change", startMining);
 
   $("#smelt-play").on("click", startSmelting);
   $("#smelt-pause").on("click", stopSmelting);
@@ -62,7 +68,6 @@ export function bindUI() {
 
   bindSmithingUI();
   bindNodeClicks();
-  bindMinerButtons();
 
   // DEV TOOLS
   $("#reset-money").on("click", resetMoney);
@@ -70,12 +75,13 @@ export function bindUI() {
   $("#reset-all").on("click", resetAll);
 
   // UI REFRESH
-  updateCoinsDisplay();
-  updateFurnaceUI();
-  updateAnvilUI();
+  updateCoinsDisplay()
+  updateFurnaceUI()
+  updateAnvilUI()
+  updateMinerUI()
 
-  loadObjectivesProgress();
-  $("#objective-message-content").html(getActiveObjectiveMessage());
+  loadObjectivesProgress()
+  $("#objective-message-content").html(getActiveObjectiveMessage())
 }
 
 export function bindMagicDrawer() {

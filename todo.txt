@@ -1,14 +1,10 @@
-**IMPORTANT**
-- Hide dev tools via cheat codes/hidden buttons
-
 **BUGS**:
 
 **FEATURES**:
-- Overlay resources numbers on top right of image and then have multiple columns, as there will be many items; divide into ores, ingots, products (similarly to "Tools")?
 - Re-arrange columns into tabs in mobile
-- Put flame icon next to product in Resources that is being smelted/anviled
+- Add mute tab
 - Miners need pickaxes
-    - Creates need to buy more pickaxes and possibly buy auto-buyers
+    - Creates need to buy more pickaxes and possibly buy auto-buyers -- or they just all use best pickaxe
 - Mages as better form of furnaces -- runecrafting?
 - Display number next to resource count temporarily when it increases (e.g. "+5"), disappears with upward movement and fade
 - Hover over resource items to see sell price and/or stats
@@ -16,13 +12,14 @@
 - Light up corresponding resource text when something mined
 - Materials required in addition to money to build furnaces etc.
 - Make shop sections draggable and re-arrangable
-- Get rid of objectives drawer? Just click objectives tab to show game message again
+- Fade in items that are revealed and expand fieldsets smoothly
 
 **RANDOM IDEAS**:
 - Office assistant 'Picky'/'Axy' to give objectives
 - Achievements (not objectives) expandable sidebar
 - Miners work faster when you buy kitchen for food
 - Progress bar for smelting and smithing (probably redundant after a few purchases)
+- Instead of one-off purchase, pay miners regularly
 
 
 **NAMES**:

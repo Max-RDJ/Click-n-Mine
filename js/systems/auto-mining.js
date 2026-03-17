@@ -1,51 +1,93 @@
 import { countCoins, autoMiningRate, resourceCounts } from "../core/state.js";
-import { updateDisplay, updateCoinsDisplay, updateInfoMessage } from "../ui/ui-update.js";
+import { updateDisplay, updateCoinsDisplay, updateInfoMessage, updateMinerUI } from "../ui/ui-update.js";
+import { playerMiners } from "../core/state.js";
+import { completeObjective } from "./objectives.js";
 
-export const autoMinerList = [
-  { id: "human-miner-1", cost: 500, autoMiningRate: 1 },
-  { id: "human-miner-2", cost: 500, autoMiningRate: 1 },
-  { id: "human-miner-3", cost: 500, autoMiningRate: 1 }
-];
+const MINER_CONFIG = {
+  baseCost: 30,
+  costMultiplier: 1.6,
+  minerMiningRate: 1
+};
+
+export function getMinerCost() {
+  return Math.floor(
+    MINER_CONFIG.baseCost * Math.pow(MINER_CONFIG.costMultiplier, playerMiners.value)
+  );
+}
+
+export function buyMiner() {
+  const cost = getMinerCost();
+  if (countCoins.value < cost) {
+    updateInfoMessage("You don't have enough coins.");
+    return;
+  }
+  countCoins.value -= cost;
+  playerMiners.value++;
+
+  updateCoinsDisplay();
+  completeObjective(
+    "buyMiner",
+    resourceCounts.value,
+    countCoins.value,
+    playerMiners
+  );
+  updateMinerUI();
+}
 
 let miningIntervalId = null;
+let isMining = false;
 
-export function buyAutoMiner(id, cost, minerRate) {
-  const element = document.getElementById(id);
-  if (element.style.opacity !== "1" && countCoins.value >= cost) {
-    element.style.opacity = "1";
-    countCoins.value -= cost;
-    autoMiningRate.value += minerRate;
-    updateCoinsDisplay();
-    startAutoMining();
-  } else if (countCoins.value < cost) {
-    updateInfoMessage("You don't have enough coins.");
-  } else {
-    updateInfoMessage("You've already bought that.");
+export function recalcSmeltingRate() {
+  playerSmeltingRate.value = playerFurnaces.value * FURNACE_CONFIG.playerSmeltingRate;
+}
+
+const baseMiningInterval = 3000;
+const minMiningInterval = 300;
+
+function getMiningInterval() {
+  return Math.max(minMiningInterval, baseMiningInterval / Math.log2(playerMiners.value + 2));
+}
+
+function getMiningPerTick() {
+  return Math.max(1, Math.floor(Math.pow(playerMiners.value, 0.6)));
+}
+
+export function startMining() {
+  if (isMining) return;
+
+  const oreType = document.getElementById("mining-selection").value;
+  if (!oreType || oreType === "none" || playerMiners.value <= 0) return;
+
+  isMining = true;
+
+  const interval = getMiningInterval();
+
+  miningIntervalId = setInterval(() => {
+    const mineAmount = getMiningPerTick();
+
+    resourceCounts.value[oreType] += mineAmount;
+
+    savePlayerProgress();
+    updateDisplay();
+
+  }, interval);
+}
+
+export function stopMining() {
+  if (miningIntervalId !== null) {
+    clearInterval(miningIntervalId);
+    miningIntervalId = null;
+    isMining = false;
   }
 }
 
-export function startAutoMining() {
-  if (miningIntervalId) clearInterval(miningIntervalId);
+export function initMiningUI() {
+  document.getElementById("miner-buy").addEventListener("click", buyMiner);
 
-  const oreType = document.getElementById("mining-selection").value;
-  const selectedOreObj = oreList.find(ore => ore.type === oreType);
-
-  if (!selectedOreObj || autoMiningRate.value <= 0) return;
-
-  const intervalDuration = 3000 / autoMiningRate.value;
-
-  miningIntervalId = setInterval(() => {
-    selectedOreObj.count++;
-    resourceCounts.value[oreType]++;
-    updateDisplay();
-  }, intervalDuration);
-}
-
-export function bindMinerButtons() {
-  autoMinerList.forEach(({ id, cost, autoMiningRate }) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.addEventListener("click", () => buyAutoMiner(id, cost, autoMiningRate));
+  document.getElementById("mining-selection").addEventListener("change", () => {
+    if (isMining) {
+      stopMining();
+      startMining();
     }
   });
 }

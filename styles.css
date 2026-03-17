@@ -320,7 +320,7 @@ select {
   display: inline-flex;
 }
 
-#furnace-shop, #anvil-shop {
+#furnace-shop, #anvil-shop, #miner-shop {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -332,11 +332,18 @@ select {
   padding: 8px;
 }
 
-#furnace-shop img {
+#furnace-shop img{
   display: flex;
   justify-content: center;
   width: 40px;
   height: auto;
+}
+
+#miner-shop img {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  height: 50px;
 }
 
 .furnace-actions, .anvil-actions {
