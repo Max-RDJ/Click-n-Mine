@@ -26,12 +26,6 @@ export function buyMiner() {
   playerMiners.value++;
 
   updateCoinsDisplay();
-  completeObjective(
-    "buyMiner",
-    resourceCounts.value,
-    countCoins.value,
-    playerMiners
-  );
   updateMinerUI();
 }
 
@@ -45,8 +39,11 @@ function getMiningInterval() {
   return Math.max(minMiningInterval, baseMiningInterval / Math.log2(playerMiners.value + 2));
 }
 
-function getMiningPerTick() {
-  return Math.max(1, Math.floor(Math.pow(playerMiners.value, 0.6)));
+function getMiningPerTick(minerCount) {
+  return Math.max(
+    1,
+    Math.floor(Math.pow(minerCount, 0.6) * MINER_CONFIG.minerMiningRate)
+  );
 }
 
 export function getAvailableMiners() {
@@ -56,14 +53,14 @@ export function getAvailableMiners() {
   return playerMiners.value - totalAssigned;
 }
 
-export function assignMiner(oreType) {
+function assignMiner(oreType) {
   if (getAvailableMiners() <= 0) return;
 
   minerAssignments.value[oreType]++;
   updateMinerUI();
 }
 
-export function unassignMiner(oreType) {
+function unassignMiner(oreType) {
   if (minerAssignments.value[oreType] <= 0) return;
 
   minerAssignments.value[oreType]--;
@@ -82,7 +79,7 @@ export function startMining() {
     Object.entries(minerAssignments.value).forEach(([oreType, count]) => {
       if (count <= 0) return;
 
-      const amount = count;
+      const amount = getMiningPerTick(count);
 
       resourceCounts.value[oreType] += amount;
     });
@@ -108,6 +105,12 @@ export function initMiningUI() {
 
     node.querySelector(".assign-plus").addEventListener("click", () => {
       assignMiner(oreType);
+      completeObjective(
+        "buyMiner",
+        resourceCounts.value,
+        countCoins.value,
+        playerMiners
+      );
     });
 
     node.querySelector(".assign-minus").addEventListener("click", () => {

@@ -10,7 +10,8 @@ import { setGameMode } from "./core/game-mode.js";
 import { renderSpells } from "./ui/render-spells.js";
 import { showObjectiveNotification, setObjectiveMessage, clearMessage } from "./systems/messages.js";
 import { getActiveObjectiveMessage } from "./systems/objectives.js";
-import { combatInProgress, generateCombat } from "./systems/combat-log.js";
+import { generateCombat } from "./systems/combat-log.js";
+import { initMiningUI } from "./systems/auto-mining.js";
 
 
 $(document).ready(() => {
@@ -25,6 +26,7 @@ $(document).ready(() => {
   initializeResourceImages();
   restoreUnlockedPickaxesUI();
   initializeEquipmentUI();
+  initMiningUI();
   initIncrementalGame();
   initAudio();
   bindCombatDrawer();

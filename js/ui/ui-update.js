@@ -80,5 +80,5 @@ export function updateMinerUI() {
     `Cost: ${getMinerCost()} coins`;
 
   document.getElementById("count__miner").textContent =
-    `${playerMiners.value} (${getAvailableMiners()} available)`;
+    ` ${getAvailableMiners()} of ${playerMiners.value}`;
 }

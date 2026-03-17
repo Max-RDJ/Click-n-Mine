@@ -51,15 +51,15 @@ export const objective = [
     condition: (resources) => resources.bronzeHelm >= 1,
     unlock: () => {
       $("#miners").removeClass("hidden")
+      $(".miner-controls").removeClass("hidden")
     }
   },
   {
     objectiveNo: 6,
     id: "buyMiner",
-    message: "Buy a miner",
+    message: "Buy a miner and assign him to a node using the plus and minus icons",
     complete: false,
-    condition: (resources) => resources.bronzeHelm >= 1,
-  },
+    condition: (resources, coins, playerMiners) => playerMiners.value >= 1,  },
 ];
   
 /**

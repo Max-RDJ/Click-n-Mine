@@ -5,6 +5,7 @@
   --text-weak: #aeaeae;
   --text-background: #403d3a;
   --button-default-text: #ebe2d5;
+  --button-hover-text: #767069;
   --tray-height: 50px;
   --transluscent-menu: #1e1e1ebe;
 
@@ -396,6 +397,30 @@ select {
   border-radius: 10px;
 }
 
+.button-icon {
+  height: 2rem;
+  width: 2rem;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.button-icon svg {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: var(--button-default-text);
+}
+
+.button-icon svg:hover {
+  color: var(--button-hover-text);
+  cursor: pointer;
+}
+
+.button-icon:active {
+  transform: translateY(2px);
+  cursor: pointer;
+}
+
 .dev-button {
   margin-top: 10px;
   font-size: 1em;
@@ -405,6 +430,12 @@ select {
   padding: 5px;
   width: 120px;
   border-radius: 10px;
+}
+
+.miner-controls:not(.hidden) {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 #show-dev-tools {

@@ -34,6 +34,7 @@ window.addEventListener("DOMContentLoaded", () => {
   updateMinerUI()
   startSmithing()
   startSmelting()
+  startMining()
   bindContextMenu()
   initInventory()
   generateInventorySlots()
@@ -43,10 +44,6 @@ window.addEventListener("DOMContentLoaded", () => {
 export function bindUI() {
   $("#furnace-buy").on("click", buyFurnace);
   $("#anvil-buy").on("click", buyAnvil);
-  $("#miner-buy").on("click", buyMiner);
-
-
-  $("#mining-selection").on("change", startMining);
 
   $("#smelt-play").on("click", startSmelting);
   $("#smelt-pause").on("click", stopSmelting);
