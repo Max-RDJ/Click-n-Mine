@@ -87,6 +87,14 @@ export function applyLoadedState(state) {
   if (!playerState.value.unlockedSpells) {
     playerState.value.unlockedSpells = {};
   }
+
+  if (!playerState.value.minerAssignments) {
+    playerState.value.minerAssignments = {
+      copperOre: 0,
+      tinOre: 0,
+      ironOre: 0
+    };
+  }
 }
 
 export function createFreshState() {
@@ -101,11 +109,3 @@ export function initializeEquipmentUI() {
     updateSlotUI(slot, itemKey);
   }
 }
-
-export const minerAssignments = {
-  value: {
-    copperOre: 0,
-    tinOre: 0,
-    ironOre: 0
-  }
-};

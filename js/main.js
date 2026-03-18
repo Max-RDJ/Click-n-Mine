@@ -16,10 +16,14 @@ import { initMiningUI } from "./systems/auto-mining.js";
 
 $(document).ready(() => {
   const state = loadPlayerState();
-  createFreshState();
   setGameMode("incremental");
-  renderSpells("incremental");
-  applyLoadedState(state);
+
+  const loaded = loadPlayerState();
+  if (loaded) {
+    applyLoadedState(loaded);
+  } else {
+    createFreshState();
+  }
 
   bindUI();
   updateDisplay();

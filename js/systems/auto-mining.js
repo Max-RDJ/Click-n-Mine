@@ -1,6 +1,5 @@
-import { countCoins, minerAssignments, resourceCounts } from "../core/state.js";
+import { countCoins, resourceCounts, playerMiners, playerState } from "../core/state.js";
 import { updateDisplay, updateCoinsDisplay, updateInfoMessage, updateMinerUI } from "../ui/ui-update.js";
-import { playerMiners } from "../core/state.js";
 import { completeObjective } from "./objectives.js";
 import { savePlayerProgress } from "../core/save.js";
 
@@ -47,7 +46,11 @@ function getMiningPerTick(minerCount) {
 }
 
 export function getAvailableMiners() {
-  const totalAssigned = Object.values(minerAssignments.value)
+  if (!playerState.value || !playerState.value.minerAssignments) {
+    return playerMiners.value;
+  }
+
+  const totalAssigned = Object.values(playerState.value.minerAssignments)
     .reduce((sum, v) => sum + v, 0);
 
   return playerMiners.value - totalAssigned;
@@ -56,15 +59,17 @@ export function getAvailableMiners() {
 function assignMiner(oreType) {
   if (getAvailableMiners() <= 0) return;
 
-  minerAssignments.value[oreType]++;
+  playerState.value.minerAssignments[oreType]++;
   updateMinerUI();
+  savePlayerProgress();
 }
 
 function unassignMiner(oreType) {
-  if (minerAssignments.value[oreType] <= 0) return;
+  if (playerState.value.minerAssignments[oreType] <= 0) return;
 
-  minerAssignments.value[oreType]--;
+  playerState.value.minerAssignments[oreType]--;
   updateMinerUI();
+  savePlayerProgress();
 }
 
 export function startMining() {
@@ -76,11 +81,10 @@ export function startMining() {
 
   miningIntervalId = setInterval(() => {
 
-    Object.entries(minerAssignments.value).forEach(([oreType, count]) => {
+    Object.entries(playerState.value.minerAssignments).forEach(([oreType, count]) => {
       if (count <= 0) return;
 
       const amount = getMiningPerTick(count);
-
       resourceCounts.value[oreType] += amount;
     });
 
@@ -89,6 +93,7 @@ export function startMining() {
 
   }, interval);
 }
+
 export function stopMining() {
   if (miningIntervalId !== null) {
     clearInterval(miningIntervalId);

@@ -1,6 +1,6 @@
 import { getFurnaceCost } from "../systems/smelting.js";
 import { getAnvilCost } from "../systems/smithing.js";
-import { countCoins, resourceCounts, minerAssignments } from "../core/state.js";
+import { countCoins, resourceCounts, playerState } from "../core/state.js";
 import { savePlayerProgress } from "../core/save.js";
 import { playerFurnaces, playerAnvils, playerMiners } from "../core/state.js";
 import { getMinerCost, getAvailableMiners } from "../systems/auto-mining.js";
@@ -69,9 +69,11 @@ export function updateAnvilUI() {
 }
 
 export function updateMinerUI() {
+  if (!playerState.value || !playerState.value.minerAssignments) return;
+
   document.querySelectorAll(".ore-node").forEach(node => {
     const oreType = node.dataset.ore;
-    const count = minerAssignments.value[oreType];
+    const count = playerState.value.minerAssignments[oreType];
 
     node.querySelector(".assigned-count").textContent = count;
   });
