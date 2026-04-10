@@ -15,17 +15,22 @@
     <div id="resources-display" style="display:none"></div>
 
     <div id="page-container">
-      <div id="columns-container">
 
-        <div class="column" id="column-left">
-          <h1 class="unselectable">Resources</h1>
-          <div class="column-content">
-            <div class="resource-index">
+      <aside class="aside collapsed" id="aside-resources">
+        <div class="resource-index">
+
+            <fieldset class="resources__coins">
+              <div class="items-field">
+                <div class="resources" data-resource="coins">
+                  <img>
+                  <span id="count__coins">0</span>
+                </div>
+              </div>
+            </fieldset>
 
             <fieldset id="resources__ores">
               <legend class="unselectable">Ore</legend>
               <div class="items-field">
-
                 <div class="resources sellable" id="resource__copper-ore" data-resource="copperOre">
                   <img>
                   <span id="count__copper-ore" value="0">0</span>
@@ -117,191 +122,117 @@
                   <img>
                   <span id="count__water-essence" value="0">0</span>
                 </div>
-              </div>
             </fieldset>
           </div>
+          <button id="toggle-aside-resources"></button>
+        </aside>
 
-          <div id="dev-tools" class="hidden">
-            <h3>Dev tools</h3>
-            <button class="dev-button" id="reset-money">$0</button>
-            <button class="dev-button" id="mo-money">+$1000</button>
-            <button class="dev-button" id="reset-all">RESET ALL</button>
-          </div>
-
-          <button id="show-dev-tools">x</button>
+        <div id="dev-tools" class="hidden">
+          <h3>Dev tools</h3>
+          <button class="dev-button" id="reset-money">$0</button>
+          <button class="dev-button" id="mo-money">+$1000</button>
+          <button class="dev-button" id="reset-all">RESET ALL</button>
         </div>
-      </div>
+
+        <button id="show-dev-tools">x</button>
         
-    <div class="column" id="column-middle">
-      <h1 class="unselectable">Mineshaft</h1>
-      
-      <div id="section__rock-nodes">
+      <div id="stage">
+        <div class="mines">
+          <div id="mines-new">
+            <img src="images/mine-entrance.png" class="mines-entrance">
+            <img src="images/plus-icon.png" class="plus-icon">
 
-        <div id="nodes__tier-one" class="rock-nodes">
-          <div class="ore-node node__tier-two node__copper-ore unselectable" type="button" data-ore="copperOre">
-            <img class="node-image" src="images\440px-copper_rocks.png">
-            <div class="miner-controls hidden">
-              <button class="assign-plus button-icon">
-                <i data-lucide="CirclePlus"></i>
-              </button>
-              <span class="assigned-count">0</span>
-              <button class="assign-minus button-icon">
-                <i data-lucide="CircleMinus" class="icon__controls"></i>
-              </button>
+            <div class="mines-new-selection">
+              <div class="mine-option" data-mine-type="copper">
+                  <img src="images/copper_ore.png"/>
+                </div>
+        
+                <div class="mine-option" data-mine-type="tin">
+                  <img src="images/tin_ore.png"/>
+                </div>
+        
+                <div class="mine-option" data-mine-type="iron">
+                  <img src="images/iron_ore.png"/>
+                </div>
             </div>
           </div>
-
-          <div class="ore-node node__tier-one node__tin-ore unselectable" type="button" data-ore="tinOre">
-            <img class="node-image" src="images\440px-tin_rocks.png"/>
-            <div class="miner-controls hidden">
-              <button class="assign-plus button-icon">
-                <i data-lucide="CirclePlus"></i>
-              </button>
-              <span class="assigned-count">0</span>
-              <button class="assign-minus button-icon">
-                <i data-lucide="CircleMinus" class="icon__controls"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div id="nodes__tier-three" class="rock-nodes">
-          <div class="ore-node node__tier-two node__iron-ore unselectable" type="button" data-ore="ironOre">
-              <img class="node-image" src="images\440px-Iron_rocks.png"/>
-              <div class="miner-controls hidden">
-                <button class="assign-plus button-icon">
-                  <i data-lucide="CirclePlus"></i>
-                </button>
-                <span class="assigned-count">0</span>
-                <button class="assign-minus button-icon">
-                  <i data-lucide="CircleMinus" class="icon__controls"></i>
-                </button>
-              </div>
-            </div>
         </div>
       </div>
     </div>
 
-    <div class="column" id="column-right">
-      <h1 class="unselectable">Shop</h1>
-        <div class="shop-index">
+    <aside class="aside collapsed" id="aside-tools">
+        <div class="tool-index">
 
-          <fieldset id="tools">
-            <legend class="unselectable">Tools</legend>
-            <div id="tool-shop" class="items-field">
-              <div id="pickaxes-container">
-                <img class="resources pickaxes" id="bronzePickaxe" data-slot="utility" 
-                    src="../images/bronze_pickaxe.png" 
-                    alt="Bronze pickaxe" type="button">
-
-                <img class="resources pickaxes hidden" id="ironPickaxe" data-slot="utility" 
-                    src="../images/iron_pickaxe.png" 
-                    alt="Iron pickaxe" type="button">
-
-                <img class="resources pickaxes hidden" id="steelPickaxe" data-slot="utility" 
-                    src="../images/steel_pickaxe.png" 
-                    alt="Steel pickaxe" type="button">
-
-                <img class="resources pickaxes hidden" id="blackPickaxe" data-slot="utility" 
-                    src="../images/black_pickaxe.png" 
-                    alt="Black pickaxe" type="button">
-
-                <img class="resources pickaxes hidden" id="goldPickaxe" data-slot="utility" 
-                    src="../images/gold_pickaxe.png" 
-                    alt="Gold pickaxe" type="button">
-
-                <img class="resources pickaxes hidden" id="mithrilPickaxe" data-slot="utility" 
-                    src="../images/mithril_pickaxe.png" 
-                    alt="Mithril pickaxe" type="button">
-
-                <img class="resources pickaxes hidden" id="adamantPickaxe" data-slot="utility" 
-                    src="../images/adamant_pickaxe.png" 
-                    alt="Adamant pickaxe" type="button">
-
-                <img class="resources pickaxes hidden" id="runitePickaxe" data-slot="utility" 
-                    src="../images/rune_pickaxe.png" 
-                    alt="Runite pickaxe" type="button">
-
-                <img class="resources pickaxes hidden" id="dragonPickaxe" data-slot="utility" 
-                    src="../images/dragon_pickaxe.png" 
-                    alt="Dragon pickaxe" type="button">
-              </div>
-        </fieldset>
-          
-        <fieldset id="furnaces" class="hidden"> 
-          <legend>Furnaces</legend>
-          <div id="furnace-shop">
-            <div class="furnace-actions">
-              <select id="ingot-selection">
-                <option value="" disabled selected>None</option>
-                <option value="bronzeIngot">Bronze</option>
-                <option value="ironIngot">Iron</option>
-              </select>
-            <div id="furnace-controls">
-                <button id="smelt-play" class="button-square">
-                  <i data-lucide="play" class="icon__controls"></i>
-                </button>
-                <button id="smelt-pause" class="hidden button-square">
-                  <i data-lucide="pause" class="icon__controls"></i>
-                </button>
-              </div>
-            </div>
-            <div class="direction-row">
-              <img id="furnace-image" src="images\Furnace.png"></img>
-              <div id="count__furnace"></div>
-            </div>
-            <button id="furnace-buy" class="button-default">Buy furnace</button>
-            <div id="cost__furnace"></div>
-            <div id="furnace-fuel">Fuel:</div>
-          </div>
-        </fieldset>
-
-        <fieldset id="anvils" class="hidden">
-          <legend>Anvils</legend>
-          <div id="anvil-shop">
-            <div class="anvil-actions">
-              <select id="product-selection">
-                <option value="none">None</option>
-                <option value="bronzeHelm">Bronze helmet</option>
-                <option value="bronzePlatebody">Bronze platebody</option>
-                <option value="bronzePlatelegs">Bronze platelegs</option>
-                <option value="bronzeSword">Bronze sword</option>
-                <option value="ironSword">Iron sword</option>
-              </select>
-              <div id="anvil-controls">
-                <button id="smith-play" class="button-square">
-                  <i data-lucide="play"class="icon__controls"></i>
-                </button>
-                <button id="smith-pause" class="hidden button-square">
-                  <i data-lucide="pause" class="icon__controls"></i>
-                </button>
-              </div>
-            </div>
-            <div  class="direction-row">
-              <img id="anvil-image" src="images\400px-Anvil.png"/>
-              <div id="count__anvil"></div>
-            </div>
-            <button id="anvil-buy" class="button-default">Buy anvil</button>
-            <div id="cost__anvil"></div>
-          </div>
-        </fieldset>
-
-          <!-- Buy miners to mine resources automatically -->
-          <fieldset id="miners" class="hidden">
-            <legend>Miners</legend>
-              <div id="miner-shop">
-                <div class="miner-actions">
+          <fieldset id="furnaces" class="panel-fieldset"> 
+            <legend>Furnaces</legend>
+            <div id="panel__furnaces">
+              <div class="furnace-actions">
+                <select id="ingot-selection">
+                  <option value="" disabled selected>None</option>
+                  <option value="bronzeIngot">Bronze</option>
+                  <option value="ironIngot">Iron</option>
+                </select>
+              <div id="furnace-controls">
+                  <button id="smelt-play" class="button-square">
+                    <i data-lucide="play" class="icon__controls"></i>
+                  </button>
+                  <button id="smelt-pause" class="hidden button-square">
+                    <i data-lucide="pause" class="icon__controls"></i>
+                  </button>
                 </div>
-              <div class="direction-row">
-                <img class="purchasable-item auto-miners" id="human-miner" src="images/Miner.png"/>
-                <div id="count__miner"></div>
               </div>
-              <button id="miner-buy" class="button-default">Hire miner</button>
-              <div id="cost__miner"></div>
-          </div>
+              <div class="direction-row">
+                <img id="furnace-image" src="images\Furnace.png"></img>
+                <div id="count__furnace"></div>
+              </div>
+              <div id="furnace-fuel">
+                <img src="images/coal_ore.png" alt="Coal">
+                <div id="count__coal"></div>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset id="anvils" class="hidden panel-fieldset">
+            <legend>Anvils</legend>
+            <div id="panel__anvils">
+              <div class="anvil-actions">
+                <select id="product-selection">
+                  <option value="none">None</option>
+                  <option value="bronzeHelm">Bronze helmet</option>
+                  <option value="bronzePlatebody">Bronze platebody</option>
+                  <option value="bronzePlatelegs">Bronze platelegs</option>
+                  <option value="bronzeSword">Bronze sword</option>
+                  <option value="ironSword">Iron sword</option>
+                </select>
+                <div id="anvil-controls">
+                  <button id="smith-play" class="button-square">
+                    <i data-lucide="play"class="icon__controls"></i>
+                  </button>
+                  <button id="smith-pause" class="hidden button-square">
+                    <i data-lucide="pause" class="icon__controls"></i>
+                  </button>
+                </div>
+              </div>
+              <div  class="direction-row">
+                <img id="anvil-image" src="images\400px-Anvil.png"/>
+                <div id="count__anvil"></div>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset id="miners" class="panel-fieldset">
+            <legend>Miners</legend>
+              <div id="panel__miners">
+                <div>
+                  <img class="purchasable-item auto-miners" id="human-miner" src="images/Miner.png"/>
+                  <div id="count__miners-ores"></div>
+                  <div id="count__miners"></div>
+                </div>
+            </div>
           </fieldset>
         </div>
-    </div>
+        <button id="toggle-aside-tools"></button>
+      </aside>
 
       <div id="stats-popup"></div>
 
@@ -409,6 +340,25 @@
   </div>
 </div>
 
+  <aside id="shop-drawer" class="drawer drawer-bottom">
+    <div class="drawer-content">
+      <div id="shop-content">
+        <div id="shop-miners">
+          <button id="miner-buy" class="button-default">Hire miner</button>
+          <div id="cost__miner"></div>
+        </div>
+        <div id="shop-furnaces">
+          <button id="furnace-buy" class="button-default">Buy furnace</button>
+          <div id="cost__furnace"></div>
+        </div>
+        <div id="shop-anvils">
+          <button id="anvil-buy" class="button-default">Buy anvil</button>
+          <div id="cost__anvil"></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
   <aside id="combat-drawer" class="drawer drawer-bottom">
     <div class="drawer-content">
       <div id="combat-content">
@@ -455,11 +405,6 @@
   </aside> -->
 
   <div class="control-tray">
-    <div class="resources" id="resource-coins">
-      <img id="coins-image" src="images/240px-Coins_detail.png">
-      <span id="count__coins" class="unselectable" value="0">0</span>
-    </div>
-
     <div id="game-message">
       <span id="game-message-text"></span>
       <button id="game-message-close">×</button>
@@ -467,6 +412,12 @@
     </div>
     
     <div class="control-tray-tabs">
+      <img
+        src="images/pot.png" 
+        id="shop-tab"
+        class="drawer-tab"
+        data-modes="incremental"
+      >
       <img
         src="images/combat_icon.png" 
         id="combat-tab"
@@ -500,7 +451,7 @@
     </div>
 
     <div id="objectives-tutorial" class="hidden">
-      <p>Click the right-most icon below for a reminder of your current objective</p>
+      <p>Click the Objectives icon below for a reminder of your current objective</p>
       <div>
         <button id="dismiss-objectives-tutorial" class="button-small">Got it</button>
       </div>
@@ -512,6 +463,8 @@
       <button id="ascend-cancel-btn" class="button-default">Not yet</button>
     </div> -->
   </div>
+
+  <div id="tooltip"></div>
 
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script type="module" src="js/main.js" defer></script>

@@ -16,6 +16,18 @@ export const MINER_CONFIG = {
   minerMiningRate: 1
 };
 
+export const MINE_CONFIG = {
+  baseCost: 30,
+  costMultiplier: 1.6,
+  minerMiningRate: 1
+};
+
+export const MINE_TYPES = {
+    copper: "copperOre",
+    tin: "tinOre",
+    iron: "ironOre"
+};
+
 export const NODE_CONFIG = {
   copperOre: {
     selector: ".node__copper-ore img",

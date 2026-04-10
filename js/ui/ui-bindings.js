@@ -81,6 +81,20 @@ export function bindUI() {
   $("#objective-message-content").html(getActiveObjectiveMessage())
 }
 
+export function bindShopDrawer() {
+  const drawer = document.getElementById("shop-drawer");
+  const tab = document.getElementById("shop-tab");
+
+  tab.addEventListener("click", () => {
+    const isOpen = drawer.classList.contains("open");
+    closeAllDrawers();
+    if (!isOpen) {
+      drawer.classList.add("open");
+      clearObjectivesAlert();
+    }
+  });
+}
+
 export function bindMagicDrawer() {
   const drawer = document.getElementById("magic-drawer");
   const tab = document.getElementById("magic-tab");

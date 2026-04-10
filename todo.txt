@@ -1,7 +1,6 @@
 **BUGS**:
 
 **FEATURES**:
-- Re-arrange columns into tabs in mobile
 - Add mute tab
 - Miners need pickaxes
     - Creates need to buy more pickaxes and possibly buy auto-buyers -- or they just all use best pickaxe

@@ -7,12 +7,7 @@ import {
 import { completeObjective } from "./objectives.js";
 import { updateDisplay, updateInfoMessage, updateFurnaceUI, updateCoinsDisplay } from "../ui/ui-update.js"
 import { savePlayerProgress } from "../core/save.js";
-
-export const FURNACE_CONFIG = {
-  baseCost: 20,
-  costMultiplier: 1.6,
-  playerSmeltingRate: 1
-};
+import { FURNACE_CONFIG } from "../core/config.js";
 
 let smeltingIntervalId = null;
 let isSmelting = false;

@@ -1,21 +1,26 @@
 export const RESOURCES = {
+  coins: {
+    displayName: "coins",
+    type: "material",
+    image: "images/240px-Coins_detail.png"
+  },
   copperOre: {
     displayName: "copper ore",
     type: "material",
     sellPrice: 2,
-    image: "images/260px-Copper_ore_detail.png"
+    image: "images/copper_ore.png"
   },
   tinOre: {
     displayName: "tin ore",
     type: "material",
     sellPrice: 2,
-    image: "images/260px-Tin_ore_detail.png"
+    image: "images/tin_ore.png"
   },
   ironOre: {
     displayName: "iron ore",
     type: "material",
     sellPrice: 4,
-    image: "images/260px-Iron_ore_detail.png"
+    image: "images/iron_ore.png"
   },
   bronzeIngot: {
     displayName: "bronze ingot",

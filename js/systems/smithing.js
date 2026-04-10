@@ -7,12 +7,7 @@ import {
 import { completeObjective } from "./objectives.js";
 import { updateDisplay, updateInfoMessage, updateAnvilUI, updateCoinsDisplay } from "../ui/ui-update.js";
 import { savePlayerProgress } from "../core/save.js";
-
-export const ANVIL_CONFIG = {
-  baseCost: 20,
-  costMultiplier: 1.6,
-  playerSmithingRate: 1
-};
+import { ANVIL_CONFIG } from "../core/config.js";
 
 let smithingIntervalId = null;
 let isSmithing = false;

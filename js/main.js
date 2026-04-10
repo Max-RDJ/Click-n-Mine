@@ -1,10 +1,9 @@
 import { initIncrementalGame } from "./core/incremental.js";
-import { startRun } from "./roguelike/run-manager.js";
 import { loadPlayerState, savePlayerProgress } from "./core/save.js";
 import { applyLoadedState, createFreshState, defaultPlayerState, playerState, initializeEquipmentUI } from "./core/state.js";
 import { restoreUnlockedPickaxesUI } from "./systems/pickaxes.js";
-import {  bindCombatDrawer, bindMagicDrawer, bindUI } from "./ui/ui-bindings.js";
-import { initializeResourceImages, updateDisplay } from "./ui/ui-update.js";
+import {  bindShopDrawer, bindCombatDrawer, bindMagicDrawer, bindUI } from "./ui/ui-bindings.js";
+import { initializeResourceImages, updateDisplay, renderMines, updateMinerUI } from "./ui/ui-update.js";
 import { initAudio } from "./core/audio.js";
 import { setGameMode } from "./core/game-mode.js";
 import { renderSpells } from "./ui/render-spells.js";
@@ -12,6 +11,8 @@ import { showObjectiveNotification, setObjectiveMessage, clearMessage } from "./
 import { getActiveObjectiveMessage } from "./systems/objectives.js";
 import { generateCombat } from "./systems/combat-log.js";
 import { initMiningUI } from "./systems/auto-mining.js";
+import { RESOURCES } from "./data/resources.js";
+import { buyMine } from "./systems/mine-purchase.js";
 
 
 $(document).ready(() => {
@@ -31,8 +32,11 @@ $(document).ready(() => {
   restoreUnlockedPickaxesUI();
   initializeEquipmentUI();
   initMiningUI();
+  renderMines();
+  updateMinerUI();
   initIncrementalGame();
   initAudio();
+  bindShopDrawer();
   bindCombatDrawer();
   bindMagicDrawer();
 
@@ -61,9 +65,11 @@ $(document).ready(() => {
   });
 
   if (!playerState.value.objectivesHintDismissed) {
-    $("#objectives-tutorial")
+    setTimeout(() => {
+      $("#objectives-tutorial")
       .removeClass("hidden")
       .addClass("show");
+    }, 9000);
   }
 
   $("#dismiss-objectives-tutorial").on("click", () => {
@@ -79,40 +85,88 @@ $(document).ready(() => {
   $("#game-message-close").on("click", () => {
     clearMessage();  
   });
+
+  $('#toggle-aside-resources').on('click', function() {
+    const aside = $('#aside-resources');
+    aside.toggleClass('collapsed open');
+    $('#toggle-aside-resources').toggleClass('open');
+  });
+
+  $('#toggle-aside-tools').on('click', function() {
+    const aside = $('#aside-tools');
+    aside.toggleClass('collapsed open');
+    $('#toggle-aside-tools').toggleClass('open');
+  });
+
+  $("#mines-new").on("click", function () {
+    $(".mines-new-selection").toggleClass("open");
+  });
+
+  $(".mine-option").on("click", function (e) {
+    e.stopPropagation();
+    const mineType = this.dataset.mineType;
+    buyMine(mineType);
+    $(".mines-new-selection").removeClass("open");
+  });
+
+  document.querySelectorAll(".resources").forEach(el => {
+    const key = el.dataset.resource;
+
+    if (!key) return;
+  
+    const resource = RESOURCES[key];
+
+    if (!resource) return;
+
+    const displayName =
+      (resource.displayName || resource.name || key)
+        .replace(/\b\w/g, c => c.toUpperCase());
+
+    const sellPrice =
+      resource.sellPrice || key;
+
+    el.setAttribute("data-name", displayName);
+    el.setAttribute("data-price", sellPrice);
+
+
+    const img = el.querySelector("img");
+    if (img && resource.image) {
+      img.src = resource.image;
+      img.alt = displayName;
+    }
+  });
+
+  const tooltip = document.getElementById("tooltip");
+
+  document.querySelectorAll(".resources").forEach(el => {
+    el.addEventListener("mouseenter", e => {
+      const key = el.dataset.resource;
+      const resource = RESOURCES[key];
+
+      if (!resource) return;
+
+      const name = (resource.displayName || resource.name || key) .replace(/\b\w/g, c => c.toUpperCase());
+      const price = resource.sellPrice;
+
+      tooltip.innerHTML = price
+        ? `<strong>${name}</strong><br>Sell: ${price}`
+        : `<strong>${name}</strong>`;
+
+      tooltip.classList.add("show");
+    });
+
+    el.addEventListener("mousemove", e => {
+      const offset = 12;
+
+      tooltip.style.left = `${e.clientX + offset}px`;
+      tooltip.style.top = `${e.clientY + offset}px`;
+    });
+
+    el.addEventListener("mouseleave", () => {
+      tooltip.classList.remove("show");
+    });
+  });
 });
 
 
-/* document.addEventListener("click", (e) => {
-  const ascendConfirmation = document.getElementById("ascend-confirmation");
-  const ascendTab = document.getElementById("ascend-tab");
-
-  const clickedInsideConfirmation = ascendConfirmation.contains(e.target);
-  const clickedAscendTab = ascendTab.contains(e.target);
-
-  if (!clickedInsideConfirmation && !clickedAscendTab) {
-    $("#ascend-confirmation").removeClass("show");
-  }
-}); */
-
-
-// CONSIDER RANDOMLY SPAWNING NODES:
-/* const nodes = document.querySelectorAll(".ore-node");
-
-function spawnRandomNodes(count = 3) {
-  // Hide all nodes first
-  nodes.forEach(n => n.classList.add("hidden"));
-
-  // Pick 'count' random nodes
-  const shuffled = [...nodes].sort(() => 0.5 - Math.random());
-  shuffled.slice(0, count).forEach(node => {
-    const types = ["copperOre", "tinOre", "ironOre"];
-    const type = types[Math.floor(Math.random() * types.length)];
-    node.dataset.type = type;
-    node.querySelector("img").src = `images/${type}.png`;
-    node.classList.remove("hidden");
-  });
-}
-
-// Example: respawn nodes every 5 seconds
-setInterval(() => spawnRandomNodes(3), 5000); */
 

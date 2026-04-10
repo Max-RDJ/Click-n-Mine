@@ -1,42 +1,69 @@
-import { playerState } from "../core/state.js";
+import { countCoins, playerMines, playerState, playerFurnaces, resourceCounts } from "../core/state.js";
 import { setObjectiveMessage, showObjectiveNotification } from "./messages.js";
 import { playSound } from "../core/audio.js";
+import { selectMine, renderMine } from "./mine-purchase.js";
+import { playerMiners } from "../core/state.js";
 
 
 export const objective = [
   {
     objectiveNo: 1,
-    id: "copperAndTin",
-    message: "Mine 1 Copper and 1 Tin by clicking the rocks in the Mineshaft",
+    id: "buyMiner",
+    message: "Hire a miner by clicking the shop icon in the bottom left and clicking 'Hire Miner'",
     complete: false,
-    condition: (resources) => resources.copperOre >= 1 && resources.tinOre >= 1,
+    condition: () => playerMiners.value >= 1
+  },
+  {
+    objectiveNo: 2,
+    id: "assignMiner",
+    message: "Assign him to a mine by hovering over the copper mine you've already got and click the + button",
+    complete: false,
+    condition: (playerMines) => {
+      return Object.values(playerState.value.minerAssignments).some(count => count > 0);
+    },
+    unlock: () => {
+      if (!playerMines.value.some(m => m.type === "tin")) {
+        const mine = selectMine("tin");
+        playerMines.value.push(mine);
+        renderMine(mine);
+      }
+    }
+  },
+  {
+    objectiveNo: 3,
+    id: "assignMinerTin",
+    message: "Here's a tin mine. Hire another miner and assign him to this mine.",
+    complete: false,
+    condition: () => {
+      return (playerState.value.minerAssignments?.tinOre ?? 0) >= 1;
+    }
+  },
+  {
+    objectiveNo: 4,
+    id: "sellOre",
+    message: "Get yourself some coins by selling your ore. Right-click on the ore under Resources and click 'Sell'",
+    complete: false,
+    condition: () => countCoins.value > 0,
     unlock: () => {
       $("#furnaces").css("display", "block");
     }
   },
   {
-    objectiveNo: 2,
-    id: "sellOre",
-    message: "Get yourself some coins by selling your ore. Right-click on the ore under Resources and select 'Sell'",
-    complete: false,
-    condition: (resources, coins) => coins > 0,
-  },
-  {
-    objectiveNo: 3,
+    objectiveNo: 5,
     id: "buyFurnace",
     message: "Click the 'Buy furnace' button to buy a furnace once you have enough coins",
     complete: false,
-    condition: (resources, coins, playerFurnaces) => playerFurnaces.value >= 1,
+    condition: () => playerFurnaces.value >= 1,
     unlock: () => {
       $("#resources__ingots").removeClass("hidden")
     }
   },
   {
-    objectiveNo: 4,
+    objectiveNo: 6,
     id: "smeltIngot",
     message: "Smelt your first bronze ingot by selecting Bronze from the dropdown — make sure you have some copper and tin!",
     complete: false,
-    condition: (resources) => resources.bronzeIngot >= 1,
+    condition: () => resourceCounts.value.bronzeIngot >= 1,
     unlock: () => {
       $("#anvils").removeClass("hidden")
       $("#resources__armour").removeClass("hidden")
@@ -48,18 +75,12 @@ export const objective = [
     id: "smithHelmet",
     message: "Buy an anvil and craft your first Bronze Helmet",
     complete: false,
-    condition: (resources) => resources.bronzeHelm >= 1,
+    condition: () => resourceCounts.value.bronzeHelm >= 1,
     unlock: () => {
-      $("#miners").removeClass("hidden")
-      $(".miner-controls").removeClass("hidden")
+
     }
   },
-  {
-    objectiveNo: 6,
-    id: "buyMiner",
-    message: "Buy a miner and assign him to a node using the plus and minus icons",
-    complete: false,
-    condition: (resources, coins, playerMiners) => playerMiners.value >= 1,  },
+  
 ];
   
 /**
@@ -90,7 +111,7 @@ export function completeObjective(objectiveId, resources, coins = 0, hasPickaxe 
   const obj = objective.find(obj => obj.id === objectiveId);
   if (!obj) return;
 
-  const isComplete = obj.condition(resources, coins, hasPickaxe);
+  const isComplete = obj.condition();
 
   if (isComplete && !obj.complete) {
     obj.complete = true;
@@ -142,7 +163,6 @@ function saveObjectivesProgress() {
 }
 
 /**
- * Utility to get the first incomplete objective's message
  * @returns {string}
  */
 export function getActiveObjectiveMessage() {

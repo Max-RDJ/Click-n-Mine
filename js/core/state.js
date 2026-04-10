@@ -2,7 +2,7 @@ import { updateSlotUI } from "./equipment.js";
 
 export const defaultPlayerState = {
   objectivesHintDismissed: false,
-  coins: 0,
+  coins: 100,
   resources: {
     copperOre: 0,
     tinOre: 0,
@@ -42,6 +42,9 @@ export const defaultPlayerState = {
   playerFurnaces: 0,
   playerAnvils: 0,
   playerMiners: 0,
+  playerMines: [
+    { type: "copper", assignedMiners: 0 }
+  ],
   unlockedSpells: { "restorative_orison": true, "walk_with_me": true, "enfeebling_chant": true },
 };
 
@@ -55,6 +58,7 @@ export const autoMiningRate = { value: 0 };
 export const playerFurnaces = { value: 0 };
 export const playerAnvils = { value: 0 };
 export const playerMiners = { value: 0 };
+export const playerMines = { value: [] };
 
 
 export function applyLoadedState(state) {
@@ -67,7 +71,9 @@ export function applyLoadedState(state) {
   playerFurnaces.value = state.playerFurnaces ?? 0;
   playerAnvils.value = state.playerAnvils ?? 0;
   playerMiners.value = state.playerMiners ?? 0;
-  
+  playerMines.value = state.playerMines ?? [
+    { type: "copper", assignedMiners: 0 }
+  ];
   if (!playerState.value.unlockedPickaxes) {
     playerState.value.unlockedPickaxes = {};
   }

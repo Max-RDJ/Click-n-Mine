@@ -11,6 +11,7 @@ export function idToKey(id) {
 
 export function sellOne(key) {
   sellAmount(key, 1);
+  completeObjective("sellOre", resourceCounts.value, countCoins.value);
 }
 
 export function sellAmount(key, amount) {

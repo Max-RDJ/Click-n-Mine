@@ -2,11 +2,12 @@ import { getFurnaceCost } from "../systems/smelting.js";
 import { getAnvilCost } from "../systems/smithing.js";
 import { countCoins, resourceCounts, playerState } from "../core/state.js";
 import { savePlayerProgress } from "../core/save.js";
-import { playerFurnaces, playerAnvils, playerMiners } from "../core/state.js";
+import { playerFurnaces, playerAnvils, playerMiners, playerMines } from "../core/state.js";
 import { getMinerCost, getAvailableMiners } from "../systems/auto-mining.js";
 import { setText } from "../core/helpers.js";
 import { showTemporaryMessage } from "../systems/messages.js";
 import { RESOURCES } from "../data/resources.js";
+import { capitalize } from "../utils/utils.js";
 
 
 export function updateDisplay() {
@@ -71,16 +72,52 @@ export function updateAnvilUI() {
 export function updateMinerUI() {
   if (!playerState.value || !playerState.value.minerAssignments) return;
 
-  document.querySelectorAll(".ore-node").forEach(node => {
-    const oreType = node.dataset.ore;
-    const count = playerState.value.minerAssignments[oreType];
+  document.querySelectorAll(".purchased-mine").forEach(mine => {
+    const oreType = mine.dataset.ore;
+    const count = playerState.value.minerAssignments[oreType] ?? 0;
 
-    node.querySelector(".assigned-count").textContent = count;
+    mine.querySelector(".assigned-count").textContent = count;
   });
 
   document.getElementById("cost__miner").textContent =
     `Cost: ${getMinerCost()} coins`;
 
-  document.getElementById("count__miner").textContent =
+  document.getElementById("count__miners-ores").textContent =
     ` ${getAvailableMiners()} of ${playerMiners.value}`;
+
+  document.getElementById("count__miners").textContent =
+    ` ${getAvailableMiners()}/${playerMiners.value}`;
 }
+
+export function renderMines() {
+  const container = document.querySelector(".mines");
+  const newMineButton = document.getElementById("mines-new");
+
+  container.querySelectorAll(".purchased-mine").forEach(el => el.remove());
+
+  // Ensure playerMines.value is an array
+  const mines = Array.isArray(playerMines.value) ? playerMines.value : [];
+  
+  mines.forEach(mine => {
+    const el = document.createElement("div");
+    el.classList.add("purchased-mine");
+    el.dataset.ore = `${mine.type}Ore`;
+
+    el.innerHTML = `
+      <img src="images/mine_${capitalize(mine.type)}.png">
+
+      <div class="miner-controls hidden">
+        <button class="assign-plus button-icon">
+          <i data-lucide="CirclePlus"></i>
+        </button>
+        <span class="assigned-count">0</span>
+        <button class="assign-minus button-icon">
+          <i data-lucide="CircleMinus"></i>
+        </button>
+      </div>
+    `;
+
+    container.insertBefore(el, newMineButton);
+  });
+}
+  
