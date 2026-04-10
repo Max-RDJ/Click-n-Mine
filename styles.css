@@ -597,6 +597,13 @@ legend {
   transition: opacity 0.2s ease-in-out;
 }
 
+#miners-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 #resources-products {
   display: none;
   margin-block: 25px;

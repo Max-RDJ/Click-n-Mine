@@ -51,7 +51,7 @@ export const objective = [
   {
     objectiveNo: 5,
     id: "buyFurnace",
-    message: "Click the 'Buy furnace' button to buy a furnace once you have enough coins",
+    message: "Buy a furnace from the shop once you have enough coins",
     complete: false,
     condition: () => playerFurnaces.value >= 1,
     unlock: () => {
@@ -61,7 +61,7 @@ export const objective = [
   {
     objectiveNo: 6,
     id: "smeltIngot",
-    message: "Smelt your first bronze ingot by selecting Bronze from the dropdown — make sure you have some copper and tin!",
+    message: "Smelt your first bronze ingot by opening the menu on the right and selecting Bronze in the dropdown under Furnaces",
     complete: false,
     condition: () => resourceCounts.value.bronzeIngot >= 1,
     unlock: () => {
@@ -71,13 +71,13 @@ export const objective = [
     }
   },
   {
-    objectiveNo: 5,
+    objectiveNo: 7,
     id: "smithHelmet",
     message: "Buy an anvil and craft your first Bronze Helmet",
     complete: false,
     condition: () => resourceCounts.value.bronzeHelm >= 1,
     unlock: () => {
-
+      $("#miners-new").removeClass("hidden");
     }
   },
   
