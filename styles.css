@@ -857,7 +857,7 @@ select {
   width: 100%;
 }
 
-#dev-tools {
+#dev-tools:not(.hidden) {
   display: flex;
   position: absolute;
   flex-direction: column;
