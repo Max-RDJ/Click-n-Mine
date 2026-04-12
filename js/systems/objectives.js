@@ -79,7 +79,7 @@ export const objective = [
     condition: () => resourceCounts.value.bronzeHelm >= 1,
     unlock: () => {
       console.log("Completing smithHelm");
-      $("#miners-new").removeClass("hidden");
+      $("#mines-new").removeClass("hidden");
     }
   },
   

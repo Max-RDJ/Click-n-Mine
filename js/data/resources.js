@@ -2,7 +2,7 @@ export const RESOURCES = {
   coins: {
     displayName: "coins",
     type: "material",
-    image: "images/240px-Coins_detail.png"
+    image: "images/coins.png"
   },
   copperOre: {
     displayName: "copper ore",
@@ -26,13 +26,13 @@ export const RESOURCES = {
     displayName: "bronze ingot",
     type: "material",
     sellPrice: 5,
-    image: "images/240px-Bronze_bar_detail.png"
+    image: "images/bronze_bar.png"
   },
   ironIngot: {
     displayName: "iron ingot",
     type: "material",
     sellPrice: 6,
-    image: "images/240px-Iron_bar_detail.png"
+    image: "images/iron_bar.png"
   },
   bronzePickaxe: {
     name: "Bronze pickaxe",
@@ -52,7 +52,7 @@ export const RESOURCES = {
     slot: "head",
     sellPrice: 8,
     defense: 2,
-    image: "images/247px-Bronze_full_helm_detail.png"
+    image: "images/bronze_helm.png"
   },
   bronzePlatebody: {
     displayName: "bronze platebody",
@@ -60,7 +60,7 @@ export const RESOURCES = {
     slot: "chest",
     sellPrice: 12,
     defense: 5,
-    image: "images/300px-Bronze_platebody_detail.png"
+    image: "images/bronze_platebody.png"
   },
   bronzePlatelegs: {
     displayName: "bronze platelegs",
@@ -68,7 +68,7 @@ export const RESOURCES = {
     slot: "legs",
     sellPrice: 10,
     defense: 3,
-    image: "images/180px-Bronze_platelegs_detail.png"
+    image: "images/bronze_platelegs.png"
   },
   bronzeSword: {
     displayName: "bronze sword",
@@ -76,7 +76,7 @@ export const RESOURCES = {
     slot: "weapon",
     sellPrice: 10,
     attack: 3,
-    image: "images/200px-Bronze_sword_detail.png"
+    image: "images/bronze_sword.png"
   },
   ironSword: {
     displayName: "iron sword",
@@ -84,7 +84,7 @@ export const RESOURCES = {
     slot: "weapon",
     sellPrice: 10,
     attack: 8,
-    image: "images/200px-iron_sword_detail.png"
+    image: "images/iron_sword.png"
   },
   airEssence: {
     displayName: "air essence",

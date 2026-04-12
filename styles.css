@@ -122,13 +122,13 @@ body {
   overflow: hidden;
   background: rgba(30,30,30,0.95);
   border-bottom: 1px solid rgba(255,255,255,0.1);
-  z-index: 999;
+  z-index: 1000;
   transform: translateY(0);
   transition: max-height 0.35s ease, padding 0.35s ease;
 }
 
 #aside-resources:hover {
-  z-index: 1000;
+  z-index: 1001;
 }
 
 #toggle-aside-resources {
@@ -294,8 +294,8 @@ body {
   transition: max-width 0.35s ease, padding 0.35s ease;
 }
 
-#aside-tools:hover + #toggle-aside-tools {
-  z-index: 1001;
+#aside-tools:hover {
+  z-index: 1002;
 }
 
 #aside-tools.open {
