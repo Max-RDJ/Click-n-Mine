@@ -71,9 +71,9 @@ export function applyLoadedState(state) {
   playerFurnaces.value = state.playerFurnaces ?? 0;
   playerAnvils.value = state.playerAnvils ?? 0;
   playerMiners.value = state.playerMiners ?? 0;
-  playerMines.value = state.playerMines ?? [
-    { type: "copper", assignedMiners: 0 }
-  ];
+  playerMines.value = Array.isArray(state.playerMines)
+  ? state.playerMines
+  : [{ type: "copper", assignedMiners: 0 }];
   if (!playerState.value.unlockedPickaxes) {
     playerState.value.unlockedPickaxes = {};
   }

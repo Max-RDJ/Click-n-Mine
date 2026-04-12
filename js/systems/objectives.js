@@ -68,6 +68,7 @@ export const objective = [
       $("#anvils").removeClass("hidden")
       $("#resources__armour").removeClass("hidden")
       $("#resources__weapons").removeClass("hidden")
+      $("#shop-anvils").removeClass("hidden");
     }
   },
   {
@@ -77,6 +78,7 @@ export const objective = [
     complete: false,
     condition: () => resourceCounts.value.bronzeHelm >= 1,
     unlock: () => {
+      console.log("Completing smithHelm");
       $("#miners-new").removeClass("hidden");
     }
   },

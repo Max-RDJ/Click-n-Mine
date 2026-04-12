@@ -105,7 +105,7 @@ export function startSmithing() {
       savePlayerProgress();
     }
 
-    completeObjective("smithHelmet", resourceCounts.value, countCoins.value);
+    completeObjective("smithHelmet");
     updateDisplay();
   }, selectedProduct.timeToSmith);
 }
