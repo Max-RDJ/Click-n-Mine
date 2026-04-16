@@ -13,11 +13,9 @@ import {
 import {
     buyMiner
 } from "../systems/auto-mining.js";
-import { 
-  startSmelting, 
+import {  
   stopSmelting 
 } from "../systems/smelting.js";
-import { buyFurnace } from "../systems/furnace-purchase.js";
 import { startMining } from "../systems/auto-mining.js";
 import { bindNodeClicks } from "../systems/mining.js";
 import { resetMoney, addMoney, resetAll } from "../systems/dev-tools.js";
@@ -33,7 +31,6 @@ window.addEventListener("DOMContentLoaded", () => {
   updateAnvilUI()
   updateMinerUI()
   startSmithing()
-  startSmelting()
   startMining()
   bindContextMenu()
   initInventory()
@@ -42,15 +39,7 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 export function bindUI() {
-  $("#furnace-buy").on("click", buyFurnace);
   $("#anvil-buy").on("click", buyAnvil);
-
-  $("#smelt-play").on("click", startSmelting);
-  $("#smelt-pause").on("click", stopSmelting);
-  $("#ingot-selection").on("change", () => {
-    stopSmelting();
-    startSmelting();
-  });
 
   $("#smith-play").on("click", startSmithing);
   $("#smith-pause").on("click", stopSmithing);

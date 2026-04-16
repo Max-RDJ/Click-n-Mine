@@ -5,6 +5,7 @@ import { capitalize } from "../utils/utils.js";
 import { savePlayerProgress } from "../core/save.js";
 import { completeObjective } from "./objectives.js";
 import { resourceCounts } from "../core/state.js";
+import { processFurnaceSmelt } from "./smelting.js";
 
 var newMine = {
     ore: null,
@@ -12,7 +13,6 @@ var newMine = {
 };
 
 export function buyFurnace(furnaceType) {
-    console.log("Attempting to buy furnace of type:", furnaceType);
     const cost = getFurnaceCost();
 
     if (countCoins.value < cost) {
@@ -36,7 +36,7 @@ export function buyFurnace(furnaceType) {
     savePlayerProgress();
 }
 
-export function selectFurnace(type) {
+export function selectFurnace() {
   return {
     id: `furnace-${Date.now()}-${Math.random()}`,
     type,
@@ -55,9 +55,25 @@ export function renderFurnace(furnace) {
 
     <button class="change-ingot-btn">⚙️</button>
 
-    <div class="ingot-menu hidden">
-      <button data-ingot="bronzeIngot">Bronze</button>
-      <button data-ingot="ironIngot">Iron</button>
+    <div class="processor-selection ingot-menu hidden">
+        <div
+                class="furnace-option"
+                data-furnace-type="none"
+            >
+                <img src="images/stop.png"/>
+            </div>    
+        <div
+            class="furnace-option"
+            data-furnace-type="bronzeIngot"
+        >
+            <img src="images/bronze_bar.png"/>
+            </div>
+        <div
+            class="furnace-option"
+            data-furnace-type="ironIngot"
+        >
+            <img src="images/iron_bar.png"/>
+        </div>
     </div>
 
     <div class="selected-ingot">None</div>
@@ -85,13 +101,30 @@ function bindFurnaceUI(furnace, el) {
     menu.classList.toggle("hidden");
   });
 
-  menu.querySelectorAll("button").forEach(option => {
+  menu.querySelectorAll(".furnace-option").forEach(option => {
     option.addEventListener("click", () => {
-      furnace.selectedIngot = option.dataset.ingot;
-      display.textContent = option.textContent;
-      menu.classList.add("hidden");
+        const type = option.dataset.furnaceType;
 
-      savePlayerProgress();
+        if (furnace.intervalId) {
+            clearInterval(furnace.intervalId);
+            furnace.intervalId = null;
+        }
+
+        furnace.selectedIngot = type === "none" ? null : type;
+        furnace.isRunning = type !== "none";
+
+        display.textContent = type === "none"
+        ? "None"
+        : type;
+
+        if (furnace.isRunning) {
+            furnace.intervalId = setInterval(() => {
+                processFurnaceSmelt(furnace);
+            }, 2000); // Adjust speed here
+        }
+
+        menu.classList.add("hidden");
+        savePlayerProgress();
+        });
     });
-  });
 }

@@ -4,6 +4,22 @@ export const FURNACE_CONFIG = {
   playerSmeltingRate: 1
 };
 
+export const SMELT_RECIPES = {
+  bronzeIngot: {
+    inputs: {
+      copperOre: 1,
+      tinOre: 1
+    },
+    output: "bronzeIngot"
+  },
+  ironIngot: {
+    inputs: {
+      ironOre: 1
+    },
+    output: "ironIngot"
+  }
+};
+
 export const ANVIL_CONFIG = {
   baseCost: 20,
   costMultiplier: 1.6,

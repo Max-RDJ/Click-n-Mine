@@ -58,7 +58,7 @@ export const objective = [
     id: "buyFurnace",
     message: "Buy a furnace using the + button with the furnace and select the bronze ingot in the popup menu",
     complete: false,
-    condition: () => playerFurnaces.value >= 1,
+    condition: () => playerFurnaces.value.length >= 1,
     unlock: () => {
       $("#resources__ingots").removeClass("hidden")
     },

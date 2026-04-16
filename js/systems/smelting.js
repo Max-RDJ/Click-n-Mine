@@ -52,74 +52,59 @@ export function getFurnaceCost() {
 } */
 
 export function recalcSmeltingRate() {
-  playerSmeltingRate.value = playerFurnaces.value * FURNACE_CONFIG.playerSmeltingRate;
+  playerSmeltingRate.value = playerFurnaces.value.length * FURNACE_CONFIG.playerSmeltingRate;
 }
 
 const baseSmeltInterval = 3000;
 const minSmeltInterval = 300;
 
 function getSmeltInterval() {
-  return Math.max(minSmeltInterval, baseSmeltInterval / Math.log2(playerFurnaces.value + 2));
+  return Math.max(minSmeltInterval, baseSmeltInterval / Math.log2(playerFurnaces.value.length + 2));
 }
 
 function getSmeltPerTick() {
   return Math.max(1, Math.floor(Math.pow(playerFurnaces.value, 0.6)));
 }
 
-export function startSmelting() {
-  if (isSmelting) return;
+export function processFurnaceSmelt(furnace) {
+  const ingotData = ingotList.find(i => i.type === furnace.selectedIngot);
+  if (!ingotData) return;
 
-  const ingotType = document.getElementById("ingot-selection").value;
-  const selectedIngot = ingotList.find(i => i.type === ingotType);
-  if (!selectedIngot || playerFurnaces.value <= 0) return;
+  let canSmelt = true;
 
-  isSmelting = true;
-  document.getElementById("smelt-play").classList.add("hidden");
-  document.getElementById("smelt-pause").classList.remove("hidden");
-
-  const interval = getSmeltInterval();
-
-  smeltingIntervalId = setInterval(() => {
-    const smeltAmount = getSmeltPerTick();
-    for (let i = 0; i < smeltAmount; i++) {
-      let canSmelt = true;
-      for (const mat in selectedIngot.rawMaterials) {
-        if (resourceCounts.value[mat] < selectedIngot.rawMaterials[mat]) {
-          canSmelt = false;
-          break;
-        }
-      }
-      if (!canSmelt) break;
-      for (const mat in selectedIngot.rawMaterials) {
-        resourceCounts.value[mat] -= selectedIngot.rawMaterials[mat];
-      }
-      resourceCounts.value[selectedIngot.type] += 1;
-      savePlayerProgress();
+  for (const mat in ingotData.rawMaterials) {
+    if (resourceCounts.value[mat] < ingotData.rawMaterials[mat]) {
+      canSmelt = false;
+      break;
     }
-    completeObjective("smeltIngot", resourceCounts.value, countCoins.value);
-    updateDisplay();
-  }, interval);
+  }
+
+  if (!canSmelt) return;
+
+  // consume materials
+  for (const mat in ingotData.rawMaterials) {
+    resourceCounts.value[mat] -= ingotData.rawMaterials[mat];
+  }
+
+  // produce ingot
+  resourceCounts.value[ingotData.type] += 1;
+
+  completeObjective("smeltIngot", resourceCounts.value, countCoins.value);
+
+  updateDisplay();
+  savePlayerProgress();
 }
 
 export function stopSmelting() {
-  if (smeltingIntervalId !== null) {
-    clearInterval(smeltingIntervalId);
-    smeltingIntervalId = null;
-    isSmelting = false;
-
-    document.getElementById("smelt-pause").classList.add("hidden");
-    document.getElementById("smelt-play").classList.remove("hidden");
-  }
-}
-
-export function initSmeltingUI() {
-  document.getElementById("smelt-play").addEventListener("click", startSmelting);
-  document.getElementById("smelt-pause").addEventListener("click", stopSmelting);
-
-  document.getElementById("ingot-selection").addEventListener("change", () => {
-    if (isSmelting) {
-      stopSmelting();
-      startSmelting();
+  playerFurnaces.value.forEach(furnace => {
+    if (furnace.intervalId) {
+      clearInterval(furnace.intervalId);
+      furnace.intervalId = null;
+      furnace.isRunning = false;
     }
   });
+
+  document.getElementById("smelt-pause").classList.add("hidden");
+  document.getElementById("smelt-play").classList.remove("hidden");
 }
+

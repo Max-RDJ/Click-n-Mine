@@ -463,6 +463,10 @@ h1 {
   max-width: 100px;
 }
 
+.purchased-furnace {
+  position: relative;
+}
+
 .purchased-furnace img {
   padding: 1rem;
 }
@@ -503,13 +507,12 @@ h1 {
 
 .processor-selection {
   position: absolute;
-  display: none;
   grid-template-columns: repeat(3, 4rem);
   padding: 0.5rem;
   background: rgba(30,30,30,0.95);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 10px;
-  z-index: 10;
+  z-index: 1000;
 }
 
 .processor-selection.open {
