@@ -48,6 +48,9 @@ export const objective = [
     condition: () => countCoins.value > 0,
     unlock: () => {
       $("#furnaces").css("display", "block");
+    },
+    applyOnLoad: () => {
+      $("#furnaces").css("display", "block");
     }
   },
   {
@@ -57,6 +60,9 @@ export const objective = [
     complete: false,
     condition: () => playerFurnaces.value >= 1,
     unlock: () => {
+      $("#resources__ingots").removeClass("hidden")
+    },
+    applyOnLoad: () => {
       $("#resources__ingots").removeClass("hidden")
     }
   },
@@ -71,6 +77,12 @@ export const objective = [
       $("#resources__armour").removeClass("hidden")
       $("#resources__weapons").removeClass("hidden")
       $("#shop-anvils").removeClass("hidden");
+    },
+    applyOnLoad: () => {
+      $("#anvils").removeClass("hidden")
+      $("#resources__armour").removeClass("hidden")
+      $("#resources__weapons").removeClass("hidden")
+      $("#shop-anvils").removeClass("hidden");
     }
   },
   {
@@ -81,9 +93,11 @@ export const objective = [
     condition: () => resourceCounts.value.bronzeHelm >= 1,
     unlock: () => {
       $("#mines-new").removeClass("hidden");
+    },
+    applyOnLoad: () => {
+      $("#mines-new").removeClass("hidden");
     }
   },
-  
 ];
   
 /**
@@ -103,6 +117,7 @@ export function loadObjectivesProgress() {
   objective.forEach(obj => {
     if (stored.includes(obj.objectiveNo)) {
       obj.complete = true;
+      if (obj.applyOnLoad) obj.applyOnLoad();
     }
   });
 

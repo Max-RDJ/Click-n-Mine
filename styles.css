@@ -338,8 +338,8 @@ body {
 #count__miners-ores { display: flex; }
 #count__miners { display: none; }
 
-#aside-tools.collapsed #count__miners-ores { display: none; }
-#aside-tools.collapsed #count__miners { display: flex; }
+#aside-resources.collapsed #count__miners-ores { display: none; }
+#aside-resources.collapsed #count__miners { display: flex; }
 
 #objective-message-text {
   display: flex;
@@ -821,10 +821,6 @@ select {
   justify-content: center;
   gap: 0.75rem;
   padding: 10px;
-}
-
-.resources__coins {
-  max-height: 100px;
 }
 
 .resources:hover {
