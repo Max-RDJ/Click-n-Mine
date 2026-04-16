@@ -3,6 +3,7 @@ import { setObjectiveMessage, showObjectiveNotification } from "./messages.js";
 import { playSound } from "../core/audio.js";
 import { selectMine, renderMine } from "./mine-purchase.js";
 import { playerMiners } from "../core/state.js";
+import { renderMines } from "../ui/ui-update.js";
 
 
 export const objective = [
@@ -18,14 +19,14 @@ export const objective = [
     id: "assignMiner",
     message: "Assign him to a mine by hovering over the copper mine you've already got and click the + button",
     complete: false,
-    condition: (playerMines) => {
-      return Object.values(playerState.value.minerAssignments).some(count => count > 0);
+    condition: () => {
+      return playerMines.value.some(mine => (mine.assignedMiners || 0) > 0);
     },
     unlock: () => {
       if (!playerMines.value.some(m => m.type === "tin")) {
         const mine = selectMine("tin");
         playerMines.value.push(mine);
-        renderMine(mine);
+        renderMines();
       }
     }
   },
@@ -35,7 +36,8 @@ export const objective = [
     message: "Here's a tin mine. Hire another miner and assign him to this mine.",
     complete: false,
     condition: () => {
-      return (playerState.value.minerAssignments?.tinOre ?? 0) >= 1;
+      const tinMine = playerMines.value.find(m => m.ore === "tinOre");
+      return (tinMine?.assignedMiners ?? 0) >= 1;
     }
   },
   {
@@ -78,7 +80,6 @@ export const objective = [
     complete: false,
     condition: () => resourceCounts.value.bronzeHelm >= 1,
     unlock: () => {
-      console.log("Completing smithHelm");
       $("#mines-new").removeClass("hidden");
     }
   },
@@ -102,7 +103,6 @@ export function loadObjectivesProgress() {
   objective.forEach(obj => {
     if (stored.includes(obj.objectiveNo)) {
       obj.complete = true;
-      if (obj.unlock) obj.unlock();
     }
   });
 

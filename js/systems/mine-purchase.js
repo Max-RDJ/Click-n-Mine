@@ -2,6 +2,7 @@ import { countCoins, playerMines } from "../core/state.js";
 import { MINE_TYPES, MINE_CONFIG } from "../core/config.js";
 import { updateInfoMessage, updateCoinsDisplay } from "../ui/ui-update.js";
 import { capitalize } from "../utils/utils.js";
+import { savePlayerProgress } from "../core/save.js";
 
 var newMine = {
     ore: null,
@@ -19,26 +20,30 @@ export function buyMine(mineType) {
     countCoins.value -= cost;
 
     const mine = selectMine(mineType);
-    playerMines.push(mine);
+    playerMines.value.push(mine);
     renderMine(mine);
 
     updateCoinsDisplay();
+    savePlayerProgress();
 }
 
 export function selectMine(type) {
   return {
+    id: `mine-${Date.now()}-${Math.random()}`,
     type,
-    ore: `${type}Ore`
+    ore: `${type}Ore`,
+    assignedMiners: 0
   };
 }
 
 export function renderMine(mine) {
     const mineEl = document.createElement("div");
     mineEl.classList.add("purchased-mine");
-    mineEl.dataset.ore = mine.ore;
+    mineEl.dataset.id = mine.id;
 
+    const type = mine.ore.replace("Ore", "");
     mineEl.innerHTML = `
-    <img src="images/mine_${capitalize(mine.type)}.png">
+    <img src="images/mine_${capitalize(type)}.png">
 
     <div class="miner-controls hidden">
       <button class="assign-plus button-icon">
@@ -57,8 +62,11 @@ export function renderMine(mine) {
 }
 
 export function getMineCost() {
-  return Math.floor(
-    MINE_CONFIG.baseCost * Math.pow(MINE_CONFIG.costMultiplier, playerMines.length)
+  const cost = Math.floor(
+    MINE_CONFIG.baseCost *
+    Math.pow(MINE_CONFIG.costMultiplier, playerMines.value.length)
   );
+  console.log("Calculating mine cost:", cost);
+  return cost;
 }
 

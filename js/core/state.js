@@ -43,7 +43,7 @@ export const defaultPlayerState = {
   playerAnvils: 0,
   playerMiners: 0,
   playerMines: [
-    { type: "copper", assignedMiners: 0 }
+    { id: "mine-0", ore: "copperOre", assignedMiners: 0 }
   ],
   unlockedSpells: { "restorative_orison": true, "walk_with_me": true, "enfeebling_chant": true },
 };
@@ -71,9 +71,26 @@ export function applyLoadedState(state) {
   playerFurnaces.value = state.playerFurnaces ?? 0;
   playerAnvils.value = state.playerAnvils ?? 0;
   playerMiners.value = state.playerMiners ?? 0;
-  playerMines.value = Array.isArray(state.playerMines)
-  ? state.playerMines
-  : [{ type: "copper", assignedMiners: 0 }];
+
+
+  const minesArray = Array.isArray(state.playerMines)
+    ? state.playerMines
+    : [];
+
+  playerMines.value = minesArray.map((mine, index) => ({
+      id: mine.id ?? `mine-${Date.now()}-${index}`,
+      ore: mine.ore || `${mine.type}Ore`,
+      assignedMiners: mine.assignedMiners || 0
+    }));
+
+  if (playerMines.value.length === 0) {
+    playerMines.value = [{
+      id: `mine-${Date.now()}-0`,
+      ore: "copperOre",
+      assignedMiners: 0
+    }];
+  }
+
   if (!playerState.value.unlockedPickaxes) {
     playerState.value.unlockedPickaxes = {};
   }
@@ -92,14 +109,6 @@ export function applyLoadedState(state) {
 
   if (!playerState.value.unlockedSpells) {
     playerState.value.unlockedSpells = {};
-  }
-
-  if (!playerState.value.minerAssignments) {
-    playerState.value.minerAssignments = {
-      copperOre: 0,
-      tinOre: 0,
-      ironOre: 0
-    };
   }
 }
 

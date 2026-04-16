@@ -1,16 +1,16 @@
 import { initIncrementalGame } from "./core/incremental.js";
 import { loadPlayerState, savePlayerProgress } from "./core/save.js";
-import { applyLoadedState, createFreshState, defaultPlayerState, playerState, initializeEquipmentUI } from "./core/state.js";
+import { applyLoadedState, createFreshState, defaultPlayerState, playerState, playerMines, initializeEquipmentUI } from "./core/state.js";
 import { restoreUnlockedPickaxesUI } from "./systems/pickaxes.js";
 import {  bindShopDrawer, bindCombatDrawer, bindMagicDrawer, bindUI } from "./ui/ui-bindings.js";
-import { initializeResourceImages, updateDisplay, renderMines, updateMinerUI } from "./ui/ui-update.js";
+import { initializeResourceImages, updateDisplay, renderMines, updateMinerUI, syncMineUI } from "./ui/ui-update.js";
 import { initAudio } from "./core/audio.js";
 import { setGameMode } from "./core/game-mode.js";
 import { renderSpells } from "./ui/render-spells.js";
 import { showObjectiveNotification, setObjectiveMessage, clearMessage } from "./systems/messages.js";
 import { getActiveObjectiveMessage } from "./systems/objectives.js";
 import { generateCombat } from "./systems/combat-log.js";
-import { initMiningUI } from "./systems/auto-mining.js";
+import { initMiningUI, getAvailableMiners, updateMineUI } from "./systems/auto-mining.js";
 import { RESOURCES } from "./data/resources.js";
 import { buyMine } from "./systems/mine-purchase.js";
 
@@ -31,9 +31,10 @@ $(document).ready(() => {
   initializeResourceImages();
   restoreUnlockedPickaxesUI();
   initializeEquipmentUI();
-  initMiningUI();
   renderMines();
+  syncMineUI();
   updateMinerUI();
+  initMiningUI();
   initIncrementalGame();
   initAudio();
   bindShopDrawer();

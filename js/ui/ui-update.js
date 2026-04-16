@@ -70,23 +70,23 @@ export function updateAnvilUI() {
 }
 
 export function updateMinerUI() {
-  if (!playerState.value || !playerState.value.minerAssignments) return;
+  document.querySelectorAll(".purchased-mine").forEach(el => {
+    const id = el.dataset.id;
+    const mine = playerMines.value.find(m => m.id === id);
+    
+    if (!mine) return;
 
-  document.querySelectorAll(".purchased-mine").forEach(mine => {
-    const oreType = mine.dataset.ore;
-    const count = playerState.value.minerAssignments[oreType] ?? 0;
-
-    mine.querySelector(".assigned-count").textContent = count;
+    const countEl = el.querySelector(".assigned-count");
+    if (countEl) {
+      countEl.textContent = mine.assignedMiners || 0;
+    }
   });
 
   document.getElementById("cost__miner").textContent =
     `Cost: ${getMinerCost()} coins`;
 
-  document.getElementById("count__miners-ores").textContent =
-    ` ${getAvailableMiners()} of ${playerMiners.value}`;
-
   document.getElementById("count__miners").textContent =
-    ` ${getAvailableMiners()}/${playerMiners.value}`;
+    `${getAvailableMiners()}/${playerMiners.value}`;
 }
 
 export function renderMines() {
@@ -95,16 +95,19 @@ export function renderMines() {
 
   container.querySelectorAll(".purchased-mine").forEach(el => el.remove());
 
-  // Ensure playerMines.value is an array
   const mines = Array.isArray(playerMines.value) ? playerMines.value : [];
   
   mines.forEach(mine => {
     const el = document.createElement("div");
     el.classList.add("purchased-mine");
-    el.dataset.ore = `${mine.type}Ore`;
+    el.dataset.id = mine.id;
+
+    console.log("MINE: ", mine)
+
+    const type = mine.ore.replace("Ore", "");
 
     el.innerHTML = `
-      <img src="images/mine_${capitalize(mine.type)}.png">
+      <img src="images/mine_${capitalize(type)}.png">
 
       <div class="miner-controls hidden">
         <button class="assign-plus button-icon">
@@ -120,4 +123,16 @@ export function renderMines() {
     container.insertBefore(el, newMineButton);
   });
 }
-  
+
+export function syncMineUI() {
+  const mines = playerMines.value || [];
+
+  mines.forEach(mine => {
+  const el = document.querySelector(`[data-ore="${mine.ore}"]`);    if (!el) return;
+
+  const countEl = el.querySelector(".assigned-count");
+  if (!countEl) return;
+
+    countEl.textContent = mine.assignedMiners || 0;
+  });
+}
