@@ -31,7 +31,7 @@ export function getFurnaceCost() {
   );
 }
 
-export function buyFurnace() {
+/* export function buyFurnace() {
   const cost = getFurnaceCost();
   if (countCoins.value < cost) {
     updateInfoMessage("You don't have enough coins.");
@@ -49,7 +49,7 @@ export function buyFurnace() {
     playerFurnaces
   );
   updateFurnaceUI();
-}
+} */
 
 export function recalcSmeltingRate() {
   playerSmeltingRate.value = playerFurnaces.value * FURNACE_CONFIG.playerSmeltingRate;

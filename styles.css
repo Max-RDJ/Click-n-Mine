@@ -451,7 +451,7 @@ h1 {
   width: 100%;
 }
 
-.mines {
+.mines, .furnaces:not(.hidden) {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 100px;
@@ -459,36 +459,49 @@ h1 {
   align-items: center;
 }
 
-.purchased-mine img {
+.purchased-mine img, .purchased-furnace img {
   max-width: 100px;
 }
 
-#mines-new {
+.purchased-furnace img {
+  padding: 1rem;
+}
+
+.processors {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-processor {
   position: relative;
 }
 
-#mines-new img {
+.new-processor img {
   max-height: 100px;
   width: auto;
   cursor: pointer;
 }
 
-#mines-new:hover .plus-icon {
+.new-processor:hover .plus-icon {
   opacity: 1;
 }
 
-#mines-new:hover .mines-entrance {
+.new-processor:hover .ghost-processor {
   opacity: 1;
 }
 
-.mines-entrance {
+.ghost-processor {
   opacity: 0.25;
   border-radius: 10px;
   border: solid white 3px;
   transition: opacity 0.2s ease;
 }
 
-.mines-new-selection {
+#furnaces-new .ghost-processor {
+  padding: 1rem;
+}
+
+.processor-selection {
   position: absolute;
   display: none;
   grid-template-columns: repeat(3, 4rem);
@@ -499,11 +512,11 @@ h1 {
   z-index: 10;
 }
 
-.mines-new-selection.open {
+.processor-selection.open {
   display: grid;
 }
 
-.mine-option:hover {
+.mine-option:hover, .furnace-option:hover {
   cursor: pointer;
   transform: translateY(-2px);
   background: rgba(255,255,255,0.05);
@@ -513,7 +526,7 @@ h1 {
   background: #222;
 }
 
-.mines-new-selection img {
+.processor-selection img {
   max-width: 50px;
   width: 3rem;
   padding: 0.25rem;
@@ -894,7 +907,7 @@ img.purchasable-item {
 #objectives-tutorial.show {
   position: absolute;
   bottom: calc(var(--tray-height) + 12px);
-  right: 1rem;
+  left: 0.4rem;
   width: 260px;
 
   display: flex;

@@ -33,7 +33,7 @@ export const objective = [
   {
     objectiveNo: 3,
     id: "assignMinerTin",
-    message: "Here's a tin mine. Hire another miner and assign him to this mine.",
+    message: "Here's a tin mine. Hire another miner and assign him to this mine",
     complete: false,
     condition: () => {
       const tinMine = playerMines.value.find(m => m.ore === "tinOre");
@@ -47,16 +47,16 @@ export const objective = [
     complete: false,
     condition: () => countCoins.value > 0,
     unlock: () => {
-      $("#furnaces").css("display", "block");
+      $(".furnaces").removeClass("hidden");
     },
     applyOnLoad: () => {
-      $("#furnaces").css("display", "block");
+      $(".furnaces").removeClass("hidden");
     }
   },
   {
     objectiveNo: 5,
     id: "buyFurnace",
-    message: "Buy a furnace from the shop once you have enough coins",
+    message: "Buy a furnace using the + button with the furnace and select the bronze ingot in the popup menu",
     complete: false,
     condition: () => playerFurnaces.value >= 1,
     unlock: () => {

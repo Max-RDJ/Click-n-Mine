@@ -145,30 +145,42 @@
         <button id="show-dev-tools">x</button>
         
       <div id="stage">
-        <div class="mines">
-          <div id="mines-new" class="hidden">
-            <img src="images/mine-entrance.png" class="mines-entrance">
-            <img src="images/plus-icon.png" class="plus-icon">
+        <div class="processors">
+          <div class="mines">
+            <div id="mines-new" class="new-processor hidden">
+              <img src="images/mine-entrance.png" class="ghost-processor">
+              <img src="images/plus-icon.png" class="plus-icon">
 
-            <div class="mines-new-selection">
-              <div class="mine-option" data-mine-type="copper">
-                  <img src="images/copper_ore.png"/>
-                </div>
-        
-                <div class="mine-option" data-mine-type="tin">
-                  <img src="images/tin_ore.png"/>
-                </div>
-        
-                <div class="mine-option" data-mine-type="iron">
-                  <img src="images/iron_ore.png"/>
-                </div>
+              <div class="processor-selection mines-new-selection">
+                <div class="mine-option" data-mine-type="copper">
+                    <img src="images/copper_ore.png"/>
+                  </div>
+          
+                  <div class="mine-option" data-mine-type="tin">
+                    <img src="images/tin_ore.png"/>
+                  </div>
+          
+                  <div class="mine-option" data-mine-type="iron">
+                    <img src="images/iron_ore.png"/>
+                  </div>
+              </div>
             </div>
           </div>
 
-          <div class="furnaces">
-            <div id="furnaces-new" class="hidden">
-              <img src="images/Furnace.png">
-              <img src="images/plus-icon.png" class="plus-icon">   
+          <div class="furnaces hidden">
+            <div id="furnaces-new" class="new-processor">
+              <img src="images/Furnace.png" class="ghost-processor">
+              <img src="images/plus-icon.png" class="plus-icon">  
+              
+              <div class="processor-selection furnaces-new-selection">
+                <div class="furnace-option"   data-furnace-type="bronzeIngot">
+                    <img src="images/bronze_bar.png"/>
+                  </div>
+          
+                  <div class="furnace-option" data-furnace-type="ironIngot">
+                    <img src="images/iron_bar.png"/>
+                  </div>
+              </div>
             </div>
           </div>
 

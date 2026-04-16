@@ -14,10 +14,10 @@ import {
     buyMiner
 } from "../systems/auto-mining.js";
 import { 
-  buyFurnace, 
   startSmelting, 
   stopSmelting 
 } from "../systems/smelting.js";
+import { buyFurnace } from "../systems/furnace-purchase.js";
 import { startMining } from "../systems/auto-mining.js";
 import { bindNodeClicks } from "../systems/mining.js";
 import { resetMoney, addMoney, resetAll } from "../systems/dev-tools.js";

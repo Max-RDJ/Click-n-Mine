@@ -68,11 +68,21 @@ export function applyLoadedState(state) {
   countCoins.value = state.coins ?? 0;
   playerMiningRate.value = state.playerMiningRate ?? 1;
   autoMiningRate.value = state.autoMiningRate ?? 0;
-  playerFurnaces.value = state.playerFurnaces ?? 0;
   playerAnvils.value = state.playerAnvils ?? 0;
   playerMiners.value = state.playerMiners ?? 0;
 
+  // PLAYER FURNACES
+  const furnacesArray = Array.isArray(state.playerFurnaces)
+    ? state.playerFurnaces
+    : [];
 
+  playerFurnaces.value = furnacesArray.map((furnace, index) => ({
+      id: furnace.id ?? `furnace-${Date.now()}-${index}`,
+      ore: furnace.ore || `${furnace.type}Ore`,
+      assignedMiners: furnace.assignedMiners || 0
+    }));
+
+    // PLAYER MINES
   const minesArray = Array.isArray(state.playerMines)
     ? state.playerMines
     : [];
