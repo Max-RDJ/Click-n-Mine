@@ -1,15 +1,7 @@
-import { 
-  playerAnvils, 
-  resourceCounts, 
-  countCoins 
-} from "../core/state.js";
+import { resourceCounts, countCoins } from "../core/state.js";
 import { completeObjective } from "./objectives.js";
-import { updateDisplay, updateInfoMessage, updateAnvilUI, updateCoinsDisplay } from "../ui/ui-update.js";
+import { updateDisplay } from "../ui/ui-update.js";
 import { savePlayerProgress } from "../core/save.js";
-import { ANVIL_CONFIG } from "../core/config.js";
-
-let smithingIntervalId = null;
-let isSmithing = false;
 
 export const productList = [
   {
@@ -44,7 +36,9 @@ export const productList = [
   },
 ];
 
-export function processAnvilSmith (anvil) {
+export function processAnvilSmith(anvil) {
+  if (!anvil.product) return;
+
   const productData = productList.find(p => p.type === anvil.product);
   if (!productData) return;
 
@@ -69,80 +63,4 @@ export function processAnvilSmith (anvil) {
 
   updateDisplay();
   savePlayerProgress();
-}
-
-export function startSmithing() {
-  if (isSmithing) return;
-
-  if (playerAnvils.value.length === 0) return;
-
-  isSmithing = true;
-
-  document.getElementById("smith-play").classList.add("hidden");
-  document.getElementById("smith-pause").classList.remove("hidden");
-
-  smithingIntervalId = setInterval(() => {
-    playerAnvils.value.forEach(anvil => {
-      if (!anvil.product) return;
-
-      const product = productList.find(p => p.type === anvil.product);
-      if (!product) return;
-
-      anvil.progress += 1000;
-
-      if (anvil.progress < product.timeToSmith) return;
-
-      let canSmith = true;
-
-      for (const mat in product.rawMaterials) {
-        if (resourceCounts.value[mat] < product.rawMaterials[mat]) {
-          canSmith = false;
-          break;
-        }
-      }
-
-      if (!canSmith) {
-        anvil.progress = 0;
-        return;
-      }
-
-      for (const mat in product.rawMaterials) {
-        resourceCounts.value[mat] -= product.rawMaterials[mat];
-      }
-
-      resourceCounts.value[product.type] += 1;
-      anvil.progress = 0;
-    });
-
-    savePlayerProgress();
-    updateDisplay();
-
-  }, 1000);
-}
-
-export function stopSmithing() {
-  if (!isSmithing) return;
-
-  clearInterval(smithingIntervalId);
-  smithingIntervalId = null;
-  isSmithing = false;
-
-  document.getElementById("smith-pause").classList.add("hidden");
-  document.getElementById("smith-play").classList.remove("hidden");
-}
-
-export function bindSmithingUI() {
-  const playBtn = document.getElementById("smith-play");
-  const pauseBtn = document.getElementById("smith-pause");
-  const productSelect = document.getElementById("product-selection");
-
-  playBtn.addEventListener("click", startSmithing);
-  pauseBtn.addEventListener("click", stopSmithing);
-
-  productSelect.addEventListener("change", () => {
-    if (isSmithing) {
-      stopSmithing();
-      startSmithing();
-    }
-  });
 }

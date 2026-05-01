@@ -4,11 +4,6 @@ import {
   updateCoinsDisplay, 
   updateMinerUI
 } from "./ui-update.js";
-import { 
-  bindSmithingUI, 
-  startSmithing, 
-  stopSmithing 
-} from "../systems/smithing.js";
 import { buyAnvil } from "../systems/anvil-purchase.js";
 import {
     buyMiner
@@ -30,7 +25,6 @@ window.addEventListener("DOMContentLoaded", () => {
   updateFurnaceUI()
   updateAnvilUI()
   updateMinerUI()
-  startSmithing()
   startMining()
   bindContextMenu()
   initInventory()
@@ -41,18 +35,10 @@ window.addEventListener("DOMContentLoaded", () => {
 export function bindUI() {
   $("#anvil-buy").on("click", buyAnvil);
 
-  $("#smith-play").on("click", startSmithing);
-  $("#smith-pause").on("click", stopSmithing);
-  $("#product-selection").on("change", () => {
-    stopSmithing();
-    startSmithing();
-  });
-
   $("#objective-message-dismiss").on("click", () => {
     $("#objective-message").hide();
   });
 
-  bindSmithingUI();
   bindNodeClicks();
 
   // DEV TOOLS

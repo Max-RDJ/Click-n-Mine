@@ -1,6 +1,6 @@
 import { initIncrementalGame } from "./core/incremental.js";
 import { loadPlayerState, savePlayerProgress } from "./core/save.js";
-import { applyLoadedState, createFreshState, defaultPlayerState, playerState, playerMines, playerFurnaces, initializeEquipmentUI } from "./core/state.js";
+import { applyLoadedState, createFreshState, defaultPlayerState, playerState, playerMines, playerFurnaces, initializeEquipmentUI, playerAnvils } from "./core/state.js";
 import { restoreUnlockedPickaxesUI } from "./systems/pickaxes.js";
 import {  bindShopDrawer, bindCombatDrawer, bindMagicDrawer, bindUI } from "./ui/ui-bindings.js";
 import { initializeResourceImages, updateDisplay, renderMines, updateMinerUI, syncMineUI } from "./ui/ui-update.js";
@@ -35,8 +35,13 @@ $(document).ready(() => {
   initializeEquipmentUI();
 
   renderMines();
+
   playerFurnaces.value.forEach(furnace => {
     renderFurnace(furnace);
+  });
+  
+  playerAnvils.value.forEach(anvil => {
+    renderAnvil(anvil);
   });
 
   syncMineUI();
@@ -119,6 +124,10 @@ $(document).ready(() => {
 
   $("#furnaces-new").on("click", function () {
     buyFurnace()
+  });
+
+  $("#anvils-new").on("click", function () {
+    buyAnvil()
   });
 
   document.querySelectorAll(".resources").forEach(el => {

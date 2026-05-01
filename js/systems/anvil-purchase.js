@@ -5,7 +5,7 @@ import { capitalize } from "../utils/utils.js";
 import { savePlayerProgress } from "../core/save.js";
 import { completeObjective } from "./objectives.js";
 import { resourceCounts } from "../core/state.js";
-import { processAnvilSmith } from "./smithing.js";
+import { processAnvilSmith, productList } from "./smithing.js";
 
 var newMine = {
     ore: null,
@@ -39,10 +39,10 @@ export function buyAnvil(anvilType) {
 export function selectAnvil() {
   return {
     id: `anvil-${Date.now()}-${Math.random()}`,
-    type,
-    ingot: null,
-    isRunning: false
-  };
+    product: null,
+    isRunning: false,
+    intervalId: null
+};
 }
 
 export function renderAnvil(anvil) {
@@ -76,7 +76,7 @@ export function renderAnvil(anvil) {
         </div>
     </div>
 
-    <div class="selected-ingot">None</div>
+    <div class="selected-product">None</div>
   `;
 
   document.querySelector(".anvils").prepend(anvilEl);
@@ -93,9 +93,9 @@ export function getAnvilCost() {
 }
 
 function bindAnvilUI(anvil, el) {
-  const menu = el.querySelector(".ingot-menu");
-  const btn = el.querySelector(".change-ingot-btn");
-  const display = el.querySelector(".selected-ingot");
+  const menu = el.querySelector(".product-menu");
+  const btn = el.querySelector(".change-product-btn");
+  const display = el.querySelector(".selected-product");
 
   btn.addEventListener("click", () => {
     menu.classList.toggle("hidden");
@@ -106,11 +106,11 @@ function bindAnvilUI(anvil, el) {
         const type = option.dataset.anvilType;
 
         if (anvil.intervalId) {
-            clearInterval(anvil.intervalId);
-            anvil.intervalId = null;
+        clearInterval(anvil.intervalId);
+        anvil.intervalId = null;
         }
 
-        anvil.selectedIngot = type === "none" ? null : type;
+        anvil.product = type === "none" ? null : type;
         anvil.isRunning = type !== "none";
 
         display.textContent = type === "none"
@@ -118,13 +118,15 @@ function bindAnvilUI(anvil, el) {
         : type;
 
         if (anvil.isRunning) {
-            anvil.intervalId = setInterval(() => {
-                processAnvilSmith(anvil);
-            }, 2000); // Adjust speed here
+        const product = productList.find(p => p.type === anvil.product);
+
+        anvil.intervalId = setInterval(() => {
+            processAnvilSmith(anvil);
+        }, product.timeToSmith);
         }
 
         menu.classList.add("hidden");
         savePlayerProgress();
-        });
+    });
     });
 }

@@ -451,7 +451,7 @@ h1 {
   width: 100%;
 }
 
-.mines, .furnaces:not(.hidden) {
+.mines, .furnaces:not(.hidden), .anvils:not(.hidden) {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 100px;
@@ -460,15 +460,16 @@ h1 {
 }
 
 .purchased-mine img,
-.purchased-furnace img {
+.purchased-furnace img,
+.purchased-anvil img {
   max-width: 100px;
 }
 
-.purchased-furnace {
+.purchased-furnace, .purchased-anvil {
   position: relative;
 }
 
-.purchased-furnace img {
+.purchased-furnace img, .purchased-anvil img {
   padding: 1rem;
 }
 
@@ -520,7 +521,13 @@ h1 {
   display: grid;
 }
 
-.mine-option:hover, .furnace-option:hover {
+.processor-selection img {
+  max-height: 50px;
+  height: 2.5rem;
+  padding: 0.3rem;
+}
+
+.mine-option:hover, .furnace-option:hover, .anvil-option:hover {
   cursor: pointer;
   transform: translateY(-2px);
   background: rgba(255,255,255,0.05);
@@ -528,12 +535,6 @@ h1 {
   cursor: pointer;
   transition: all 0.15s ease;
   background: #222;
-}
-
-.processor-selection img {
-  max-width: 50px;
-  width: 3rem;
-  padding: 0.25rem;
 }
 
 .plus-icon {
