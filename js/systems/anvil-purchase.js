@@ -53,7 +53,9 @@ export function renderAnvil(anvil) {
   anvilEl.innerHTML = `
     <img src="images/Anvil.png" class="anvil-img">
 
-    <button class="change-product-btn">⚙️</button>
+    <button class="change-product-btn">
+        <img class="selected-img" src="images/stop.png"/>
+    </button>
 
     <div class="processor-selection product-menu hidden">
         <div
@@ -70,13 +72,11 @@ export function renderAnvil(anvil) {
             </div>
         <div
             class="anvil-option"
-            data-anvil-type="bronze_sword"
+            data-anvil-type="bronzeSword"
         >
             <img src="images/bronze_sword.png"/>
         </div>
     </div>
-
-    <div class="selected-product">None</div>
   `;
 
   document.querySelector(".anvils").prepend(anvilEl);
@@ -95,7 +95,7 @@ export function getAnvilCost() {
 function bindAnvilUI(anvil, el) {
   const menu = el.querySelector(".product-menu");
   const btn = el.querySelector(".change-product-btn");
-  const display = el.querySelector(".selected-product");
+  const img = btn.querySelector(".selected-img");
 
   btn.addEventListener("click", () => {
     menu.classList.toggle("hidden");
@@ -104,6 +104,7 @@ function bindAnvilUI(anvil, el) {
   menu.querySelectorAll(".anvil-option").forEach(option => {
     option.addEventListener("click", () => {
         const type = option.dataset.anvilType;
+        const optionImg = option.querySelector("img").src;
 
         if (anvil.intervalId) {
         clearInterval(anvil.intervalId);
@@ -112,10 +113,7 @@ function bindAnvilUI(anvil, el) {
 
         anvil.product = type === "none" ? null : type;
         anvil.isRunning = type !== "none";
-
-        display.textContent = type === "none"
-        ? "None"
-        : type;
+        img.src = optionImg;
 
         if (anvil.isRunning) {
         const product = productList.find(p => p.type === anvil.product);

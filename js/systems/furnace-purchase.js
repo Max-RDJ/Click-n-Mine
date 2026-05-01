@@ -61,7 +61,9 @@ export function renderFurnace(furnace) {
   furnaceEl.innerHTML = `
     <img src="images/Furnace.png" class="furnace-img">
 
-    <button class="change-ingot-btn">⚙️</button>
+    <button class="change-ingot-btn">
+        <img class="selected-img" src="images/stop.png"/>
+    </button>
 
     <div class="processor-selection ingot-menu hidden">
         <div
@@ -83,8 +85,6 @@ export function renderFurnace(furnace) {
             <img src="images/iron_bar.png"/>
         </div>
     </div>
-
-    <div class="selected-ingot">None</div>
   `;
 
   document.querySelector(".furnaces").prepend(furnaceEl);
@@ -101,9 +101,9 @@ export function getFurnaceCost() {
 }
 
 function bindFurnaceUI(furnace, el) {
-  const menu = el.querySelector(".ingot-menu");
-  const btn = el.querySelector(".change-ingot-btn");
-  const display = el.querySelector(".selected-ingot");
+    const menu = el.querySelector(".ingot-menu");
+    const btn = el.querySelector(".change-ingot-btn");
+    const img = btn.querySelector(".selected-img");
 
   btn.addEventListener("click", () => {
     menu.classList.toggle("hidden");
@@ -112,6 +112,7 @@ function bindFurnaceUI(furnace, el) {
   menu.querySelectorAll(".furnace-option").forEach(option => {
     option.addEventListener("click", () => {
         const type = option.dataset.furnaceType;
+        const optionImg = option.querySelector("img").src;
 
         if (furnace.intervalId) {
             clearInterval(furnace.intervalId);
@@ -121,9 +122,7 @@ function bindFurnaceUI(furnace, el) {
         furnace.selectedIngot = type === "none" ? null : type;
         furnace.isRunning = type !== "none";
 
-        display.textContent = type === "none"
-        ? "None"
-        : type;
+        img.src = optionImg;
 
         if (furnace.isRunning) {
             furnace.intervalId = setInterval(() => {
