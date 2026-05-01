@@ -56,17 +56,11 @@ export function updateInfoMessage(message) {
 export function updateFurnaceUI() {
   document.getElementById("cost__furnace").textContent =
     `Cost: ${getFurnaceCost()} coins`;
-
-  document.getElementById("count__furnace").textContent =
-    `${playerFurnaces.value}`;
 }
 
 export function updateAnvilUI() {
   document.getElementById("cost__anvil").textContent =
     `Cost: ${getAnvilCost()} coins`;
-
-  document.getElementById("count__anvil").textContent =
-    `${playerAnvils.value}`;
 }
 
 export function updateMinerUI() {
