@@ -39,9 +39,9 @@ export const MINE_CONFIG = {
 };
 
 export const MINE_TYPES = {
-    copper: "copperOre",
-    tin: "tinOre",
-    iron: "ironOre"
+  copper: "copperOre",
+  tin: "tinOre",
+  iron: "ironOre"
 };
 
 export const NODE_CONFIG = {

@@ -459,7 +459,8 @@ h1 {
   align-items: center;
 }
 
-.purchased-mine img, .purchased-furnace img {
+.purchased-mine img,
+.purchased-furnace img {
   max-width: 100px;
 }
 
@@ -501,7 +502,7 @@ h1 {
   transition: opacity 0.2s ease;
 }
 
-#furnaces-new .ghost-processor {
+#furnaces-new .ghost-processor, #anvils-new .ghost-processor {
   padding: 1rem;
 }
 
@@ -1386,6 +1387,10 @@ img.purchasable-item {
   display: flex;
   align-items: center;
   gap: 4rem;
+}
+
+.mines-new-selection:not(.open) {
+  display: none;
 }
 
 #treasure-rocks {

@@ -31,26 +31,6 @@ export function getFurnaceCost() {
   );
 }
 
-/* export function buyFurnace() {
-  const cost = getFurnaceCost();
-  if (countCoins.value < cost) {
-    updateInfoMessage("You don't have enough coins.");
-    return;
-  }
-  countCoins.value -= cost;
-  playerFurnaces.value++;
-  recalcSmeltingRate();
-
-  updateCoinsDisplay();
-  completeObjective(
-    "buyFurnace",
-    resourceCounts.value,
-    countCoins.value,
-    playerFurnaces
-  );
-  updateFurnaceUI();
-} */
-
 export function recalcSmeltingRate() {
   playerSmeltingRate.value = playerFurnaces.value.length * FURNACE_CONFIG.playerSmeltingRate;
 }
@@ -81,12 +61,10 @@ export function processFurnaceSmelt(furnace) {
 
   if (!canSmelt) return;
 
-  // consume materials
   for (const mat in ingotData.rawMaterials) {
     resourceCounts.value[mat] -= ingotData.rawMaterials[mat];
   }
 
-  // produce ingot
   resourceCounts.value[ingotData.type] += 1;
 
   completeObjective("smeltIngot", resourceCounts.value, countCoins.value);

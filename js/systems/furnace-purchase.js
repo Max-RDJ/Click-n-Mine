@@ -12,7 +12,7 @@ var newMine = {
     productionRate: 1
 };
 
-export function buyFurnace(furnaceType) {
+export function buyFurnace() {
     const cost = getFurnaceCost();
 
     if (countCoins.value < cost) {
@@ -22,7 +22,14 @@ export function buyFurnace(furnaceType) {
 
     countCoins.value -= cost;
 
-    const furnace = selectFurnace(furnaceType);
+    const furnace = {
+        id: `furnace-${Date.now()}-${Math.random()}`,
+        ingot: null,
+        progress: 0,
+        isRunning: false,
+        intervalId: null
+    };
+
     playerFurnaces.value.push(furnace);
     renderFurnace(furnace);
 
@@ -30,8 +37,9 @@ export function buyFurnace(furnaceType) {
         "buyFurnace",
         resourceCounts.value,
         countCoins.value,
-        playerFurnaces
+        playerFurnaces.value.length
     );
+
     updateCoinsDisplay();
     savePlayerProgress();
 }

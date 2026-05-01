@@ -40,7 +40,7 @@ export const defaultPlayerState = {
   playerSmithingRate: 1,
   objectivesProgress: 0,
   playerFurnaces: 0,
-  playerAnvils: 0,
+  playerAnvils: [],
   playerMiners: 0,
   playerMines: [
     { id: "mine-0", ore: "copperOre", assignedMiners: 0 }
@@ -56,7 +56,7 @@ export const playerSmeltingRate = { value: 1 };
 export const playerSmithingRate = { value: 1 };
 export const autoMiningRate = { value: 0 };
 export const playerFurnaces = { value: 0 };
-export const playerAnvils = { value: 0 };
+export const playerAnvils = { value: [] };
 export const playerMiners = { value: 0 };
 export const playerMines = { value: [] };
 
@@ -77,21 +77,30 @@ export function applyLoadedState(state) {
     : [];
 
   playerFurnaces.value = furnacesArray.map((furnace, index) => ({
-      id: furnace.id ?? `furnace-${Date.now()}-${index}`,
-      ore: furnace.ore || `${furnace.type}Ore`,
-      assignedMiners: furnace.assignedMiners || 0
-    }));
+    id: furnace.id ?? `furnace-${Date.now()}-${index}`,
+    ore: furnace.ore ?? null,
+  }));
 
-    // PLAYER MINES
+  // PLAYER ANVILS
+  const anvilsArray = Array.isArray(state.playerAnvils)
+    ? state.playerAnvils
+    : [];
+
+  playerAnvils.value = anvilsArray.map((anvil, index) => ({
+    id: anvil.id ?? `anvil-${Date.now()}-${index}`,
+    product: anvil.product ?? null,
+  }));
+
+  // PLAYER MINES
   const minesArray = Array.isArray(state.playerMines)
     ? state.playerMines
     : [];
 
   playerMines.value = minesArray.map((mine, index) => ({
-      id: mine.id ?? `mine-${Date.now()}-${index}`,
-      ore: mine.ore || `${mine.type}Ore`,
-      assignedMiners: mine.assignedMiners || 0
-    }));
+    id: mine.id ?? `mine-${Date.now()}-${index}`,
+    ore: mine.ore || `${mine.type}Ore`,
+    assignedMiners: mine.assignedMiners || 0
+  }));
 
   if (playerMines.value.length === 0) {
     playerMines.value = [{

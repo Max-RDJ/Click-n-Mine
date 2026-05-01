@@ -6,10 +6,10 @@ import {
 } from "./ui-update.js";
 import { 
   bindSmithingUI, 
-  buyAnvil, 
   startSmithing, 
   stopSmithing 
 } from "../systems/smithing.js";
+import { buyAnvil } from "../systems/anvil-purchase.js";
 import {
     buyMiner
 } from "../systems/auto-mining.js";

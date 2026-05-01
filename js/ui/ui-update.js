@@ -1,5 +1,5 @@
 import { getFurnaceCost } from "../systems/smelting.js";
-import { getAnvilCost } from "../systems/smithing.js";
+import { buyAnvil, getAnvilCost } from "../systems/anvil-purchase.js";
 import { countCoins, resourceCounts, playerState } from "../core/state.js";
 import { savePlayerProgress } from "../core/save.js";
 import { playerFurnaces, playerAnvils, playerMiners, playerMines } from "../core/state.js";

@@ -1,6 +1,5 @@
 import { 
   playerAnvils, 
-  playerSmithingRate, 
   resourceCounts, 
   countCoins 
 } from "../core/state.js";
@@ -45,69 +44,80 @@ export const productList = [
   },
 ];
 
-export function getAnvilCost() {
-  return Math.floor(
-    ANVIL_CONFIG.baseCost * Math.pow(ANVIL_CONFIG.costMultiplier, playerAnvils.value)
-  );
-}
+export function processAnvilSmith (anvil) {
+  const productData = productList.find(p => p.type === anvil.product);
+  if (!productData) return;
 
-export function buyAnvil() {
-  const cost = getAnvilCost();
-  if (countCoins.value < cost) {
-    updateInfoMessage("You don't have enough coins.");
-    return;
+  let canSmith = true;
+
+  for (const mat in productData.rawMaterials) {
+    if (resourceCounts.value[mat] < productData.rawMaterials[mat]) {
+      canSmith = false;
+      break;
+    }
   }
-  countCoins.value -= cost;
-  playerAnvils.value++;
-  recalcSmithingRate();
 
-  updateCoinsDisplay();
-  completeObjective("buyAnvil", playerAnvils.value);
-  updateAnvilUI();
-}
+  if (!canSmith) return;
 
-export function recalcSmithingRate() {
-  playerSmithingRate.value = playerAnvils.value * ANVIL_CONFIG.playerSmithingRate;
+  for (const mat in productData.rawMaterials) {
+    resourceCounts.value[mat] -= productData.rawMaterials[mat];
+  }
+
+  resourceCounts.value[productData.type] += 1;
+
+  completeObjective("smithHelmet", resourceCounts.value, countCoins.value);
+
+  updateDisplay();
+  savePlayerProgress();
 }
 
 export function startSmithing() {
   if (isSmithing) return;
 
-  const productType = document.getElementById("product-selection").value;
-  const selectedProduct = productList.find(p => p.type === productType);
-  if (!selectedProduct || playerAnvils.value <= 0) return;
+  if (playerAnvils.value.length === 0) return;
 
   isSmithing = true;
+
   document.getElementById("smith-play").classList.add("hidden");
   document.getElementById("smith-pause").classList.remove("hidden");
 
   smithingIntervalId = setInterval(() => {
-    const smithAmount = Math.max(1, playerSmithingRate.value);
+    playerAnvils.value.forEach(anvil => {
+      if (!anvil.product) return;
 
-    for (let i = 0; i < smithAmount; i++) {
+      const product = productList.find(p => p.type === anvil.product);
+      if (!product) return;
+
+      anvil.progress += 1000;
+
+      if (anvil.progress < product.timeToSmith) return;
+
       let canSmith = true;
-      for (const mat in selectedProduct.rawMaterials) {
-        if (resourceCounts.value[mat] < selectedProduct.rawMaterials[mat]) {
+
+      for (const mat in product.rawMaterials) {
+        if (resourceCounts.value[mat] < product.rawMaterials[mat]) {
           canSmith = false;
           break;
         }
       }
+
       if (!canSmith) {
-        stopSmithing();
+        anvil.progress = 0;
         return;
       }
 
-      for (const mat in selectedProduct.rawMaterials) {
-        resourceCounts.value[mat] -= selectedProduct.rawMaterials[mat];
+      for (const mat in product.rawMaterials) {
+        resourceCounts.value[mat] -= product.rawMaterials[mat];
       }
 
-      resourceCounts.value[selectedProduct.type] += 1;
-      savePlayerProgress();
-    }
+      resourceCounts.value[product.type] += 1;
+      anvil.progress = 0;
+    });
 
-    completeObjective("smithHelmet");
+    savePlayerProgress();
     updateDisplay();
-  }, selectedProduct.timeToSmith);
+
+  }, 1000);
 }
 
 export function stopSmithing() {

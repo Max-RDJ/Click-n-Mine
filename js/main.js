@@ -13,8 +13,8 @@ import { generateCombat } from "./systems/combat-log.js";
 import { initMiningUI, getAvailableMiners, updateMineUI } from "./systems/auto-mining.js";
 import { RESOURCES } from "./data/resources.js";
 import { buyMine } from "./systems/mine-purchase.js";
-import { buyFurnace } from "./systems/furnace-purchase.js";
-import { renderFurnace } from "./systems/furnace-purchase.js";
+import { renderFurnace, buyFurnace } from "./systems/furnace-purchase.js";
+import { renderAnvil, buyAnvil } from "./systems/anvil-purchase.js";
 
 
 $(document).ready(() => {
@@ -118,14 +118,7 @@ $(document).ready(() => {
   });
 
   $("#furnaces-new").on("click", function () {
-    $(".furnaces .furnaces-new-selection").toggleClass("open");
-  });
-
-  $("#furnaces-new .furnace-option").on("click", function (e) {
-    e.stopPropagation();
-    const type = this.dataset.furnaceType;
-    buyFurnace(type);
-    $(".furnaces .furnaces-new-selection").removeClass("open");
+    buyFurnace()
   });
 
   document.querySelectorAll(".resources").forEach(el => {
