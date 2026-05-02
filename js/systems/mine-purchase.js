@@ -3,6 +3,7 @@ import { MINE_TYPES, MINE_CONFIG } from "../core/config.js";
 import { updateInfoMessage, updateCoinsDisplay } from "../ui/ui-update.js";
 import { capitalize } from "../utils/utils.js";
 import { savePlayerProgress } from "../core/save.js";
+import { renderMines } from "../ui/ui-update.js";
 
 var newMine = {
     ore: null,
@@ -24,6 +25,7 @@ export function buyMine(mineType) {
     renderMine(mine);
 
     updateCoinsDisplay();
+    renderMines();
     savePlayerProgress();
 }
 
@@ -45,8 +47,9 @@ export function renderMine(mine) {
     mineEl.innerHTML = `
     <img src="images/mine_${capitalize(type)}.png">
 
-    <div class="miner-controls hidden">
+    <div class="miner-controls">
       <button class="assign-plus button-icon">
+      <p>hello</p>
         <i data-lucide="CirclePlus"></i>
       </button>
       <span class="assigned-count">0</span>

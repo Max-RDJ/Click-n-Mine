@@ -49,11 +49,6 @@
   cursor: pointer;
 }
 
-.icon__controls svg {
-  transform: scale(0.33) !important;
-  transform-origin: center;
-}
-
 .icon__controls:hover svg {
   stroke: orange;
   transform: scale(1.15);
@@ -814,8 +809,13 @@ select {
   border-radius: 10px;
 }
 
-.purchased-mine:hover .miner-controls {
+.miner-controls {
+  opacity: 0;
   display: flex;
+}
+
+.purchased-mine:hover .miner-controls {
+  opacity: 1;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;

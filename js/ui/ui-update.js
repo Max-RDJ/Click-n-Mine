@@ -103,7 +103,7 @@ export function renderMines() {
     el.innerHTML = `
       <img src="images/mine_${capitalize(type)}.png">
 
-      <div class="miner-controls hidden">
+      <div class="miner-controls">
         <button class="assign-plus button-icon">
           <i data-lucide="CirclePlus"></i>
         </button>
@@ -115,6 +115,7 @@ export function renderMines() {
     `;
 
     container.insertBefore(el, newMineButton);
+    lucide.createIcons();
   });
 }
 
