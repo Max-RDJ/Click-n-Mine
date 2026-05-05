@@ -43,7 +43,7 @@ export const objective = [
   {
     objectiveNo: 4,
     id: "sellOre",
-    message: "Get yourself some coins by selling your ore. Right-click on the ore under Resources and click 'Sell'",
+    message: "Get yourself some coins by selling your ore. Right-click an ore in the menu above and click 'Sell'",
     complete: false,
     condition: () => countCoins.value > 0,
     unlock: () => {
@@ -56,7 +56,7 @@ export const objective = [
   {
     objectiveNo: 5,
     id: "buyFurnace",
-    message: "Buy a furnace using the + button with the furnace and select the bronze ingot in the popup menu",
+    message: "Buy a furnace using the + button with the faded out furnaceu",
     complete: false,
     condition: () => playerFurnaces.value.length >= 1,
     unlock: () => {
@@ -69,17 +69,17 @@ export const objective = [
   {
     objectiveNo: 6,
     id: "smeltIngot",
-    message: "Smelt your first bronze ingot by opening the menu on the right and selecting Bronze in the dropdown under Furnaces",
+    message: "Smelt your first bronze ingot by clicking the stop icon below it and selecting the bronze bar in the popout",
     complete: false,
     condition: () => resourceCounts.value.bronzeIngot >= 1,
     unlock: () => {
-      $("#anvils").removeClass("hidden")
+      $(".anvils").removeClass("hidden")
       $("#resources__armour").removeClass("hidden")
       $("#resources__weapons").removeClass("hidden")
       $("#shop-anvils").removeClass("hidden");
     },
     applyOnLoad: () => {
-      $("#anvils").removeClass("hidden")
+      $(".anvils").removeClass("hidden")
       $("#resources__armour").removeClass("hidden")
       $("#resources__weapons").removeClass("hidden")
       $("#shop-anvils").removeClass("hidden");
@@ -88,7 +88,7 @@ export const objective = [
   {
     objectiveNo: 7,
     id: "smithHelmet",
-    message: "Buy an anvil and craft your first Bronze Helmet",
+    message: "Buy an anvil and make a bronze helmet by clicking the helmet icon in the popout",
     complete: false,
     condition: () => resourceCounts.value.bronzeHelm >= 1,
     unlock: () => {
