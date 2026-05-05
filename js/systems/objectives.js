@@ -56,7 +56,7 @@ export const objective = [
   {
     objectiveNo: 5,
     id: "buyFurnace",
-    message: "Buy a furnace using the + button with the faded out furnaceu",
+    message: "Buy a furnace using the + button with the faded out furnace",
     complete: false,
     condition: () => playerFurnaces.value.length >= 1,
     unlock: () => {
@@ -69,7 +69,7 @@ export const objective = [
   {
     objectiveNo: 6,
     id: "smeltIngot",
-    message: "Smelt your first bronze ingot by clicking the stop icon below it and selecting the bronze bar in the popout",
+    message: "Smelt your first bronze ingot by clicking the red icon below it and selecting the bronze bar in the popout",
     complete: false,
     condition: () => resourceCounts.value.bronzeIngot >= 1,
     unlock: () => {

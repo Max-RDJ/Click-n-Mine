@@ -107,7 +107,7 @@ export function renderMines() {
         <button class="assign-plus button-icon">
           <i data-lucide="CirclePlus"></i>
         </button>
-        <span class="assigned-count">0</span>
+        <span class="assigned-count">${mine.assignedMiners || 0}</span>
         <button class="assign-minus button-icon">
           <i data-lucide="CircleMinus"></i>
         </button>
@@ -123,10 +123,11 @@ export function syncMineUI() {
   const mines = playerMines.value || [];
 
   mines.forEach(mine => {
-  const el = document.querySelector(`[data-ore="${mine.ore}"]`);    if (!el) return;
+    const el = document.querySelector(`[data-id="${mine.id}"]`);
+    if (!el) return;
 
-  const countEl = el.querySelector(".assigned-count");
-  if (!countEl) return;
+    const countEl = el.querySelector(".assigned-count");
+    if (!countEl) return;
 
     countEl.textContent = mine.assignedMiners || 0;
   });

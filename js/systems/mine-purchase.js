@@ -52,8 +52,7 @@ export function renderMine(mine) {
       <p>hello</p>
         <i data-lucide="CirclePlus"></i>
       </button>
-      <span class="assigned-count">0</span>
-      <button class="assign-minus button-icon">
+        <span class="assigned-count">${mine.assignedMiners || 0}</span>      <button class="assign-minus button-icon">
         <i data-lucide="CircleMinus"></i>
       </button>
     </div>
