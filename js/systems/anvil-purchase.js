@@ -1,6 +1,6 @@
 import { countCoins, playerAnvils } from "../core/state.js";
 import { MINE_CONFIG } from "../core/config.js";
-import { updateInfoMessage, updateCoinsDisplay } from "../ui/ui-update.js";
+import { updateInfoMessage, updateCoinsDisplay, updateAnvilUI } from "../ui/ui-update.js";
 import { capitalize } from "../utils/utils.js";
 import { savePlayerProgress } from "../core/save.js";
 import { completeObjective } from "./objectives.js";
@@ -33,6 +33,7 @@ export function buyAnvil(anvilType) {
         playerAnvils
     );
     updateCoinsDisplay();
+    updateAnvilUI();
     savePlayerProgress();
 }
 

@@ -25,12 +25,6 @@ const ingotList = [
   },
 ];
 
-export function getFurnaceCost() {
-  return Math.floor(
-    FURNACE_CONFIG.baseCost * Math.pow(FURNACE_CONFIG.costMultiplier, playerFurnaces.value)
-  );
-}
-
 export function recalcSmeltingRate() {
   playerSmeltingRate.value = playerFurnaces.value.length * FURNACE_CONFIG.playerSmeltingRate;
 }

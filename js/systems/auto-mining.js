@@ -78,7 +78,7 @@ export function getMinersByOre() {
   return totals;
 }
 
-export function updateMineUI(mineEl, mine) {
+export function updateSingleMineUI(mineEl, mine) {
   mineEl.querySelector(".assigned-count").textContent = mine.assignedMiners;
 }
 
@@ -123,7 +123,7 @@ export function initMiningUI() {
     if (!mine) return;
 
     assignMiner(mine);
-    updateMineUI(el, mine);
+    updateSingleMineUI(el, mine);
   });
 
   $(document).on("click", ".assign-minus", function (e) {
@@ -136,6 +136,6 @@ export function initMiningUI() {
     if (!mine) return;
 
     unassignMiner(mine);
-    updateMineUI(el, mine);
+    updateSingleMineUI(el, mine);
   });
 }

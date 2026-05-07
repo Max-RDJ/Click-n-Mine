@@ -1,4 +1,3 @@
-import { getFurnaceCost } from "../systems/smelting.js";
 import { buyAnvil, getAnvilCost } from "../systems/anvil-purchase.js";
 import { countCoins, resourceCounts, playerState } from "../core/state.js";
 import { savePlayerProgress } from "../core/save.js";
@@ -8,6 +7,8 @@ import { setText } from "../core/helpers.js";
 import { showTemporaryMessage } from "../systems/messages.js";
 import { RESOURCES } from "../data/resources.js";
 import { capitalize } from "../utils/utils.js";
+import { getFurnaceCost } from "../systems/furnace-purchase.js";
+import { getMineCost } from "../systems/mine-purchase.js";
 
 
 export function updateDisplay() {
@@ -51,6 +52,11 @@ export function updateCoinsDisplay() {
 export function updateInfoMessage(message) {
   showTemporaryMessage(message);
   savePlayerProgress();
+}
+
+export function updateMineCostUI() {
+  document.getElementById("cost__mine").textContent =
+    `Cost: ${getMineCost()} coins`;
 }
 
 export function updateFurnaceUI() {

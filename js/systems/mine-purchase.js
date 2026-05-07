@@ -1,6 +1,6 @@
 import { countCoins, playerMines } from "../core/state.js";
 import { MINE_TYPES, MINE_CONFIG } from "../core/config.js";
-import { updateInfoMessage, updateCoinsDisplay } from "../ui/ui-update.js";
+import { updateInfoMessage, updateCoinsDisplay, updateMineCostUI } from "../ui/ui-update.js";
 import { capitalize } from "../utils/utils.js";
 import { savePlayerProgress } from "../core/save.js";
 import { renderMines } from "../ui/ui-update.js";
@@ -25,6 +25,7 @@ export function buyMine(mineType) {
     renderMine(mine);
 
     updateCoinsDisplay();
+    updateMineCostUI();
     renderMines();
     savePlayerProgress();
 }
@@ -49,7 +50,6 @@ export function renderMine(mine) {
 
     <div class="miner-controls">
       <button class="assign-plus button-icon">
-      <p>hello</p>
         <i data-lucide="CirclePlus"></i>
       </button>
         <span class="assigned-count">${mine.assignedMiners || 0}</span>      <button class="assign-minus button-icon">

@@ -1,6 +1,6 @@
 import { countCoins, playerFurnaces } from "../core/state.js";
 import { MINE_TYPES, MINE_CONFIG } from "../core/config.js";
-import { updateInfoMessage, updateCoinsDisplay } from "../ui/ui-update.js";
+import { updateInfoMessage, updateCoinsDisplay, updateFurnaceUI } from "../ui/ui-update.js";
 import { capitalize } from "../utils/utils.js";
 import { savePlayerProgress } from "../core/save.js";
 import { completeObjective } from "./objectives.js";
@@ -41,6 +41,7 @@ export function buyFurnace() {
     );
 
     updateCoinsDisplay();
+    updateFurnaceUI();
     savePlayerProgress();
 }
 
@@ -91,6 +92,7 @@ export function renderFurnace(furnace) {
 
   bindFurnaceUI(furnace, furnaceEl);
 }
+
 export function getFurnaceCost() {
   const cost = Math.floor(
     MINE_CONFIG.baseCost *

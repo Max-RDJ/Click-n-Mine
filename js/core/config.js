@@ -1,7 +1,25 @@
+export const MINER_CONFIG = {
+  baseCost: 30,
+  costMultiplier: 1.8,
+  minerMiningRate: 1
+};
+
+export const MINE_CONFIG = {
+  baseCost: 30,
+  costMultiplier: 2.4,
+  minerMiningRate: 1
+};
+
 export const FURNACE_CONFIG = {
   baseCost: 30,
-  costMultiplier: 1.6,
+  costMultiplier: 1.8,
   playerSmeltingRate: 1
+};
+
+export const ANVIL_CONFIG = {
+  baseCost: 20,
+  costMultiplier: 1.8,
+  playerSmithingRate: 1
 };
 
 export const SMELT_RECIPES = {
@@ -18,24 +36,6 @@ export const SMELT_RECIPES = {
     },
     output: "ironIngot"
   }
-};
-
-export const ANVIL_CONFIG = {
-  baseCost: 20,
-  costMultiplier: 1.6,
-  playerSmithingRate: 1
-};
-
-export const MINER_CONFIG = {
-  baseCost: 30,
-  costMultiplier: 1.6,
-  minerMiningRate: 1
-};
-
-export const MINE_CONFIG = {
-  baseCost: 30,
-  costMultiplier: 1.6,
-  minerMiningRate: 1
 };
 
 export const MINE_TYPES = {

@@ -39,7 +39,7 @@ export const defaultPlayerState = {
   playerSmeltingRate: 1,
   playerSmithingRate: 1,
   objectivesProgress: 0,
-  playerFurnaces: 0,
+  playerFurnaces: [],
   playerAnvils: [],
   playerMiners: 0,
   playerMines: [
