@@ -3,7 +3,7 @@ import { loadPlayerState, savePlayerProgress } from "./core/save.js";
 import { applyLoadedState, createFreshState, defaultPlayerState, playerState, playerMines, playerFurnaces, initializeEquipmentUI, playerAnvils } from "./core/state.js";
 import { restoreUnlockedPickaxesUI } from "./systems/pickaxes.js";
 import {  bindShopDrawer, bindCombatDrawer, bindMagicDrawer, bindUI } from "./ui/ui-bindings.js";
-import { initializeResourceImages, updateDisplay, renderMines, updateMinerUI, syncMineUI } from "./ui/ui-update.js";
+import { initializeResourceImages, updateDisplay, renderMines, updateMinerUI, syncMineUI, updateFurnaceUI } from "./ui/ui-update.js";
 import { initAudio } from "./core/audio.js";
 import { setGameMode } from "./core/game-mode.js";
 import { renderSpells } from "./ui/render-spells.js";
@@ -46,6 +46,7 @@ $(document).ready(() => {
 
   syncMineUI();
   updateMinerUI();
+  updateFurnaceUI();
   initMiningUI();
   initIncrementalGame();
   initAudio();

@@ -1,5 +1,5 @@
 export const FURNACE_CONFIG = {
-  baseCost: 20,
+  baseCost: 30,
   costMultiplier: 1.6,
   playerSmeltingRate: 1
 };
