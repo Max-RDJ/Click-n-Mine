@@ -330,7 +330,23 @@ body {
   display: none;
 }
 
-#count__miners-ores { display: flex; }
+.mini-resource-count {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mini-resource-count > .mini-ore-icon {
+  width: 16px;
+  height: 16px;
+}
+
+#count__miners-ores {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 #count__miners { display: none; }
 
 #aside-resources.collapsed #count__miners-ores { display: none; }

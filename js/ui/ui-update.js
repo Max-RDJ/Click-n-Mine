@@ -3,7 +3,7 @@ import { buyAnvil, getAnvilCost } from "../systems/anvil-purchase.js";
 import { countCoins, resourceCounts, playerState } from "../core/state.js";
 import { savePlayerProgress } from "../core/save.js";
 import { playerFurnaces, playerAnvils, playerMiners, playerMines } from "../core/state.js";
-import { getMinerCost, getAvailableMiners } from "../systems/auto-mining.js";
+import { getMinerCost, getAvailableMiners, getMinersByOre } from "../systems/auto-mining.js";
 import { setText } from "../core/helpers.js";
 import { showTemporaryMessage } from "../systems/messages.js";
 import { RESOURCES } from "../data/resources.js";
@@ -81,6 +81,8 @@ export function updateMinerUI() {
 
   document.getElementById("count__miners").textContent =
     `${getAvailableMiners()}/${playerMiners.value}`;
+
+  getMinersByOre();
 }
 
 export function renderMines() {

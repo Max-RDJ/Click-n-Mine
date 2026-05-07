@@ -10,7 +10,7 @@ import { renderSpells } from "./ui/render-spells.js";
 import { showObjectiveNotification, setObjectiveMessage, clearMessage } from "./systems/messages.js";
 import { getActiveObjectiveMessage, flashShopIcon, objectivesProgress } from "./systems/objectives.js";
 import { generateCombat } from "./systems/combat-log.js";
-import { initMiningUI, getAvailableMiners, updateMineUI } from "./systems/auto-mining.js";
+import { initMiningUI, getAvailableMiners, updateMineUI, getMinersByOre } from "./systems/auto-mining.js";
 import { RESOURCES } from "./data/resources.js";
 import { buyMine } from "./systems/mine-purchase.js";
 import { renderFurnace, buyFurnace } from "./systems/furnace-purchase.js";
@@ -46,6 +46,7 @@ $(document).ready(() => {
 
   syncMineUI();
   updateMinerUI();
+  getMinersByOre();
   updateFurnaceUI();
   initMiningUI();
   initIncrementalGame();

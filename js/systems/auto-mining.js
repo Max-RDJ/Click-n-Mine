@@ -59,6 +59,25 @@ export function getAvailableMiners() {
   return playerMiners.value - assigned;
 }
 
+export function getMinersByOre() {
+  const totals = {};
+
+  playerMines.value.forEach(mine => {
+    const ore = mine.ore;
+    const assigned = mine.assignedMiners || 0;
+
+    totals[ore] = (totals[ore] || 0) + assigned;
+  });
+
+  document.getElementById("count__miners-copper").textContent = totals["copperOre"] || 0;
+  document.getElementById("count__miners-tin").textContent = totals["tinOre"] || 0;
+  document.getElementById("count__miners-iron").textContent = totals["ironOre"] || 0;
+
+  console.log("Miners by ore:", totals);
+
+  return totals;
+}
+
 export function updateMineUI(mineEl, mine) {
   mineEl.querySelector(".assigned-count").textContent = mine.assignedMiners;
 }
