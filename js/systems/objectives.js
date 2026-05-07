@@ -150,7 +150,7 @@ export function updateObjectiveDrawer() {
   el.textContent = getActiveObjectiveMessage();
 }
 
-function flashObjectivesIcon() {
+function flashObjectivesIcon() { 
   const icon = document.getElementById("objectives-tab");
   if (!icon) return;
 
@@ -162,6 +162,20 @@ function flashObjectivesIcon() {
   setTimeout(() => {
     icon.classList.remove("flash");
   }, 1500);
+}
+
+export function flashShopIcon() {
+  const icon = document.getElementById("shop-tab");
+  if (!icon) return;
+
+  icon.classList.remove("flash");
+  void icon.offsetWidth;
+
+  icon.classList.add("flash");
+
+  icon.addEventListener("click", () => {
+    icon.classList.remove("flash");
+  });
 }
 
 export function clearObjectivesAlert() {

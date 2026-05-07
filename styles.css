@@ -1244,6 +1244,10 @@ img.purchasable-item {
   animation: objectiveFlash 0.5s ease-in-out 3;
 }
 
+#shop-tab.flash {
+  animation: objectiveFlash 0.5s ease-in-out infinite;
+}
+
 @keyframes objectiveFlash {
   0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 orange); }
   50%      { transform: scale(1.2); filter: drop-shadow(0 0 10px orange); }

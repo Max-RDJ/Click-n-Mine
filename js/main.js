@@ -8,7 +8,7 @@ import { initAudio } from "./core/audio.js";
 import { setGameMode } from "./core/game-mode.js";
 import { renderSpells } from "./ui/render-spells.js";
 import { showObjectiveNotification, setObjectiveMessage, clearMessage } from "./systems/messages.js";
-import { getActiveObjectiveMessage } from "./systems/objectives.js";
+import { getActiveObjectiveMessage, flashShopIcon, objectivesProgress } from "./systems/objectives.js";
 import { generateCombat } from "./systems/combat-log.js";
 import { initMiningUI, getAvailableMiners, updateMineUI } from "./systems/auto-mining.js";
 import { RESOURCES } from "./data/resources.js";
@@ -52,6 +52,9 @@ $(document).ready(() => {
   bindShopDrawer();
   bindCombatDrawer();
   bindMagicDrawer();
+  if (objectivesProgress === 0) {
+    flashShopIcon();
+  }
 
   const activeMessage = getActiveObjectiveMessage();
   setObjectiveMessage(activeMessage);
