@@ -12,6 +12,7 @@
 - Materials required in addition to money to build furnaces etc.
 - Make shop sections draggable and re-arrangable
 - Fade in items that are revealed and expand fieldsets smoothly
+- Add a coffer to keep miners working
 
 **RANDOM IDEAS**:
 - Office assistant 'Picky'/'Axy' to give objectives
