@@ -914,7 +914,7 @@ img.purchasable-item {
 #combat-log {
   border: solid white 1px;
   border-radius: 5px;
-  height: 5rem;
+  max-height: 10rem;
   width: 25rem;
   overflow-y: scroll;
   padding: 0.5rem;
@@ -922,6 +922,7 @@ img.purchasable-item {
 
 #combat-log p {
   text-align: left;
+  padding: 0.2rem 0.5rem;
 }
 
 #objectives-tutorial.show {
@@ -1032,6 +1033,7 @@ img.purchasable-item {
   align-items: center;
   gap: 4rem;
   padding: 4rem;
+  max-height:fit-content;
   overflow-y: auto;
 }
 
@@ -1083,7 +1085,7 @@ img.purchasable-item {
   cursor: pointer;
 }
 
-.player-items {
+.player-items, .loot-items {
   display: grid;
   grid-template-columns: repeat(4, 64px);
   grid-auto-rows: 64px;
@@ -1092,7 +1094,7 @@ img.purchasable-item {
   overflow-y: auto;
 }
 
-.item-slot {
+.item-slot, .loot-slot {
   position: relative;
   width: 4rem;
   height: 4rem;
@@ -1107,13 +1109,13 @@ img.purchasable-item {
   overflow: hidden;
 }
 
-.item-slot img {
+.item-slot img, .loot-slot img {
   max-width: 80%;
   max-height: 80%;
   object-fit: contain;
 }
 
-.item-slot:hover {
+.item-slot:hover, .loot-slot:hover {
   border-color: orange;
   box-shadow: 0 0 6px rgba(255,165,0,0.5);
   cursor: pointer;

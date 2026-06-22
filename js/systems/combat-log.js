@@ -60,12 +60,13 @@ const monsters = [
         "monsterName": "Wild Dog",
         "tier": 1,
         "strength": 1,
+        "loot": [],
         "message": "Wild Dog snarls.",
         "encounterChance": 0.5
     },
     {
         "monsterName": "Reanimated Adventurer",
-        "tier": 2,
+        "tier": 1,
         "strength": 2,
         "loot": [
             {
@@ -118,13 +119,23 @@ const monsters = [
                 "dropChance": 0.5
             },
         ],
-        "message": "Zoanthrope is thinking."
+        "message": "Zoanthrope is thinking.",
+        "encounterChance": 0.1
     }
 
 ]
 
-export const combatInProgress = false;
+$("#combat-end").on("click", () => {
+    logCombat("The group decides to turn back.");
+    endCombat();
+});
 
+$("#combat-continue").on("click", () => {
+    logCombat("The group continues their journey.");
+    generateEncounter();
+});
+
+export const combatInProgress = false;
 
 export function checkCombatStatus() {
     const drawer = document.getElementById('combat-drawer')
@@ -142,12 +153,16 @@ function selectMonster(tier) {
         if (randomValue < monster.encounterChance) {
             return monster;
         }
+    randomValue -= monster.encounterChance;
     }
 }
 
 export function generateCombat() {
     logCombat("A group of adventurers ascends to Surface.");
     $('#combat-start').prop('disabled', true);
+    $('#combat-end').prop('disabled', false);
+    $('#combat-continue').prop('disabled', true);
+
 
     generateEncounter();
 }
@@ -155,32 +170,40 @@ export function generateCombat() {
 function generateEncounter() {
     const currentTier = playerState.value.tier;
     const monster = selectMonster(currentTier);
-
-    logCombat(`The group encounters ${monster.monsterName}.`);
+    $('#combat-continue').prop('disabled', true);
 
     setTimeout(() => {
-        logCombat(monster.message);
+        logCombat(`The group encounters ${monster.monsterName}.`);
     }, 1000);
 
     setTimeout(() => {
+        logCombat(monster.message);
+    }, 2500);
+
+    setTimeout(() => {
         logCombat("The group prepares to fight.");
-    }, 2000);
+    }, 4000);
 
     setTimeout(() => {
         const victory = resolveCombat(monster);
 
         if (victory) {
+            $("#combat-end").prop("disabled", false);
+            $("#combat-continue").prop("disabled", false);
+
+
             logCombat(`The group defeats the ${monster.monsterName}.`);
 
-            setTimeout(() => {
-                generateEncounter();
-            }, 2000);
+            const loot = calculateLoot(monster);
+
+            logCombat(`Loot: ${loot.length > 0 ? loot.map(item => `${item.name} (${item.count})`).join(', ') : "There was nothing salvageable."}`);
 
         } else {
             logCombat(`The group succumbs to ${monster.monsterName}.`);
             endCombat();
+            return;
         }
-    }, 3000);
+    }, 5500);
 }
 
 function calculateGroupStrength() {
@@ -215,6 +238,40 @@ function resolveCombat(monster) {
     return randomizedGroupStrength >= randomizedMonsterStrength;
 }
 
+function calculateLoot(monster) {
+    const loot = [];
+
+    if (!monster.loot) {
+        return loot;
+    }
+
+    for (const lootItem of monster.loot) {
+        if (Math.random() < lootItem.dropChance) {
+            const count = Array.isArray(lootItem.lootCount) 
+                ? Math.floor(Math.random() * (lootItem.lootCount[1] - lootItem.lootCount[0] + 1)) + lootItem.lootCount[0]
+                : lootItem.lootCount;
+            loot.push({ name: lootItem.lootName, count });
+        }
+    }
+    generateLootSlots(loot);
+    return loot;
+}
+
+export function generateLootSlots(loot) {
+    const container = document.querySelector(".loot-items");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    loot.forEach((slot, index) => {
+        const slotEl = document.createElement("div");
+        slotEl.classList.add("loot-slot");
+        slotEl.dataset.index = index;
+
+        container.appendChild(slotEl);
+    });
+}
+
 function logCombat(combatMessage) {
     const container = document.getElementById("combat-log")
     const p = document.createElement("p");
@@ -226,5 +283,5 @@ function logCombat(combatMessage) {
 
 function endCombat() {
     $('#combat-start').prop('disabled', false);
-    logCombat(`Your items are lost to Surface.`);
+    $('#combat-end').prop('disabled', true);
 }
