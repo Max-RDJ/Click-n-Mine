@@ -98,6 +98,19 @@ export const objective = [
       $("#mines-new").removeClass("hidden");
     }
   },
+  {
+    objectiveNo: 8,
+    id: "1000coins",
+    message: "Reach 1000 coins",
+    complete: false,
+    condition: () => countCoins.value >= 1000,
+    unlock: () => {
+      $(".resources__iron").removeClass("hidden");
+    },
+    applyOnLoad: () => {
+      $(".resources__iron").removeClass("hidden");
+    }
+  },
 ];
   
 /**

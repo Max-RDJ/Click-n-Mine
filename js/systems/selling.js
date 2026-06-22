@@ -12,6 +12,8 @@ export function idToKey(id) {
 export function sellOne(key) {
   sellAmount(key, 1);
   completeObjective("sellOre", resourceCounts.value, countCoins.value);
+  completeObjective("1000coins", resourceCounts.value, countCoins.value);
+  console.log("Checking objective 1000coins")
 }
 
 export function sellAmount(key, amount) {
@@ -29,4 +31,5 @@ export function sellAmount(key, amount) {
   playSound("coins")
 
   completeObjective("sellOre", resourceCounts.value, countCoins.value);
+  completeObjective("1000coins", resourceCounts.value, countCoins.value);
 }

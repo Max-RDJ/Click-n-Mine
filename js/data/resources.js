@@ -63,7 +63,7 @@ export const RESOURCES = {
     type: "equipment",
     slot: "head",
     sellPrice: 8,
-    defense: 2,
+    strength: 1,
     image: "images/bronze_helm.png"
   },
   bronzePlatebody: {
@@ -71,7 +71,7 @@ export const RESOURCES = {
     type: "equipment",
     slot: "chest",
     sellPrice: 12,
-    defense: 5,
+    strength: 5,
     image: "images/bronze_platebody.png"
   },
   bronzePlatelegs: {
@@ -79,7 +79,7 @@ export const RESOURCES = {
     type: "equipment",
     slot: "legs",
     sellPrice: 10,
-    defense: 3,
+    strength: 3,
     image: "images/bronze_platelegs.png"
   },
   bronzeSword: {
@@ -87,15 +87,39 @@ export const RESOURCES = {
     type: "equipment",
     slot: "weapon",
     sellPrice: 10,
-    attack: 3,
+    strength: 1,
     image: "images/bronze_sword.png"
+  },
+  ironHelm: {
+    displayName: "iron helmet",
+    type: "equipment",
+    slot: "head",
+    sellPrice: 12,
+    strength: 3,
+    image: "images/iron_helm.png"
+  },
+  ironPlatebody: {
+    displayName: "iron platebody",
+    type: "equipment",
+    slot: "chest",
+    sellPrice: 12,
+    strength: 15,
+    image: "images/iron_platebody.png"
+  },
+  ironPlatelegs: {
+    displayName: "iron platelegs",
+    type: "equipment",
+    slot: "legs",
+    sellPrice: 10,
+    strength: 9,
+    image: "images/iron_platelegs.png"
   },
   ironSword: {
     displayName: "iron sword",
     type: "equipment",
     slot: "weapon",
     sellPrice: 10,
-    attack: 8,
+    strength: 3,
     image: "images/iron_sword.png"
   },
   airEssence: {

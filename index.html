@@ -85,20 +85,38 @@
             <fieldset id="resources__armour" class="hidden">
               <legend class="unselectable">Armour</legend>
               <div class="items-field">
+                <div class="resources__bronze">
+                  <div class="resources sellable" id="resource__bronze-helm" data-resource="bronzeHelm">
+                    <img>
+                    <span id="count__bronze-helm" value="0">0</span>
+                  </div>
 
-                <div class="resources sellable" id="resource__bronze-helm" data-resource="bronzeHelm">
-                  <img>
-                  <span id="count__bronze-helm" value="0">0</span>
+                  <div class="resources sellable" id="resource__bronze-platebody" data-resource="bronzePlatebody">
+                    <img>
+                    <span id="count__bronze-platebody" value="0">0</span>
+                  </div>
+
+                  <div class="resources sellable" id="resource__bronze-platelegs" data-resource="bronzePlatelegs">
+                    <img>
+                    <span id="count__bronze-platelegs" value="0">0</span>
+                  </div>
                 </div>
+              
+                <div class="resources__iron hidden">
+                  <div class="resources sellable" id="resource__iron-helm" data-resource="ironHelm">
+                    <img>
+                    <span id="count__iron-helm" value="0">0</span>
+                  </div>
 
-                <div class="resources sellable" id="resource__bronze-platebody" data-resource="bronzePlatebody">
-                  <img>
-                  <span id="count__bronze-platebody" value="0">0</span>
-                </div>
+                  <div class="resources sellable" id="resource__iron-platebody" data-resource="ironPlatebody">
+                    <img>
+                    <span id="count__iron-platebody" value="0">0</span>
+                  </div>
 
-                <div class="resources sellable" id="resource__bronze-platelegs" data-resource="bronzePlatelegs">
-                  <img>
-                  <span id="count__bronze-platelegs" value="0">0</span>
+                  <div class="resources sellable" id="resource__iron-platelegs" data-resource="ironPlatelegs">
+                    <img>
+                    <span id="count__iron-platelegs" value="0">0</span>
+                  </div>
                 </div>
               </div>
             </fieldset>
@@ -281,6 +299,9 @@
 
   <aside id="combat-drawer" class="drawer drawer-bottom">
     <div class="drawer-content">
+
+      <div class="player-items"></div>
+
       <div id="combat-content">
         <div id="combat-log">
         </div>

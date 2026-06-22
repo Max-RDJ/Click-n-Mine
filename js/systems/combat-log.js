@@ -149,8 +149,6 @@ export function generateCombat() {
     $('#combat-start').prop('disabled', true);
 
     const currentTier = playerState.value.tier;
-
-    // Pick a random monster
     const monsterEncounter = selectMonster(currentTier);
 
     setTimeout(() => {

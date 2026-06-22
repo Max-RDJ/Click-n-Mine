@@ -75,7 +75,7 @@ export function renderInventory() {
 
 export function addItem(itemId, quantity = 1) {
   for (let slot of inventoryState) {
-    if (slot && slot.id === itemId) {
+    if (slot && slot.id === itemId && slot.quantity < 10) {
       slot.quantity += quantity;
       saveInventory();
       renderInventory();
