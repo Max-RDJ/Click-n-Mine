@@ -134,6 +134,14 @@ function openMenu(x, y, resourceKey, isEquipped = false, inInventory = false) {
   }
 
   if (data.type === "equipment") {
+    sellBtn.style.display = "block";
+    sellXBtn.style.display = "block";
+    sellAllBtn.style.display = "block";
+    addBtn.style.display = "block";
+  }
+
+  // Old code to allow player to equip from inventory
+  /* if (data.type === "equipment") {
     if (isEquipped) {
       unequipBtn.style.display = "block";
     } else {
@@ -145,7 +153,7 @@ function openMenu(x, y, resourceKey, isEquipped = false, inInventory = false) {
       sellXBtn.style.display = "block";
       sellAllBtn.style.display = "block";
     }
-  }
+  } */
 
   menu.style.left = x + "px";
   menu.style.top = y + "px";

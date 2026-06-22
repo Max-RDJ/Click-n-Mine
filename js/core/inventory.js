@@ -4,6 +4,8 @@ import { RESOURCES } from "../data/resources.js";
 import { savePlayerProgress } from "./save.js";
 import { playerState, resourceCounts } from "./state.js";
 import { updateDisplay } from "../ui/ui-update.js";
+import { playSound } from "./audio.js";
+
 
 /*
 Inventory Structure:
@@ -77,6 +79,8 @@ export function addItem(itemId, quantity = 1) {
   for (let slot of inventoryState) {
     if (slot && slot.id === itemId && slot.quantity < 10) {
       slot.quantity += quantity;
+        playSound("equip_metal");
+      
       saveInventory();
       renderInventory();
       return;

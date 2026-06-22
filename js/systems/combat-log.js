@@ -1,4 +1,6 @@
 import { playerState } from "../core/state.js";
+import { RESOURCES } from "../data/resources.js";
+import { inventoryState } from "../core/inventory.js";
 
 const adventurerNames = [
     "Acquilina",
@@ -138,54 +140,79 @@ function selectMonster(tier) {
     let randomValue = Math.random() * totalEncounterChance;
     for (const monster of possibleMonsters) {
         if (randomValue < monster.encounterChance) {
-            monsterEncounter = monster;
-            return;
+            return monster;
         }
     }
 }
 
 export function generateCombat() {
-    logCombat(`The group of adventurers ascends to surface level`)
+    logCombat("A group of adventurers ascends to Surface.");
     $('#combat-start').prop('disabled', true);
 
+    generateEncounter();
+}
+
+function generateEncounter() {
     const currentTier = playerState.value.tier;
-    const monsterEncounter = selectMonster(currentTier);
+    const monster = selectMonster(currentTier);
+
+    logCombat(`The group encounters ${monster.monsterName}.`);
 
     setTimeout(() => {
-        logCombat(`The group encounters ${monsterEncounter.monsterName}.`)
+        logCombat(monster.message);
     }, 1000);
 
     setTimeout(() => {
-        logCombat(monsterEncounter.message);
-    }, 1000);
-    
-    setTimeout(() => {
-        logCombat(`The group prepares to fight.`)
-    }, 1000);
+        logCombat("The group prepares to fight.");
+    }, 2000);
 
     setTimeout(() => {
-        resolveCombat(monsterEncounter);
-        if (groupVictory) {
-            logCombat(`The group defeats the ${monsterEncounter.monsterName}.`)
+        const victory = resolveCombat(monster);
+
+        if (victory) {
+            logCombat(`The group defeats the ${monster.monsterName}.`);
+
+            setTimeout(() => {
+                generateEncounter();
+            }, 2000);
+
         } else {
-            logCombat(`The group is defeated by the ${monsterEncounter.monsterName}.`)
+            logCombat(`The group succumbs to ${monster.monsterName}.`);
+            endCombat();
         }
-    }, 1000);
+    }, 3000);
+}
 
+function calculateGroupStrength() {
+    let strength = 0;
+    for (const slot of inventoryState) {
+        if (!slot) continue;
+        const itemData = RESOURCES[slot.id];
+
+        if (itemData?.strength) {
+            strength += itemData.strength * slot.quantity;
+        }
+    }
+    return strength;
 }
 
 function resolveCombat(monster) {
-    const groupStrength = playerState.value.playerMiners;
+    const groupStrength = calculateGroupStrength();
     const monsterStrength = monster.strength;
 
-    const groupVictory = true;
+    console.log(`Group strength: ${groupStrength}`);
+    console.log(`Monster strength: ${monsterStrength}`);
 
-    if (groupStrength >= monsterStrength) {
-        groupVictory = true; 
-    }
-    else {
-        groupVictory = false;
-    }
+    const randomizedGroupStrength =
+        groupStrength * (0.8 + Math.random() * 0.4);
+
+    const randomizedMonsterStrength =
+        monsterStrength * (0.8 + Math.random() * 0.4);
+
+    console.log(`Randomized group strength: ${randomizedGroupStrength}`);
+    console.log(`Randomized monster strength: ${randomizedMonsterStrength}`);
+
+    return randomizedGroupStrength >= randomizedMonsterStrength;
 }
 
 function logCombat(combatMessage) {
@@ -195,4 +222,9 @@ function logCombat(combatMessage) {
     p.innerHTML = `${combatMessage}`;
     container.appendChild(p);
     container.scrollTop = container.scrollHeight;
+}
+
+function endCombat() {
+    $('#combat-start').prop('disabled', false);
+    logCombat(`Your items are lost to Surface.`);
 }
