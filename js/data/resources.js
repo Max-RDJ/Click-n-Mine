@@ -22,6 +22,12 @@ export const RESOURCES = {
     sellPrice: 4,
     image: "images/iron_ore.png"
   },
+  coal: {
+    displayName: "coal ore",
+    type: "material",
+    sellPrice: 4,
+    image: "images/coal.png"
+  },
   bronzeIngot: {
     displayName: "bronze ingot",
     type: "material",
@@ -33,6 +39,12 @@ export const RESOURCES = {
     type: "material",
     sellPrice: 6,
     image: "images/iron_bar.png"
+  },
+  steelIngot: {
+    displayName: "steel ingot",
+    type: "material",
+    sellPrice: 6,
+    image: "images/steel_bar.png"
   },
   bronzePickaxe: {
     name: "Bronze pickaxe",

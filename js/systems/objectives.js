@@ -69,7 +69,7 @@ export const objective = [
   {
     objectiveNo: 6,
     id: "smeltIngot",
-    message: "Smelt your first bronze ingot by clicking the red icon below it and selecting the bronze bar in the popout",
+    message: "Smelt your first bronze ingot by clicking the red iconthe new furnace and selecting the bronze bar in the popout",
     complete: false,
     condition: () => resourceCounts.value.bronzeIngot >= 1,
     unlock: () => {
