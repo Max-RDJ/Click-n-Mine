@@ -36,6 +36,17 @@ export function bindContextMenu() {
       if (!key) return;
     }
 
+    let isLoot = false;
+
+
+    const lootEl = e.target.closest(".loot-slot img");
+    if (lootEl) {
+      e.preventDefault();
+      slot = lootEl.dataset.slot;
+      key = lootEl.dataset.resource;
+      isLoot = true;
+    }
+
     const inventoryEl = e.target.closest(".item-slot");
       if (inventoryEl) {
         e.preventDefault();
@@ -83,7 +94,7 @@ export function bindContextMenu() {
   };
 };
 
-function openMenu(x, y, resourceKey, isEquipped = false, inInventory = false) {
+function openMenu(x, y, resourceKey, isEquipped = false, inInventory = false, isLoot = false) {
   const menu = document.getElementById("context-menu-sell");
   const data = RESOURCES[resourceKey];
   if (!data) return;
@@ -137,6 +148,10 @@ function openMenu(x, y, resourceKey, isEquipped = false, inInventory = false) {
     sellBtn.style.display = "block";
     sellXBtn.style.display = "block";
     sellAllBtn.style.display = "block";
+    addBtn.style.display = "block";
+  }
+
+  if (isLoot) {
     addBtn.style.display = "block";
   }
 

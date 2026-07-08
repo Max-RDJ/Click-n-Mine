@@ -102,7 +102,7 @@ export const RESOURCES = {
     displayName: "iron platebody",
     type: "equipment",
     slot: "chest",
-    sellPrice: 12,
+    sellPrice: 18,
     strength: 15,
     image: "images/iron_platebody.png"
   },
@@ -110,7 +110,7 @@ export const RESOURCES = {
     displayName: "iron platelegs",
     type: "equipment",
     slot: "legs",
-    sellPrice: 10,
+    sellPrice: 15,
     strength: 9,
     image: "images/iron_platelegs.png"
   },
@@ -118,7 +118,7 @@ export const RESOURCES = {
     displayName: "iron sword",
     type: "equipment",
     slot: "weapon",
-    sellPrice: 10,
+    sellPrice: 15,
     strength: 3,
     image: "images/iron_sword.png"
   },

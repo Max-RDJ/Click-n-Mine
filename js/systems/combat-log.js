@@ -62,7 +62,7 @@ const monsters = [
         "strength": 1,
         "loot": [],
         "message": "Wild Dog snarls.",
-        "encounterChance": 0.5
+        "encounterChance": 0.1
     },
     {
         "monsterName": "Reanimated Adventurer",
@@ -101,7 +101,7 @@ const monsters = [
             }
         ],
         "message": "Reanimated Adventurer shambles towards the group.",
-        "encounterChance": 0.3
+        "encounterChance": 0.8
     },
     {
         "monsterName": "Zoanthrope",
@@ -263,10 +263,30 @@ export function generateLootSlots(loot) {
 
     container.innerHTML = "";
 
-    loot.forEach((slot, index) => {
+    loot.forEach((item, index) => {
         const slotEl = document.createElement("div");
         slotEl.classList.add("loot-slot");
         slotEl.dataset.index = index;
+
+        const itemData = RESOURCES[item.name];
+
+        if (itemData) {
+            const img = document.createElement("img");
+            img.src = itemData.image;
+            img.dataset.resource = item.name;
+            img.dataset.count = item.count;
+
+            img.draggable = false;
+
+            slotEl.appendChild(img);
+
+            if (item.count > 1) {
+                const stack = document.createElement("span");
+                stack.classList.add("stack-count");
+                stack.textContent = item.count;
+                slotEl.appendChild(stack);
+            }
+        }
 
         container.appendChild(slotEl);
     });
