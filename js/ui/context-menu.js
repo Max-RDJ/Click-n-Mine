@@ -2,12 +2,15 @@ import { RESOURCES } from "../data/resources.js";
 import { playerState } from "../core/state.js";
 import { equipItem, unequipItem } from "../core/equipment.js";
 import { sellOne, sellAmount } from "../systems/selling.js";
-import { takeItemFromResources, inventoryState, removeItem } from "../core/inventory.js";
+import { takeItemFromResources, inventoryState, lootState, removeItem } from "../core/inventory.js";
+import { lootItem } from "../core/inventory.js";
 
 
 let currentResource = null;
 let currentSlot = null;
 let currentInventoryIndex = null;
+let currentLootIndex = null;
+
 
 export function bindContextMenu() {
   document.addEventListener("contextmenu", (e) => {    
@@ -39,11 +42,20 @@ export function bindContextMenu() {
     let isLoot = false;
 
 
-    const lootEl = e.target.closest(".loot-slot img");
+
+    const lootEl = e.target.closest(".loot-slot");
     if (lootEl) {
       e.preventDefault();
-      slot = lootEl.dataset.slot;
-      key = lootEl.dataset.resource;
+
+      currentLootIndex = Number(lootEl.dataset.index);
+
+      console.log(lootState);
+      console.log(currentLootIndex);
+
+      const slot = lootState[currentLootIndex];
+      if (!slot) return;
+
+      key = slot.id;
       isLoot = true;
     }
 
@@ -64,7 +76,7 @@ export function bindContextMenu() {
       currentResource = key;
       currentSlot = slot ?? null;
 
-      openMenu(e.pageX, e.pageY, key, !!slot, inInventory);
+      openMenu(e.pageX, e.pageY, key, !!slot, inInventory, isLoot);
   });
 
   document.addEventListener("click", (e) => {
@@ -92,6 +104,13 @@ export function bindContextMenu() {
       closeMenu();
     }
   };
+  document.getElementById("context-loot").onclick = () => {
+    if (currentLootIndex !== null) {
+      lootItem(currentLootIndex);
+      currentLootIndex = null;
+      closeMenu();
+    }
+  };
 };
 
 function openMenu(x, y, resourceKey, isEquipped = false, inInventory = false, isLoot = false) {
@@ -106,6 +125,7 @@ function openMenu(x, y, resourceKey, isEquipped = false, inInventory = false, is
   const unequipBtn = document.getElementById("context-unequip");
   const addBtn = document.getElementById("context-add");
   const returnBtn = document.getElementById("context-return");
+  const lootBtn = document.getElementById("context-loot");
 
   sellBtn.style.display = "none";
   sellXBtn.style.display = "none";
@@ -114,7 +134,10 @@ function openMenu(x, y, resourceKey, isEquipped = false, inInventory = false, is
   unequipBtn.style.display = "none";
   addBtn.style.display = "none";
   returnBtn.style.display = "none";
+  lootBtn.style.display = "none";
 
+  
+  
   if (inInventory) {
     returnBtn.style.display = "block";
 
@@ -152,23 +175,13 @@ function openMenu(x, y, resourceKey, isEquipped = false, inInventory = false, is
   }
 
   if (isLoot) {
-    addBtn.style.display = "block";
+    lootBtn.style.display = "block";
+
+    menu.style.left = x + "px";
+    menu.style.top = y + "px";
+    menu.classList.remove("hidden");
+    return;
   }
-
-  // Old code to allow player to equip from inventory
-  /* if (data.type === "equipment") {
-    if (isEquipped) {
-      unequipBtn.style.display = "block";
-    } else {
-      equipBtn.style.display = "block";
-    }
-
-    if (data.sellPrice) {
-      sellBtn.style.display = "block";
-      sellXBtn.style.display = "block";
-      sellAllBtn.style.display = "block";
-    }
-  } */
 
   menu.style.left = x + "px";
   menu.style.top = y + "px";

@@ -105,9 +105,12 @@ export const objective = [
     complete: false,
     condition: () => countCoins.value >= 1000,
     unlock: () => {
+      $("#resource__iron-ore").removeClass("hidden");
       $(".resources__iron").removeClass("hidden");
+
     },
     applyOnLoad: () => {
+      $("#resource__iron-ore").removeClass("hidden");
       $(".resources__iron").removeClass("hidden");
     }
   },

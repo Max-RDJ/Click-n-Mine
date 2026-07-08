@@ -55,18 +55,18 @@ export function updateInfoMessage(message) {
 }
 
 export function updateMineCostUI() {
-  document.getElementById("cost__mine").textContent =
-    `Cost: ${getMineCost()} coins`;
+  document.getElementById("cost__mine").innerHTML =
+     `<img src="images/coins.png" class="coins-small"> ${getMineCost()}`;
 }
 
 export function updateFurnaceUI() {
-  document.getElementById("cost__furnace").textContent =
-    `Cost: ${getFurnaceCost()} coins`;
+  document.getElementById("cost__furnace").innerHTML =
+    `<img src="images/coins.png" class="coins-small"> ${getFurnaceCost()}`;
 }
 
 export function updateAnvilUI() {
-  document.getElementById("cost__anvil").textContent =
-    `Cost: ${getAnvilCost()} coins`;
+  document.getElementById("cost__anvil").innerHTML =
+    `<img src="images/coins.png" class="coins-small"> ${getAnvilCost()}`;
 }
 
 export function updateMinerUI() {

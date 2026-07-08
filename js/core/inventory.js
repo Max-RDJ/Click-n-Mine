@@ -18,6 +18,7 @@ Inventory Structure:
 */
 
 export let inventoryState = [];
+export let lootState = [];
 
 export function initInventory() {
   const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -134,6 +135,34 @@ export function removeItem(slotIndex, quantity = 1) {
 
   if (slot.quantity <= 0) {
     inventoryState[slotIndex] = null;
+  }
+
+  saveInventory();
+  renderInventory();
+  updateDisplay();
+  savePlayerProgress();
+}
+
+export function lootItem(slotIndex, quantity = 1) {
+  console.log("Looting item from lootState at index:", slotIndex, "with quantity:", quantity);
+  
+  const slot = lootState[slotIndex];
+  if (!slot) return;
+
+  const itemId = slot.id;
+
+  resourceCounts.value[itemId] =
+    (resourceCounts.value[itemId] ?? 0) + quantity;
+
+  if (playerState.value) {
+    playerState.value.resources[itemId] =
+      resourceCounts.value[itemId];
+  }
+
+  slot.quantity -= quantity;
+
+  if (slot.quantity <= 0) {
+    lootState[slotIndex] = null;
   }
 
   saveInventory();

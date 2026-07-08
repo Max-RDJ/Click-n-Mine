@@ -1,6 +1,7 @@
 import { playerState } from "../core/state.js";
 import { RESOURCES } from "../data/resources.js";
-import { inventoryState } from "../core/inventory.js";
+import { inventoryState, lootState } from "../core/inventory.js";
+
 
 const adventurerNames = [
     "Acquilina",
@@ -196,7 +197,7 @@ function generateEncounter() {
 
             const loot = calculateLoot(monster);
 
-            logCombat(`Loot: ${loot.length > 0 ? loot.map(item => `${item.name} (${item.count})`).join(', ') : "There was nothing salvageable."}`);
+            logCombat(`Loot: ${loot.length > 0 ? loot.map(item => `${item.id} (${item.quantity})`).join(', ') : "There was nothing salvageable."}`);
 
         } else {
             logCombat(`The group succumbs to ${monster.monsterName}.`);
@@ -250,7 +251,7 @@ function calculateLoot(monster) {
             const count = Array.isArray(lootItem.lootCount) 
                 ? Math.floor(Math.random() * (lootItem.lootCount[1] - lootItem.lootCount[0] + 1)) + lootItem.lootCount[0]
                 : lootItem.lootCount;
-            loot.push({ name: lootItem.lootName, count });
+            loot.push({ id: lootItem.lootName, quantity: count });
         }
     }
     generateLootSlots(loot);
@@ -258,6 +259,9 @@ function calculateLoot(monster) {
 }
 
 export function generateLootSlots(loot) {
+    lootState.length = 0;
+    lootState.push(...loot);
+
     const container = document.querySelector(".loot-items");
     if (!container) return;
 
@@ -268,22 +272,22 @@ export function generateLootSlots(loot) {
         slotEl.classList.add("loot-slot");
         slotEl.dataset.index = index;
 
-        const itemData = RESOURCES[item.name];
+        const itemData = RESOURCES[item.id];
 
         if (itemData) {
             const img = document.createElement("img");
             img.src = itemData.image;
-            img.dataset.resource = item.name;
-            img.dataset.count = item.count;
+            img.dataset.resource = item.id;
+            img.dataset.count = item.quantity;
 
             img.draggable = false;
 
             slotEl.appendChild(img);
 
-            if (item.count > 1) {
+            if (item.quantity > 1) {
                 const stack = document.createElement("span");
                 stack.classList.add("stack-count");
-                stack.textContent = item.count;
+                stack.textContent = item.quantity;
                 slotEl.appendChild(stack);
             }
         }
